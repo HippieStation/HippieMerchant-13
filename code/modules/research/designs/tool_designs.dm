@@ -284,7 +284,7 @@
 	name = "Advanced Wirebrush"
 	desc = "An advanced wirebrush."
 	id = "wirebrush_adv"
-	build_type = PROTOLATHE
+	build_type = PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/iron = 200, /datum/material/glass = 200, /datum/material/uranium = 200, /datum/material/plasma = 200)
 	build_path = /obj/item/wirebrush/advanced
 	category = list("Equipment")
