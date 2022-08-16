@@ -139,6 +139,7 @@
 	if(prob(hardness))
 		playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
+		hulk_recoil(arm, user)
 		dismantle_wall(1)
 
 	else
@@ -149,7 +150,25 @@
 					span_hear("You hear a booming smash!"))
 	return TRUE
 
-/turf/closed/wall/attack_hand(mob/user, list/modifiers)
+/**
+ *Deals damage back to the hulk's arm.
+ *
+ *When a hulk manages to break a wall using their hulk smash, this deals back damage to the arm used.
+ *This is in its own proc just to be easily overridden by other wall types. Default allows for three
+ *smashed walls per arm. Also, we use CANT_WOUND here because wounds are random. Wounds are applied
+ *by hulk code based on arm damage and checked when we call break_an_arm().
+ *Arguments:
+ **arg1 is the arm to deal damage to.
+ **arg2 is the hulk
+ */
+/turf/closed/wall/proc/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 20)
+	arm.receive_damage(brute = damage, blocked = 0, wound_bonus = CANT_WOUND)
+	var/datum/mutation/human/hulk/smasher = locate(/datum/mutation/human/hulk) in hulkman.dna.mutations
+	if(!smasher || !damage) //sanity check but also snow and wood walls deal no recoil damage, so no arm breaky
+		return
+	smasher.break_an_arm(arm)
+
+/turf/closed/wall/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return
@@ -179,7 +198,7 @@
 	return ..()
 
 /turf/closed/wall/proc/try_clean(obj/item/W, mob/living/user, turf/T)
-	if((user.combat_mode) || !LAZYLEN(dent_decals))
+	if((user.istate.harm) || !LAZYLEN(dent_decals))
 		return FALSE
 
 	if(W.tool_behaviour == TOOL_WELDER)
@@ -187,7 +206,7 @@
 			return FALSE
 
 		to_chat(user, span_notice("You begin fixing dents on the wall..."))
-		if(W.use_tool(src, user, volume=100))
+		if(W.use_tool(src, user, 0, volume=100))
 			if(iswallturf(src) && LAZYLEN(dent_decals))
 				to_chat(user, span_notice("You fix some dents on the wall."))
 				cut_overlay(dent_decals)
@@ -289,15 +308,12 @@
 
 	add_overlay(dent_decals)
 
-/turf/closed/wall/rust_heretic_act(override = TRUE)
-	if(!override)
-		return ..()
+/turf/closed/wall/rust_heretic_act()
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		ScrapeAway()
 		return
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
-	ChangeTurf(/turf/closed/wall/rust)
 	return ..()
 
 #undef MAX_DENT_DECALS

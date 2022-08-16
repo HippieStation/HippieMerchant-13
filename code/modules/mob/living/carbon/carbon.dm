@@ -66,11 +66,11 @@
 	for(var/datum/surgery/S in surgeries)
 		if(body_position == LYING_DOWN || !S.lying_required)
 			var/list/modifiers = params2list(params)
-			if(!user.combat_mode)
+			if((S.self_operable || user != src) && !user.istate.harm)
 				if(S.next_step(user, modifiers))
 					return 1
 
-	if(!all_wounds || !(!user.combat_mode || user == src))
+	if(!all_wounds || !(!user.istate.harm || user == src))
 		return ..()
 
 	for(var/i in shuffle(all_wounds))
@@ -531,7 +531,7 @@
 		REMOVE_TRAIT(src, TRAIT_FLOORED, STAMINA)
 	else
 		return
-	update_health_hud()
+	update_stamina_hud()
 
 /mob/living/carbon/update_sight()
 	if(!client)
@@ -743,6 +743,29 @@
 		else
 			hud_used.healths.icon_state = "health7"
 
+/mob/living/carbon/update_stamina_hud(shown_stamina_amount)
+	if(!client || !hud_used?.stamina)
+		return
+	if(stat == DEAD || IsStun() || IsParalyzed() || IsImmobilized() || IsKnockdown() || IsFrozen())
+		hud_used.stamina.icon_state = "stamina6"
+	else
+		if(shown_stamina_amount == null)
+			shown_stamina_amount = health - getStaminaLoss() - crit_threshold
+		if(shown_stamina_amount >= health)
+			hud_used.stamina.icon_state = "stamina0"
+		else if(shown_stamina_amount > health*0.8)
+			hud_used.stamina.icon_state = "stamina1"
+		else if(shown_stamina_amount > health*0.6)
+			hud_used.stamina.icon_state = "stamina2"
+		else if(shown_stamina_amount > health*0.4)
+			hud_used.stamina.icon_state = "stamina3"
+		else if(shown_stamina_amount > health*0.2)
+			hud_used.stamina.icon_state = "stamina4"
+		else if(shown_stamina_amount > 0)
+			hud_used.stamina.icon_state = "stamina5"
+		else
+			hud_used.stamina.icon_state = "stamina6"
+
 /mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
 	if(hud_used?.internals)
 		hud_used.internals.icon_state = "internal[internal_state]"
@@ -779,6 +802,7 @@
 			set_stat(CONSCIOUS)
 	update_damage_hud()
 	update_health_hud()
+	update_stamina_hud()
 	med_hud_set_status()
 
 
@@ -796,21 +820,10 @@
 	update_inv_handcuffed()
 	update_hud_handcuffed()
 
-/mob/living/carbon/heal_and_revive(heal_to = 75, revive_message)
-	// We can't heal them if they're missing a heart
-	if(needs_heart() && !getorganslot(ORGAN_SLOT_HEART))
-		return FALSE
-
-	// We can't heal them if they're missing their lungs
-	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !getorganslot(ORGAN_SLOT_LUNGS))
-		return FALSE
-
-	// And we can't heal them if they're missing their liver
-	if(!getorganslot(ORGAN_SLOT_LIVER))
-		return FALSE
-
-	return ..()
-	
+/mob/living/carbon/proc/remove_wounds()
+	for(var/thing in all_wounds)
+		var/datum/wound/W = thing
+		W.remove_wound()
 
 /mob/living/carbon/fully_heal(admin_revive = FALSE)
 	if(reagents)
@@ -825,9 +838,7 @@
 		var/datum/disease/D = thing
 		if(D.severity != DISEASE_SEVERITY_POSITIVE)
 			D.cure(FALSE)
-	for(var/thing in all_wounds)
-		var/datum/wound/W = thing
-		W.remove_wound()
+	remove_wounds()
 	if(admin_revive)
 		suiciding = FALSE
 		regenerate_limbs()
@@ -964,6 +975,7 @@
 		var/obj/item/organ/I = X
 		I.Insert(src)
 
+
 /mob/living/carbon/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")
@@ -993,7 +1005,7 @@
 			limb_list = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 			for(var/obj/item/bodypart/B in bodyparts)
 				limb_list -= B.body_zone
-		var/result = input(usr, "Please choose which body part to [edit_action]","[capitalize(edit_action)] Body Part") as null|anything in sortList(limb_list)
+		var/result = input(usr, "Please choose which body part to [edit_action]","[capitalize(edit_action)] Body Part") as null|anything in sort_list(limb_list)
 		if(result)
 			var/obj/item/bodypart/BP = get_bodypart(result)
 			switch(edit_action)
@@ -1035,7 +1047,7 @@
 		for(var/i in artpaths)
 			var/datum/martial_art/M = i
 			artnames[initial(M.name)] = M
-		var/result = input(usr, "Choose the martial art to teach","JUDO CHOP") as null|anything in sortList(artnames, /proc/cmp_typepaths_asc)
+		var/result = input(usr, "Choose the martial art to teach","JUDO CHOP") as null|anything in sort_list(artnames, /proc/cmp_typepaths_asc)
 		if(!usr)
 			return
 		if(QDELETED(src))
@@ -1051,7 +1063,7 @@
 		if(!check_rights(NONE))
 			return
 		var/list/traumas = subtypesof(/datum/brain_trauma)
-		var/result = input(usr, "Choose the brain trauma to apply","Traumatize") as null|anything in sortList(traumas, /proc/cmp_typepaths_asc)
+		var/result = input(usr, "Choose the brain trauma to apply","Traumatize") as null|anything in sort_list(traumas, /proc/cmp_typepaths_asc)
 		if(!usr)
 			return
 		if(QDELETED(src))
@@ -1073,7 +1085,7 @@
 		if(!check_rights(NONE))
 			return
 		var/list/hallucinations = subtypesof(/datum/hallucination)
-		var/result = input(usr, "Choose the hallucination to apply","Send Hallucination") as null|anything in sortList(hallucinations, /proc/cmp_typepaths_asc)
+		var/result = input(usr, "Choose the hallucination to apply","Send Hallucination") as null|anything in sort_list(hallucinations, /proc/cmp_typepaths_asc)
 		if(!usr)
 			return
 		if(QDELETED(src))
