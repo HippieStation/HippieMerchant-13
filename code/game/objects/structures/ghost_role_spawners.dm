@@ -233,7 +233,7 @@
 	else
 		new_spawn.mind.set_assigned_role(SSjob.GetJobType(/datum/job/free_golem))
 
-/obj/effect/mob_spawn/human/golem/attack_hand(mob/user, list/modifiers)
+/obj/effect/mob_spawn/human/golem/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return
@@ -844,7 +844,7 @@
 	outfit = /datum/outfit/spacebartender
 	spawner_job_path = /datum/job/space_bar_patron
 
-/obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user, list/modifiers)
+/obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user)
 	var/despawn = tgui_alert(usr, "Return to cryosleep? (Warning, Your mob will be deleted!)", null, list("Yes", "No"))
 	if(despawn == "No" || !loc || !Adjacent(user))
 		return

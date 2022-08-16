@@ -215,7 +215,7 @@
 	if(!.)
 		honk()
 
-/turf/open/floor/mineral/bananium/attack_hand(mob/user, list/modifiers)
+/turf/open/floor/mineral/bananium/attack_hand(mob/user)
 	.=..()
 	if(!.)
 		honk()
@@ -271,7 +271,7 @@
 	if(!.)
 		radiate()
 
-/turf/open/floor/mineral/uranium/attack_hand(mob/user, list/modifiers)
+/turf/open/floor/mineral/uranium/attack_hand(mob/user)
 	.=..()
 	if(!.)
 		radiate()

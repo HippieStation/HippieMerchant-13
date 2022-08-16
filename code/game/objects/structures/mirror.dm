@@ -30,7 +30,7 @@
 	if(icon_state == "mirror_broke" && !broken)
 		obj_break(null, mapload)
 
-/obj/structure/mirror/attack_hand(mob/user, list/modifiers)
+/obj/structure/mirror/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return
@@ -107,7 +107,7 @@
 
 /obj/structure/mirror/welder_act(mob/living/user, obj/item/I)
 	..()
-	if(user.combat_mode)
+	if(user.istate.harm)
 		return FALSE
 
 	if(!broken)
@@ -159,7 +159,7 @@
 			choosable_races += initial(S.id)
 	..()
 
-/obj/structure/mirror/magic/attack_hand(mob/user, list/modifiers)
+/obj/structure/mirror/magic/attack_hand(mob/user)
 	. = ..()
 	if(locate(/obj/item/lich_sword) in user)
 		to_chat(user, "<span class='notice'>The badmin gauntlet interferes with the magic mirror. It won't work.</span>")
