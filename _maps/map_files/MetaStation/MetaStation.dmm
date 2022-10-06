@@ -699,8 +699,8 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "afJ" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/prison/safe)
 "afM" = (
@@ -1181,8 +1181,8 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aiq" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/brig)
 "air" = (
@@ -1346,7 +1346,7 @@
 /turf/closed/wall/r_wall,
 /area/security/brig)
 "ajo" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/brig)
 "ajp" = (
@@ -1358,11 +1358,6 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/security/prison)
-"ajx" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/security/warden)
 "ajE" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -1559,11 +1554,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"akW" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/security/range)
 "ala" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
@@ -1889,8 +1879,8 @@
 	},
 /area/security/prison)
 "anl" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/ai_monitored/security/armory)
 "anu" = (
@@ -3192,7 +3182,7 @@
 /area/security/warden)
 "axi" = (
 /obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/warden)
 "axj" = (
@@ -3395,7 +3385,7 @@
 /area/security/warden)
 "ayC" = (
 /obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/iron,
 /area/security/brig)
 "ayE" = (
@@ -3425,12 +3415,12 @@
 /turf/closed/wall/r_wall,
 /area/security/detectives_office)
 "ayG" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "detective_shutters";
 	name = "detective's office shutters"
 	},
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/detectives_office)
 "ayJ" = (
@@ -3644,12 +3634,12 @@
 /turf/open/floor/iron,
 /area/security/warden)
 "aBc" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id = "briglockdown";
 	name = "brig shutters"
 	},
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/warden)
 "aBd" = (
@@ -3817,21 +3807,21 @@
 /turf/open/floor/iron,
 /area/security/warden)
 "aCk" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "Secure Gate";
 	name = "brig shutters"
 	},
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/brig)
 "aCp" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id = "briglockdown";
 	name = "brig shutters"
 	},
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/iron,
 /area/security/brig)
 "aCr" = (
@@ -3936,7 +3926,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "aDz" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/hallway/primary/fore)
 "aDB" = (
@@ -5018,13 +5008,13 @@
 	pixel_x = 6
 	},
 /obj/item/food/pizzaslice/moldy{
-	pixel_y = 7;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 7
 	},
 /obj/item/food/burger/corgi{
-	pixel_y = -4;
+	desc = "It also seems to smell of solder. Odd.";
 	pixel_x = -10;
-	desc = "It also seems to smell of solder. Odd."
+	pixel_y = -4
 	},
 /obj/effect/decal/cleanable/confetti,
 /turf/open/floor/iron/dark,
@@ -6634,8 +6624,8 @@
 /area/space)
 "bcs" = (
 /obj/machinery/button/door/directional/north{
-	name = "shutter interior access";
 	id = "arms_dealer";
+	name = "shutter interior access";
 	req_access_txt = "43"
 	},
 /turf/open/floor/wood/tile,
@@ -11509,6 +11499,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/card/id/advanced/gold,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "ciU" = (
@@ -12792,7 +12783,6 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "czc" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "executionfireblast"
 	},
@@ -12808,6 +12798,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "czh" = (
@@ -15570,10 +15561,10 @@
 	dir = 8
 	},
 /obj/machinery/light/small/directional/east{
-	light_power = 0.4;
-	nightshift_light_power = 0.4;
+	bulb_power = 0.1;
 	light_color = "#FFDDCC";
-	bulb_power = 0.1
+	light_power = 0.4;
+	nightshift_light_power = 0.4
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/aft)
@@ -19294,7 +19285,7 @@
 /area/science/xenobiology)
 "ejL" = (
 /obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/range)
 "ejW" = (
@@ -22310,8 +22301,8 @@
 	layer = 2.9
 	},
 /obj/structure/bed/pod{
-	name = "medical bed";
-	desc = "An old medical bed, just waiting for replacement with something up to date."
+	desc = "An old medical bed, just waiting for replacement with something up to date.";
+	name = "medical bed"
 	},
 /obj/item/bedsheet/medical,
 /turf/open/floor/iron/white,
@@ -23181,6 +23172,10 @@
 /obj/machinery/lapvend,
 /turf/open/floor/iron/white,
 /area/hallway/primary/central)
+"ftj" = (
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/security/prison)
 "ftq" = (
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 5
@@ -24439,11 +24434,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/science/research)
-"fNA" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/security/office)
 "fNP" = (
 /obj/machinery/door/airlock/research{
 	name = "Abandoned Space Bridge";
@@ -28136,13 +28126,13 @@
 	pixel_y = 4
 	},
 /obj/item/reagent_containers/syringe{
-	pixel_y = -3;
-	pixel_x = 10
+	pixel_x = 10;
+	pixel_y = -3
 	},
 /obj/item/reagent_containers/syringe/contraband/space_drugs{
-	pixel_y = 9;
+	list_reagents = list(/datum/reagent/drug/space_drugs=10,/datum/reagent/drug/krokodil=5);
 	pixel_x = 11;
-	list_reagents = list(/datum/reagent/drug/space_drugs=10,/datum/reagent/drug/krokodil=5)
+	pixel_y = 9
 	},
 /obj/effect/decal/cleanable/wrapping,
 /obj/item/paper/crumpled/fluff/poem{
@@ -29061,15 +29051,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"hyY" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "hosspace";
-	name = "Space Shutters"
-	},
-/turf/open/floor/plating,
-/area/command/heads_quarters/hos)
 "hza" = (
 /obj/structure/table/wood,
 /obj/item/folder/white{
@@ -36687,7 +36668,7 @@
 /area/medical/chemistry)
 "kel" = (
 /obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/office)
 "ket" = (
@@ -40596,8 +40577,8 @@
 /area/science/nanite)
 "ltb" = (
 /obj/structure/bed/pod{
-	name = "medical bed";
-	desc = "An old medical bed, just waiting for replacement with something up to date."
+	desc = "An old medical bed, just waiting for replacement with something up to date.";
+	name = "medical bed"
 	},
 /obj/item/bedsheet/medical,
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -42621,12 +42602,12 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "mdV" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id = "hosprivacy";
 	name = "privacy shutters"
 	},
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/command/heads_quarters/hos)
 "meb" = (
@@ -44630,6 +44611,7 @@
 "mLm" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
+/obj/item/card/id/advanced/gold/captains_spare,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "mLr" = (
@@ -54834,13 +54816,13 @@
 	pixel_y = 4
 	},
 /obj/item/circuit_component/compare{
-	pixel_y = 11;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 11
 	},
 /obj/item/compact_remote{
-	pixel_y = 3;
+	name = "abandoned project";
 	pixel_x = -5;
-	name = "abandoned project"
+	pixel_y = 3
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -56424,8 +56406,8 @@
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/reagent_containers/syringe{
-	pixel_y = -3;
-	pixel_x = 10
+	pixel_x = 10;
+	pixel_y = -3
 	},
 /obj/item/multitool/circuit{
 	pixel_x = -11
@@ -58579,6 +58561,9 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 10
 	},
+/obj/machinery/modular_computer/console/preset/id{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "roI" = (
@@ -59461,7 +59446,6 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "rAv" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "executionfireblast"
 	},
@@ -59479,6 +59463,7 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
 	},
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "rAA" = (
@@ -62093,11 +62078,11 @@
 /area/security/prison)
 "src" = (
 /obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "hosspace";
 	name = "Space Shutters"
 	},
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/command/heads_quarters/hos)
 "srk" = (
@@ -66609,13 +66594,13 @@
 /turf/open/floor/iron/white,
 /area/science/lab)
 "tOL" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "PermaLockdown";
 	name = "Lockdown Shutters"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/prison)
 "tOM" = (
@@ -68317,7 +68302,7 @@
 /area/service/cafeteria)
 "urv" = (
 /obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced/tinted,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/prison)
 "urw" = (
@@ -72411,8 +72396,8 @@
 /obj/machinery/defibrillator_mount/directional/south,
 /obj/machinery/light/directional/south,
 /obj/structure/bed/pod{
-	name = "medical bed";
-	desc = "An old medical bed, just waiting for replacement with something up to date."
+	desc = "An old medical bed, just waiting for replacement with something up to date.";
+	name = "medical bed"
 	},
 /obj/item/bedsheet/medical,
 /turf/open/floor/iron/white,
@@ -79856,12 +79841,12 @@
 /turf/open/floor/iron/dark,
 /area/science/nanite)
 "yej" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "briglockdown";
 	name = "brig shutters"
 	},
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/warden)
 "yes" = (
@@ -80289,7 +80274,6 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "ykb" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -80299,6 +80283,7 @@
 	name = "Lockdown Shutters"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/prison)
 "yki" = (
@@ -100019,7 +100004,7 @@ aaa
 aaa
 aaa
 aax
-aep
+urv
 aax
 aax
 aax
@@ -100273,8 +100258,8 @@ aaa
 nYJ
 aaa
 aaa
-aep
-aep
+urv
+urv
 aax
 dmu
 abe
@@ -100530,7 +100515,7 @@ aaa
 fwb
 aaa
 aaa
-aep
+urv
 adG
 lVw
 aaw
@@ -101043,14 +101028,14 @@ aaa
 aaa
 fwb
 aaa
-aep
+urv
 wyY
 aeT
 adh
 ajp
 abe
 abe
-aep
+ftj
 abe
 abe
 aEN
@@ -101300,7 +101285,7 @@ aaa
 aaa
 fwb
 aaa
-aep
+urv
 aaw
 srY
 oeO
@@ -102071,7 +102056,7 @@ aaa
 aaa
 fwb
 aaa
-aep
+urv
 adh
 swK
 kIq
@@ -102328,7 +102313,7 @@ aaa
 aaa
 fwb
 aaa
-aep
+urv
 acK
 afM
 iJf
@@ -103127,8 +103112,8 @@ agH
 agH
 agH
 aeJ
-aep
-aep
+urv
+urv
 aax
 aio
 dne
@@ -103898,7 +103883,7 @@ ajm
 ajm
 ajm
 sJA
-aep
+urv
 xSy
 ajm
 ajm
@@ -104403,7 +104388,7 @@ acv
 mqn
 iGI
 acL
-aep
+urv
 adx
 adh
 ujI
@@ -104917,7 +104902,7 @@ abe
 ace
 acx
 acM
-aep
+urv
 oEZ
 adh
 iZc
@@ -105171,10 +105156,10 @@ urv
 aNJ
 oEZ
 abe
-aep
-aep
-aep
-aep
+urv
+urv
+urv
+urv
 pOr
 adh
 ujI
@@ -106205,7 +106190,7 @@ jpf
 adh
 naq
 adW
-aep
+urv
 ajm
 aaa
 aaa
@@ -106453,16 +106438,16 @@ aaa
 nWF
 aaa
 aax
-aep
-aep
+urv
+urv
 aax
 cSG
 abe
 acR
 rOH
 adC
-aep
-aep
+urv
+urv
 aaa
 aaa
 aaa
@@ -106717,8 +106702,8 @@ wiZ
 aax
 aax
 aax
-aep
-aep
+urv
+urv
 lMJ
 lMJ
 lMJ
@@ -106993,10 +106978,10 @@ rrF
 ahI
 adY
 axi
-ajx
+axi
 adY
-ajx
-ajx
+axi
+axi
 adY
 lxj
 aHA
@@ -107505,7 +107490,7 @@ fzi
 otK
 jAb
 ahI
-ajx
+axi
 awf
 aDE
 aDE
@@ -108019,7 +108004,7 @@ uCX
 anl
 eGx
 ahI
-ajx
+axi
 awg
 axh
 aBS
@@ -108262,8 +108247,8 @@ aaa
 aaa
 vbm
 rmG
-fNA
-fNA
+kel
+kel
 rmG
 rmG
 aeq
@@ -108278,10 +108263,10 @@ orh
 ahI
 adY
 ayE
-ajx
+axi
 adY
-ajx
-ajx
+axi
+axi
 adY
 aDB
 aHA
@@ -108530,7 +108515,7 @@ sdC
 nLF
 nWd
 nxb
-fNA
+kel
 fOu
 atS
 fyO
@@ -108774,7 +108759,7 @@ aaa
 aaa
 fwb
 aaa
-fNA
+kel
 wjK
 ruv
 gOP
@@ -109044,7 +109029,7 @@ tVp
 qFR
 eRF
 ooM
-fNA
+kel
 ego
 vJv
 uAA
@@ -109290,19 +109275,19 @@ aaa
 aaa
 aaa
 rmG
-fNA
-fNA
+kel
+kel
 rmG
 rmG
 rmG
 rmG
-fNA
+kel
 tum
 wZI
-fNA
+kel
 wZI
 wZI
-fNA
+kel
 wZI
 lmT
 awl
@@ -109550,7 +109535,7 @@ aiJ
 vtn
 oCD
 aEq
-akW
+ejL
 xOa
 jme
 vfb
@@ -109817,7 +109802,7 @@ fVA
 kuE
 mkP
 cpe
-fNA
+kel
 fOu
 awh
 aws
@@ -110588,7 +110573,7 @@ lsL
 ycZ
 dHm
 mAi
-fNA
+kel
 eGx
 awp
 axr
@@ -111088,7 +111073,7 @@ aaa
 aaa
 fwb
 aaa
-akW
+ejL
 fPj
 hMO
 jkv
@@ -111603,9 +111588,9 @@ aaa
 aaa
 vbm
 aiJ
-akW
+ejL
 aiJ
-akW
+ejL
 aiJ
 cYH
 vlx
@@ -111863,7 +111848,7 @@ lMJ
 aaa
 aaa
 aaa
-fNA
+kel
 nhv
 iKy
 txp
@@ -111873,7 +111858,7 @@ ieV
 ffI
 dtO
 qOR
-fNA
+kel
 xuy
 nyd
 nbu
@@ -112118,7 +112103,7 @@ aaa
 aaa
 jVV
 jVV
-hyY
+src
 jVV
 jVV
 rDC
