@@ -127,23 +127,23 @@
 
 /obj/item/organ/cyberimp/cyberlink/nt_low
 	name = "NT Cyberlink 1.0"
-	encode_info = AUGMENT_NT_LOWLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/cyberlink/nt_high
 	name = "NT Cyberlink 2.0"
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/cyberlink/terragov
 	name = "Terran Cyberware System"
-	encode_info = AUGMENT_TG_LEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/cyberlink/syndicate
 	name = "Cybersun Cybernetics Access System"
-	encode_info = AUGMENT_SYNDICATE_LEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/cyberlink/admin
 	name = "G.O.D. Cybernetics System"
-	encode_info = AUGMENT_ADMIN_LEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/autosurgeon/organ/cyberlink_nt_low
 	starting_organ = /obj/item/organ/cyberimp/cyberlink/nt_low

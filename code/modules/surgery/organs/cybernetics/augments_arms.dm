@@ -239,19 +239,19 @@
 /obj/item/organ/cyberimp/arm/item_set/esword
 	name = "arm-mounted energy blade"
 	desc = "An illegal and highly dangerous cybernetic implant that can project a deadly blade of concentrated energy."
-	encode_info = AUGMENT_SYNDICATE_LEVEL
+	encode_info = AUGMENT_NO_REQ
 	contents = newlist(/obj/item/melee/transforming/energy/blade/hardlight)
 
 /obj/item/organ/cyberimp/arm/item_set/medibeam
 	name = "integrated medical beamgun"
 	desc = "A cybernetic implant that allows the user to project a healing beam from their hand."
-	encode_info = AUGMENT_TG_LEVEL
+	encode_info = AUGMENT_NO_REQ
 	contents = newlist(/obj/item/gun/medbeam)
 
 /obj/item/organ/cyberimp/arm/item_set/flash
 	name = "integrated high-intensity photon projector" //Why not
 	desc = "An integrated projector mounted onto a user's arm that is able to be used as a powerful flash."
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NO_REQ
 	contents = newlist(/obj/item/assembly/flash/armimplant)
 
 /obj/item/organ/cyberimp/arm/item_set/flash/Initialize()
@@ -272,13 +272,13 @@
 /obj/item/organ/cyberimp/arm/item_set/baton
 	name = "arm electrification implant"
 	desc = "An illegal combat implant that allows the user to administer disabling shocks from their arm."
-	encode_info = AUGMENT_TG_LEVEL
+	encode_info = AUGMENT_NO_REQ
 	contents = newlist(/obj/item/borg/stun)
 
 /obj/item/organ/cyberimp/arm/item_set/combat
 	name = "combat cybernetics implant"
 	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm."
-	encode_info = AUGMENT_TG_LEVEL
+	encode_info = AUGMENT_NO_REQ
 	contents = newlist(/obj/item/melee/transforming/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/assembly/flash/armimplant)
 
 /obj/item/organ/cyberimp/arm/item_set/combat/Initialize()
@@ -291,25 +291,25 @@
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
 	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/surgicaldrill/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/surgical_drapes)
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/arm/item_set/cook
 	name = "kitchenware toolset implant"
 	desc = "A set of kitchen tools hidden behind a concealed panel on the user's arm."
 	contents = newlist(/obj/item/kitchen/rollingpin,/obj/item/kitchen/knife,/obj/item/reagent_containers/glass/beaker)
-	encode_info = AUGMENT_NT_LOWLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/arm/item_set/janitor
 	name = "janitorial toolset implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm."
 	contents = newlist(/obj/item/mop/advanced,/obj/item/reagent_containers/glass/bucket,/obj/item/soap,/obj/item/reagent_containers/spray/cleaner)
-	encode_info = AUGMENT_NT_LOWLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/arm/item_set/detective
 	name = "detective's toolset implant"
 	desc = "A set of detective tools hidden behind a concealed panel on the user's arm."
 	contents = newlist(/obj/item/evidencebag,/obj/item/evidencebag,/obj/item/evidencebag,/obj/item/detective_scanner,/obj/item/lighter)
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/arm/item_set/detective/Destroy()
 	on_destruction()
@@ -326,19 +326,19 @@
 	name = "chemical toolset implant"
 	desc = "A set of chemical tools hidden behind a concealed panel on the user's arm."
 	contents = newlist(/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/dropper)
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/arm/item_set/atmospherics
 	name = "atmospherics toolset implant"
 	desc = "A set of atmospheric tools hidden behind a concealed panel on the user's arm."
 	contents = newlist(/obj/item/extinguisher,/obj/item/analyzer,/obj/item/crowbar,/obj/item/holosign_creator/atmos)
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/arm/item_set/tablet
 	name = "inbuilt tablet implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
 	contents = newlist(/obj/item/modular_computer/tablet/preset/cheap)
-	encode_info = AUGMENT_NT_LOWLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/arm/item_set/connector
 	name = "universal connection implant"
@@ -353,13 +353,13 @@
 	name = "C.H.R.O.M.A.T.A. mantis blade implants"
 	desc = "High tech mantis blade implants, easily portable weapon, that has a high wound potential."
 	contents = newlist(/obj/item/mantis_blade)
-	encode_info = AUGMENT_TG_LEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/arm/item_set/syndie_mantis
 	name = "A.R.A.S.A.K.A. mantis blade implants"
 	desc = "Modernized mantis blade designed coined by Tiger operatives, much sharper blade with energy actuators makes it a much deadlier weapon."
 	contents = newlist(/obj/item/mantis_blade/syndicate)
-	encode_info = AUGMENT_SYNDICATE_LEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/arm/item_set/syndie_mantis/l
 	zone = BODY_ZONE_L_ARM
@@ -370,7 +370,7 @@
 	icon_state = "hand_implant"
 	implant_overlay = "hand_implant_overlay"
 	implant_color = "#750137"
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 	var/atom/movable/screen/cybernetics/ammo_counter/counter_ref
 	var/obj/item/gun/our_gun
@@ -466,7 +466,7 @@
 	update_hud_elements()
 
 /obj/item/organ/cyberimp/arm/ammo_counter/syndicate
-	encode_info = AUGMENT_SYNDICATE_LEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/arm/cooler
 	name = "sub-dermal cooling implant"
@@ -474,7 +474,7 @@
 	icon_state = "hand_implant"
 	implant_overlay = "hand_implant_overlay"
 	implant_color = "#00e1ff"
-	encode_info = AUGMENT_NT_LOWLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/arm/cooler/on_life()
 	. = ..()

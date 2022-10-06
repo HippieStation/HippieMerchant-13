@@ -26,7 +26,7 @@
 	var/list/stored_items = list()
 	implant_color = "#DE7E00"
 	slot = ORGAN_SLOT_BRAIN_ANTIDROP
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NO_REQ
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/cyberimp/brain/anti_drop/ui_action_click()
@@ -84,7 +84,7 @@
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned."
 	implant_color = "#FFFF00"
 	slot = ORGAN_SLOT_BRAIN_ANTISTUN
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 	var/static/list/signalCache = list(
 		COMSIG_LIVING_STATUS_STUN,
@@ -128,7 +128,7 @@
 	organ_flags &= ~ORGAN_FAILING
 
 /obj/item/organ/cyberimp/brain/anti_stun/syndicate
-	encode_info = AUGMENT_SYNDICATE_LEVEL
+	encode_info = AUGMENT_NO_REQ
 
 //[[[[MOUTH]]]]
 /obj/item/organ/cyberimp/mouth
