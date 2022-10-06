@@ -35720,6 +35720,7 @@
 	name = "Gunshop Shutter";
 	id = "gunshop"
 	},
+/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "csq" = (
@@ -37349,12 +37350,12 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 10
 	},
-/obj/structure/cable,
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	name = "Gunshop Shutter";
 	id = "gunshop"
 	},
+/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "cyb" = (
@@ -58862,6 +58863,7 @@
 	name = "Gunshop Shutter";
 	id = "gunshop"
 	},
+/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "kOu" = (

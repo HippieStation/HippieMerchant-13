@@ -48448,6 +48448,7 @@
 	id = "gunshop";
 	name = "gunshop shutters"
 	},
+/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "hrI" = (
@@ -68066,6 +68067,7 @@
 	name = "gunshop shutters"
 	},
 /obj/item/pen,
+/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "mAq" = (
