@@ -151,13 +151,9 @@
 	allowed = /obj/item/gun
 
 /obj/structure/shelf/gun/spawn_item()
-	stored += list(
-		new /obj/item/gun/ballistic/rifle/boltaction,
-		new /obj/item/gun/ballistic/rifle/boltaction/brand_new,
-		new /obj/item/gun/ballistic/rifle/boltaction/harpoon,
-		new /obj/item/gun/ballistic/rifle/boltaction/pipegun,
-		new /obj/item/gun/ballistic/rifle/boltaction/pipegun/prime,
-	)
+	for(var/i = 1 to 5)
+		var/spawned_gun = get_random_gun()
+		stored += new spawned_gun
 
 /obj/structure/shelf/ammo
 	name = "Ammo Shelf"
@@ -186,14 +182,10 @@
 	item = "armor"
 	allowed = /obj/item/clothing/suit/armor
 
-/obj/structure/shelf/armor/spawn_item()
-	stored += list(
-		new /obj/item/clothing/suit/armor/bulletproof,
-		new /obj/item/clothing/suit/armor/riot,
-		new /obj/item/clothing/suit/armor/vest,
-		new /obj/item/clothing/suit/armor/vest/russian_coat,
-		new /obj/item/clothing/suit/armor/vest/durathread,
-	)
+/obj/structure/shelf/gun/spawn_item()
+	for(var/i = 1 to 5)
+		var/spawned_armor = get_random_armor()
+		stored += new spawned_armor
 
 /obj/structure/shelf/helmet
 	name = "Helmet Shelf"
