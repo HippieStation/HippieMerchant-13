@@ -32866,6 +32866,7 @@
 	id = "arms_dealer";
 	name = "gunshop shutters"
 	},
+/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/theater)
 "iNt" = (
@@ -38747,15 +38748,6 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/commons/dorms)
-"kNW" = (
-/obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/window{
-	id = "arms_dealer";
-	name = "gunshop shutters"
-	},
-/turf/open/floor/wood/tile,
-/area/service/theater)
 "kOe" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -48218,6 +48210,7 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/theater)
 "nNi" = (
@@ -60904,6 +60897,11 @@
 	dir = 8
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
+	},
+/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/theater)
 "rXQ" = (
@@ -118077,7 +118075,7 @@ avs
 fVE
 vst
 lJN
-kNW
+iNj
 tKm
 oGs
 flI
