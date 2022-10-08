@@ -4,16 +4,6 @@
 		Allows you to transmute a match and a knife into an Ashen Blade. \
 		You can only create two at a time."
 	gain_text = "The City Guard know their watch. If you ask them at night, they may tell you about the ashy lantern."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/starting/base_rust,
-		/datum/eldritch_knowledge/starting/base_flesh,
-		/datum/eldritch_knowledge/starting/base_void,
-		/datum/eldritch_knowledge/starting/base_blade,
-		/datum/eldritch_knowledge/final/rust_final,
-		/datum/eldritch_knowledge/final/flesh_final,
-		/datum/eldritch_knowledge/final/void_final,
-		/datum/eldritch_knowledge/final/blade_final,
-	)
 	next_knowledge = list(/datum/eldritch_knowledge/ashen_grasp)
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
@@ -72,13 +62,7 @@
 	gain_text = "He was a very particular man, always watching in the dead of night. \
 		But in spite of his duty, he regularly tranced through the Manse with his blazing lantern held high. \
 		He shone brightly in the darkness, until the blaze begin to die."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/mark/rust_mark,
-		/datum/eldritch_knowledge/mark/flesh_mark,
-		/datum/eldritch_knowledge/mark/void_mark,
-		/datum/eldritch_knowledge/mark/blade_mark,
-	)
-	next_knowledge = list(/datum/eldritch_knowledge/mad_mask)
+	next_knowledge = list(/datum/eldritch_knowledge/knowledge_ritual/ash)
 	route = PATH_ASH
 	mark_type = /datum/status_effect/eldritch/ash
 
@@ -90,6 +74,10 @@
 	// Also refunds 75% of charge!
 	for(var/obj/effect/proc_holder/spell/targeted/touch/mansus_grasp/grasp in source.mind.spell_list)
 		grasp.charge_counter = min(round(grasp.charge_counter + grasp.charge_max * 0.75), grasp.charge_max)
+
+/datum/eldritch_knowledge/knowledge_ritual/ash
+	next_knowledge = list(/datum/eldritch_knowledge/mad_mask)
+	route = PATH_ASH
 
 /datum/eldritch_knowledge/mad_mask
 	name = "Mask of Madness"
@@ -115,12 +103,6 @@
 	gain_text = "He returned, blade in hand, he swung and swung as the ash fell from the skies. \
 		His city, the people he swore to watch... and watch he did, as they all burnt to cinders."
 	next_knowledge = list(/datum/eldritch_knowledge/spell/flame_birth)
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/blade_upgrade/rust,
-		/datum/eldritch_knowledge/blade_upgrade/flesh,
-		/datum/eldritch_knowledge/blade_upgrade/void,
-		/datum/eldritch_knowledge/blade_upgrade/blade,
-	)
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/blade_upgrade/ash/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)

@@ -7,16 +7,6 @@
 		Allows you to transmute a knife and a pool of blood into a Bloody Blade. \
 		You can only create three at a time."
 	gain_text = "Hundreds of us starved, but not me... I found strength in my greed."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/starting/base_rust,
-		/datum/eldritch_knowledge/starting/base_ash,
-		/datum/eldritch_knowledge/starting/base_void,
-		/datum/eldritch_knowledge/starting/base_blade,
-		/datum/eldritch_knowledge/final/rust_final,
-		/datum/eldritch_knowledge/final/ash_final,
-		/datum/eldritch_knowledge/final/void_final,
-		/datum/eldritch_knowledge/final/blade_final,
-	)
 	next_knowledge = list(/datum/eldritch_knowledge/limited_amount/flesh_grasp)
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
@@ -181,37 +171,13 @@
 	desc = "Your Mansus Grasp now applies the Mark of Flesh. The mark is triggered from an attack with your Bloody Blade. \
 		When triggered, the victim begins to bleed significantly."
 	gain_text = "That's when I saw them, the marked ones. They were out of reach. They screamed, and screamed."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/mark/rust_mark,
-		/datum/eldritch_knowledge/mark/ash_mark,
-		/datum/eldritch_knowledge/mark/void_mark,
-		/datum/eldritch_knowledge/mark/blade_mark,
-	)
-	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet)
+	next_knowledge = list(/datum/eldritch_knowledge/knowledge_ritual/flesh)
 	route = PATH_FLESH
 	mark_type = /datum/status_effect/eldritch/flesh
 
-/datum/eldritch_knowledge/blade_upgrade/flesh
-	name = "Bleeding Steel"
-	gain_text = "And then, blood rained from the heavens. That's when I finally understood the Marshal's teachings."
-	desc = "Your Sickly Blade will now cause additional bleeding."
-	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker)
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/blade_upgrade/rust,
-		/datum/eldritch_knowledge/blade_upgrade/ash,
-		/datum/eldritch_knowledge/blade_upgrade/void,
-		/datum/eldritch_knowledge/blade_upgrade/blade,
-	)
+/datum/eldritch_knowledge/knowledge_ritual/flesh
+	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet)
 	route = PATH_FLESH
-
-/datum/eldritch_knowledge/blade_upgrade/flesh/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
-	if(!iscarbon(target) || source == target)
-		return
-
-	var/mob/living/carbon/carbon_target = target
-	var/obj/item/bodypart/bodypart = pick(carbon_target.bodyparts)
-	var/datum/wound/slash/severe/crit_wound = new()
-	crit_wound.apply_wound(bodypart)
 
 /datum/eldritch_knowledge/summon/raw_prophet
 	name = "Raw Ritual"
@@ -230,6 +196,22 @@
 		/datum/eldritch_knowledge/spell/blood_siphon,
 	)
 	route = PATH_FLESH
+	
+/datum/eldritch_knowledge/blade_upgrade/flesh
+	name = "Bleeding Steel"
+	gain_text = "And then, blood rained from the heavens. That's when I finally understood the Marshal's teachings."
+	desc = "Your Sickly Blade will now cause additional bleeding."
+	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker)
+	route = PATH_FLESH
+
+/datum/eldritch_knowledge/blade_upgrade/flesh/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+	if(!iscarbon(target) || source == target)
+		return
+
+	var/mob/living/carbon/carbon_target = target
+	var/obj/item/bodypart/bodypart = pick(carbon_target.bodyparts)
+	var/datum/wound/slash/severe/crit_wound = new()
+	crit_wound.apply_wound(bodypart)
 
 /datum/eldritch_knowledge/summon/stalker
 	name = "Lonely Ritual"

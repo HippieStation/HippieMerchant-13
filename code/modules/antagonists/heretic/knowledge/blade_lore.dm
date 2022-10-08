@@ -4,16 +4,6 @@
 		Allows you to transmute a knife with a bar of silver to create a Darkened Blade. \
 		You can sharpen any blade with your mansus grasp now."
 	gain_text = "Our great ancestors forged swords and practiced sparring on the even of great battles."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/starting/base_rust,
-		/datum/eldritch_knowledge/starting/base_ash,
-		/datum/eldritch_knowledge/starting/base_void,
-		/datum/eldritch_knowledge/starting/base_flesh,
-		/datum/eldritch_knowledge/final/rust_final,
-		/datum/eldritch_knowledge/final/ash_final,
-		/datum/eldritch_knowledge/final/void_final,
-		/datum/eldritch_knowledge/final/flesh_final,
-	)
 	next_knowledge = list(/datum/eldritch_knowledge/blade_grasp)
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
@@ -176,13 +166,7 @@
 		The knife will block any attack directed towards you, but is consumed on use."
 	gain_text = "There was no room for cowardace here. Those who ran were scolded. \
 		That is how I met them. Their name was The Colonel."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/mark/rust_mark,
-		/datum/eldritch_knowledge/mark/ash_mark,
-		/datum/eldritch_knowledge/mark/void_mark,
-		/datum/eldritch_knowledge/mark/flesh_mark,
-	)
-	next_knowledge = list(/datum/eldritch_knowledge/duel_stance)
+	next_knowledge = list(/datum/eldritch_knowledge/knowledge_ritual/blade)
 	route = PATH_BLADE
 	mark_type = /datum/status_effect/eldritch/blade
 
@@ -200,6 +184,10 @@
 	if(!.)
 		return
 	source.apply_status_effect(/datum/status_effect/protective_blades, 60 SECONDS, 1, 20, 0 SECONDS)
+
+/datum/eldritch_knowledge/knowledge_ritual/blade
+	next_knowledge = list(/datum/eldritch_knowledge/duel_stance)
+	route = PATH_BLADE
 
 /// The amount of blood flow reduced per level of severity of gained bleeding wounds for Stance of the Scarred Duelist.
 #define BLOOD_FLOW_PER_SEVEIRTY 1
@@ -277,12 +265,6 @@
 		will now deliver a blow with both at once, dealing two attacks in rapid succession. \
 		The second blow will be slightly weaker."
 	gain_text = "From here, I began to learn the Colonel's arts. The prowess was finally mine to have."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/blade_upgrade/rust,
-		/datum/eldritch_knowledge/blade_upgrade/flesh,
-		/datum/eldritch_knowledge/blade_upgrade/void,
-		/datum/eldritch_knowledge/blade_upgrade/ash,
-	)
 	next_knowledge = list(/datum/eldritch_knowledge/spell/furious_steel)
 	route = PATH_BLADE
 

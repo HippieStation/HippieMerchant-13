@@ -20,14 +20,20 @@
 	var/priority = 0
 	///Next knowledge in the research tree
 	var/list/next_knowledge = list()
-	///What knowledge is incompatible with this. This will simply make it impossible to research knowledges that are in banned_knowledge once this gets researched.
+	/// What knowledge is incompatible with this. Knowledge in this list cannot be researched with this current knowledge.
 	var/list/banned_knowledge = list()
+	/// The abstract parent type of the knowledge, used in determine mutual exclusivity in some cases
+	var/datum/eldritch_knowledge/abstract_parent_type = /datum/eldritch_knowledge
+	/// If TRUE, populates the banned_knowledge list of every other subtype of this knowledge's abstract_parent_type
+	var/mutually_exclusive = FALSE
 	///Used with rituals, how many items this needs
 	var/list/required_atoms
 	///What do we get out of this
 	var/list/result_atoms = list()
 	///Set to null
 	var/route
+	///wheter we registered the sharpen signal
+	var/sharpen_off = TRUE
 
 /**
  * What happens when this is assigned to an antag datum
@@ -36,8 +42,18 @@
  */
 /datum/eldritch_knowledge/proc/on_gain(mob/user)
 	to_chat(user, span_warning("[gain_text]"))
-	if(route == PATH_BLADE)
+
+	if(sharpen_off && route == PATH_BLADE)
 		RegisterSignal(user, COMSIG_HERETIC_BLADE_MANIPULATION, .proc/allow_to_sharp)
+		sharpen_off = FALSE
+
+	if(!mutually_exclusive)
+		return
+
+	for(var/knowledge_type in subtypesof(abstract_parent_type))
+		if(knowledge_type == type)
+			continue
+		banned_knowledge += knowledge_type
 	return
 /**
  * What happens when you loose this
@@ -148,6 +164,7 @@
 //////////////
 
 /datum/eldritch_knowledge/spell
+	abstract_parent_type = /datum/eldritch_knowledge/spell
 	var/obj/effect/proc_holder/spell/spell_to_add
 
 /datum/eldritch_knowledge/spell/Destroy(force, ...)
@@ -170,6 +187,7 @@
  * created at once.
  */
 /datum/eldritch_knowledge/limited_amount
+	abstract_parent_type = /datum/eldritch_knowledge/limited_amount
 	/// The limit to how many items we can create at once.
 	var/limit = 1
 	/// A list of weakrefs to all items we've created.
@@ -198,10 +216,22 @@
 	return TRUE
 
 /datum/eldritch_knowledge/starting
+	abstract_parent_type = /datum/eldritch_knowledge/starting
+	mutually_exclusive = TRUE
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	cost = 1
 
+/datum/eldritch_knowledge/starting/New()
+	. = ..()
+	// Starting path also determines the final knowledge we're limited too
+	for(var/datum/eldritch_knowledge/final_knowledge_type as anything in subtypesof(/datum/eldritch_knowledge/final))
+		if(initial(final_knowledge_type.route) == route)
+			continue
+		banned_knowledge += final_knowledge_type
+
 /datum/eldritch_knowledge/mark
+	abstract_parent_type = /datum/eldritch_knowledge/mark
+	mutually_exclusive = TRUE
 	cost = 2
 	/// The status effect typepath we apply on people on mansus grasp.
 	var/datum/status_effect/eldritch/mark_type
@@ -263,6 +293,8 @@
  * A heretic can only learn one /blade_upgrade type knowledge.
  */
 /datum/eldritch_knowledge/blade_upgrade
+	abstract_parent_type = /datum/eldritch_knowledge/blade_upgrade
+	mutually_exclusive = TRUE
 	cost = 2
 
 /datum/eldritch_knowledge/blade_upgrade/on_gain(mob/user)
@@ -308,6 +340,7 @@
 	return
 
 /datum/eldritch_knowledge/curse
+	abstract_parent_type = /datum/eldritch_knowledge/curse
 	var/timer = 5 MINUTES
 	var/list/fingerprints = list()
 	var/list/dna = list()
@@ -354,6 +387,7 @@
  * A knowledge subtype lets the heretic summon a monster with the ritual.
  */
 /datum/eldritch_knowledge/summon
+	abstract_parent_type = /datum/eldritch_knowledge/summon
 	/// Typepath of a mob to summon when we finish the recipe.
 	var/mob/living/mob_to_summon
 
@@ -394,8 +428,107 @@
 
 	return TRUE
 
+/// The amount of knowledge points the knowledge ritual gives on success.
+#define KNOWLEDGE_RITUAL_POINTS 4
+
+/*
+ * A subtype of knowledge that generates random ritual components.
+ */
+/datum/eldritch_knowledge/knowledge_ritual
+	name = "Ritual of Knowledge"
+	desc = "A randomly generated transmutation ritual that rewards knowledge points and can only be completed once."
+	gain_text = "Everything can be a key to unlocking the secrets behind the Gates. I must be wary and wise."
+	abstract_parent_type = /datum/eldritch_knowledge/knowledge_ritual
+	mutually_exclusive = TRUE
+	cost = 1
+	priority = MAX_KNOWLEDGE_PRIORITY - 10 // A pretty important midgame ritual.
+	/// Whether we've done the ritual. Only doable once.
+	var/was_completed = FALSE
+
+/datum/eldritch_knowledge/knowledge_ritual/New()
+	. = ..()
+	var/static/list/potential_organs = list(
+		/obj/item/organ/appendix,
+		/obj/item/organ/tail,
+		/obj/item/organ/eyes,
+		/obj/item/organ/tongue,
+		/obj/item/organ/ears,
+		/obj/item/organ/heart,
+		/obj/item/organ/liver,
+		/obj/item/organ/stomach,
+		/obj/item/organ/lungs,
+	)
+
+	var/static/list/potential_easy_items = list(
+		/obj/item/shard,
+		/obj/item/candle,
+		/obj/item/book,
+		/obj/item/pen,
+		/obj/item/paper,
+		/obj/item/toy/crayon,
+		/obj/item/flashlight,
+		/obj/item/clipboard,
+	)
+
+	var/static/list/potential_uncommoner_items = list(
+		/obj/item/restraints/legcuffs/beartrap,
+		/obj/item/restraints/handcuffs/cable/zipties,
+		/obj/item/circular_saw,
+		/obj/item/scalpel,
+		/obj/item/binoculars,
+		/obj/item/clothing/gloves/color/yellow,
+		/obj/item/melee/baton,
+		/obj/item/clothing/glasses/sunglasses,
+	)
+
+	required_atoms = list()
+	// 2 organs. Can be the same.
+	required_atoms[pick(potential_organs)] += 1
+	required_atoms[pick(potential_organs)] += 1
+	// 2-3 random easy items.
+	required_atoms[pick(potential_easy_items)] += rand(2, 3)
+	// 1 uncommon item.
+	required_atoms[pick(potential_uncommoner_items)] += 1
+
+/datum/eldritch_knowledge/knowledge_ritual/on_gain(mob/user)
+	var/list/requirements_string = list()
+
+	to_chat(user, span_hierophant("The [name] requires the following:"))
+	for(var/obj/item/path as anything in required_atoms)
+		var/amount_needed = required_atoms[path]
+		to_chat(user, span_hypnophrase("[amount_needed] [initial(path.name)]\s..."))
+		requirements_string += "[amount_needed == 1 ? "":"[amount_needed] "][initial(path.name)]\s"
+
+	to_chat(user, span_hierophant("Completing it will reward you [KNOWLEDGE_RITUAL_POINTS] knowledge points. You can check the knowledge in your Researched Knowledge to be reminded."))
+
+	desc = "Allows you to transmute [english_list(requirements_string)] for [KNOWLEDGE_RITUAL_POINTS] bonus knowledge points. This can only be completed once."
+
+/datum/eldritch_knowledge/knowledge_ritual/can_be_invoked(datum/antagonist/heretic/invoker)
+	return !was_completed
+
+/datum/eldritch_knowledge/knowledge_ritual/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+	return !was_completed
+
+/datum/eldritch_knowledge/knowledge_ritual/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	var/mob/living/carbon/carbon_user = user
+	for(var/obj/item/forbidden_book/book as anything in carbon_user.get_all_gear())
+		if(!istype(book))
+			continue
+		book.charge += KNOWLEDGE_RITUAL_POINTS
+		break
+	was_completed = TRUE
+
+	to_chat(user, span_boldnotice("[name] completed!"))
+	desc += " (Completed!)"
+	log_game("[key_name(user)] completed a [name] at [worldtime2text()].")
+	return TRUE
+
+#undef KNOWLEDGE_RITUAL_POINTS
+
 //Ascension knowledge
 /datum/eldritch_knowledge/final
+	abstract_parent_type = /datum/eldritch_knowledge/final
+	mutually_exclusive = TRUE // I guess, but it doesn't really matter by this point
 	var/finished = FALSE
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)

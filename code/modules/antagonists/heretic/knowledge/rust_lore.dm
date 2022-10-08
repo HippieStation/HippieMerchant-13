@@ -2,16 +2,6 @@
 	name = "Blacksmith's Tale"
 	desc = "Opens up the Path of Rust to you. Allows you to transmute a kitchen knife, or its derivatives, with any trash item into a Rusty Blade."
 	gain_text = "'Let me tell you a story', said the Blacksmith, as he gazed deep into his rusty blade."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/starting/base_flesh,
-		/datum/eldritch_knowledge/starting/base_ash,
-		/datum/eldritch_knowledge/starting/base_void,
-		/datum/eldritch_knowledge/starting/base_blade,
-		/datum/eldritch_knowledge/final/flesh_final,
-		/datum/eldritch_knowledge/final/ash_final,
-		/datum/eldritch_knowledge/final/void_final,
-		/datum/eldritch_knowledge/final/blade_final,
-	)
 	next_knowledge = list(/datum/eldritch_knowledge/rust_fist)
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
@@ -37,10 +27,11 @@
 
 /datum/eldritch_knowledge/rust_fist/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, .proc/on_secondary_mansus_grasp)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, .proc/on_eldritch_blade)
 
 /datum/eldritch_knowledge/rust_fist/on_lose(mob/user)
-	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
+	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, COMSIG_HERETIC_BLADE_ATTACK))
 
 /datum/eldritch_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -49,6 +40,12 @@
 		return
 
 	target.rust_heretic_act()
+
+/datum/eldritch_knowledge/rust_fist/proc/on_secondary_mansus_grasp(mob/living/source, atom/target)
+	SIGNAL_HANDLER
+
+	target.rust_heretic_act()
+	return COMPONENT_USE_CHARGE
 
 /datum/eldritch_knowledge/rust_fist/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER
@@ -117,15 +114,13 @@
 	name = "Mark of Rust"
 	desc = "Your Mansus Grasp now applies the Mark of Rust on hit. Attack the afflicted with your Sickly Blade to detonate the mark. Upon detonation, the Mark of Rust has a chance to deal between 0 to 200 damage to 75% of your enemy's held items."
 	gain_text = "Rusted Hills help those in dire need at a cost."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/mark/flesh_mark,
-		/datum/eldritch_knowledge/mark/ash_mark,
-		/datum/eldritch_knowledge/mark/void_mark,
-		/datum/eldritch_knowledge/mark/blade_mark,
-	)
-	next_knowledge = list(/datum/eldritch_knowledge/spell/area_conversion)
+	next_knowledge = list(/datum/eldritch_knowledge/knowledge_ritual/rust)
 	route = PATH_RUST
 	mark_type = /datum/status_effect/eldritch/rust
+
+/datum/eldritch_knowledge/knowledge_ritual/rust
+	next_knowledge = list(/datum/eldritch_knowledge/spell/area_conversion)
+	route = PATH_RUST
 
 /datum/eldritch_knowledge/spell/area_conversion
 	name = "Agressive Spread"
@@ -145,12 +140,6 @@
 	gain_text = "The Blade will guide you through the flesh, should you let it."
 	desc = "Your blade of choice will now poison your enemies on hit."
 	next_knowledge = list(/datum/eldritch_knowledge/spell/entropic_plume)
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/blade_upgrade/flesh,
-		/datum/eldritch_knowledge/blade_upgrade/ash,
-		/datum/eldritch_knowledge/blade_upgrade/void,
-		/datum/eldritch_knowledge/blade_upgrade/blade,
-	)
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/blade_upgrade/rust/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)

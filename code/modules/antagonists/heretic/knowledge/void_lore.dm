@@ -2,23 +2,13 @@
 	name = "Glimmer of Winter"
 	desc = "Opens up the path of void to you. Allows you to transmute a knife in a sub-zero temperature into a void blade."
 	gain_text = "I feel a shimmer in the air, atmosphere around me gets colder. I feel my body realizing the emptiness of existance. Something's watching me"
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/starting/base_flesh,
-		/datum/eldritch_knowledge/starting/base_ash,
-		/datum/eldritch_knowledge/starting/base_rust,
-		/datum/eldritch_knowledge/starting/base_blade,
-		/datum/eldritch_knowledge/final/flesh_final,
-		/datum/eldritch_knowledge/final/ash_final,
-		/datum/eldritch_knowledge/final/rust_final,
-		/datum/eldritch_knowledge/final/blade_final,
-	)
 	next_knowledge = list(/datum/eldritch_knowledge/void_grasp)
 	required_atoms = list(/obj/item/kitchen/knife = 1)
 	result_atoms = list(/obj/item/melee/sickly_blade/void)
 	cost = 1
 	route = PATH_VOID
 
-/datum/eldritch_knowledge/starting/base_void/recipe_snowflake_check(list/atoms, loc)
+/datum/eldritch_knowledge/starting/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/turf/open/turfie = loc
 	if(turfie.GetTemperature() > T0C)
 		return FALSE
@@ -84,15 +74,13 @@
 	name = "Mark of Void"
 	gain_text = "A gust of wind? Maybe a shimmer in the air. Presence is overwhelming, my senses betrayed me, my mind is my enemy."
 	desc = "Your mansus grasp now applies mark of void status effect. To proc the mark, use your sickly blade on the marked. Mark of void when procced lowers the victims body temperature significantly."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/mark/flesh_mark,
-		/datum/eldritch_knowledge/mark/ash_mark,
-		/datum/eldritch_knowledge/mark/rust_mark,
-		/datum/eldritch_knowledge/mark/blade_mark,
-	)
-	next_knowledge = list(/datum/eldritch_knowledge/spell/void_phase)
+	next_knowledge = list(/datum/eldritch_knowledge/knowledge_ritual/void)
 	route = PATH_VOID
 	mark_type = /datum/status_effect/eldritch/void
+
+/datum/eldritch_knowledge/knowledge_ritual/void
+	next_knowledge = list(/datum/eldritch_knowledge/spell/void_phase)
+	route = PATH_VOID
 
 /datum/eldritch_knowledge/spell/void_phase
 	name = "Void Phase"
@@ -111,12 +99,6 @@
 	name = "Seeking blade"
 	gain_text = "Fleeting memories, fleeting feet. I can mark my way with the frozen blood upon the snow. Covered and forgotten."
 	desc = "You can now use your blade on a distant marked target to move to them and attack them."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/blade_upgrade/flesh,
-		/datum/eldritch_knowledge/blade_upgrade/ash,
-		/datum/eldritch_knowledge/blade_upgrade/rust,
-		/datum/eldritch_knowledge/blade_upgrade/blade,
-	)
 	next_knowledge = list(/datum/eldritch_knowledge/spell/voidpull)
 	route = PATH_VOID
 
