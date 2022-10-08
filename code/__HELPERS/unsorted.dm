@@ -1403,6 +1403,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/get_random_armor()
 	return pick(subtypesof(/obj/item/clothing/suit/armor))
 
+/proc/get_random_helmet()
+	return pick(subtypesof(/obj/item/clothing/head/helmet))
+
 //For these two procs refs MUST be ref = TRUE format like typecaches!
 /proc/weakref_filter_list(list/things, list/refs)
 	if(!islist(things) || !islist(refs))

@@ -28,19 +28,28 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	var/state = SHELF_UNANCHORED
 	var/item = "item"
+	var/spawned_item
 	///Stored items in the shelf
 	var/list/obj/item/stored = list()
 	///Which item can be stored in the shelf
 	var/allowed = /obj/item
 	var/max = 12
+	var/signal
 
 /obj/structure/shelf/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		return
 	set_anchored(TRUE)
+	if(signal)
+		RegisterSignal(src, signal, .proc/recieve_ammo)
 	spawn_item()
 	update_appearance()
+
+/obj/structure/shelf/proc/recieve_ammo(datum/source, obj/item/gun/ballistic/each_gun)
+	SIGNAL_HANDLER
+	var/obj/item/ammo_box/ammo = initial(each_gun.mag_type)
+	stored += new ammo
 
 /obj/structure/shelf/set_anchored(anchorvalue)
 	. = ..()
@@ -149,11 +158,13 @@
 	desc = "A great place for storing guns"
 	item = "gun"
 	allowed = /obj/item/gun
+	signal = COMSIG_GUN_SHELF
 
 /obj/structure/shelf/gun/spawn_item()
 	for(var/i = 1 to 5)
-		var/spawned_gun = get_random_gun()
-		stored += new spawned_gun
+		spawned_item = get_random_gun()
+		stored += new spawned_item
+		SEND_SIGNAL(src, COMSIG_GUN_SHELF, spawned_item)
 
 /obj/structure/shelf/ammo
 	name = "Ammo Shelf"
@@ -162,30 +173,16 @@
 	max = 30
 	allowed = /obj/item/ammo_box
 
-/obj/structure/shelf/ammo/spawn_item()
-	stored += list(
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-	)
-
 /obj/structure/shelf/armor
 	name = "Armor Shelf"
 	desc = "A great place for storing armors"
 	item = "armor"
 	allowed = /obj/item/clothing/suit/armor
 
-/obj/structure/shelf/gun/spawn_item()
+/obj/structure/shelf/armor/spawn_item()
 	for(var/i = 1 to 5)
-		var/spawned_armor = get_random_armor()
-		stored += new spawned_armor
+		spawned_item = get_random_armor()
+		stored += new spawned_item
 
 /obj/structure/shelf/helmet
 	name = "Helmet Shelf"
@@ -194,13 +191,10 @@
 	allowed = /obj/item/clothing/head/helmet
 
 /obj/structure/shelf/helmet/spawn_item()
-	stored += list(
-		new /obj/item/clothing/head/helmet,
-		new /obj/item/clothing/head/helmet/alt,
-		new /obj/item/clothing/head/helmet/riot,
-		new /obj/item/clothing/head/helmet/rus_ushanka,
-		new /obj/item/clothing/head/helmet/durathread,
-	)
+	for(var/i = 1 to 5)
+		spawned_item = get_random_helmet()
+		stored += new spawned_item
+
 
 #undef SHELF_UNANCHORED
 #undef SHELF_ANCHORED
