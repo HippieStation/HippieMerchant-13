@@ -1,7 +1,36 @@
+/// The max amount of health a ghoul has.
 #define GHOUL_MAX_HEALTH 25
+/// The max amount of health a voiceless dead has.
 #define MUTE_MAX_HEALTH 50
 
-/datum/eldritch_knowledge/starting/base_flesh
+/**
+ * # The path of Flesh.
+ *
+ * Goes as follows:
+ *
+ * Principle of Hunger
+ * Grasp of Flesh
+ * Imperfect Ritual
+ * > Sidepaths:
+ *   Void Cloak
+ *   Ashen Eyes
+ *
+ * Mark of Flesh
+ * Ritual of Knowledge
+ * Raw Ritual
+ * > Sidepaths:
+ *   Blood Siphon
+ *   Curse of Paralysis
+ *
+ * Bleeding Steel
+ * Lonely Ritual
+ * > Sidepaths:
+ *   Ashen Ritual
+ *   Cleave
+ *
+ * Priest's Final Hymn
+ */
+/datum/eldritch_knowledge/limited_amount/starting/base_flesh
 	name = "Principle of Hunger"
 	desc = "Opens up the Path of Flesh to you. \
 		Allows you to transmute a knife and a pool of blood into a Bloody Blade. \
@@ -10,10 +39,23 @@
 	next_knowledge = list(/datum/eldritch_knowledge/limited_amount/flesh_grasp)
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
-		/obj/effect/decal/cleanable/blood = 1
-		)
+		/obj/effect/decal/cleanable/blood = 1,
+	)
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
+	limit = 3 // Bumped up so they can arm up their ghouls too.
 	route = PATH_FLESH
+
+/datum/eldritch_knowledge/limited_amount/starting/base_flesh/on_research(mob/user)
+	. = ..()
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	our_heretic.heretic_path = route
+
+	var/datum/objective/heretic_summon/summon_objective = new()
+	summon_objective.owner = our_heretic.owner
+	our_heretic.objectives += summon_objective
+
+	to_chat(user, span_hierophant("Undertaking the Path of Flesh, you are given another objective."))
+	our_heretic.owner.announce_objectives()
 
 /datum/eldritch_knowledge/limited_amount/flesh_grasp
 	name = "Grasp of Flesh"
@@ -42,19 +84,19 @@
 		target.balloon_alert(source, "at ghoul limit!")
 		return COMPONENT_BLOCK_CHARGE_USE
 
-	if(HAS_TRAIT(target, TRAIT_HUSK))
-		target.balloon_alert(source, "husked!")
-		return COMPONENT_BLOCK_CHARGE_USE
-
 	if(!IS_VALID_GHOUL_MOB(target))
 		target.balloon_alert(source, "invalid body!")
 		return COMPONENT_BLOCK_CHARGE_USE
 
+	// Get their ghost in here so we can raise them
 	target.grab_ghost()
 
-	// The grab failed, so they're mindless or playerless. We can't continue
 	if(!target.mind || !target.client)
 		target.balloon_alert(source, "no soul!")
+		return COMPONENT_BLOCK_CHARGE_USE
+
+	if(HAS_TRAIT(target, TRAIT_HUSK))
+		target.balloon_alert(source, "husked!")
 		return COMPONENT_BLOCK_CHARGE_USE
 
 	make_ghoul(source, target)
@@ -86,17 +128,18 @@
 		Voiceless Dead are mute ghouls and only have 50 health, but can use Bloody Blades effectively. \
 		You can only create two at a time."
 	gain_text = "I found notes of a dark ritual, unfinished... yet still, I pushed forward."
-	cost = 1
-	required_atoms = list(
-		/mob/living/carbon/human = 1,
-		/obj/item/food/grown/poppy = 1,
-		)
 	next_knowledge = list(
 		/datum/eldritch_knowledge/mark/flesh_mark,
+		/datum/eldritch_knowledge/codex_cicatrix,
 		/datum/eldritch_knowledge/void_cloak,
 		/datum/eldritch_knowledge/ashen_eyes,
 	)
+	required_atoms = list(
+		/mob/living/carbon/human = 1,
+		/obj/item/food/grown/poppy = 1,
+	)
 	limit = 2
+	cost = 1
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/limited_amount/flesh_ghoul/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
@@ -105,24 +148,20 @@
 		return FALSE
 
 	for(var/mob/living/carbon/human/body in atoms)
-		if(body.stat != DEAD)
-			continue
-		if(!IS_VALID_GHOUL_MOB(body) || HAS_TRAIT(body, TRAIT_HUSK))
-			to_chat(user, span_hierophant_warning("[body] is not in a valid state to be made into a ghoul."))
-			continue
+		if(body.stat != DEAD || !IS_VALID_GHOUL_MOB(body) || HAS_TRAIT(body, TRAIT_HUSK))
+			atoms -= body
 
-		// We'll select any valid bodies here. If they're clientless, we'll give them a new one.
-		selected_atoms += body
-		return TRUE
+	if(!(locate(/mob/living/carbon/human) in atoms))
+		loc.balloon_alert(user, "ritual failed, no valid body!")
+		return FALSE
 
-	user.balloon_alert(user, "ritual failed, no valid body!")
-	return FALSE
+	return TRUE
 
 /datum/eldritch_knowledge/limited_amount/flesh_ghoul/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/mob/living/carbon/human/soon_to_be_ghoul = locate() in selected_atoms
 	if(QDELETED(soon_to_be_ghoul)) // No body? No ritual
 		stack_trace("[type] reached on_finished_recipe without a human in selected_atoms to make a ghoul out of.")
-		user.balloon_alert(user, "ritual failed, no valid body!")
+		loc.balloon_alert(user, "ritual failed, no valid body!")
 		return FALSE
 
 	soon_to_be_ghoul.grab_ghost()
@@ -131,7 +170,7 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
 		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, ROLE_HERETIC, 5 SECONDS, soon_to_be_ghoul)
 		if(!LAZYLEN(candidates))
-			user.balloon_alert(user, "ritual failed, no ghosts!")
+			loc.balloon_alert(user, "ritual failed, no ghosts!")
 			return FALSE
 
 		var/mob/dead/observer/chosen_candidate = pick(candidates)
@@ -141,7 +180,6 @@
 
 	selected_atoms -= soon_to_be_ghoul
 	make_ghoul(user, soon_to_be_ghoul)
-	return TRUE
 
 /// Makes [victim] into a ghoul.
 /datum/eldritch_knowledge/limited_amount/flesh_ghoul/proc/make_ghoul(mob/living/user, mob/living/carbon/human/victim)
@@ -181,26 +219,31 @@
 
 /datum/eldritch_knowledge/summon/raw_prophet
 	name = "Raw Ritual"
-	gain_text = "The Uncanny Man, who walks alone in the valley between the worlds... I was able to summon his aid."
-	desc = "You can now summon a Raw Prophet by transmutating a pair of eyes, a left arm and a pool of blood. Raw prophets have increased seeing range, as well as X-Ray vision, but they are very fragile."
-	cost = 1
+	desc = "Allows you to transmute a pair of eyes, a left arm, and a pool of blood to create a Raw Prophet. \
+		Raw Prophets have a greatly increased sight range and x-ray vision, as well as a long range jaunt and \
+		the ability to link minds to communicate with ease, but are very fragile and weak in combat."
+	gain_text = "I could not continue alone. I was able to summon The Uncanny Man to help me see more. \
+		The screams... once constant, now silenced by their wretched appearance. Nothing was out of reach."
+	next_knowledge = list(
+		/datum/eldritch_knowledge/blade_upgrade/flesh,
+		/datum/eldritch_knowledge/reroll_targets,
+		/datum/eldritch_knowledge/spell/blood_siphon,
+		/datum/eldritch_knowledge/curse/paralysis,
+	)
 	required_atoms = list(
 		/obj/item/organ/eyes = 1,
 		/obj/effect/decal/cleanable/blood = 1,
-		/obj/item/bodypart/l_arm = 1
-		)
-	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/raw_prophet
-	next_knowledge = list(
-		/datum/eldritch_knowledge/blade_upgrade/flesh,
-		/datum/eldritch_knowledge/curse/paralysis,
-		/datum/eldritch_knowledge/spell/blood_siphon,
+		/obj/item/bodypart/l_arm = 1,
 	)
+	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/raw_prophet
+	cost = 1
 	route = PATH_FLESH
-	
+
 /datum/eldritch_knowledge/blade_upgrade/flesh
 	name = "Bleeding Steel"
-	gain_text = "And then, blood rained from the heavens. That's when I finally understood the Marshal's teachings."
-	desc = "Your Sickly Blade will now cause additional bleeding."
+	desc = "Your Bloody Blade now causes enemies to bleed heavily on attack."
+	gain_text = "The Uncanny Man was not alone. They led me to the Marshal. \
+		I finally began to understand. And then, blood rained from the heavens."
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker)
 	route = PATH_FLESH
 
@@ -215,27 +258,40 @@
 
 /datum/eldritch_knowledge/summon/stalker
 	name = "Lonely Ritual"
-	gain_text = "I was able to combine my greed and desires to summon an eldritch beast I had never seen before. An ever shapeshifting mass of flesh, it knew well my goals."
-	desc = "You can now summon a Stalker by transmutating a pair of eyes, a candle, a pen and a piece of paper. Stalkers can shapeshift into harmless animals to get close to the victim."
-	cost = 1
-	required_atoms = list(
-		/obj/item/pen = 1,
-		/obj/item/organ/eyes = 1,
-		/obj/item/candle = 1,
-		/obj/item/paper = 1
-		)
-	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/stalker
+	desc = "Allows you to transmute a tail of any kind, a stomach, a tongue, a pen and a piece of paper to create a Stalker. \
+		Stalkers can jaunt, release EMPs, shapeshift into animals or automatons, and are strong in combat."
+	gain_text = "I was able to combine my greed and desires to summon an eldritch beast I had never seen before. \
+		An ever shapeshifting mass of flesh, it knew well my goals. The Marshal approved."
 	next_knowledge = list(
+		/datum/eldritch_knowledge/final/flesh_final,
 		/datum/eldritch_knowledge/summon/ashy,
 		/datum/eldritch_knowledge/spell/cleave,
-		/datum/eldritch_knowledge/final/flesh_final
 	)
+	required_atoms = list(
+		/obj/item/organ/tail = 1,
+		/obj/item/organ/stomach = 1,
+		/obj/item/organ/tongue = 1,
+		/obj/item/pen = 1,
+		/obj/item/paper = 1,
+	)
+	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/stalker
+	cost = 1
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/final/flesh_final
 	name = "Priest's Final Hymn"
-	gain_text = "Men of this world. Hear me, for the time of the Lord of Arms has come! The Emperor of Flesh guides my army!"
-	desc = "Bring 3 bodies onto a transmutation rune to shed your human form and ascend to untold power."
+	desc = "The ascension ritual of the Path of Flesh. \
+		Bring 4 corpses to a transumation rune to complete the ritual. \
+		When completed, you gain the ability to shed your human form \
+		and become the Lord of the Night, a supremely powerful creature. \
+		Just the act of transforming causes nearby heathens great fear and trauma. \
+		While in the Lord of the Night form, you can consume arms to heal and regain segments. \
+		Additionally, you can summon three times as many Ghouls and Voiceless Dead, \
+		and can create unlimited blades to arm them all."
+	gain_text = "With the Marshal's knowledge, my power had peaked. The throne was open to claim. \
+		Men of this world, hear me, for the time has come! The Marshal guides my army! \
+		Reality will bend to THE LORD OF THE NIGHT or be unraveled! WITNESS MY ASCENSION!"
+	required_atoms = list(/mob/living/carbon/human = 4)
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
@@ -249,6 +305,8 @@
 	grasp_ghoul.limit *= 3
 	var/datum/eldritch_knowledge/limited_amount/flesh_ghoul/ritual_ghoul = heretic_datum.get_knowledge(/datum/eldritch_knowledge/limited_amount/flesh_ghoul)
 	ritual_ghoul.limit *= 3
+	var/datum/eldritch_knowledge/limited_amount/starting/base_flesh/blade_ritual = heretic_datum.get_knowledge(/datum/eldritch_knowledge/limited_amount/starting/base_flesh)
+	blade_ritual.limit = 999
 
 #undef GHOUL_MAX_HEALTH
 #undef MUTE_MAX_HEALTH

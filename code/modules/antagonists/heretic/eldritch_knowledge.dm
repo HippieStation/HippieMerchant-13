@@ -1,52 +1,41 @@
-
 /**
- * #Eldritch Knwoledge
+ * # Heretic Knowledge
  *
- * Datum that makes eldritch cultist interesting.
+ * The datums that allow heretics to progress and learn new spells and rituals.
  *
- * Eldritch knowledge aren't instantiated anywhere roundstart, and are initalized and destroyed as the round goes on.
+ * Heretic Knowledge datums are not singletons - they are instantiated as they
+ * are given to heretics, and deleted if the heretic antagonist is removed.
+ *
  */
 /datum/eldritch_knowledge
-	///Name of the knowledge
+	/// Name of the knowledge, shown to the heretic.
 	var/name = "Basic knowledge"
-	///Description of the knowledge
+	/// Description of the knowledge, shown to the heretic. Describes what it unlocks / does.
 	var/desc = "Basic knowledge of forbidden arts."
-	///What shows up
-	var/gain_text = ""
-	///Cost of knowledge in souls
-	var/cost = 0
-	/// The priority of the knowledge. Higher priority knowledge appear higher in the ritual list.
-	/// Number itself is completely arbitrary. Does not need to be set for non-ritual knowledge.
-	var/priority = 0
-	///Next knowledge in the research tree
-	var/list/next_knowledge = list()
-	/// What knowledge is incompatible with this. Knowledge in this list cannot be researched with this current knowledge.
-	var/list/banned_knowledge = list()
+	/// What's shown to the heretic when the knowledge is aquired
+	var/gain_text
 	/// The abstract parent type of the knowledge, used in determine mutual exclusivity in some cases
 	var/datum/eldritch_knowledge/abstract_parent_type = /datum/eldritch_knowledge
 	/// If TRUE, populates the banned_knowledge list of every other subtype of this knowledge's abstract_parent_type
 	var/mutually_exclusive = FALSE
-	///Used with rituals, how many items this needs
+	/// The knowledge this unlocks next after learning.
+	var/list/next_knowledge = list()
+	/// What knowledge is incompatible with this. Knowledge in this list cannot be researched with this current knowledge.
+	var/list/banned_knowledge = list()
+	/// Assoc list of [typepaths we need] to [amount needed].
+	/// If set, this knowledge allows the heretic to do a ritual on a transmutation rune with the components set.
 	var/list/required_atoms
-	///What do we get out of this
+	/// Paired with above. If set, the resulting spawned atoms upon ritual completion.
 	var/list/result_atoms = list()
-	///Set to null
+	/// Cost of knowledge in knowlege points
+	var/cost = 0
+	/// The priority of the knowledge. Higher priority knowledge appear higher in the ritual list.
+	/// Number itself is completely arbitrary. Does not need to be set for non-ritual knowledge.
+	var/priority = 0
+	/// What path is this on. If set to "null", assumed to be unreachable (or abstract).
 	var/route
-	///wheter we registered the sharpen signal
-	var/sharpen_off = TRUE
 
-/**
- * What happens when this is assigned to an antag datum
- *
- * This proc is called whenever a new eldritch knowledge is added to an antag datum
- */
-/datum/eldritch_knowledge/proc/on_gain(mob/user)
-	to_chat(user, span_warning("[gain_text]"))
-
-	if(sharpen_off && route == PATH_BLADE)
-		RegisterSignal(user, COMSIG_HERETIC_BLADE_MANIPULATION, .proc/allow_to_sharp)
-		sharpen_off = FALSE
-
+/datum/eldritch_knowledge/New()
 	if(!mutually_exclusive)
 		return
 
@@ -54,31 +43,46 @@
 		if(knowledge_type == type)
 			continue
 		banned_knowledge += knowledge_type
-	return
+
 /**
- * What happens when you loose this
+ * Called when the knowledge is first researched.
+ * This is only ever called once per heretic.
  *
- * This proc is called whenever antagonist looses his antag datum, put cleanup code in here
+ * Arguments
+ * * user - the heretic who researched something
+ */
+/datum/eldritch_knowledge/proc/on_research(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(gain_text)
+		to_chat(user, span_warning("[gain_text]"))
+	on_gain(user)
+
+/**
+ * Called when the knowledge is applied to a mob.
+ * This can be called multiple times per heretic,
+ * in the case of bodyswap shenanigans.
+ *
+ * Arguments
+ * * user - the heretic which we're applying things to
+ */
+/datum/eldritch_knowledge/proc/on_gain(mob/user)
+
+/**
+ * Called when the knowledge is removed from a mob,
+ * either due to a heretic being de-heretic'd or bodyswap memery.
+ *
+ * Arguments
+ * * user - the heretic which we're removing things from
  */
 /datum/eldritch_knowledge/proc/on_lose(mob/user)
-	return
-
-/datum/eldritch_knowledge/proc/on_research(mob/user)
-	return
-
-//See Register
-/datum/eldritch_knowledge/proc/allow_to_sharp(mob/user)
-	return COMPONENT_SHARPEN
-
-/datum/eldritch_knowledge/proc/on_dead(mob/user)
-	return
 
 /**
  * Determines if a heretic can actually attempt to invoke the knowledge as a ritual.
  * By default, we can only invoke knowledge with rituals associated.
  *
  * Return TRUE to have the ritual show up in the rituals list, FALSE otherwise.
-*/
+ */
 /datum/eldritch_knowledge/proc/can_be_invoked(datum/antagonist/heretic/invoker)
 	return !!LAZYLEN(required_atoms)
 
@@ -98,7 +102,7 @@
  * * loc - the turf the ritual's occuring on
  *
  * Returns: TRUE, if the ritual will continue, or FALSE, if the ritual is skipped / cancelled
-*/
+ */
 /datum/eldritch_knowledge/proc/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	return TRUE
 
@@ -143,8 +147,7 @@
 	for(var/atom/sacrificed as anything in selected_atoms)
 		if(isliving(sacrificed))
 			continue
-		if(istype(sacrificed, /obj/item/living_heart))
-			continue
+
 		if(isstack(sacrificed))
 			var/obj/item/stack/sac_stack = sacrificed
 			var/how_much_to_use = 0
@@ -152,19 +155,19 @@
 				if(istype(sacrificed, requirement))
 					how_much_to_use = min(required_atoms[requirement], sac_stack.amount)
 					break
+
 			sac_stack.use(how_much_to_use)
 			continue
 
 		selected_atoms -= sacrificed
 		qdel(sacrificed)
 
-
-//////////////
-///Subtypes///
-//////////////
-
+/*
+ * A knowledge subtype that grants the heretic a certain spell.
+ */
 /datum/eldritch_knowledge/spell
 	abstract_parent_type = /datum/eldritch_knowledge/spell
+	/// The proc holder spell we add to the heretic. Type-path, becomes an instance via on_research().
 	var/obj/effect/proc_holder/spell/spell_to_add
 
 /datum/eldritch_knowledge/spell/Destroy(force, ...)
@@ -172,14 +175,15 @@
 		QDEL_NULL(spell_to_add)
 	return ..()
 
-/datum/eldritch_knowledge/spell/on_gain(mob/user)
+/datum/eldritch_knowledge/spell/on_research(mob/user)
 	spell_to_add = new spell_to_add()
-	user.mind.AddSpell(spell_to_add)
 	return ..()
+
+/datum/eldritch_knowledge/spell/on_gain(mob/user)
+	user.mind.AddSpell(spell_to_add)
 
 /datum/eldritch_knowledge/spell/on_lose(mob/user)
 	user.mind.RemoveSpell(spell_to_add)
-	return ..()
 
 /*
  * A knowledge subtype for knowledge that can only
@@ -204,7 +208,7 @@
 			LAZYREMOVE(created_items, ref)
 
 	if(LAZYLEN(created_items) >= limit)
-		user.balloon_alert(user, "ritual failed, at limit!")
+		loc.balloon_alert(user, "ritual failed, at limit!")
 		return FALSE
 
 	return TRUE
@@ -215,13 +219,21 @@
 		LAZYADD(created_items, WEAKREF(created_thing))
 	return TRUE
 
-/datum/eldritch_knowledge/starting
-	abstract_parent_type = /datum/eldritch_knowledge/starting
+/*
+ * A knowledge subtype for limited_amount knowledge
+ * used for base knowledge (the ones that make blades)
+ *
+ * A heretic can only learn one /starting type knowledge,
+ * and their ascension depends on whichever they chose.
+ */
+/datum/eldritch_knowledge/limited_amount/starting
+	abstract_parent_type = /datum/eldritch_knowledge/limited_amount/starting
 	mutually_exclusive = TRUE
-	priority = MAX_KNOWLEDGE_PRIORITY - 5
+	limit = 2
 	cost = 1
+	priority = MAX_KNOWLEDGE_PRIORITY - 5
 
-/datum/eldritch_knowledge/starting/New()
+/datum/eldritch_knowledge/limited_amount/starting/New()
 	. = ..()
 	// Starting path also determines the final knowledge we're limited too
 	for(var/datum/eldritch_knowledge/final_knowledge_type as anything in subtypesof(/datum/eldritch_knowledge/final))
@@ -229,6 +241,12 @@
 			continue
 		banned_knowledge += final_knowledge_type
 
+/*
+ * A knowledge subtype for heretic knowledge
+ * that applies a mark on use.
+ *
+ * A heretic can only learn one /mark type knowledge.
+ */
 /datum/eldritch_knowledge/mark
 	abstract_parent_type = /datum/eldritch_knowledge/mark
 	mutually_exclusive = TRUE
@@ -271,6 +289,8 @@
  * Can be overriden to set or pass in additional vars of the status effect.
  */
 /datum/eldritch_knowledge/mark/proc/create_mark(mob/living/source, mob/living/target)
+	if(target.stat == DEAD)
+		return
 	return target.apply_status_effect(mark_type)
 
 /**
@@ -339,25 +359,30 @@
 /datum/eldritch_knowledge/blade_upgrade/proc/do_ranged_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	return
 
+/*
+ * A knowledge subtype lets the heretic curse someone with a ritual.
+ */
 /datum/eldritch_knowledge/curse
 	abstract_parent_type = /datum/eldritch_knowledge/curse
-	var/timer = 5 MINUTES
-	var/list/fingerprints = list()
-	var/list/dna = list()
+	/// The duration of the curse
+	var/duration = 5 MINUTES
+	/// Cache list of fingerprints (actual fingerprint strings) we have from our current ritual
+	var/list/fingerprints
 
 /datum/eldritch_knowledge/curse/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	fingerprints = list()
 	for(var/atom/requirements as anything in atoms)
-		fingerprints |= requirements.return_fingerprints()
+		fingerprints[requirements.return_fingerprints()] = 1
 	listclearnulls(fingerprints)
-// No fingerprints? No ritual
+
+	// No fingerprints? No ritual
 	if(!length(fingerprints))
-		user.balloon_alert(user, "ritual failed, no fingerprints!")
+		loc.balloon_alert(user, "ritual failed, no fingerprints!")
 		return FALSE
 
 	return TRUE
 
-/datum/eldritch_knowledge/curse/on_finished_recipe(mob/living/user,list/atoms,loc)
+/datum/eldritch_knowledge/curse/on_finished_recipe(mob/living/user, list/selected_atoms,  turf/loc)
 
 	var/list/compiled_list = list()
 
@@ -366,22 +391,37 @@
 			compiled_list |= human_to_check.real_name
 			compiled_list[human_to_check.real_name] = human_to_check
 
-	if(compiled_list.len == 0)
-		to_chat(user, span_warning("These items don't possess the required fingerprints or DNA."))
+	if(!length(compiled_list))
+		loc.balloon_alert(user, "ritual failed, no fingerprints!")
 		return FALSE
 
-	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
-	if(!chosen_mob)
+	var/chosen_mob = tgui_input_list(user, "Select the person you wish to curse", "Eldritch Curse", sortList(compiled_list, /proc/cmp_mob_realname_dsc))
+	if(isnull(chosen_mob))
 		return FALSE
-	curse(compiled_list[chosen_mob])
-	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
+
+	var/mob/living/carbon/human/to_curse = compiled_list[chosen_mob]
+	if(QDELETED(to_curse))
+		loc.balloon_alert(user, "ritual failed, invalid choice!")
+		return FALSE
+
+	log_combat(user, to_curse, "cursed via heretic ritual", addition = "([name])")
+	curse(to_curse)
+	addtimer(CALLBACK(src, .proc/uncurse, to_curse), duration)
 	return TRUE
 
-/datum/eldritch_knowledge/curse/proc/curse(mob/living/chosen_mob)
-	return
+/**
+ * Calls a curse onto [chosen_mob].
+ */
+/datum/eldritch_knowledge/curse/proc/curse(mob/living/carbon/human/chosen_mob)
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("[type] did not implement curse()!")
 
-/datum/eldritch_knowledge/curse/proc/uncurse(mob/living/chosen_mob)
-	return
+/**
+ * Removes a curse from [chosen_mob]. Used in timers / callbacks.
+ */
+/datum/eldritch_knowledge/curse/proc/uncurse(mob/living/carbon/human/chosen_mob)
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("[type] did not implement uncurse()!")
 
 /*
  * A knowledge subtype lets the heretic summon a monster with the ritual.
@@ -403,7 +443,7 @@
 	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [summoned.real_name]?", ROLE_HERETIC, FALSE, 10 SECONDS, summoned)
 	if(!LAZYLEN(candidates))
-		user.balloon_alert(user, "ritual failed, no ghosts!")
+		loc.balloon_alert(user, "ritual failed, no ghosts!")
 		animate(summoned, 0.5 SECONDS, alpha = 0)
 		QDEL_IN(summoned, 0.6 SECONDS)
 		return FALSE
@@ -490,7 +530,9 @@
 	// 1 uncommon item.
 	required_atoms[pick(potential_uncommoner_items)] += 1
 
-/datum/eldritch_knowledge/knowledge_ritual/on_gain(mob/user)
+/datum/eldritch_knowledge/knowledge_ritual/on_research(mob/user)
+	. = ..()
+
 	var/list/requirements_string = list()
 
 	to_chat(user, span_hierophant("The [name] requires the following:"))
@@ -510,45 +552,69 @@
 	return !was_completed
 
 /datum/eldritch_knowledge/knowledge_ritual/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	var/mob/living/carbon/carbon_user = user
-	for(var/obj/item/forbidden_book/book as anything in carbon_user.get_all_gear())
-		if(!istype(book))
-			continue
-		book.charge += KNOWLEDGE_RITUAL_POINTS
-		break
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	our_heretic.knowledge_points += KNOWLEDGE_RITUAL_POINTS
 	was_completed = TRUE
 
+	var/drain_message = pick(strings(ELDRITCH_INFLUENCE_FILE, "drain_message"))
 	to_chat(user, span_boldnotice("[name] completed!"))
+	to_chat(user, span_hypnophrase(span_big("[drain_message]")))
 	desc += " (Completed!)"
-	log_game("[key_name(user)] completed a [name] at [worldtime2text()].")
+	log_heretic_knowledge("[key_name(user)] completed a [name] at [worldtime2text()].")
 	return TRUE
 
 #undef KNOWLEDGE_RITUAL_POINTS
 
-//Ascension knowledge
+/*
+ * The special final tier of knowledges that unlocks ASCENSION.
+ */
 /datum/eldritch_knowledge/final
 	abstract_parent_type = /datum/eldritch_knowledge/final
 	mutually_exclusive = TRUE // I guess, but it doesn't really matter by this point
-	var/finished = FALSE
+	cost = 2
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
-	cost = 3
+
+/datum/eldritch_knowledge/final/on_research(mob/user)
+	. = ..()
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
+	var/total_points = 0
+	for(var/datum/eldritch_knowledge/knowledge as anything in flatten_list(heretic_datum.researched_knowledge))
+		total_points += knowledge.cost
+
+	log_heretic_knowledge("[key_name(user)] gained knowledge of their final ritual at [worldtime2text()]. \
+		They have [length(heretic_datum.researched_knowledge)] knowledge nodes researched, totalling [total_points] points \
+		and have sacrificed [heretic_datum.total_sacrifices] people ([heretic_datum.high_value_sacrifices] of which were high value)")
 
 /datum/eldritch_knowledge/final/can_be_invoked(datum/antagonist/heretic/invoker)
 	if(invoker.ascended)
 		return FALSE
+
+	if(!invoker.can_ascend())
+		return FALSE
+
 	return TRUE
 
 /datum/eldritch_knowledge/final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	if(finished)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
+	if(!can_be_invoked(heretic_datum))
 		return FALSE
-	var/counter = 0
-	for(var/mob/living/carbon/human/sacrifices in atoms)
-		selected_atoms |= sacrifices
-		counter++
-		if(counter == 3)
-			return TRUE
-	return FALSE
+
+	// Remove all non-dead humans from the atoms list.
+	// (We only want to sacrifice dead folk.)
+	for(var/mob/living/carbon/human/sacrifice in atoms)
+		if(!is_valid_sacrifice(sacrifice))
+			atoms -= sacrifice
+
+	// All the non-dead humans are removed in this proc.
+	// We handle checking if we have enough humans in the ritual itself.
+	return TRUE
+
+/**
+ * Checks if the passed human is a valid sacrifice for our ritual.
+ */
+/datum/eldritch_knowledge/final/proc/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
+	return (sacrifice.stat == DEAD) && !ismonkey(sacrifice)
 
 /datum/eldritch_knowledge/final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
@@ -558,6 +624,9 @@
 		var/mob/living/carbon/human/human_user = user
 		human_user.physiology.brute_mod *= 0.5
 		human_user.physiology.burn_mod *= 0.5
+
+
+	log_heretic_knowledge("[key_name(user)] completed their final ritual at [worldtime2text()].")
 	return TRUE
 
 /datum/eldritch_knowledge/final/cleanup_atoms(list/selected_atoms)

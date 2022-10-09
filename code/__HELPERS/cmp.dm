@@ -148,5 +148,5 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 	return lhs - rhs
 
 /// Orders heretic knowledge by priority
-/proc/cmp_eldritch_knowledge(datum/eldritch_knowledge/knowledge_a, datum/eldritch_knowledge/knowledge_b)
+/proc/cmp_heretic_knowledge(datum/eldritch_knowledge/knowledge_a, datum/eldritch_knowledge/knowledge_b)
 	return initial(knowledge_b.priority) - initial(knowledge_a.priority)

@@ -1,151 +1,60 @@
-/obj/item/forbidden_book
+// Ye old forbidden book, the Codex Cicatrix.
+/obj/item/codex_cicatrix
 	name = "Codex Cicatrix"
 	desc = "This book describes the secrets of the veil between worlds."
 	icon = 'icons/obj/eldritch.dmi'
+	base_icon_state = "book"
 	icon_state = "book"
 	worn_icon_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
-	///Last person that touched this
-	var/mob/living/last_user
-	///how many charges do we have?
-	var/charge = 1
-	///Where we cannot create the rune?
-	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
 
-/obj/item/forbidden_book/Destroy()
-	last_user = null
+/obj/item/codex_cicatrix/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/effect_remover, \
+		success_feedback = "You remove %THEEFFECT.", \
+		effects_we_clear = list(/obj/effect/eldritch_rune))
+	AddElement(/datum/element/heretic_focus)
 
-
-/obj/item/forbidden_book/examine(mob/user)
+/obj/item/codex_cicatrix/examine(mob/user)
 	. = ..()
 	if(!IS_HERETIC(user))
 		return
-	. += "The Tome holds [charge] charges."
-	. += "Use it on the floor to create a transmutation rune, used to perform rituals."
-	. += "Hit an influence in the black part with it to gain a charge."
-	. += "Hit a transmutation rune to destroy it."
 
-/obj/item/forbidden_book/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(!proximity_flag || !IS_HERETIC(user))
-		return
-	if(istype(target,/obj/effect/eldritch))
-		remove_rune(target,user)
-	if(istype(target,/obj/effect/reality_smash))
-		get_power_from_influence(target,user)
-	if(istype(target,/turf/open))
-		draw_rune(target,user)
+	. += span_notice("Can be used to tap influences for additional knowledge points.")
+	. += span_notice("Can also be used to draw or remove transmutation runes with ease.")
 
-///Gives you a charge and destroys a corresponding influence
-/obj/item/forbidden_book/proc/get_power_from_influence(atom/target, mob/user)
-	var/obj/effect/reality_smash/RS = target
-	to_chat(user, span_danger("You start drawing power from influence..."))
-	if(do_after(user, 10 SECONDS, RS))
-		qdel(RS)
-		charge += 1
-
-///Draws a rune on a selected turf
-/obj/item/forbidden_book/proc/draw_rune(atom/target,mob/user)
-
-	for(var/turf/T as anything in RANGE_TURFS(1,target))
-		if(is_type_in_typecache(T, blacklisted_turfs))
-			to_chat(user, span_warning("The terrain doesn't support runes!"))
-			return
-	var/A = get_turf(target)
-	to_chat(user, span_danger("You start drawing a rune..."))
-
-	if(do_after(user,30 SECONDS,A))
-
-		new /obj/effect/eldritch/big(A)
-
-///Removes runes from the selected turf
-/obj/item/forbidden_book/proc/remove_rune(atom/target,mob/user)
-
-	to_chat(user, span_danger("You start removing a rune..."))
-	if(do_after(user,2 SECONDS,user))
-		qdel(target)
-
-/obj/item/forbidden_book/ui_interact(mob/user, datum/tgui/ui = null)
-	if(!IS_HERETIC(user))
-		return FALSE
-	last_user = user
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		icon_state = "book_open"
-		flick("book_opening", src)
-		ui = new(user, src, "ForbiddenLore", name)
-		ui.open()
-
-/obj/item/forbidden_book/ui_data(mob/user)
-	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	var/list/to_know = list()
-	for(var/Y in cultie.get_researchable_knowledge())
-		to_know += new Y
-	var/list/known = cultie.get_all_knowledge()
-	var/list/data = list()
-	var/list/lore = list()
-
-	data["charges"] = charge
-
-	for(var/X in to_know)
-		lore = list()
-		var/datum/eldritch_knowledge/EK = X
-		lore["type"] = EK.type
-		lore["name"] = EK.name
-		lore["cost"] = EK.cost
-		lore["disabled"] = EK.cost <= charge ? FALSE : TRUE
-		lore["path"] = EK.route
-		lore["state"] = "Research"
-		lore["flavour"] = EK.gain_text
-		lore["desc"] = EK.desc
-		data["to_know"] += list(lore)
-
-	for(var/X in known)
-		lore = list()
-		var/datum/eldritch_knowledge/EK = known[X]
-		lore["name"] = EK.name
-		lore["cost"] = EK.cost
-		lore["disabled"] = TRUE
-		lore["path"] = EK.route
-		lore["state"] = "Researched"
-		lore["flavour"] = EK.gain_text
-		lore["desc"] = EK.desc
-		data["to_know"] += list(lore)
-
-	if(!length(data["to_know"]))
-		data["to_know"] = null
-
-	return data
-
-/obj/item/forbidden_book/ui_act(action, params)
+/obj/item/codex_cicatrix/attack_self(mob/user, modifiers)
 	. = ..()
 	if(.)
 		return
-	switch(action)
-		if("research")
-			var/datum/antagonist/heretic/cultie = last_user.mind.has_antag_datum(/datum/antagonist/heretic)
-			var/ekname = params["name"]
-			for(var/X in cultie.get_researchable_knowledge())
-				var/datum/eldritch_knowledge/EK = X
-				if(initial(EK.name) != ekname)
-					continue
-				if (initial(EK.cost) > charge)
-					return
-				if(cultie.gain_knowledge(EK))
-					log_codex_ciatrix("[key_name(last_user)] gained knowledge of [EK]")
-					charge -= initial(EK.cost)
-					return TRUE
 
-	update_appearance() // Not applicable to all objects.
+	open_animation()
 
-/obj/item/forbidden_book/ui_close(mob/user)
-	flick("book_closing",src)
-	icon_state = initial(icon_state)
-	return ..()
+/obj/item/codex_cicatrix/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag)
+		return
 
-/obj/item/forbidden_book/debug
-	charge = 100
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
+	if(!heretic_datum)
+		return
 
-/obj/item/forbidden_book/ritual
-	charge = 0
+	if(isopenturf(target))
+		heretic_datum.try_draw_rune(user, target, drawing_time = 12 SECONDS)
+		return TRUE
+
+/*
+ * Plays a little animation that shows the book opening and closing.
+ */
+/obj/item/codex_cicatrix/proc/open_animation()
+	icon_state = "[base_icon_state]_open"
+	flick("[base_icon_state]_opening", src)
+
+	addtimer(CALLBACK(src, .proc/close_animation), 5 SECONDS)
+
+/*
+ * Plays a closing animation and resets the icon state.
+ */
+/obj/item/codex_cicatrix/proc/close_animation()
+	icon_state = base_icon_state
+	flick("[base_icon_state]_closing", src)

@@ -1,4 +1,31 @@
-/datum/eldritch_knowledge/starting/base_ash
+/**
+ * # The path of Ash.
+ *
+ * Goes as follows:
+ *
+ * Nightwatcher's Secret
+ * Grasp of Ash
+ * Ashen Passage
+ * > Sidepaths:
+ *   Priest's Ritual
+ *   Ashen Eyes
+ *
+ * Mark of Ash
+ * Ritual of Knowledge
+ * Mask of Madness
+ * > Sidepaths:
+ *   Curse of Corrosion
+ *   Curse of Paralysis
+ *
+ * Fiery Blade
+ * Nightwater's Rebirth
+ * > Sidepaths:
+ *   Ashen Ritual
+ *   Rusted Ritual
+ *
+ * Ashlord's Rite
+ */
+/datum/eldritch_knowledge/limited_amount/starting/base_ash
 	name = "Nightwatcher's Secret"
 	desc = "Opens up the Path of Ash to you. \
 		Allows you to transmute a match and a knife into an Ashen Blade. \
@@ -7,10 +34,15 @@
 	next_knowledge = list(/datum/eldritch_knowledge/ashen_grasp)
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
-		/obj/item/match = 1
-		)
+		/obj/item/match = 1,
+	)
 	result_atoms = list(/obj/item/melee/sickly_blade/ash)
 	route = PATH_ASH
+
+/datum/eldritch_knowledge/limited_amount/starting/base_ash/on_research(mob/user)
+	. = ..()
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	our_heretic.heretic_path = route
 
 /datum/eldritch_knowledge/ashen_grasp
 	name = "Grasp of Ash"
@@ -40,18 +72,18 @@
 	target.adjustOrganLoss(ORGAN_SLOT_EYES, 15)
 	target.blur_eyes(10)
 
-
 /datum/eldritch_knowledge/spell/ashen_shift
-	name = "Ashen Shift"
+	name = "Ashen Passage"
 	desc = "Grants you Ashen Passage, a silent but short range jaunt."
 	gain_text = "He knew how to walk between the planes."
-	cost = 1
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
 	next_knowledge = list(
 		/datum/eldritch_knowledge/mark/ash_mark,
+		/datum/eldritch_knowledge/codex_cicatrix,
 		/datum/eldritch_knowledge/essence,
-		/datum/eldritch_knowledge/ashen_eyes
+		/datum/eldritch_knowledge/ashen_eyes,
 	)
+	spell_to_add = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
+	cost = 1
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/mark/ash_mark
@@ -81,20 +113,24 @@
 
 /datum/eldritch_knowledge/mad_mask
 	name = "Mask of Madness"
+	desc = "Allows you to transmute any mask, four candles, a stun baton, and a liver to create a Mask of Madness. \
+		The mask instills fear into heathens who witness it, causing stamina damage, hallucinations, and insanity. \
+		It can also be forced onto a heathen, to make them unable to take it off..."
 	gain_text = "The Nightwater was lost. That's what the Watch believed. Yet he walked the world, unnoticed by the masses."
-	desc = "Allows you to transmute any mask, with a candle and a pair of eyes, to create a mask of madness, It causes passive stamina damage to everyone around the wearer and hallucinations, can be forced on a non believer to make him unable to take it off..."
-	cost = 1
-	result_atoms = list(/obj/item/clothing/mask/void_mask)
-	required_atoms = list(
-		/obj/item/organ/eyes = 1,
-		/obj/item/clothing/mask = 1,
-		/obj/item/candle = 1
-		)
 	next_knowledge = list(
-		/datum/eldritch_knowledge/curse/corrosion,
 		/datum/eldritch_knowledge/blade_upgrade/ash,
-		/datum/eldritch_knowledge/curse/paralysis
+		/datum/eldritch_knowledge/reroll_targets,
+		/datum/eldritch_knowledge/curse/corrosion,
+		/datum/eldritch_knowledge/curse/paralysis,
 	)
+	required_atoms = list(
+		/obj/item/organ/liver = 1,
+		/obj/item/melee/baton = 1,  // Technically means a cattleprod is valid
+		/obj/item/clothing/mask = 1,
+		/obj/item/candle = 4,
+	)
+	result_atoms = list(/obj/item/clothing/mask/void_mask)
+	cost = 1
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/blade_upgrade/ash
@@ -113,36 +149,53 @@
 	target.IgniteMob()
 
 /datum/eldritch_knowledge/spell/flame_birth
-	name = "Flame Birth"
+	name = "Nightwater's Rebirth"
 	desc = "Grants you Nightwater's Rebirth, a spell that extinguishes you and \
 		burns all nearby heathens who are currently on fire, healing you for every victim afflicted. \
 		If any victims afflicted are in critical condition, they will also instantly die."
 	gain_text = "The fire was inescapable, and yet, life remained in his charred body. \
 		The Nightwater was a particular man, always watching."
-	cost = 1
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/fiery_rebirth
 	next_knowledge = list(
+		/datum/eldritch_knowledge/final/ash_final,
 		/datum/eldritch_knowledge/summon/ashy,
 		/datum/eldritch_knowledge/summon/rusty,
-		/datum/eldritch_knowledge/final/ash_final,
 	)
+	spell_to_add = /obj/effect/proc_holder/spell/targeted/fiery_rebirth
+	cost = 1
 	route = PATH_ASH
 
 /datum/eldritch_knowledge/final/ash_final
 	name = "Ashlord's Rite"
+	desc = "The ascension ritual of the Path of Ash. \
+		Bring 3 burning or husked corpses to a transumation rune to complete the ritual. \
+		When completed, you become a harbinger of flames, gaining two abilites. \
+		Cascade, which causes a massive, growing ring of fire around you, \
+		and Oath of Flame, causing you to passively create a ring of flames as you walk. \
+		You will also become immune to flames, space, and similar environmental hazards."
 	gain_text = "The Watch is dead, the Nightwatcher burned with it. Yet his fire burns evermore, \
 		for the Nightwater brought forth the rite to mankind! His gaze continues, as now I am one with the flames, \
 		WITNESS MY ASCENSION, THE ASHY LANTERN BLAZES ONCE MORE!"
-	desc = "Bring 3 corpses onto a transmutation rune, you will become immune to fire, the vacuum of space, cold and other enviromental hazards and become overall sturdier to all other damages. You will gain a spell that passively creates ring of fire around you as well ,as you will gain a powerful ability that lets you create a wave of flames all around you."
 	route = PATH_ASH
-	var/list/trait_list = list(
+	/// A static list of all traits we apply on ascension.
+	var/static/list/traits_to_apply = list(
 		TRAIT_RESISTHEAT,
 		TRAIT_NOBREATH,
 		TRAIT_RESISTCOLD,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
-		TRAIT_NOFIRE
+		TRAIT_NOFIRE,
 	)
+
+/datum/eldritch_knowledge/final/ash_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
+	. = ..()
+	if(!.)
+		return
+
+	if(sacrifice.on_fire)
+		return TRUE
+	if(HAS_TRAIT_FROM(sacrifice, TRAIT_HUSK, BURN))
+		return TRUE
+	return FALSE
 
 /datum/eldritch_knowledge/final/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
@@ -150,5 +203,5 @@
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/big)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/fire_sworn)
 	user.client?.give_award(/datum/award/achievement/misc/ash_ascension, user)
-	for(var/trait in trait_list)
+	for(var/trait in traits_to_apply)
 		ADD_TRAIT(user, trait, MAGIC_TRAIT)

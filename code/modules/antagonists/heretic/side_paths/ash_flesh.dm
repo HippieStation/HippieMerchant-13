@@ -1,7 +1,8 @@
 /datum/eldritch_knowledge/ashen_eyes
 	name = "Ashen Eyes"
 	gain_text = "Piercing eyes, guide me through the mundane."
-	desc = "Allows you to craft thermal vision amulet by transmutating eyes with a glass shard."
+	desc = "Allows you to transmute a pair of eyes, a candle, and a glass shard into an Eldritch Medallion. \
+		The Eldritch Medallion grants you thermal vision while worn, and also functions as a focus."
 	cost = 1
 	next_knowledge = list(
 		/datum/eldritch_knowledge/spell/ashen_shift,
@@ -24,7 +25,7 @@
 		/obj/item/hatchet = 1
 		)
 	next_knowledge = list(/datum/eldritch_knowledge/mad_mask,/datum/eldritch_knowledge/summon/raw_prophet)
-	timer = 5 MINUTES
+	duration = 5 MINUTES
 	route = PATH_SIDE
 
 /datum/eldritch_knowledge/curse/paralysis/curse(mob/living/chosen_mob)

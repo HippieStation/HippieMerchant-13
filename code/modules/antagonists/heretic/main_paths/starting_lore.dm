@@ -1,6 +1,6 @@
-///////////////
-///Base lore///
-///////////////
+// Heretic starting knowledge.
+
+/// Global list of all heretic knowledge that have route = PATH_START. List of PATHS.
 GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 /**
@@ -13,105 +13,180 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		if(initial(knowledge.route) == PATH_START)
 			. += knowledge
 
+/*
+ * The base heretic knowledge. Grants the Mansus Grasp spell.
+ */
 /datum/eldritch_knowledge/spell/basic
 	name = "Break of Dawn"
-	desc = "Starts your journey in the Mansus. Allows you to select a target using a living heart on a transmutation rune."
-	gain_text = "Another day at a meaningless job. You feel a shimmer around you, as a realization of something strange in your backpack unfolds. You look at it, unknowingly opening a new chapter in your life."
-	next_knowledge = list(
-		/datum/eldritch_knowledge/starting/base_ash,
-		/datum/eldritch_knowledge/starting/base_blade,
-		/datum/eldritch_knowledge/starting/base_flesh,
-		/datum/eldritch_knowledge/starting/base_rust,
-		/datum/eldritch_knowledge/starting/base_void,
-		)
-	cost = 0
-	priority = MAX_KNOWLEDGE_PRIORITY - 1 // Sacrifice will be the most important
+	desc = "Starts your journey into the Mansus. \
+		Grants you the Mansus Grasp, a powerful and upgradable \
+		disabling spell that can be cast regardless of having a focus."
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
-	required_atoms = list(/obj/item/living_heart)
+	cost = 0
 	route = PATH_START
 
-/datum/eldritch_knowledge/spell/basic/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/eldritch_knowledge/spell/basic/New()
 	. = ..()
-	for(var/obj/item/living_heart/heart in atoms)
-		if(!heart.target)
-			selected_atoms += heart
-			return TRUE
-		if(heart.target in atoms)
-			selected_atoms += heart
-			return TRUE
-	return FALSE
+	next_knowledge = subtypesof(/datum/eldritch_knowledge/limited_amount/starting)
 
-/datum/eldritch_knowledge/spell/basic/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	. = TRUE
-	var/mob/living/carbon/carbon_user = user
-	for(var/obj/item/living_heart/heart in selected_atoms)
+/**
+ * The Living Heart heretic knowledge.
+ *
+ * Gives the heretic a living heart.
+ * Also includes a ritual to turn their heart into a living heart.
+ */
+/datum/eldritch_knowledge/living_heart
+	name = "The Living Heart"
+	desc = "Grants you a Living Heart, allowing you to track sacrifice targets. \
+		Should you lose your heart, you can transmute a poppy and a pool of blood \
+		to awaken your heart into a Living Heart. If your heart is cybernetic, \
+		you will additionally require a usable organic heart in the transmutation."
+	required_atoms = list(
+		/obj/effect/decal/cleanable/blood = 1,
+		/obj/item/food/grown/poppy = 1,
+	)
+	cost = 0
+	priority = MAX_KNOWLEDGE_PRIORITY - 1 // Knowing how to remake your heart is important
+	route = PATH_START
+	/// The typepath of the organ type required for our heart.
+	var/required_organ_type = /obj/item/organ/heart
 
-		if(heart.target && heart.target.stat == DEAD)
-			user.balloon_alert(user, "Your patrons accepts your offer..")
-			var/mob/living/carbon/human/current_target = heart.target
-			current_target.gib()
-			heart.target = null
-			var/datum/antagonist/heretic/heretic_datum = carbon_user.mind.has_antag_datum(/datum/antagonist/heretic)
+/datum/eldritch_knowledge/living_heart/on_research(mob/user)
+	. = ..()
 
-			heretic_datum.total_sacrifices++
-			for(var/obj/item/forbidden_book/book as anything in carbon_user.get_all_gear())
-				if(!istype(book))
-					continue
-				book.charge += 2
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	var/obj/item/organ/where_to_put_our_heart = user.getorganslot(our_heretic.living_heart_organ_slot)
+
+	// If a heretic is made from a species without a heart, we need to find a backup.
+	if(!where_to_put_our_heart)
+		var/static/list/backup_organs = list(
+			ORGAN_SLOT_LUNGS = /obj/item/organ/lungs,
+			ORGAN_SLOT_LIVER = /obj/item/organ/liver,
+			ORGAN_SLOT_STOMACH = /obj/item/organ/stomach,
+		)
+
+		for(var/backup_slot in backup_organs)
+			var/obj/item/organ/look_for_backup = user.getorganslot(backup_slot)
+			if(look_for_backup)
+				where_to_put_our_heart = look_for_backup
+				our_heretic.living_heart_organ_slot = backup_slot
+				required_organ_type = backup_organs[backup_slot]
+				to_chat(user, span_boldnotice("As your species does not have a heart, your Living Heart is located in your [look_for_backup.name]."))
 				break
 
-		if(!heart.target)
-			var/datum/objective/temp_objective = new
-			temp_objective.owner = user.mind
-			var/list/datum/team/teams = list()
-			for(var/datum/antagonist/antag as anything in user.mind.antag_datums)
-				var/datum/team/team = antag.get_team()
-				if(team)
-					teams |= team
-			var/list/targets = list()
-			for(var/i in 0 to 3)
-				var/datum/mind/targeted =  temp_objective.find_target()//easy way, i dont feel like copy pasting that entire block of code
-				var/is_teammate = FALSE
-				for(var/datum/team/team as anything in teams)
-					if(targeted in team.members)
-						is_teammate = TRUE
-						break
-				if(!targeted)
-					break
-				targets["[targeted.current.real_name] the [targeted.assigned_role.title][is_teammate ? " (ally)" : ""]"] = targeted.current
-			heart.target = targets[input(user,"Choose your next target","Target") in targets]
-			qdel(temp_objective)
-			if(heart.target)
-				user.balloon_alert(user, "Your new target has been selected, go and sacrifice [heart.target.real_name]!")
-			else
-				user.balloon_alert(user, "Target could not be found for living heart.")
-				return FALSE
+	if(where_to_put_our_heart)
+		where_to_put_our_heart.AddComponent(/datum/component/living_heart)
+		desc = "Grants you a Living Heart, tied to your [where_to_put_our_heart.name], \
+			allowing you to track sacrifice targets. \
+			Should you lose your [where_to_put_our_heart.name], you can transmute a poppy and a pool of blood \
+			to awaken your replacement [where_to_put_our_heart.name] into a Living Heart. \
+			If your [where_to_put_our_heart.name] is cybernetic, \
+			you will additionally require a usable organic [where_to_put_our_heart.name] in the transmutation."
 
-/datum/eldritch_knowledge/living_heart
-	name = "Living Heart"
-	desc = "Allows you to create additional living hearts, using a heart, a pool of blood and a poppy. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you an additional charge in the book."
-	gain_text = "The Gates of Mansus open up to your mind."
-	cost = 0
-	priority = MAX_KNOWLEDGE_PRIORITY - 2 // Knowing how to remake your heart is important
-	required_atoms = list(
-		/obj/item/organ/heart = 1,
-		/obj/effect/decal/cleanable/blood = 1,
-		/obj/item/food/grown/poppy = 1
-		)
-	result_atoms = list(/obj/item/living_heart)
-	route = PATH_START
+	else
+		to_chat(user, span_boldnotice("You don't have a heart, or any chest organs for that matter. You didn't get a Living Heart because of it."))
 
-/datum/eldritch_knowledge/codex_cicatrix
-	name = "Codex Cicatrix"
-	desc = "Allows you to create a spare Codex Cicatrix if you have lost one, using a bible, human skin, a pen and a pair of eyes."
-	gain_text = "Their hand is at your throat, yet you see Them not."
-	cost = 0
-	priority = MAX_KNOWLEDGE_PRIORITY - 3 // Not as important as making a heart or sacrificing, but important enough.
+/datum/eldritch_knowledge/living_heart/on_lose(mob/user)
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	var/obj/item/organ/our_living_heart = user.getorganslot(our_heretic.living_heart_organ_slot)
+	if(our_living_heart)
+		qdel(our_living_heart.GetComponent(/datum/component/living_heart))
+
+// Don't bother letting them invoke this ritual if they have a Living Heart already in their chest
+/datum/eldritch_knowledge/living_heart/can_be_invoked(datum/antagonist/heretic/invoker)
+	if(invoker.has_living_heart() == HERETIC_HAS_LIVING_HEART)
+		return FALSE
+	return TRUE
+
+/datum/eldritch_knowledge/living_heart/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	var/obj/item/organ/our_living_heart = user.getorganslot(our_heretic.living_heart_organ_slot)
+	// Obviously you need a heart in your chest to do a ritual on your... heart
+	if(!our_living_heart)
+		loc.balloon_alert(user, "ritual failed, you have no [our_heretic.living_heart_organ_slot]!") // "you have no heart!"
+		return FALSE
+	// For sanity's sake, check if they've got a heart -
+	// even though it's not invokable if you already have one,
+	// they may have gained one unexpectantly in between now and then
+	if(HAS_TRAIT(our_living_heart, TRAIT_LIVING_HEART))
+		loc.balloon_alert(user, "ritual failed, already have a living heart!")
+		return FALSE
+
+	// By this point they are making a new heart
+	// If their current heart is organic / not synthetic, we can continue the ritual as normal
+	if(our_living_heart.status == ORGAN_ORGANIC && !(our_living_heart.organ_flags & ORGAN_SYNTHETIC))
+		return TRUE
+
+	// If their current heart is not organic / is synthetic, they need an organic replacement
+	// ...But if our organ-to-be-replaced is unremovable, we're screwed
+	if(our_living_heart.organ_flags & ORGAN_UNREMOVABLE)
+		loc.balloon_alert(user, "ritual failed, [our_heretic.living_heart_organ_slot] unremovable!") // "heart unremovable!"
+		return FALSE
+
+	// Otherwise, seek out a replacement in our atoms
+	for(var/obj/item/organ/nearby_organ in atoms)
+		if(!istype(nearby_organ, required_organ_type))
+			continue
+		if(!nearby_organ.useable)
+			continue
+		if(nearby_organ.status != ORGAN_ORGANIC || (nearby_organ.organ_flags & (ORGAN_SYNTHETIC|ORGAN_FAILING)))
+			continue
+
+		selected_atoms += nearby_organ
+		return TRUE
+
+	loc.balloon_alert(user, "ritual failed, need a replacement [our_heretic.living_heart_organ_slot]!") // "need a replacement heart!"
+	return FALSE
+
+/datum/eldritch_knowledge/living_heart/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	var/obj/item/organ/our_new_heart = user.getorganslot(our_heretic.living_heart_organ_slot)
+
+	// Our heart is robotic or synthetic - we need to replace it, and we fortunately should have one by here
+	if(our_new_heart.status != ORGAN_ORGANIC || (our_new_heart.organ_flags & ORGAN_SYNTHETIC))
+		var/obj/item/organ/our_replacement_heart = locate(required_organ_type) in selected_atoms
+		if(our_replacement_heart)
+			// Throw our current heart out of our chest, violently
+			user.visible_message(span_boldwarning("[user]'s [our_new_heart.name] bursts suddenly out of [user.p_their()] chest!"))
+			INVOKE_ASYNC(user, /mob/proc/emote, "scream")
+			user.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
+			// And put our organic heart in its place
+			our_replacement_heart.Insert(user, TRUE, TRUE)
+			our_new_heart.throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), 2, 2)
+			our_new_heart = our_replacement_heart
+		else
+			CRASH("[type] required a replacement organic heart in on_finished_recipe, but did not find one.")
+
+	if(!our_new_heart)
+		CRASH("[type] somehow made it to on_finished_recipe without a heart. What?")
+
+	// Snowflakey, but if the user used a heart that wasn't beating
+	// they'll immediately collapse into a heart attack. Funny but not ideal.
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_user = user
+		carbon_user.set_heartattack(FALSE)
+
+	// Don't delete our shiny new heart
+	selected_atoms -= our_new_heart
+	// Make it the living heart
+	our_new_heart.AddComponent(/datum/component/living_heart)
+	to_chat(user, span_warning("You feel your [our_new_heart.name] begin pulse faster and faster as it awakens!"))
+	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
+	return TRUE
+
+/**
+ * Allows the heretic to craft a spell focus.
+ * They require a focus to cast advanced spells.
+ */
+/datum/eldritch_knowledge/amber_focus
+	name = "Amber Focus"
+	desc = "Allows you to transmute a sheet of glass and a pair of eyes to create an Amber Focus. \
+		A focus must be worn in order to cast more advanced spells."
 	required_atoms = list(
 		/obj/item/organ/eyes = 1,
-		/obj/item/stack/sheet/animalhide/human = 1,
-		/obj/item/storage/book/bible = 1,
-		/obj/item/pen = 1
-		)
-	result_atoms = list(/obj/item/forbidden_book/ritual)
+		/obj/item/stack/sheet/glass = 1,
+	)
+	result_atoms = list(/obj/item/clothing/neck/heretic_focus)
+	cost = 0
+	priority = MAX_KNOWLEDGE_PRIORITY - 2 // Not as important as making a heart or sacrificing, but important enough.
 	route = PATH_START

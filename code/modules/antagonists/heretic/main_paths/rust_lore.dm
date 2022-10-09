@@ -1,37 +1,64 @@
-/datum/eldritch_knowledge/starting/base_rust
+/**
+ * # The path of Rust.
+ *
+ * Goes as follows:
+ *
+ * Blacksmith's Tale
+ * Grasp of Rust
+ * Leeching Walk
+ * > Sidepaths:
+ *   Priest's Ritual
+ *   Armorer's Ritual
+ *
+ * Mark of Rust
+ * Ritual of Knowledge
+ * Aggressive Spread
+ * > Sidepaths:
+ *   Curse of Corrosion
+ *   Mawed Crucible
+ *
+ * Toxic Blade
+ * Entropic Plume
+ * > Sidepaths:
+ *   Rusted Ritual
+ *   Blood Cleave
+ *
+ * Rustbringer's Oath
+ */
+/datum/eldritch_knowledge/limited_amount/starting/base_rust
 	name = "Blacksmith's Tale"
-	desc = "Opens up the Path of Rust to you. Allows you to transmute a kitchen knife, or its derivatives, with any trash item into a Rusty Blade."
-	gain_text = "'Let me tell you a story', said the Blacksmith, as he gazed deep into his rusty blade."
+	desc = "Opens up the Path of Rust to you. \
+		Allows you to transmute a knife with any trash item into a Rusty Blade. \
+		You can only create two at a time."
+	gain_text = "\"Let me tell you a story\", said the Blacksmith, as he gazed deep into his rusty blade."
 	next_knowledge = list(/datum/eldritch_knowledge/rust_fist)
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
-		/obj/item/trash = 1
-		)
+		/obj/item/trash = 1,
+	)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
 	route = PATH_RUST
 
+/datum/eldritch_knowledge/limited_amount/starting/base_rust/on_research(mob/user)
+	. = ..()
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	our_heretic.heretic_path = route
+
 /datum/eldritch_knowledge/rust_fist
 	name = "Grasp of Rust"
-	desc = "Empowers your Mansus Grasp to deal 500 damage to non-living matter and rust any surface it touches. Already rusted surfaces are destroyed. You only rust surfaces and machinery while in combat mode."
+	desc = "Your Mansus Grasp will deal 500 damage to non-living matter and rust any surface it touches. \
+		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted by using Right-Click."
 	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
-	cost = 1
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen)
-	var/rust_force = 500
-	var/static/list/blacklisted_turfs = typecacheof(list(
-		/turf/closed,
-		/turf/open/space,
-		/turf/open/lava,
-		/turf/open/chasm,
-	))
+	cost = 1
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_fist/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, .proc/on_secondary_mansus_grasp)
-	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, .proc/on_eldritch_blade)
 
 /datum/eldritch_knowledge/rust_fist/on_lose(mob/user)
-	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, COMSIG_HERETIC_BLADE_ATTACK))
+	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY))
 
 /datum/eldritch_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -47,25 +74,17 @@
 	target.rust_heretic_act()
 	return COMPONENT_USE_CHARGE
 
-/datum/eldritch_knowledge/rust_fist/proc/on_eldritch_blade(mob/living/user, mob/living/target)
-	SIGNAL_HANDLER
-
-	var/datum/status_effect/eldritch/mark = target.has_status_effect(/datum/status_effect/eldritch)
-	if(!istype(mark))
-		return
-
-	mark.on_effect()
-
 /datum/eldritch_knowledge/rust_regen
 	name = "Leeching Walk"
-	desc = "Passively heals you and provides stun resistance when you are on rusted tiles."
-	gain_text = "The strength was unparalleled, unnatural. The Blacksmith was smiling."
-	cost = 1
+	desc = "Grants you passive healing and stun resistance while standing over rust."
+	gain_text = "The speed was unparalleled, the strength unnatural. The Blacksmith was smiling."
 	next_knowledge = list(
 		/datum/eldritch_knowledge/mark/rust_mark,
+		/datum/eldritch_knowledge/codex_cicatrix,
 		/datum/eldritch_knowledge/armor,
 		/datum/eldritch_knowledge/essence,
 	)
+	cost = 1
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_regen/on_gain(mob/user)
@@ -83,7 +102,7 @@
 /datum/eldritch_knowledge/rust_regen/proc/on_move(mob/source, atom/old_loc, dir, forced, list/old_locs)
 	SIGNAL_HANDLER
 
-	var/atom/mover_turf = get_turf(source)
+	var/turf/mover_turf = get_turf(source)
 	if(HAS_TRAIT(mover_turf, TRAIT_RUSTY))
 		ADD_TRAIT(source, TRAIT_STUNRESISTANCE, type)
 		return
@@ -103,17 +122,21 @@
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
 
+	// Heals all damage + Stamina
 	source.adjustBruteLoss(-2, FALSE)
 	source.adjustFireLoss(-2, FALSE)
 	source.adjustToxLoss(-2, FALSE, forced = TRUE)
 	source.adjustOxyLoss(-0.5, FALSE)
 	source.adjustStaminaLoss(-2)
-	source.AdjustAllImmobility(-5)
+	source.AdjustAllImmobility(-0.5 SECONDS)
+	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
+		source.blood_volume += 2.5 * delta_time
 
 /datum/eldritch_knowledge/mark/rust_mark
 	name = "Mark of Rust"
-	desc = "Your Mansus Grasp now applies the Mark of Rust on hit. Attack the afflicted with your Sickly Blade to detonate the mark. Upon detonation, the Mark of Rust has a chance to deal between 0 to 200 damage to 75% of your enemy's held items."
-	gain_text = "Rusted Hills help those in dire need at a cost."
+	desc = "Your Mansus Grasp now applies the Mark of Rust. The mark is triggered from an attack with your Rusty Blade. \
+		When triggered, the victim's organs and equipment will have a 75% chance to sustain damage and may be destroyed."
+	gain_text = "The Blacksmith looks away. To a place lost long ago. \"Rusted Hills help those in dire need... at a cost.\""
 	next_knowledge = list(/datum/eldritch_knowledge/knowledge_ritual/rust)
 	route = PATH_RUST
 	mark_type = /datum/status_effect/eldritch/rust
@@ -123,22 +146,25 @@
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/spell/area_conversion
-	name = "Agressive Spread"
-	desc = "Spreads rust to nearby surfaces. Already rusted surfaces are destroyed."
-	gain_text = "All wise men know well not to touch the Bound King."
-	cost = 1
-	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
+	name = "Aggressive Spread"
+	desc = "Grants you Aggressive Spread, a spell that spreads rust to nearby surfaces. \
+		Already rusted surfaces are destroyed."
+	gain_text = "All wise men know well not to visit the Rusted Hills... Yet the Blacksmith's tale was inspiring."
 	next_knowledge = list(
 		/datum/eldritch_knowledge/blade_upgrade/rust,
+		/datum/eldritch_knowledge/reroll_targets,
 		/datum/eldritch_knowledge/curse/corrosion,
-		/datum/eldritch_knowledge/crucible
+		/datum/eldritch_knowledge/crucible,
 	)
+	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
+	cost = 1
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/blade_upgrade/rust
 	name = "Toxic Blade"
-	gain_text = "The Blade will guide you through the flesh, should you let it."
-	desc = "Your blade of choice will now poison your enemies on hit."
+	desc = "Your Rusty Blade now poisons enemies on attack."
+	gain_text = "The Blacksmith hands you their blade. \"The Blade will guide you through the flesh, should you let it.\" \
+		The heavy rust weights it down. You stare deeply into it. The Rusted Hills call for you, now."
 	next_knowledge = list(/datum/eldritch_knowledge/spell/entropic_plume)
 	route = PATH_RUST
 
@@ -148,15 +174,18 @@
 
 /datum/eldritch_knowledge/spell/entropic_plume
 	name = "Entropic Plume"
-	desc = "You can now send a disorienting plume of pure entropy that blinds, poisons and makes enemies strike each other. It also rusts any tiles it affects."
-	gain_text = "Messengers of Hope, fear the Rustbringer!"
-	cost = 1
-	spell_to_add = /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
+	desc = "Grants you Entropic Plume, a spell that releases a vexing wave of Rust. \
+		Blinds, poisons, and inflicts Amok on any heathen it hits, causing them to strike \
+		at friend or foe wildly. Also rusts and destroys and surfaces it hits."
+	gain_text = "The corrosion was unstoppable. The rust was unpleasable. \
+		The Blacksmith was gone, and you hold their blade. Champions of hope, the Rustbringer is nigh!"
 	next_knowledge = list(
+		/datum/eldritch_knowledge/rifle,
 		/datum/eldritch_knowledge/final/rust_final,
 		/datum/eldritch_knowledge/summon/rusty,
-		/datum/eldritch_knowledge/rifle,
-		)
+	)
+	spell_to_add = /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
+	cost = 1
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/final/rust_final
@@ -171,6 +200,8 @@
 	route = PATH_RUST
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
+	/// A typepath to an area that we must finish the ritual in.
+	var/area/ritual_location = /area/command/bridge
 	/// A static list of traits we give to the heretic when on rust.
 	var/static/list/conditional_immunities = list(
 		TRAIT_STUNIMMUNE,
@@ -187,6 +218,22 @@
 		TRAIT_BOMBIMMUNE,
 		TRAIT_NOBREATH,
 		)
+
+/datum/eldritch_knowledge/final/rust_final/on_research(mob/user)
+	. = ..()
+	// This map doesn't have a Bridge, for some reason??
+	// Let them complete the ritual anywhere
+	if(!GLOB.areas_by_type[ritual_location])
+		ritual_location = null
+
+/datum/eldritch_knowledge/final/rust_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+	if(ritual_location)
+		var/area/our_area = get_area(loc)
+		if(!istype(our_area, ritual_location))
+			loc.balloon_alert(user, "ritual failed, must be in [initial(ritual_location.name)]!") // "must be in bridge"
+			return FALSE
+
+	return ..()
 
 /datum/eldritch_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
@@ -240,9 +287,9 @@
 /**
  * #Rust spread datum
  *
- * Simple datum that automatically spreads rust around it
+ * Simple datum that automatically spreads rust around it.
  *
- * Simple implementation of automatically growing entity
+ * Simple implementation of automatically growing entity.
  */
 /datum/rust_spread
 	/// The rate of spread every tick.
@@ -288,11 +335,11 @@
 		afflicted_turf.rust_heretic_act()
 		rusted_turfs |= afflicted_turf
 
-
 /**
  * Compile turfs
  *
- * Recreates all edge_turfs as well as normal turfs.
+ * Recreates the edge_turfs list.
+ * Updates the rusted_turfs list, in case any turfs within were un-rusted.
  */
 /datum/rust_spread/proc/compile_turfs()
 	edge_turfs.Cut()

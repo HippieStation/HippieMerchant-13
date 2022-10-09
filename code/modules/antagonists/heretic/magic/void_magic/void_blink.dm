@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/pointed/void_blink
+/obj/effect/proc_holder/spell/pointed/void_phase
 	name = "Void Phase"
 	desc = "Let's you blink to your pointed destination, causes 3x3 aoe damage bubble around your pointed destination and your current location. It has a minimum range of 3 tiles and a maximum range of 9 tiles."
 	invocation_type = INVOCATION_WHISPER
@@ -12,12 +12,12 @@
 	action_icon_state = "voidblink"
 	selection_type = "range"
 
-/obj/effect/proc_holder/spell/pointed/void_blink/can_target(atom/target, mob/user, silent)
+/obj/effect/proc_holder/spell/pointed/void_phase/can_target(atom/target, mob/user, silent)
 	. = ..()
 	if(get_dist(get_turf(user),get_turf(target)) < 3 )
 		return FALSE
 
-/obj/effect/proc_holder/spell/pointed/void_blink/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/pointed/void_phase/cast(list/targets, mob/user)
 	. = ..()
 	var/target = targets[1]
 	var/turf/targeted_turf = get_turf(target)
