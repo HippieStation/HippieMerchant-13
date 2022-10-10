@@ -1,6 +1,9 @@
 /datum/eldritch_knowledge/void_cloak
 	name = "Void Cloak"
-	desc = "A cloak that can become invisbile at will, hiding items you store in it. To create it transmute a glass shard, any item of clothing that you can fit over your uniform and any type of bedsheet."
+	desc = "Allows you to transmute a glass shard, a bedsheet, and any outer clothing item (such as armor or a suit jacket) \
+		to create a Void Cloak. While the hood is down, the cloak functions as a focus, \
+		and while the hood is up, the cloak is completely invisible. It also provide decent armor and \
+		has pockets which can hold one of your blades, various ritual components (such as organs), and small heretical trinkets."
 	gain_text = "Owl is the keeper of things that quite not are in practice, but in theory are."
 	cost = 1
 	next_knowledge = list(/datum/eldritch_knowledge/limited_amount/flesh_ghoul,/datum/eldritch_knowledge/cold_snap)
@@ -18,7 +21,7 @@
 	desc = "You gain a spell that drains health from your enemies to restores your own."
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/blood_siphon
-	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/voidpull)
+	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/void_pull)
 	route = PATH_SIDE
 
 /datum/eldritch_knowledge/spell/cleave

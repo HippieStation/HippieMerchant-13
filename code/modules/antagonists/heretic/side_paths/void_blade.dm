@@ -157,7 +157,7 @@
 	gain_text = "Within each reflection, lies a gateway into an unimaginable world of colors never seen and \
 		people never met. The ascent is glass, and the walls are knives. Each step is blood, if you do not have a guide."
 	next_knowledge = list(
-		/datum/eldritch_knowledge/spell/voidpull,
+		/datum/eldritch_knowledge/spell/void_pull,
 		/datum/eldritch_knowledge/spell/furious_steel,
 	)
 	required_atoms = list(

@@ -62,16 +62,24 @@
 #define CONTRACT_UPLINK_PAGE_HUB "HUB"
 
 //Heretic path defines
-#define PATH_START "Start"
-#define PATH_SIDE "Side"
-#define PATH_ASH "Ash"
-#define PATH_RUST "Rust"
-#define PATH_FLESH "Flesh"
-#define PATH_VOID "Void"
-#define PATH_BLADE "Blade"
+#define PATH_START "Start Path"
+#define PATH_SIDE "Side Path"
+#define PATH_ASH "Ash Path"
+#define PATH_RUST "Rust Path"
+#define PATH_FLESH "Flesh Path"
+#define PATH_VOID "Void Path"
+#define PATH_BLADE "Blade Path"
+
+/// JSON string file for all of our heretic influence flavors
+#define ELDRITCH_INFLUENCE_FILE "eldritch_influences.json"
 
 /// A define used in ritual priority for heretics.
 #define MAX_KNOWLEDGE_PRIORITY 100
+
+/// Defines are used in /proc/has_living_heart() to report if the heretic has no heart period, no living heart, or has a living heart.
+#define HERETIC_NO_HEART_ORGAN -1
+#define HERETIC_NO_LIVING_HEART 0
+#define HERETIC_HAS_LIVING_HEART 1
 
 /// Checks if the passed mob can become a heretic ghoul.
 /// - Must be a human (type, not species)

@@ -1,30 +1,49 @@
-/datum/eldritch_knowledge/starting/base_blade
-	name = "The Sharping Edge"
+/**
+ * # The path of Blades. Stab stab.
+ *
+ * Goes as follows:
+ *
+ * The Cutting Edge
+ * Grasp of the Blade
+ * Dance of the Brand
+ * > Sidepaths:
+ *   Shattered Risen
+ *   Armorer's Ritual
+ *
+ * Mark of the Blade
+ * Ritual of Knowledge
+ * Stance of the Scarred Duelist
+ * > Sidepaths:
+ *   Carving Knife
+ *   Mawed Crucible
+ *
+ * Swift Blades
+ * Furious Steel
+ * > Sidepaths:
+ *   Maid in the Mirror
+ *   Lionhunter Rifle
+ *
+ * Maelstrom of Silver
+ */
+/datum/eldritch_knowledge/limited_amount/starting/base_blade
+	name = "The Cutting Edge"
 	desc = "Opens up the path of blades to you. \
-		Allows you to transmute a knife with a bar of silver to create a Darkened Blade. \
-		You can sharpen any blade with your mansus grasp now."
+		Allows you to transmute a knife with two bars of silver to create a Darkened Blade. \
+		You can create up to five at a time."
 	gain_text = "Our great ancestors forged swords and practiced sparring on the even of great battles."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/starting/base_rust,
-		/datum/eldritch_knowledge/starting/base_ash,
-		/datum/eldritch_knowledge/starting/base_void,
-		/datum/eldritch_knowledge/starting/base_flesh,
-		/datum/eldritch_knowledge/final/rust_final,
-		/datum/eldritch_knowledge/final/ash_final,
-		/datum/eldritch_knowledge/final/void_final,
-		/datum/eldritch_knowledge/final/flesh_final,
-	)
 	next_knowledge = list(/datum/eldritch_knowledge/blade_grasp)
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
 		/obj/item/stack/sheet/mineral/silver = 2,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/dark)
+	limit = 3
 	route = PATH_BLADE
 
 /datum/eldritch_knowledge/blade_grasp
 	name = "Grasp of the Blade"
-	desc = "Your Mansus Grasp will cause a short stun when used on someone lying down or facing away from you."
+	desc = "Your Mansus Grasp will cause a short stun when used on someone lying down or facing away from you. \
+		You can now forge knifes into blades at a high cost of your blood"
 	gain_text = "The story of the footsoldier has been told since antiquity. It is one of blood and valor, \
 		and is championed by sword, steel and silver."
 	next_knowledge = list(/datum/eldritch_knowledge/blade_dance)
@@ -33,9 +52,10 @@
 
 /datum/eldritch_knowledge/blade_grasp/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, .proc/on_secondary_mansus_grasp)
 
 /datum/eldritch_knowledge/blade_grasp/on_lose(mob/user)
-	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
+	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY))
 
 /datum/eldritch_knowledge/blade_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -73,12 +93,23 @@
 	target.balloon_alert(source, "backstab!")
 	playsound(get_turf(target), 'sound/weapons/guillotine.ogg', 100, TRUE)
 
+/datum/eldritch_knowledge/blade_grasp/proc/on_secondary_mansus_grasp(mob/living/carbon/source, atom/target)
+	SIGNAL_HANDLER
+	if(!istype(target, /obj/item/kitchen/knife))
+		return
+	playsound(get_turf(target), 'sound/weapons/blade1.ogg', 50, TRUE)
+	new /obj/item/melee/sickly_blade/dark(get_turf(target.loc))
+	var/obj/item/bodypart/bodypart = pick(source.bodyparts)
+	var/datum/wound/slash/critical/crit_wound = new
+	crit_wound.apply_wound(bodypart)
+	qdel(target)
+	return COMPONENT_USE_CHARGE
 /// The cooldown duration between trigers of blade dance
 #define BLADE_DANCE_COOLDOWN 20 SECONDS
 
 /datum/eldritch_knowledge/blade_dance
 	name = "Dance of the Brand"
-	desc = "Being attacked while wielding a Darkened Blade in either hand will deliver a riposte \
+	desc = "Being attacked while wielding a Eldritch Blade in either hand will deliver a riposte \
 		towards your attacker. This effect can only trigger once every 20 seconds."
 	gain_text = "Having the prowess to wield such a thing requires great dedication and terror."
 	next_knowledge = list(
@@ -176,13 +207,7 @@
 		The knife will block any attack directed towards you, but is consumed on use."
 	gain_text = "There was no room for cowardace here. Those who ran were scolded. \
 		That is how I met them. Their name was The Colonel."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/mark/rust_mark,
-		/datum/eldritch_knowledge/mark/ash_mark,
-		/datum/eldritch_knowledge/mark/void_mark,
-		/datum/eldritch_knowledge/mark/flesh_mark,
-	)
-	next_knowledge = list(/datum/eldritch_knowledge/duel_stance)
+	next_knowledge = list(/datum/eldritch_knowledge/knowledge_ritual/blade)
 	route = PATH_BLADE
 	mark_type = /datum/status_effect/eldritch/blade
 
@@ -201,6 +226,10 @@
 		return
 	source.apply_status_effect(/datum/status_effect/protective_blades, 60 SECONDS, 1, 20, 0 SECONDS)
 
+/datum/eldritch_knowledge/knowledge_ritual/blade
+	next_knowledge = list(/datum/eldritch_knowledge/duel_stance)
+	route = PATH_BLADE
+
 /// The amount of blood flow reduced per level of severity of gained bleeding wounds for Stance of the Scarred Duelist.
 #define BLOOD_FLOW_PER_SEVEIRTY 1
 
@@ -213,6 +242,7 @@
 		he cannot be wounded; and he cannot be denied. His methods ensure that."
 	next_knowledge = list(
 		/datum/eldritch_knowledge/blade_upgrade/blade,
+		/datum/eldritch_knowledge/reroll_targets,
 		/datum/eldritch_knowledge/rune_carver,
 		/datum/eldritch_knowledge/crucible,
 	)
@@ -277,12 +307,6 @@
 		will now deliver a blow with both at once, dealing two attacks in rapid succession. \
 		The second blow will be slightly weaker."
 	gain_text = "From here, I began to learn the Colonel's arts. The prowess was finally mine to have."
-	banned_knowledge = list(
-		/datum/eldritch_knowledge/blade_upgrade/rust,
-		/datum/eldritch_knowledge/blade_upgrade/flesh,
-		/datum/eldritch_knowledge/blade_upgrade/void,
-		/datum/eldritch_knowledge/blade_upgrade/ash,
-	)
 	next_knowledge = list(/datum/eldritch_knowledge/spell/furious_steel)
 	route = PATH_BLADE
 
@@ -336,7 +360,7 @@
 /datum/eldritch_knowledge/final/blade_final
 	name = "Maelstrom of Silver"
 	desc = "The ascension ritual of the Path of Blades. \
-		Bring 3 corpses to a transmutation rune to complete the ritual. \
+		Bring 3 headless corpses to a transmutation rune to complete the ritual. \
 		When completed, you will be surrounded in a constant, regenerating orbit of blades. \
 		These blades will protect you from all attacks, but are consumed on use. \
 		Your Furious Steel spell will also have a shorter cooldown. \
@@ -346,6 +370,13 @@
 		Cunning. Strength. And agony! This was their secret doctrine! With this knowledge in my potential, \
 		I AM UNMATCHED! A STORM OF STEEL AND SILVER IS UPON US! WITNESS MY ASCENSION!"
 	route = PATH_BLADE
+
+/datum/eldritch_knowledge/final/blade_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	return !sacrifice.get_bodypart(BODY_ZONE_HEAD)
 
 /datum/eldritch_knowledge/final/blade_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
@@ -367,6 +398,7 @@
 
 	// Turns your heretic blades into eswords, pretty much.
 	var/bonus_damage = clamp(30 - blade.force, 0, 12)
+
 	target.apply_damage(
 		damage = bonus_damage,
 		damagetype = BRUTE,

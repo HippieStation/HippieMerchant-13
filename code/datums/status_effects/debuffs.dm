@@ -887,3 +887,4 @@
 		owner.visible_message("<span class='danger'>[owner]'s [pick("face", "hands", "arms", "legs")] bruises a bit...</span>", "<span class='userdanger'>Your body can't handle holding two badmin stones at once!</span>")
 		next_msg = world.time + rand(10 SECONDS, 25 SECONDS)
 	owner.adjustBruteLoss(4.5) // starting at 7 damage for 2 stones, plus 4.5 damage per extra stone.
+

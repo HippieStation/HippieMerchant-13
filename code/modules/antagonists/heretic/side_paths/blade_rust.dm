@@ -31,7 +31,7 @@
 		/obj/structure/reagent_dispensers/watertank = 1,
 		/obj/structure/table = 1,
 	)
-	result_atoms = list(/obj/structure/eldritch_crucible)
+	result_atoms = list(/obj/structure/destructible/eldritch_crucible)
 	cost = 1
 	route = PATH_SIDE
 
