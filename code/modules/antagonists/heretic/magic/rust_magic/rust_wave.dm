@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave
 	name = "Patron's Reach"
-	desc = "Channels energy into your gauntlet- unleashing it creates a wave of rust in its wake."
+	desc = "Channels energy into your hands to release a wave of rust."
 	proj_type = /obj/projectile/magic/spell/rust_wave
 	school = SCHOOL_FORBIDDEN
 	charge_max = 350

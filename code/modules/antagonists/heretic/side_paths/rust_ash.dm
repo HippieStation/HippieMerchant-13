@@ -25,7 +25,7 @@
 		/datum/eldritch_knowledge/mad_mask,
 		/datum/eldritch_knowledge/spell/area_conversion
 	)
-	timer = 2 MINUTES
+	duration = 2 MINUTES
 	route = PATH_SIDE
 
 /datum/eldritch_knowledge/curse/corrosion/curse(mob/living/chosen_mob)
@@ -47,7 +47,7 @@
 		/obj/item/bodypart/head = 1
 		)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
-	next_knowledge = list(/datum/eldritch_knowledge/spell/voidpull,/datum/eldritch_knowledge/spell/entropic_plume)
+	next_knowledge = list(/datum/eldritch_knowledge/spell/void_pull,/datum/eldritch_knowledge/spell/entropic_plume)
 	route = PATH_SIDE
 
 /datum/eldritch_knowledge/summon/rusty/cleanup_atoms(list/selected_atoms)

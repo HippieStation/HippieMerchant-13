@@ -1,5 +1,5 @@
 /// The heretic's rune, which they use to complete transmutation rituals.
-/obj/effect/eldritch
+/obj/effect/eldritch_rune
 	name = "transmutation rune"
 	desc = "A flowing circle of shapes and runes is etched into the floor, filled with a thick black tar-like fluid."
 	icon_state = ""
@@ -10,20 +10,20 @@
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
 	var/is_in_use = FALSE
 
-/obj/effect/eldritch/Initialize(mapload)
+/obj/effect/eldritch_rune/Initialize(mapload)
 	. = ..()
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "eldritch", silicon_image)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "eldritch_rune", silicon_image)
 
-/obj/effect/eldritch/attackby(obj/item/I, mob/living/user)
+/obj/effect/eldritch_rune/attackby(obj/item/I, mob/living/user)
 	. = ..()
 	if(istype(I,/obj/item/nullrod))
 		user.say("BEGONE FOUL MAGIKS!!", forced = "nullrod")
 		to_chat(user, span_danger("You disrupt the magic of [src] with [I]."))
 		qdel(src)
 
-/obj/effect/eldritch/examine(mob/user)
+/obj/effect/eldritch_rune/examine(mob/user)
 	. = ..()
 	if(!IS_HERETIC(user))
 		return
@@ -31,7 +31,7 @@
 	. += span_notice("Allows you to transmute objects by invoking the rune after collecting the prerequisites overhead.")
 	. += span_notice("You can use your <i>Codex Cicatrix</i> on the rune to remove it.")
 
-/obj/effect/eldritch/can_interact(mob/living/user)
+/obj/effect/eldritch_rune/can_interact(mob/living/user)
 	. = ..()
 	if(!.)
 		return
@@ -41,7 +41,7 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/eldritch/interact(mob/living/user)
+/obj/effect/eldritch_rune/interact(mob/living/user)
 	. = ..()
 	INVOKE_ASYNC(src, .proc/try_rituals, user)
 	return TRUE
@@ -50,13 +50,13 @@
  * Attempt to begin a ritual, giving them an input list to chose from.
  * Also ensures is_in_use is enabled and disabled before and after.
  */
-/obj/effect/eldritch/proc/try_rituals(mob/living/user)
+/obj/effect/eldritch_rune/proc/try_rituals(mob/living/user)
 	is_in_use = TRUE
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/list/rituals = heretic_datum.get_rituals()
 	if(!length(rituals))
-		user.balloon_alert(user, "no rituals available!")
+		loc.balloon_alert(user, "no rituals available!")
 		is_in_use = FALSE
 		return
 
@@ -77,7 +77,7 @@
  *
  * returns TRUE if any rituals passed succeeded, FALSE if they all failed.
  */
-/obj/effect/eldritch/proc/do_ritual(mob/living/user, datum/eldritch_knowledge/ritual)
+/obj/effect/eldritch_rune/proc/do_ritual(mob/living/user, datum/eldritch_knowledge/ritual)
 
 	// Collect all nearby valid atoms over the rune for processing in rituals.
 	var/list/atom/movable/atoms_in_range = list()
@@ -143,7 +143,7 @@
 
 	if(length(what_are_we_missing))
 		// Let them know it screwed up
-		user.balloon_alert(user, "ritual failed, missing components!")
+		loc.balloon_alert(user, "ritual failed, missing components!")
 		// Then let them know what they're missing
 		to_chat(user, span_hierophant_warning("You are missing [english_list(what_are_we_missing)] in order to complete the ritual \"[ritual.name]\"."))
 		return FALSE
@@ -180,12 +180,12 @@
 	// No feedback is given on failure here -
 	// the ritual itself should handle it (providing specifics as to why it failed)
 	if(ritual_result)
-		user.balloon_alert(user, "ritual complete")
+		loc.balloon_alert(user, "ritual complete")
 
 	return ritual_result
 
 /// A 3x3 heretic rune. The kind heretics actually draw in game.
-/obj/effect/eldritch/big
+/obj/effect/eldritch_rune/big
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "eldritch_rune1"
 	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
