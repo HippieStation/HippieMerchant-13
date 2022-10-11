@@ -28,7 +28,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	var/state = SHELF_UNANCHORED
 	var/item = "item"
-	var/spawned_item
 	///Stored items in the shelf
 	var/list/obj/item/stored = list()
 	///Which item can be stored in the shelf
