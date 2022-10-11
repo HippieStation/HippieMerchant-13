@@ -33,23 +33,18 @@
 	var/list/obj/item/stored = list()
 	///Which item can be stored in the shelf
 	var/allowed = /obj/item
-	var/max = 12
+	var/max = 15
 	var/signal
+	var/amount = 12
 
 /obj/structure/shelf/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/shelf)
 	if(!mapload)
 		return
 	set_anchored(TRUE)
-	if(signal)
-		RegisterSignal(src, signal, .proc/recieve_ammo)
-	spawn_item()
+	SEND_SIGNAL(src, signal, amount)
 	update_appearance()
-
-/obj/structure/shelf/proc/recieve_ammo(datum/source, obj/item/gun/ballistic/each_gun)
-	SIGNAL_HANDLER
-	var/obj/item/ammo_box/ammo = initial(each_gun.mag_type)
-	stored += new ammo
 
 /obj/structure/shelf/set_anchored(anchorvalue)
 	. = ..()
@@ -133,8 +128,6 @@
 			stored -= choice
 			update_appearance()
 
-/obj/structure/shelf/proc/spawn_item()
-
 /obj/structure/shelf/proc/check_item(obj/item/I)
 	if(!istype(I, allowed))
 		return FALSE
@@ -160,41 +153,27 @@
 	allowed = /obj/item/gun
 	signal = COMSIG_GUN_SHELF
 
-/obj/structure/shelf/gun/spawn_item()
-	for(var/i = 1 to 5)
-		spawned_item = get_random_gun()
-		stored += new spawned_item
-		SEND_SIGNAL(src, COMSIG_GUN_SHELF, spawned_item)
-
 /obj/structure/shelf/ammo
 	name = "Ammo Shelf"
 	desc = "A great place for storing ammo"
 	item = "ammo"
 	max = 30
 	allowed = /obj/item/ammo_box
+	signal = COMSIG_AMMO_SHELF
 
 /obj/structure/shelf/armor
 	name = "Armor Shelf"
 	desc = "A great place for storing armors"
 	item = "armor"
 	allowed = /obj/item/clothing/suit/armor
-
-/obj/structure/shelf/armor/spawn_item()
-	for(var/i = 1 to 5)
-		spawned_item = get_random_armor()
-		stored += new spawned_item
+	signal = COMSIG_ARMOR_SHELF
 
 /obj/structure/shelf/helmet
 	name = "Helmet Shelf"
 	desc = "A great place for storing helmets"
 	item = "helmet"
 	allowed = /obj/item/clothing/head/helmet
-
-/obj/structure/shelf/helmet/spawn_item()
-	for(var/i = 1 to 5)
-		spawned_item = get_random_helmet()
-		stored += new spawned_item
-
+	signal = COMSIG_HELMET_SHELF
 
 #undef SHELF_UNANCHORED
 #undef SHELF_ANCHORED

@@ -860,6 +860,12 @@
 #define COMSIG_ARMOR_PLATED "armor_plated"
 ///Called when an armor plate is successfully applied to an object
 #define COMSIG_GUN_SHELF "gun_shelf"
+///Called when an armor plate is successfully applied to an object
+#define COMSIG_AMMO_SHELF "ammo_shelf"
+///Called when an armor plate is successfully applied to an object
+#define COMSIG_ARMOR_SHELF "armor_shelf"
+///Called when an armor plate is successfully applied to an object
+#define COMSIG_HELMET_SHELF "helmet_shelf"
 ///Called when an item gets recharged by the ammo powerup
 #define COMSIG_ITEM_RECHARGED "item_recharged"
 
