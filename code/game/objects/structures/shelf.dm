@@ -38,9 +38,9 @@
 
 /obj/structure/shelf/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/shelf)
 	if(!mapload)
 		return
+	AddElement(/datum/element/shelf)
 	set_anchored(TRUE)
 	SEND_SIGNAL(src, signal, amount)
 	update_appearance()
@@ -160,18 +160,23 @@
 	allowed = /obj/item/ammo_box
 	signal = COMSIG_AMMO_SHELF
 
+/obj/structure/shelf/ammo/check_item(obj/item/I)
+	if(istype(I, allowed) || istype(I, /obj/item/ammo_casing/caseless) || istype(I, /obj/item/storage/box))
+		return TRUE
+	return FALSE
+
 /obj/structure/shelf/armor
 	name = "Armor Shelf"
 	desc = "A great place for storing armors"
 	item = "armor"
-	allowed = /obj/item/clothing/suit/armor
+	allowed = /obj/item/clothing/suit
 	signal = COMSIG_ARMOR_SHELF
 
 /obj/structure/shelf/helmet
 	name = "Helmet Shelf"
 	desc = "A great place for storing helmets"
 	item = "helmet"
-	allowed = /obj/item/clothing/head/helmet
+	allowed = /obj/item/clothing/head
 	signal = COMSIG_HELMET_SHELF
 
 #undef SHELF_UNANCHORED
