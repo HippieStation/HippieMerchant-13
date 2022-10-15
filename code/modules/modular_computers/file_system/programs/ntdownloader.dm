@@ -169,7 +169,6 @@
 			"fileinfo" = P.extended_desc,
 			"category" = P.category,
 			"installed" = !!hard_drive.find_file_by_name(P.filename),
-			"compatible" = check_compatibility(P),
 			"size" = P.size,
 			"access" = emagged && P.available_on_syndinet ? TRUE : P.can_run(user,transfer = 1, access = access),
 			"verifiedsource" = P.available_on_ntnet,
@@ -178,13 +177,6 @@
 	data["categories"] = show_categories & program_categories
 
 	return data
-
-/datum/computer_file/program/ntnetdownload/proc/check_compatibility(datum/computer_file/program/P)
-	var/hardflag = computer.hardware_flag
-
-	if(P?.is_supported_by_hardware(hardflag,0))
-		return TRUE
-	return FALSE
 
 /datum/computer_file/program/ntnetdownload/kill_program(forced)
 	abort_file_download()

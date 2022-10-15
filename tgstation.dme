@@ -2444,8 +2444,6 @@
 #include "code\modules\hydroponics\grown\weeds\kudzu.dm"
 #include "code\modules\hydroponics\grown\weeds\nettle.dm"
 #include "code\modules\hydroponics\grown\weeds\starthistle.dm"
-#include "code\modules\implant_hacking\_hacking.dm"
-#include "code\modules\implant_hacking\board.dm"
 #include "code\modules\instruments\items.dm"
 #include "code\modules\instruments\stationary.dm"
 #include "code\modules\instruments\instrument_data\_instrument_data.dm"

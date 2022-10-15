@@ -3,7 +3,6 @@
 	desc = "Implants for your eyes."
 	icon_state = "eye_implant"
 	implant_overlay = "eye_implant_overlay"
-	encode_info = AUGMENT_NO_REQ
 	slot = ORGAN_SLOT_EYES
 	zone = BODY_ZONE_PRECISE_EYES
 	w_class = WEIGHT_CLASS_TINY
@@ -18,24 +17,15 @@
 
 /obj/item/organ/cyberimp/eyes/hud/update_implants()
 	. = ..()
-	if(!check_compatibility())
-		if(HUD_type)
-			var/datum/atom_hud/H = GLOB.huds[HUD_type]
-			H.remove_hud_from(owner)
-		if(HUD_trait)
-			REMOVE_TRAIT(owner, HUD_trait, ORGAN_TRAIT)
-		return
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
-		H.add_hud_to(owner)
+		H.remove_hud_from(owner)
 	if(HUD_trait)
-		ADD_TRAIT(owner, HUD_trait, ORGAN_TRAIT)
+		REMOVE_TRAIT(owner, HUD_trait, ORGAN_TRAIT)
+	return
 
 /obj/item/organ/cyberimp/eyes/hud/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = FALSE)
 	..()
-	if(!check_compatibility())
-		to_chat(owner, "<span class='warning'>The Neuralink beeps: ERR01 INCOMPATIBLE IMPLANT</span>")
-		return
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
 		H.add_hud_to(M)
@@ -71,13 +61,11 @@
 	name = "Contraband Security HUD Implant"
 	desc = "A Cybersun Industries brand Security HUD Implant. These illicit cybernetic eye implants will display a security HUD over everything you see."
 	syndicate_implant = TRUE
-	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/cyberimp/eyes/hud/sensor
 	name = "Interdyne Sensor Field Visualizer"
 	desc = "This medical implant will allow you to see sensor signals of dead people that are nearby, very useful for paramedics."
 	HUD_type = DATA_HUD_SENSORS
 	HUD_trait = TRAIT_SENSOR_HUD
-	encode_info = AUGMENT_NO_REQ
 
 

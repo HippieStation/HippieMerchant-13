@@ -55,13 +55,3 @@
 	..()
 	new /obj/item/autosurgeon/organ/syndicate/syndie_mantis(src)
 	new /obj/item/autosurgeon/organ/syndicate/syndie_mantis/l(src)
-	new /obj/item/autosurgeon/organ/cyberlink_syndicate(src)
-
-/obj/item/storage/briefcase/syndie_laser
-	desc = "Fully metallic briefcase. Has syndicate insignia engraved on the side."
-
-/obj/item/storage/briefcase/syndie_mantis/PopulateContents()
-	..()
-	new /obj/item/autosurgeon/organ/syndicate/laser_arm(src)
-	new /obj/item/autosurgeon/organ/cyberlink_syndicate(src)
-

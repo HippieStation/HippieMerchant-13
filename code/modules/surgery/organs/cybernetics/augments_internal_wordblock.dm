@@ -2,10 +2,9 @@ GLOBAL_LIST_EMPTY(wordblockers)
 
 /obj/item/organ/cyberimp/brain/wordblocker
 	name = "speech filtration implant"
-	desc = "Originally made for prison use, this gruesome implant interfaces directly with the brain's speech centers, both allowing control over what the victim can say and bypassing need for a cyberlink."
+	desc = "Originally made for prison use, this gruesome implant interfaces directly with the brain's speech centers, both allowing control over what the victim can say."
 	icon_state = "brain_implant"
 	slot = ORGAN_SLOT_BRAIN_LANGUAGEINHIBITOR
-	encode_info = AUGMENT_NO_REQ
 
 	var/id = 0
 	var/static/wordblock_uid = 0
