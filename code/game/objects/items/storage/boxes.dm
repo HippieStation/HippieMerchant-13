@@ -935,6 +935,26 @@
 	for(var/i in 1 to 6)
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
+/obj/item/storage/box/disablershots
+	name = "box of disablershots"
+	desc = "A box full of disabler shells."
+	icon_state = "rubbershot_box"
+	illustration = null
+
+/obj/item/storage/box/disablershots/PopulateContents()
+	for(var/i in 1 to 6)
+		new /obj/item/ammo_casing/shotgun/disabler(src)
+
+/obj/item/storage/box/hookshots
+	name = "box of hookshots"
+	desc = "A box full of hook shells."
+	icon_state = "lethalshot_box"
+	illustration = null
+
+/obj/item/storage/box/hookshots/PopulateContents()
+	for(var/i in 1 to 6)
+		new /obj/item/ammo_casing/shotgun/incapacitate(src)
+
 /obj/item/storage/box/actionfigure
 	name = "box of action figures"
 	desc = "The latest set of collectable action figures."

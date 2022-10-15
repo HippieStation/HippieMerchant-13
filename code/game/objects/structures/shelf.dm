@@ -32,14 +32,17 @@
 	var/list/obj/item/stored = list()
 	///Which item can be stored in the shelf
 	var/allowed = /obj/item
-	var/max = 12
+	var/max = 15
+	var/signal
+	var/amount = 12
 
 /obj/structure/shelf/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		return
+	AddElement(/datum/element/shelf)
 	set_anchored(TRUE)
-	spawn_item()
+	SEND_SIGNAL(src, signal, amount)
 	update_appearance()
 
 /obj/structure/shelf/set_anchored(anchorvalue)
@@ -124,8 +127,6 @@
 			stored -= choice
 			update_appearance()
 
-/obj/structure/shelf/proc/spawn_item()
-
 /obj/structure/shelf/proc/check_item(obj/item/I)
 	if(!istype(I, allowed))
 		return FALSE
@@ -149,15 +150,7 @@
 	desc = "A great place for storing guns"
 	item = "gun"
 	allowed = /obj/item/gun
-
-/obj/structure/shelf/gun/spawn_item()
-	stored += list(
-		new /obj/item/gun/ballistic/rifle/boltaction,
-		new /obj/item/gun/ballistic/rifle/boltaction/brand_new,
-		new /obj/item/gun/ballistic/rifle/boltaction/harpoon,
-		new /obj/item/gun/ballistic/rifle/boltaction/pipegun,
-		new /obj/item/gun/ballistic/rifle/boltaction/pipegun/prime,
-	)
+	signal = COMSIG_GUN_SHELF
 
 /obj/structure/shelf/ammo
 	name = "Ammo Shelf"
@@ -165,50 +158,26 @@
 	item = "ammo"
 	max = 30
 	allowed = /obj/item/ammo_box
+	signal = COMSIG_AMMO_SHELF
 
-/obj/structure/shelf/ammo/spawn_item()
-	stored += list(
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-		new /obj/item/ammo_box/a762,
-	)
+/obj/structure/shelf/ammo/check_item(obj/item/I)
+	if(istype(I, allowed) || istype(I, /obj/item/ammo_casing/caseless) || istype(I, /obj/item/storage/box))
+		return TRUE
+	return FALSE
 
 /obj/structure/shelf/armor
 	name = "Armor Shelf"
 	desc = "A great place for storing armors"
 	item = "armor"
-	allowed = /obj/item/clothing/suit/armor
-
-/obj/structure/shelf/armor/spawn_item()
-	stored += list(
-		new /obj/item/clothing/suit/armor/bulletproof,
-		new /obj/item/clothing/suit/armor/riot,
-		new /obj/item/clothing/suit/armor/vest,
-		new /obj/item/clothing/suit/armor/vest/russian_coat,
-		new /obj/item/clothing/suit/armor/vest/durathread,
-	)
+	allowed = /obj/item/clothing/suit
+	signal = COMSIG_ARMOR_SHELF
 
 /obj/structure/shelf/helmet
 	name = "Helmet Shelf"
 	desc = "A great place for storing helmets"
 	item = "helmet"
-	allowed = /obj/item/clothing/head/helmet
-
-/obj/structure/shelf/helmet/spawn_item()
-	stored += list(
-		new /obj/item/clothing/head/helmet,
-		new /obj/item/clothing/head/helmet/alt,
-		new /obj/item/clothing/head/helmet/riot,
-		new /obj/item/clothing/head/helmet/rus_ushanka,
-		new /obj/item/clothing/head/helmet/durathread,
-	)
+	allowed = /obj/item/clothing/head
+	signal = COMSIG_HELMET_SHELF
 
 #undef SHELF_UNANCHORED
 #undef SHELF_ANCHORED

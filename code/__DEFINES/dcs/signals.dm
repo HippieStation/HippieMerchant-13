@@ -858,6 +858,16 @@
 #define COMSIG_GRILL_COMPLETED "item_grill_completed"
 ///Called when an armor plate is successfully applied to an object
 #define COMSIG_ARMOR_PLATED "armor_plated"
+
+///Called when a gun shelf is spawned /datum/element/shelf
+#define COMSIG_GUN_SHELF "gun_shelf"
+///Called when a ammo shelf is spawned /datum/element/shelf
+#define COMSIG_AMMO_SHELF "ammo_shelf"
+///Called when a armor shelf is spawned /datum/element/shelf
+#define COMSIG_ARMOR_SHELF "armor_shelf"
+///Called when a helmet shelf is spawned /datum/element/shelf
+#define COMSIG_HELMET_SHELF "helmet_shelf"
+
 ///Called when an item gets recharged by the ammo powerup
 #define COMSIG_ITEM_RECHARGED "item_recharged"
 /// sent from obj/effect/attackby(): (/obj/effect/hit_effect, /mob/living/attacker, params)
