@@ -1,48 +1,3 @@
-
-
-// CYBERLINKS
-
-/datum/blackmarket_item/cyberlinks
-	category = "Cybernetics"
-	markets = list(/datum/blackmarket_market/cybernetics)
-	root = /datum/blackmarket_item/cyberlinks
-
-/datum/blackmarket_item/cyberlinks/nt_low
-	name = "Nanotrasen's Basic Cyberlink Package"
-	desc = "We honestly have no clue why you are trying to purchase these off of us, but if you are willing to buy, we are willing to sell."
-	item = /obj/item/organ/cyberimp/cyberlink/nt_low
-	availability_prob = 60
-	stock_min = 2
-	stock_max = 5
-	price_min = 200
-	price_max = 400
-
-/datum/blackmarket_item/cyberlinks/nt_high
-	name = "Nanotrasen's Advanced Cyberlink Package"
-	desc = "More advanced form of NT cyberlink, allows for more implants, but may require some hacking to make older implants compatible with this."
-	item = /obj/item/organ/cyberimp/cyberlink/nt_high
-	availability_prob = 40
-	stock_min = 1
-	stock_max = 2
-	price_min = 300
-	price_max = 600
-
-/datum/blackmarket_item/cyberlinks/terragov
-	name = "Terragov Integrated Cybernetic Managment System"
-	desc = "Quite rare around this part of the galaxy, allows unrestricted connection to all of Terragov's implants, we don't guarantee it will work with any other cybernetic tough."
-	item = /obj/item/organ/cyberimp/cyberlink/terragov
-	availability_prob = 15
-	price_min = 700
-	price_max = 1000
-
-/datum/blackmarket_item/cyberlinks/syndicate
-	name = "Interdyne Cybernetic Operating Bioware"
-	desc = "A very rare cyberlink, used only by interdyne politicians, and other syndicate assault teams. Very rare find."
-	item = /obj/item/organ/cyberimp/cyberlink/syndicate
-	availability_prob = 5
-	price_min = 1000
-	price_max = 1200
-
 /// CYBERNETICS
 
 /datum/blackmarket_item/cybernetics
@@ -51,12 +6,6 @@
 	root = /datum/blackmarket_item/cybernetics
 	stock = 1 //Can never have more than 1 of the same implant on the auction at the same time.
 	var/randomizable = TRUE
-
-/datum/blackmarket_item/cybernetics/spawn_item(loc)
-	. = ..()
-	var/obj/item/organ/cyberimp/implant = .
-	if(prob(30) && randomizable)
-		implant.random_encode()
 
 // LEGS
 
@@ -202,16 +151,6 @@
 	stock_max = 4
 	price_min = 200
 	price_max = 500
-
-/datum/blackmarket_item/cybernetics/hack
-	name = "universal connection implant"
-	desc = "Allows for direct connection between your brain, the cyberlink and the implant's firmware, allowing you to change protocols to make them compatible with your cyberlink."
-	item = /obj/item/organ/cyberimp/arm/item_set/connector
-	availability_prob = 95
-	stock_min = 1
-	stock_max = 4
-	price_min = 250
-	price_max = 1000
 
 /datum/blackmarket_item/cybernetics/ammo_counter
 	name = "S.M.A.R.T. ammo logistics system"

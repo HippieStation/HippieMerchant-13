@@ -261,13 +261,9 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 		/obj/item/organ/cyberimp/arm/item_set/cook = 1,
 		/obj/item/organ/cyberimp/arm/item_set/janitor = 1,
 		/obj/item/organ/cyberimp/arm/item_set/tablet = 1,
-		/obj/item/organ/cyberimp/arm/item_set/connector = 1,
 		/obj/item/organ/cyberimp/leg/table_glider = 1,
 		/obj/item/organ/cyberimp/leg/shove_resist = 1,
 		/obj/item/organ/cyberimp/leg/chemplant/drugs = 1,
-		/obj/item/organ/cyberimp/cyberlink/nt_low = 1,
-		/obj/item/organ/cyberimp/cyberlink/nt_high = 1,
-		/obj/item/autosurgeon/organ/cyberlink_nt_low = 1,
 	) = 10,
 
 	list(//fakeout items, keep this list at low relative weight
@@ -337,8 +333,6 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 		/obj/item/organ/cyberimp/arm/item_set/baton = 1,
 		/obj/item/organ/cyberimp/arm/item_set/medibeam = 1,
 		/obj/item/organ/cyberimp/arm/item_set/gun/laser = 1,
-		/obj/item/organ/cyberimp/cyberlink/terragov = 1,
-		/obj/item/autosurgeon/organ/cyberlink_nt_high = 1
 	) = 1,
 
 	list(//misc
@@ -351,8 +345,6 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 
 
 GLOBAL_LIST_INIT(oddity_loot, list(//oddity: strange or crazy items
-		/obj/item/autosurgeon/organ/cyberlink_terragov = 1,
-		/obj/item/autosurgeon/organ/cyberlink_syndicate = 1,
 		/obj/effect/rune/teleport = 1,
 		/obj/item/spear/grey_tide = 1,
 		/obj/item/shadowcloak = 1,

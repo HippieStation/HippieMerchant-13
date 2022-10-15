@@ -5,7 +5,6 @@
 	var/list/stored_items = list()
 	implant_color = "#DE7E00"
 	slot = ORGAN_SLOT_BRAIN_ANTIDROP
-	encode_info = AUGMENT_NT_HIGHLEVEL
 	actions_types = list(/datum/action/item_action/organ_action/skull_gun)
 	var/projectile_type = /obj/projectile/bullet/c10mm
 	var/skull_damage = 7
@@ -45,7 +44,6 @@
 	implant_color = null
 	actions_types = list(/datum/action/item_action/organ_action/biothruster)
 	w_class = WEIGHT_CLASS_NORMAL
-	encode_info = AUGMENT_NT_HIGHLEVEL
 	var/on = FALSE
 	var/datum/effect_system/trail_follow/ion/ion_trail
 
@@ -85,7 +83,6 @@
 	name = "grappendix"
 	desc = "An additional external intestine used for climbing and swinging."
 	icon_state = "grappendix"
-	encode_info = AUGMENT_NT_HIGHLEVEL
 	contents = newlist(/obj/item/gun/magic/grappendix)
 
 /obj/item/gun/magic/grappendix

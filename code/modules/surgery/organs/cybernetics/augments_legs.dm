@@ -4,7 +4,6 @@
 	zone = BODY_ZONE_R_LEG
 	icon_state = "implant-toolkit"
 	w_class = WEIGHT_CLASS_SMALL
-	encode_info = AUGMENT_NO_REQ
 
 	var/double_legged = FALSE
 
@@ -65,19 +64,13 @@
 /obj/item/organ/cyberimp/leg/table_glider
 	name = "table-glider implant"
 	desc = "Implant that allows you quickly glide tables. You need to implant this in both of your legs to make it work."
-	encode_info = AUGMENT_NO_REQ
 	double_legged = TRUE
 
 /obj/item/organ/cyberimp/leg/table_glider/update_implants()
-	if(!check_compatibility())
-		REMOVE_TRAIT(owner,TRAIT_FAST_CLIMBER,type)
-		return
 	ADD_TRAIT(owner,TRAIT_FAST_CLIMBER,type)
 
 /obj/item/organ/cyberimp/leg/table_glider/on_full_insert(mob/living/carbon/M, special, drop_if_replaced)
 	. = ..()
-	if(!check_compatibility())
-		return
 	ADD_TRAIT(owner,TRAIT_FAST_CLIMBER,type)
 
 /obj/item/organ/cyberimp/leg/table_glider/Remove(mob/living/carbon/M, special)
@@ -87,19 +80,13 @@
 /obj/item/organ/cyberimp/leg/shove_resist
 	name = "BU-TAM resistor implant"
 	desc = "Implant that allows you to resist shoves, instead shoves deal pure stamina damage. You need to implant this in both of your legs to make it work."
-	encode_info = AUGMENT_NO_REQ
 	double_legged = TRUE
 
 /obj/item/organ/cyberimp/leg/table_glider/update_implants()
-	if(!check_compatibility())
-		REMOVE_TRAIT(owner,TRAIT_SHOVE_RESIST,type)
-		return
 	ADD_TRAIT(owner,TRAIT_SHOVE_RESIST,type)
 
 /obj/item/organ/cyberimp/leg/shove_resist/on_full_insert(mob/living/carbon/M, special, drop_if_replaced)
 	. = ..()
-	if(!check_compatibility())
-		return
 	ADD_TRAIT(owner,TRAIT_SHOVE_RESIST,type)
 
 /obj/item/organ/cyberimp/leg/shove_resist/Remove(mob/living/carbon/M, special)
@@ -109,7 +96,6 @@
 /obj/item/organ/cyberimp/leg/accelerator
 	name = "P.R.Y.Z.H.O.K. accelerator system"
 	desc = "Russian implant that allows you to tackle people. You need to implant this in both of your legs to make it work."
-	encode_info = AUGMENT_NO_REQ
 	double_legged = TRUE
 	var/datum/component/tackler
 
@@ -137,9 +123,6 @@
 	. = ..()
 
 /obj/item/organ/cyberimp/leg/chemplant/on_life()
-	if(!check_compatibility())
-		return
-		//Cost of refilling is a little bit of nutrition, some blood and getting jittery
 	if(owner.nutrition > NUTRITION_LEVEL_STARVING && owner.blood_volume > BLOOD_VOLUME_SURVIVE && current_ticks_cooldown > 0)
 
 		owner.nutrition -= 5
@@ -199,20 +182,17 @@
 	name = "deep-vein emergency morale rejuvenator"
 	desc = "Dangerous implant used by the syndicate to reinforce their assault forces that go on suicide missions."
 	implant_color = "#74942a"
-	encode_info = AUGMENT_NO_REQ
 	reagent_list = list(/datum/reagent/determination = 5, /datum/reagent/drug/methamphetamine = 5 , /datum/reagent/medicine/atropine = 5)
 
 /obj/item/organ/cyberimp/leg/chemplant/emergency
 	name = "deep emergency chemical infuser"
 	desc = "Dangerous implant used by the syndicate to reinforce their assault forces that go on suicide missions."
 	implant_color = "#2a6194"
-	encode_info = AUGMENT_NO_REQ
 	reagent_list = list(/datum/reagent/medicine/atropine = 5, /datum/reagent/medicine/omnizine = 3 , /datum/reagent/medicine/leporazine = 3, /datum/reagent/medicine/c2/aiuri = 2, /datum/reagent/medicine/c2/libital = 2)
 
 /obj/item/organ/cyberimp/leg/chemplant/rage
 	name = "R.A.G.E. chemical system"
 	desc = "Extremely dangerous system that fills the user with a mix of potent drugs in dire situation."
 	implant_color = "#ce3914"
-	encode_info = AUGMENT_NO_REQ
 	reagent_list = list(/datum/reagent/determination = 2, /datum/reagent/medicine/c2/penthrite = 3 , /datum/reagent/drug/bath_salts = 5 , /datum/reagent/medicine/ephedrine = 5)
 
