@@ -1056,6 +1056,8 @@
 		"dna_disk",
 		"dnascanner",
 		"scan_console",
+		"clonecontrol",
+		"clonepod",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 

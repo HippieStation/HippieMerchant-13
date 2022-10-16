@@ -1675,11 +1675,11 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "ahW" = (
-/obj/structure/bodycontainer/morgue,
 /obj/machinery/camera{
 	c_tag = "Brig Infirmary";
 	dir = 4
 	},
+/obj/machinery/clonepod,
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "ahX" = (
@@ -10275,6 +10275,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/item/multitool,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "bin" = (
@@ -32401,6 +32402,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/dna_scannernew,
 /turf/open/floor/iron,
 /area/security/office)
 "jQI" = (
@@ -45124,6 +45126,9 @@
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
+	},
+/obj/machinery/computer/cloning{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/security/office)
