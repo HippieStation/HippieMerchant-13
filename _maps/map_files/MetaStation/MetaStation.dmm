@@ -28669,6 +28669,10 @@
 /obj/machinery/light/directional/south,
 /obj/machinery/firealarm/directional/south,
 /obj/structure/cable,
+/obj/item/paper/crumpled{
+	info = "<i>Hey, assholes. We don't need a couch in the meeting room, I threw it out the airlock. I don't care if it's real leather, go patrol like you're paid to do instead of cycling through cameras all shift!";
+	name = "old, crumpled note"
+	},
 /turf/open/floor/iron,
 /area/security/office)
 "hrc" = (
@@ -65035,10 +65039,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/item/paper/crumpled{
-	info = "<i>Hey, assholes. We don't need a couch in the meeting room, I threw it out the airlock. I don't care if it's real leather, go patrol like you're paid to do instead of cycling through cameras all shift!";
-	name = "old, crumpled note"
-	},
+/obj/item/paper/guides/jobs/medical/cloning,
 /turf/open/floor/iron,
 /area/security/office)
 "tpY" = (

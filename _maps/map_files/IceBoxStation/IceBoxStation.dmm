@@ -45130,6 +45130,7 @@
 /obj/machinery/computer/cloning{
 	dir = 1
 	},
+/obj/item/paper/guides/jobs/medical/cloning,
 /turf/open/floor/iron,
 /area/security/office)
 "qTC" = (
