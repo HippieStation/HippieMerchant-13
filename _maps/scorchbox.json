@@ -1,0 +1,12 @@
+{
+	"version": 1,
+	"map_name": "Scorch Box",
+	"map_path": "map_files/ScorchBox",
+	"map_file": "ScorchBox.dmm",
+	"shuttles": {
+		"cargo": "cargo_box",
+		"ferry": "ferry_fancy",
+		"whiteship": "whiteship_box",
+		"emergency": "emergency_box"
+	}
+}

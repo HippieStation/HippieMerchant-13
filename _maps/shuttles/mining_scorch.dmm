@@ -1,0 +1,291 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/space)
+"c" = (
+/obj/docking_port/mobile{
+	dir = 4;
+	dwidth = 3;
+	height = 5;
+	id = "mining";
+	name = "mining shuttle";
+	port_direction = 2;
+	width = 7
+	},
+/obj/machinery/door/airlock/external{
+	name = "Mining Shuttle External Airlock"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/pod/dark,
+/area/space)
+"g" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/pod/dark,
+/area/space)
+"h" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 4
+	},
+/turf/open/floor/pod/dark,
+/area/space)
+"i" = (
+/obj/structure/ore_box,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/pod/dark,
+/area/space)
+"l" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/turf/open/floor/pod/dark,
+/area/space)
+"q" = (
+/obj/structure/shuttle/engine/propulsion/burst/cargo{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"r" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
+/area/space)
+"w" = (
+/obj/structure/table/reinforced,
+/obj/item/stock_parts/cell/high,
+/obj/item/storage/toolbox/emergency{
+	pixel_y = 9
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_y = 2
+	},
+/turf/open/floor/pod/dark,
+/area/space)
+"x" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4;
+	pixel_y = 1
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"C" = (
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/structure/closet/crate/internals,
+/obj/item/pickaxe/emergency,
+/obj/item/pickaxe/emergency,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light/small,
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
+/turf/open/floor/pod/dark,
+/area/space)
+"E" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/pod/dark,
+/area/space)
+"F" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/pod/dark,
+/area/space)
+"G" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional,
+/turf/open/floor/pod/dark,
+/area/space)
+"K" = (
+/obj/machinery/power/apc/highcap{
+	dir = 4;
+	locked = 0;
+	name = "Mining Shuttle APC";
+	pixel_y = 27
+	},
+/obj/machinery/light/small{
+	dir = 1;
+	light_color = "#ffc1c1"
+	},
+/obj/item/flashlight,
+/obj/structure/rack,
+/obj/item/screwdriver,
+/obj/item/clothing/mask/gas,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/pod/dark,
+/area/space)
+"M" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"R" = (
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/space)
+"W" = (
+/obj/structure/shuttle/engine/propulsion/burst/cargo{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"X" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/pod/dark,
+/area/space)
+
+(1,1,1) = {"
+a
+q
+c
+q
+a
+"}
+(2,1,1) = {"
+R
+x
+l
+x
+R
+"}
+(3,1,1) = {"
+r
+E
+g
+E
+G
+"}
+(4,1,1) = {"
+R
+K
+F
+C
+R
+"}
+(5,1,1) = {"
+r
+w
+E
+i
+G
+"}
+(6,1,1) = {"
+R
+M
+X
+M
+R
+"}
+(7,1,1) = {"
+a
+W
+h
+W
+a
+"}
