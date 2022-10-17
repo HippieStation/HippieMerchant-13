@@ -65,3 +65,14 @@
 		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/plasma = 20, /obj/item/stack/ore/iron = 40, /obj/item/stack/ore/titanium = 11,
 		/obj/item/stack/ore/bluespace_crystal = 1)
 	baseturfs = /turf/open/floor/plating/dirt/dark
+
+/turf/open/floor/plating/sand
+	name = "sand"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "asteroid"
+	initial_gas_mix = SCORCH_ATMOS
+	slowdown = 0.2
+	planetary_atmos = TRUE
+	desc = "It’s so dry the -almost dead- trees are bribing the dogs."
+	to_be_destroyed = FALSE
+	allow_z_travel = TRUE
