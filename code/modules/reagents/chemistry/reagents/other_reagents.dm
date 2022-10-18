@@ -2434,6 +2434,18 @@
 	if((methods & (PATCH|INGEST|INJECT)) || ((methods & VAPOR) && prob(min(reac_volume,100)*(1 - touch_protection))))
 		exposed_mob.ForceContractDisease(new /datum/disease/transformation/gondola(), FALSE, TRUE)
 
+/datum/reagent/clowndola_mutation_toxin
+	name = "Delirium"
+	description = "A highly heratic liquid of unklown origin."
+	color = "#ff9900" //RGB: 154, 103, 80
+	taste_description = "inner chaos"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	penetrates_skin = NONE
+
+/datum/reagent/clowndola_mutation_toxin/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE, touch_protection = 0)
+	. = ..()
+	if((methods & (PATCH|INGEST|INJECT)) || ((methods & VAPOR) && prob(min(reac_volume,100)*(1 - touch_protection))))
+		exposed_mob.ForceContractDisease(new /datum/disease/transformation/clowndola(), FALSE, TRUE)
 
 /datum/reagent/spider_extract
 	name = "Spider Extract"
