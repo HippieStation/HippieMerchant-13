@@ -362,9 +362,9 @@
 /datum/disease/transformation/clowndola
 	name = "Clowndola Transformation"
 	cure_text = "Laughter, ingested or injected."
-	cures = list(/datum/reagent/consumable/laughter)
+	cures = list(/datum/reagent/consumable/superlaughter)
 	cure_chance = 80
-	stage_prob = 3
+	stage_prob = 10
 	agent = "Delirium"
 	desc = "Consuming the flesh of a Clowndola comes at a terrible price."
 	severity = DISEASE_SEVERITY_BIOHAZARD

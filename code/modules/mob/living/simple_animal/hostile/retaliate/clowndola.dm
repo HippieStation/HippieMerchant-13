@@ -2,9 +2,9 @@
 	name = "clowndola"
 	real_name = "clowndola"
 	desc = "Clowndola is the noisy walker. Having no hands he embodies the Taoist principle of honk (HonkMother) while his smiling facial expression shows his utter and complete acceptance of the world as it is. Its hide is extremely valuable."
-	response_help_simple = "pets"
-	response_disarm_simple = "gently pushes aside"
-	response_harm_simple = "kicks"
+	response_help_simple = "pet"
+	response_disarm_simple = "gently push aside"
+	response_harm_simple = "kick"
 	icon_state = "clowndola"
 	icon_living = "clowndola"
 	icon_dead = "clowndola_dead"
@@ -20,14 +20,14 @@
 	turns_per_move = 1
 	maxHealth = 80
 	health = 80
-	butcher_results = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/stack/sheet/animalhide/gondola = 1, /obj/item/food/meat/slab/clowndola = 2)
-	obj_damage = 0
+	loot = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/stack/sheet/animalhide/gondola = 1, /obj/item/food/meat/slab/clowndola = 2)
+	obj_damage = 5
 	harm_intent_damage = 1
 	melee_damage_lower = 1
 	melee_damage_upper = 1.5
 	attack_same = 0
 	attack_verb_simple = "honks at"
-	faction = list("clowndola")
+	faction = list("gondola")
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	vision_range = 13
@@ -36,7 +36,8 @@
 	unique_name = 1
 	speak_emote = list("honk!", "Honk?", "HONK HONK")
 	deathmessage = "honked for the last time..."
-	rapid_melee = 3
+	rapid_melee = 5
+	del_on_death = TRUE
 	var/poison_per_bite = 0.5
 	var/poison_type = /datum/reagent/drug/happiness
 
@@ -49,12 +50,12 @@
 	if(health <= maxHealth/2)		//If life is inferior as 50%, becomes angry, otherwise is happy
 		poison_type = /datum/reagent/consumable/superlaughter
 		poison_per_bite = 1
-		speed = -5
+		speed = -100
 		harm_intent_damage = 1
 	else
 		poison_type = /datum/reagent/drug/happiness
 		poison_per_bite = 0.5
-		speed = 0
+		speed = -25
 		harm_intent_damage = 0.5
 
 /mob/living/simple_animal/hostile/retaliate/clowndola/examine(mob/user)
