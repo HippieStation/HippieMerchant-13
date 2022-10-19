@@ -156,7 +156,124 @@
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
 	obj_break()
 
-/obj/machinery/pdapainter/attack_hand(mob/user)
+/**
+ * Insert a PDA into the machine.
+ *
+ * Will swap PDAs if one is already inside. Attempts to put the PDA into the user's hands if possible.
+ * Returns TRUE on success, FALSE otherwise.
+ * Arguments:
+ * * new_pda - The PDA to insert.
+ * * user - The user to try and eject the PDA into the hands of.
+ */
+/obj/machinery/pdapainter/proc/insert_pda(obj/item/pda/new_pda, mob/living/user)
+	if(!istype(new_pda))
+		return FALSE
+
+	if(user && !user.transferItemToLoc(new_pda, src))
+		return FALSE
+	else
+		new_pda.forceMove(src)
+
+	if(stored_pda)
+		eject_pda(user)
+
+	stored_pda = new_pda
+	new_pda.add_fingerprint(user)
+	update_icon()
+	return TRUE
+
+/**
+ * Eject the stored PDA into the user's hands if possible, otherwise on the floor.
+ *
+ * Arguments:
+ * * user - The user to try and eject the PDA into the hands of.
+ */
+/obj/machinery/pdapainter/proc/eject_pda(mob/living/user)
+	if(stored_pda)
+		if(user && !issilicon(user) && in_range(src, user))
+			user.put_in_hands(stored_pda)
+		else
+			stored_pda.forceMove(drop_location())
+
+		stored_pda = null
+		update_icon()
+
+/**
+ * Insert an ID card into the machine.
+ *
+ * Will swap ID cards if one is already inside. Attempts to put the card into the user's hands if possible.
+ * Returns TRUE on success, FALSE otherwise.
+ * Arguments:
+ * * new_id_card - The ID card to insert.
+ * * user - The user to try and eject the PDA into the hands of.
+ */
+/obj/machinery/pdapainter/proc/insert_id_card(obj/item/card/id/new_id_card, mob/living/user)
+	if(!istype(new_id_card))
+		return FALSE
+
+	if(user && !user.transferItemToLoc(new_id_card, src))
+		return FALSE
+	else
+		new_id_card.forceMove(src)
+
+	if(stored_id_card)
+		eject_id_card(user)
+
+	stored_id_card = new_id_card
+	new_id_card.add_fingerprint(user)
+	update_icon()
+	return TRUE
+
+/**
+ * Eject the stored ID card into the user's hands if possible, otherwise on the floor.
+ *
+ * Arguments:
+ * * user - The user to try and eject the ID card into the hands of.
+ */
+/obj/machinery/pdapainter/proc/eject_id_card(mob/living/user)
+	if(stored_id_card)
+		if(user && !issilicon(user) && in_range(src, user))
+			user.put_in_hands(stored_id_card)
+		else
+			stored_id_card.forceMove(drop_location())
+
+		stored_id_card = null
+		update_appearance(UPDATE_ICON)
+
+/obj/machinery/pdapainter/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "PaintingMachine", name)
+		ui.open()
+
+/obj/machinery/pdapainter/ui_data(mob/user)
+	var/data = list()
+
+	if(stored_pda)
+		data["hasPDA"] = TRUE
+		data["pdaName"] = stored_pda.name
+	else
+		data["hasPDA"] = FALSE
+		data["pdaName"] = null
+
+	if(stored_id_card)
+		data["hasID"] = TRUE
+		data["idName"] = stored_id_card.name
+	else
+		data["hasID"] = FALSE
+		data["idName"] = null
+
+	return data
+
+/obj/machinery/pdapainter/ui_static_data(mob/user)
+	var/data = list()
+
+	data["pdaTypes"] = pda_types
+	data["cardTrims"] = card_trims
+
+	return data
+
+/obj/machinery/pdapainter/ui_act(action, params)
 	. = ..()
 	if(.)
 		return

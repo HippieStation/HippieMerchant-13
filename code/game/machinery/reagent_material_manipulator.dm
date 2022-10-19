@@ -19,7 +19,7 @@
 	create_reagents(100)
 
 /obj/machinery/reagent_material_manipulator/attackby(obj/item/I, mob/living/carbon/human/user)
-	if(user.combat_mode)
+	if(!user.istate.harm)
 		return ..()
 
 	if(panel_open)

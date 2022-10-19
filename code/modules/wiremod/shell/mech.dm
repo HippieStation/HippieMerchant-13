@@ -89,7 +89,7 @@
 	change_equipment = add_input_port("Switch Equipment", PORT_TYPE_SIGNAL)
 
 	attacker = new
-	attacker.combat_mode = TRUE
+	attacker.istate.harm = TRUE
 
 
 /obj/item/circuit_component/mech_equipment/register_shell(atom/movable/shell)
@@ -142,4 +142,4 @@
 			else
 				attached_mech.selected = available_equipment[number+1]
 			return
-	
+

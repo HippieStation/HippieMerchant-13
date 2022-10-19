@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(nasheed_playing, FALSE)
 
 
 /obj/item/melee/execution_sword/attack(mob/living/target, mob/living/user)
-	if(user.combat_mode != TRUE || user.zone_selected != "head" || !ishuman(target))
+	if(user.istate.harm != TRUE || user.zone_selected != "head" || !ishuman(target))
 		return ..()
 	if(!can_execute)
 		to_chat(user, "<span class='notice'>The internal transmitters need time to recharge.</span>")

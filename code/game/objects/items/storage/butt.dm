@@ -2,7 +2,7 @@
 
 /mob/living/carbon/human/proc/checkbuttinspect(mob/living/carbon/user)
 	if(user.zone_selected == "groin")
-		if(user.combat_mode)
+		if(user.istate.harm)
 			var/obj/item/organ/butt/B = getorgan(/obj/item/organ/butt)
 			if(!w_uniform)
 				var/datum/component/storage/STR = B.GetComponent(/datum/component/storage)
@@ -33,7 +33,7 @@
 
 /mob/living/carbon/proc/checkbuttinsert(obj/item/I, mob/living/carbon/user)
 	if(user.zone_selected == "groin")
-		if(user.combat_mode)
+		if(user.istate.harm)
 			var/mob/living/carbon/human/buttowner = src
 			if(!istype(buttowner))
 				return FALSE

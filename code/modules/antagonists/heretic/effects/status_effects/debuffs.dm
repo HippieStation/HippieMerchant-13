@@ -124,8 +124,8 @@
 
 /datum/status_effect/amok/tick()
 	. = ..()
-	var/prev_combat_mode = owner.combat_mode
-	owner.set_combat_mode(TRUE)
+	var/prev_harm_state = owner.istate.harm
+	owner.istate.harm = TRUE
 
 	var/list/mob/living/targets = list()
 	for(var/mob/living/potential_target in oview(owner, 1))
@@ -135,4 +135,4 @@
 	if(LAZYLEN(targets))
 		owner.log_message(" attacked someone due to the amok debuff.", LOG_ATTACK) //the following attack will log itself
 		owner.ClickOn(pick(targets))
-	owner.set_combat_mode(prev_combat_mode)
+	owner.istate.harm = prev_harm_state
