@@ -159,7 +159,7 @@
 		name = t
 		return
 
-/obj/effect/decal/cleanable/vomit/attack_hand(mob/user, list/modifiers)
+/obj/effect/decal/cleanable/vomit/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return

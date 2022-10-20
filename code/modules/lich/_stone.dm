@@ -179,13 +179,13 @@
 	if(istype(target, /obj/item/lich_sword))
 		return
 	var/list/modifiers = params2list(click_parameters)
-	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !user.combat_mode)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && user.istate.harm)
 		DisarmEvent(target, user, proximity_flag)
-	else if(!user.combat_mode)
+	else if(!user.istate.harm)
 		HelpEvent(target, user, proximity_flag)
 	if(LAZYACCESS(modifiers, ALT_CLICK))
 		GrabEvent(user, target)
-	if(user.combat_mode)
+	if(user.istate.harm)
 		HarmEvent(target, user, proximity_flag)
 		GrabEvent(target, user, proximity_flag) //I can't see how else I can do it uhhh pussy
 

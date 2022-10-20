@@ -91,7 +91,7 @@
 
 	return ..()
 
-/obj/structure/destructible/eldritch_crucible/attack_hand(mob/user, list/modifiers)
+/obj/structure/destructible/eldritch_crucible/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return

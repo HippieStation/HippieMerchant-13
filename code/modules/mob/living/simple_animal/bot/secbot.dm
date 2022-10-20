@@ -21,7 +21,7 @@
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	path_image_color = "#FF0000"
 
-	combat_mode = TRUE
+	istate = new /datum/interaction_state/harm
 
 	var/baton_type = /obj/item/melee/baton
 	var/obj/item/weapon
@@ -203,7 +203,7 @@ Auto Patrol: []"},
 	return
 
 /mob/living/simple_animal/bot/secbot/attack_hand(mob/living/carbon/human/user, list/modifiers)
-	if(user.combat_mode)
+	if(user.istate.harm)
 		retaliate(user)
 		if(special_retaliate_after_attack(user))
 			return
@@ -223,7 +223,7 @@ Auto Patrol: []"},
 	..()
 	if(!on) // Bots won't remember if you hit them while they're off.
 		return
-	if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode) // Any intent but harm will heal, so we shouldn't get angry.
+	if(W.tool_behaviour == TOOL_WELDER && !user.istate.harm) // Any intent but harm will heal, so we shouldn't get angry.
 		return
 	if(W.tool_behaviour != TOOL_SCREWDRIVER && (W.force) && (!target) && (W.damtype != STAMINA) ) // Added check for welding tool to fix #2432. Welding tool behavior is handled in superclass.
 		retaliate(user)

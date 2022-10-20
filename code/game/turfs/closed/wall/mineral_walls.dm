@@ -97,7 +97,7 @@
 			return
 	return
 
-/turf/closed/wall/mineral/uranium/attack_hand(mob/user, list/modifiers)
+/turf/closed/wall/mineral/uranium/attack_hand(mob/user)
 	radiate()
 	. = ..()
 
