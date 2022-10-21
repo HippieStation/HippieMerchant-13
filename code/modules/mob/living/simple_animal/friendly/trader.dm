@@ -18,16 +18,16 @@
 	attack_verb_simple = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	del_on_death = TRUE
-	loot = list(/obj/effect/mob_spawn/human/corpse)
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	loot = list(/obj/effect/mob_spawn/corpse/human)
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 2.5
 	casingtype = /obj/item/ammo_casing/shotgun/buckshot
 	wander = FALSE
 	ranged = TRUE
-	istate = new /datum/interaction_state/harm
+	combat_mode = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
-	sentience_type = SENTIENCE_ORGANIC
+	sentience_type = SENTIENCE_HUMANOID
 	speed = 0
 	stat_attack = HARD_CRIT
 	robust_searching = TRUE
@@ -225,7 +225,7 @@
 	mob_biotypes = MOB_UNDEAD|MOB_HUMANOID
 	products = list(
 		/obj/item/clothing/head/helmet/skull = 150,
-		/obj/item/clothing/mask/bandana/skull = 50,
+		/obj/item/clothing/mask/bandana/skull/black = 50,
 		/obj/item/food/cookie/sugar/spookyskull = 10,
 		/obj/item/instrument/trombone/spectral = 10000,
 		/obj/item/shovel/serrated = 150

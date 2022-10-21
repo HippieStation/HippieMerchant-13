@@ -1,0 +1,93 @@
+[2022-05-27 07:51:54.533] Starting up round ID .
+ - -------------------------
+[2022-05-27 07:51:54.594] Running /tg/ revision: 2022-05-27
+ - origin/master: 01df25ad5cccff9a62b83917120cfaf6a1a6754b
+[2022-05-27 07:51:55.720] Initialized Title Screen subsystem within 0.1 seconds!
+[2022-05-27 07:51:55.723] Initialized Server Tasks subsystem within 0 seconds!
+[2022-05-27 07:51:55.723] Initialized Input subsystem within 0 seconds!
+[2022-05-27 07:51:55.724] Initialized Stat Panels subsystem within 0 seconds!
+[2022-05-27 07:51:55.729] Initialized Profiler subsystem within 0 seconds!
+[2022-05-27 07:51:55.730] Initialized Database subsystem within 0 seconds!
+[2022-05-27 07:51:55.730] Initialized Blackbox subsystem within 0 seconds!
+[2022-05-27 07:51:55.732] Initialized Sounds subsystem within 0 seconds!
+[2022-05-27 07:51:55.744] Initialized Instruments subsystem within 0 seconds!
+[2022-05-27 07:51:56.028] Initialized Greyscale subsystem within 0.3 seconds!
+[2022-05-27 07:51:56.029] Initialized Vis contents overlays subsystem within 0 seconds!
+[2022-05-27 07:51:56.031] Initialized Discord subsystem within 0 seconds!
+[2022-05-27 07:51:56.032] Initialized Achievements subsystem within 0 seconds!
+[2022-05-27 07:51:56.034] Initialized Station subsystem within 0 seconds!
+[2022-05-27 07:51:56.036] Initialized Quirks subsystem within 0 seconds!
+[2022-05-27 07:51:56.037] Initialized Reagents subsystem within 0 seconds!
+[2022-05-27 07:51:56.056] Initialized Events subsystem within 0 seconds!
+[2022-05-27 07:51:56.068] Initialized IDs and Access subsystem within 0 seconds!
+[2022-05-27 07:51:56.069] Initialized Jobs subsystem within 0 seconds!
+[2022-05-27 07:51:56.070] Initialized AI movement subsystem within 0 seconds!
+[2022-05-27 07:51:56.079] Initialized Ticker subsystem within 0 seconds!
+[2022-05-27 07:51:56.082] Initialized AI Controller Ticker subsystem within 0 seconds!
+[2022-05-27 07:51:56.083] Initialized AI Behavior Ticker subsystem within 0 seconds!
+[2022-05-27 07:51:56.120] Initialized Trading Card Game subsystem within 0.1 seconds!
+[2022-05-27 07:51:56.122] Loading Meta Station...
+[2022-05-27 07:51:58.580] Loaded Station in 2.4s!
+[2022-05-27 07:51:59.604] Loaded Lavaland in 1s!
+[2022-05-27 07:52:03.428] Ruin loader finished with 3 left to spend.
+[2022-05-27 07:52:04.436] Ruin loader finished with 0 left to spend.
+[2022-05-27 07:52:06.652] Cave Generator finished in 2.2s!
+[2022-05-27 07:52:06.734] Cave Generator finished in 0.1s!
+[2022-05-27 07:52:07.271] Initialized Mapping subsystem within 11.1 seconds!
+[2022-05-27 07:52:24.233] Initialized Early Assets subsystem within 17 seconds!
+[2022-05-27 07:52:24.262] Initialized Research subsystem within 0 seconds!
+[2022-05-27 07:52:24.263] Initialized Time Tracking subsystem within 0 seconds!
+[2022-05-27 07:52:24.285] Initialized Networks subsystem within 0 seconds!
+[2022-05-27 07:52:24.286] Initialized Spatial Grid subsystem within 0 seconds!
+[2022-05-27 07:52:24.302] Initialized Economy subsystem within 0 seconds!
+[2022-05-27 07:52:24.303] Initialized Restaurant subsystem within 0 seconds!
+[2022-05-27 07:53:09.454] Initialized Atoms subsystem within 45.1 seconds!
+[2022-05-27 07:53:09.553] Initialized Language subsystem within 0 seconds!
+[2022-05-27 07:53:09.618] Initialized Machines subsystem within 0.1 seconds!
+[2022-05-27 07:53:09.619] Initialized Skills subsystem within 0 seconds!
+[2022-05-27 07:53:09.620] Initialized Addiction subsystem within 0 seconds!
+[2022-05-27 07:53:09.624] Initialized Blackmarket subsystem within 0 seconds!
+[2022-05-27 07:53:09.625] Initialized Circuit Components subsystem within 0 seconds!
+[2022-05-27 07:53:09.629] Initialized Disease subsystem within 0 seconds!
+[2022-05-27 07:53:09.631] Initialized Smoke subsystem within 0 seconds!
+[2022-05-27 07:53:09.632] Initialized Foam subsystem within 0 seconds!
+[2022-05-27 07:53:09.632] Initialized Fluid subsystem within 0 seconds!
+[2022-05-27 07:53:09.633] Initialized Lag Switch subsystem within 0 seconds!
+[2022-05-27 07:53:09.634] Initialized Library Loading subsystem within 0 seconds!
+[2022-05-27 07:53:09.638] Initialized Night Shift subsystem within 0 seconds!
+[2022-05-27 07:53:09.639] Initialized Parallax subsystem within 0 seconds!
+[2022-05-27 07:53:09.639] Initialized Security Level subsystem within 0 seconds!
+[2022-05-27 07:53:09.641] Initialized Sun subsystem within 0 seconds!
+[2022-05-27 07:53:09.642] Initialized Traitor subsystem within 0 seconds!
+[2022-05-27 07:53:09.649] Initialized Vote subsystem within 0 seconds!
+[2022-05-27 07:53:09.650] Initialized Wardrobe subsystem within 0 seconds!
+[2022-05-27 07:53:09.667] Initialized Weather subsystem within 0 seconds!
+[2022-05-27 07:53:09.668] Initialized Wiremod Composite Templates subsystem within 0 seconds!
+[2022-05-27 07:53:15.740] Initialized Atmospherics subsystem within 6.1 seconds!
+[2022-05-27 07:53:15.750] Initialized Persistence subsystem within 0 seconds!
+[2022-05-27 07:53:15.751] Initialized Persistent Paintings subsystem within 0 seconds!
+[2022-05-27 07:53:23.970] Initialized Assets subsystem within 8.2 seconds!
+[2022-05-27 07:53:26.009] Initialized Icon Smoothing subsystem within 2.1 seconds!
+[2022-05-27 07:53:33.307] Initialized Overlay subsystem within 7.3 seconds!
+[2022-05-27 07:53:33.312] Initialized XKeyScore subsystem within 0 seconds!
+[2022-05-27 07:53:33.315] Initialized PRISM subsystem within 0 seconds!
+[2022-05-27 07:53:38.581] Initialized Lighting subsystem within 5.2 seconds!
+[2022-05-27 07:53:41.228] Initialized Shuttle subsystem within 2.7 seconds!
+[2022-05-27 07:53:41.302] Initialized Minor Mapping subsystem within 0.1 seconds!
+[2022-05-27 07:53:41.306] Initialized Pathfinder subsystem within 0 seconds!
+[2022-05-27 07:53:41.307] Initialized Init Profiler subsystem within 0 seconds!
+[2022-05-27 07:53:41.308] Initialized Chat subsystem within 0 seconds!
+[2022-05-27 07:53:41.309] Initializations complete within 105.7 seconds!
+[2022-05-27 07:54:48.690] Game start took 0.1s
+[2022-05-27 08:10:17.304] runtime error: undefined proc or verb /mob/dead/observer/adjustFireLoss().
+ - 
+ - proc name: lightningbolt (/proc/lightningbolt)
+ -   source file: lightning.dm,14
+ -   usr: Skyler Kemerer (/mob/dead/observer)
+ -   src: null
+ -   usr.loc: the floor (117,144,2) (/turf/open/floor/iron)
+ -   call stack:
+ - lightningbolt(Skyler Kemerer (/mob/dead/observer))
+ - Lightning bolt (/datum/smite/lightning): effect(Guest-2620842499 (/client), Skyler Kemerer (/mob/dead/observer))
+ - Guest-2620842499 (/client): Smite(Skyler Kemerer (/mob/dead/observer))
+ - 

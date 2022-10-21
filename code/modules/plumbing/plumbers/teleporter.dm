@@ -11,7 +11,7 @@
 
 /obj/machinery/plumbing/sender/Initialize(mapload, bolt, layer)
 	. = ..()
-	AddComponent(/datum/component/plumbing/demand/south, bolt, layer)
+	AddComponent(/datum/component/plumbing/simple_demand, bolt, layer)
 
 /obj/machinery/plumbing/sender/multitool_act(mob/living/user, obj/item/I)
 	if(!multitool_check_buffer(user, I))
@@ -66,7 +66,7 @@
 
 /obj/machinery/plumbing/receiver/Initialize(mapload, bolt)
 	. = ..()
-	AddComponent(/datum/component/plumbing/supply/south, bolt)
+	AddComponent(/datum/component/plumbing/simple_supply, bolt)
 
 /obj/machinery/plumbing/receiver/multitool_act(mob/living/user, obj/item/I)
 	if(!multitool_check_buffer(user, I))
@@ -77,7 +77,7 @@
 	to_chat(user, span_notice("You store linkage information in [I]'s buffer."))
 	return TRUE
 
-/obj/machinery/plumbing/receiver/process()
+/obj/machinery/plumbing/receiver/process(delta_time)
 	if(machine_stat & NOPOWER || panel_open)
 		return
 
@@ -95,6 +95,8 @@
 		flick(initial(icon_state) + "_flash", src)
 
 		next_index++
+
+		use_power(active_power_usage * delta_time)
 
 ///Notify all senders to forget us
 /obj/machinery/plumbing/receiver/proc/lose_senders()

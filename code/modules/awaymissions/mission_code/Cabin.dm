@@ -4,12 +4,13 @@
 	name = "Cabin"
 	icon_state = "away2"
 	requires_power = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	static_lighting = TRUE
 
 /area/awaymission/cabin/snowforest
 	name = "Snow Forest"
 	icon_state = "away"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /area/awaymission/cabin/snowforest/sovietsurface
 	name = "Snow Forest"
@@ -20,7 +21,8 @@
 	name = "Lumbermill"
 	icon_state = "away3"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /area/awaymission/cabin/caves/sovietcave
 	name = "Soviet Bunker"
@@ -29,7 +31,7 @@
 /area/awaymission/cabin/caves
 	name = "North Snowdin Caves"
 	icon_state = "awaycontent15"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = TRUE
 
 /area/awaymission/cabin/caves/mountain
 	name = "North Snowdin Mountains"
@@ -41,9 +43,9 @@
 	icon = 'icons/obj/fireplace.dmi'
 	icon_state = "firepit-active"
 	density = FALSE
-	var/active = 1
+	var/active = TRUE
 
-/obj/structure/firepit/Initialize()
+/obj/structure/firepit/Initialize(mapload)
 	. = ..()
 	toggleFirepit()
 
@@ -111,33 +113,27 @@
 	/datum/map_generator_module/snow/bunnies)
 
 /datum/map_generator_module/snow/checkPlaceAtom(turf/T)
-	if(istype(T, /turf/open/floor/plating/asteroid/snow))
+	if(istype(T, /turf/open/misc/asteroid/snow))
 		return ..()
 	return FALSE
 
 /datum/map_generator_module/bottomlayer/snow
-	spawnableTurfs = list(/turf/open/floor/plating/asteroid/snow/atmosphere = 100)
+	spawnableTurfs = list(/turf/open/misc/asteroid/snow/atmosphere = 100)
 
 /datum/map_generator_module/snow/pine_trees
-	spawnableAtoms = list(/obj/structure/flora/tree/pine = 30)
+	spawnableAtoms = list(/obj/structure/flora/tree/pine/style_random = 30)
 
 /datum/map_generator_module/snow/dead_trees
-	spawnableAtoms = list(/obj/structure/flora/tree/dead = 10)
+	spawnableAtoms = list(/obj/structure/flora/tree/dead/style_random = 10)
 
 /datum/map_generator_module/snow/rand_bushes
-	spawnableAtoms = list()
-
-/datum/map_generator_module/snow/rand_bushes/New()
-	..()
-	spawnableAtoms = typesof(/obj/structure/flora/ausbushes)
-	for(var/i in spawnableAtoms)
-		spawnableAtoms[i] = 1
+	spawnableAtoms = list(/obj/structure/flora/bush/snow/style_random = 1)
 
 /datum/map_generator_module/snow/bunnies
 	spawnableAtoms = list(/mob/living/simple_animal/rabbit = 0.5)
 
 /datum/map_generator_module/snow/rand_ice_rocks
-	spawnableAtoms = list(/obj/structure/flora/rock/icy = 5, /obj/structure/flora/rock/pile/icy = 5)
+	spawnableAtoms = list(/obj/structure/flora/rock/icy/style_random = 5, /obj/structure/flora/rock/pile/icy/style_random = 5)
 
 /obj/effect/landmark/map_generator/snowy
 	mapGeneratorType = /datum/map_generator/snowy

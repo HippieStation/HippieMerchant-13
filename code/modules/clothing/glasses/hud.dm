@@ -8,22 +8,22 @@
 
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
-	. = ..()
+	..()
 	if(slot != ITEM_SLOT_EYES)
-		return FALSE
+		return
 	if(hud_type)
-		var/datum/atom_hud/H = GLOB.huds[hud_type]
-		H.add_hud_to(user)
+		var/datum/atom_hud/our_hud = GLOB.huds[hud_type]
+		our_hud.show_to(user)
 	if(hud_trait)
 		ADD_TRAIT(user, hud_trait, GLASSES_TRAIT)
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
-	. = ..()
+	..()
 	if(!istype(user) || user.glasses != src)
-		return FALSE
+		return
 	if(hud_type)
-		var/datum/atom_hud/H = GLOB.huds[hud_type]
-		H.remove_hud_from(user)
+		var/datum/atom_hud/our_hud = GLOB.huds[hud_type]
+		our_hud.hide_from(user)
 	if(hud_trait)
 		REMOVE_TRAIT(user, hud_trait, GLASSES_TRAIT)
 
@@ -40,6 +40,20 @@
 	obj_flags |= EMAGGED
 	to_chat(user, span_warning("PZZTTPFFFT"))
 	desc = "[desc] The display is flickering slightly."
+
+/obj/item/clothing/glasses/hud/suicide_act(mob/user)
+	if(user.is_blind() || !isliving(user))
+		return ..()
+	var/mob/living/living_user = user
+	user.visible_message(span_suicide("[user] looks through [src] and looks overwhelmed with the information! It looks like [user.p_theyre()] trying to commit suicide!"))
+	if(living_user.getOrganLoss(ORGAN_SLOT_BRAIN) >= BRAIN_DAMAGE_SEVERE)
+		var/mob/thing = pick((/mob in view()) - user)
+		if(thing)
+			user.say("VALID MAN IS WANTER, ARREST HE!!")
+			user.pointed(thing)
+		else
+			user.say("WHY IS THERE A BAR ON MY HEAD?!!")
+	return OXYLOSS
 
 /obj/item/clothing/glasses/hud/health
 	name = "health scanner HUD"
@@ -102,43 +116,6 @@
 	hud_trait = TRAIT_SECURITY_HUD
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
-/obj/item/clothing/glasses/hud/security/equipped(mob/living/carbon/human/user, slot)
-	. = ..()
-	if (!.)
-		return FALSE
-	RegisterSignal(user, COMSIG_MOB_MIDDLECLICKON, .proc/create_ping)
-
-/obj/item/clothing/glasses/hud/security/dropped(mob/living/carbon/human/user)
-	. = ..()
-	if (!.)
-		return FALSE
-	UnregisterSignal(user, COMSIG_MOB_MIDDLECLICKON)
-
-/obj/item/clothing/glasses/hud/security/proc/create_ping(datum/source, atom/A, params)
-	var/list/modifiers = params2list(params)
-	var/mob/living/L = source
-	if (L.stat != CONSCIOUS || (!LAZYACCESS(modifiers, ALT_CLICK) && !LAZYACCESS(modifiers, CTRL_CLICK)))
-		return
-	var/image/holder = L.hud_list[SEC_PING]
-	// not ideal, but it works.
-	addtimer(CALLBACK(src, .proc/remove_ping, holder), 10 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-	var/mutable_appearance/MA = new /mutable_appearance()
-	MA.icon = 'icons/effects/effects.dmi'
-	MA.layer = ABOVE_OPEN_TURF_LAYER
-	MA.plane = 0
-	if (LAZYACCESS(modifiers, ALT_CLICK))
-		MA.icon_state = "squestion"
-		holder.appearance = MA
-		holder.loc = get_turf(A)
-	else // else if would be slower here, CTRL_CLICK below.
-		MA.icon_state = "salert"
-		holder.appearance = MA
-		holder.loc = get_turf(A)
-	return COMSIG_MOB_CANCEL_CLICKON
-
-/obj/item/clothing/glasses/hud/security/proc/remove_ping(image/holder)
-	holder.loc = null
-
 /obj/item/clothing/glasses/hud/security/chameleon
 	name = "chameleon security HUD"
 	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Provides flash protection."
@@ -148,7 +125,7 @@
 	// have multiple inheritance, okay?
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/glasses/hud/security/chameleon/Initialize()
+/obj/item/clothing/glasses/hud/security/chameleon/Initialize(mapload)
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/glasses
@@ -189,8 +166,9 @@
 /obj/item/clothing/glasses/hud/security/sunglasses/gars
 	name = "\improper HUD gar glasses"
 	desc = "GAR glasses with a HUD."
-	icon_state = "gars"
-	inhand_icon_state = "garb"
+	icon_state = "gar_sec"
+	inhand_icon_state = "gar_black"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
 	throw_speed = 4
@@ -199,11 +177,10 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = SHARP_EDGED
 
-/obj/item/clothing/glasses/hud/security/sunglasses/gars/supergars
+/obj/item/clothing/glasses/hud/security/sunglasses/gars/giga
 	name = "giga HUD gar glasses"
 	desc = "GIGA GAR glasses with a HUD."
-	icon_state = "supergars"
-	inhand_icon_state = "garb"
+	icon_state = "gigagar_sec"
 	force = 12
 	throwforce = 12
 
@@ -220,8 +197,8 @@
 		return
 
 	if (hud_type)
-		var/datum/atom_hud/H = GLOB.huds[hud_type]
-		H.remove_hud_from(user)
+		var/datum/atom_hud/our_hud = GLOB.huds[hud_type]
+		our_hud.hide_from(user)
 
 	if (hud_type == DATA_HUD_MEDICAL_ADVANCED)
 		hud_type = null
@@ -231,8 +208,8 @@
 		hud_type = DATA_HUD_SECURITY_ADVANCED
 
 	if (hud_type)
-		var/datum/atom_hud/H = GLOB.huds[hud_type]
-		H.add_hud_to(user)
+		var/datum/atom_hud/our_hud = GLOB.huds[hud_type]
+		our_hud.show_to(user)
 
 /obj/item/clothing/glasses/hud/toggle/thermal
 	name = "thermal HUD scanner"
@@ -267,7 +244,6 @@
 	name = "police aviators"
 	desc = "For thinking you look cool while brutalizing protestors and minorities."
 	icon_state = "bigsunglasses"
-	hud_type = ANTAG_HUD_GANGSTER
 	darkness_view = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1

@@ -26,7 +26,7 @@
 	if (prob(40))
 		new /obj/item/storage/toolbox/emergency(src)
 
-	switch (pickweight(list("small" = 35, "aid" = 30, "tank" = 20, "both" = 10, "nothing" = 4, "delete" = 1)))
+	switch (pick_weight(list("small" = 35, "aid" = 30, "tank" = 20, "both" = 10, "nothing" = 4, "delete" = 1)))
 		if ("small")
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/tank/internals/emergency_oxygen(src)
@@ -35,7 +35,7 @@
 
 		if ("aid")
 			new /obj/item/tank/internals/emergency_oxygen(src)
-			new /obj/item/storage/firstaid/emergency(src)
+			new /obj/item/storage/medkit/emergency(src)
 			new /obj/item/clothing/mask/breath(src)
 
 		if ("tank")
@@ -49,7 +49,7 @@
 		if ("nothing")
 			// doot
 
-		// teehee
+		// teehee //Fuck you
 		if ("delete")
 			qdel(src)
 
@@ -120,13 +120,6 @@
 	if(prob(40))
 		new /obj/item/clothing/head/hardhat(src)
 
-/obj/structure/closet/toolcloset/partscloset
-	desc = "It's a storage unit for tools and parts."
-
-/obj/structure/closet/toolcloset/partscloset/PopulateContents()
-	. = ..()
-	new /obj/item/storage/box/stockparts/basic(src)
-
 
 /*
  * Radiation Closet
@@ -157,9 +150,6 @@
 	new /obj/item/clothing/under/color/black(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/head/bomb_hood(src)
-	if(prob(20))
-		new /obj/item/clothing/suit/space/hardsuit/rd
-
 
 /obj/structure/closet/bombcloset/security/PopulateContents()
 	new /obj/item/clothing/suit/bomb_suit/security(src)

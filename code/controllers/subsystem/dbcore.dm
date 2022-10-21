@@ -74,12 +74,12 @@ SUBSYSTEM_DEF(dbcore)
 		queries_current = queries_active.Copy()
 		processing_queries = all_queries.Copy()
 
-	for(var/I in processing_queries)
-		var/datum/db_query/Q = I
-		if(world.time - Q.last_activity_time > (5 MINUTES))
+	while(length(processing_queries))
+		var/datum/db_query/query = popleft(processing_queries)
+		if(world.time - query.last_activity_time > (5 MINUTES))
 			message_admins("Found undeleted query, please check the server logs and notify coders.")
-			log_sql("Undeleted query: \"[Q.sql]\" LA: [Q.last_activity] LAT: [Q.last_activity_time]")
-			qdel(Q)
+			log_sql("Undeleted query: \"[query.sql]\" LA: [query.last_activity] LAT: [query.last_activity_time]")
+			qdel(query)
 		if(MC_TICK_CHECK)
 			return
 
@@ -212,7 +212,6 @@ SUBSYSTEM_DEF(dbcore)
 	var/user = CONFIG_GET(string/feedback_login)
 	var/pass = CONFIG_GET(string/feedback_password)
 	var/db = CONFIG_GET(string/feedback_database)
-	var/ssl = CONFIG_GET(number/feedback_ssl)
 	var/address = CONFIG_GET(string/address)
 	var/port = CONFIG_GET(number/port)
 	var/timeout = max(CONFIG_GET(number/async_query_timeout), CONFIG_GET(number/blocking_query_timeout))
@@ -226,7 +225,6 @@ SUBSYSTEM_DEF(dbcore)
 		"user" = user,
 		"pass" = pass,
 		"db_name" = db,
-		"db_ssl" = ssl,
 		"read_timeout" = timeout,
 		"write_timeout" = timeout,
 		"max_threads" = thread_limit,
@@ -349,8 +347,11 @@ The duplicate_key arg can be true to automatically generate this part of the que
 	or set to a string that is appended to the end of the query
 Ignore_errors instructes mysql to continue inserting rows if some of them have errors.
 	the erroneous row(s) aren't inserted and there isn't really any way to know why or why errored
+Delayed insert mode was removed in mysql 7 and only works with MyISAM type tables,
+	It was included because it is still supported in mariadb.
+	It does not work with duplicate_key and the mysql server ignores it in those cases
 */
-/datum/controller/subsystem/dbcore/proc/MassInsert(table, list/rows, duplicate_key = FALSE, ignore_errors = FALSE, warn = FALSE, async = TRUE, special_columns = null)
+/datum/controller/subsystem/dbcore/proc/MassInsert(table, list/rows, duplicate_key = FALSE, ignore_errors = FALSE, delayed = FALSE, warn = FALSE, async = TRUE, special_columns = null)
 	if (!table || !rows || !istype(rows))
 		return
 
@@ -367,6 +368,8 @@ Ignore_errors instructes mysql to continue inserting rows if some of them have e
 
 	// Prepare SQL query full of placeholders
 	var/list/query_parts = list("INSERT")
+	if (delayed)
+		query_parts += " DELAYED"
 	if (ignore_errors)
 		query_parts += " IGNORE"
 	query_parts += " INTO "
@@ -479,7 +482,7 @@ Ignore_errors instructes mysql to continue inserting rows if some of them have e
 	Close()
 	status = DB_QUERY_STARTED
 	if(async)
-		if(!Master.current_runlevel || Master.processing == 0)
+		if(!MC_RUNNING(SSdbcore.init_stage))
 			SSdbcore.run_query_sync(src)
 		else
 			SSdbcore.queue_query(src)

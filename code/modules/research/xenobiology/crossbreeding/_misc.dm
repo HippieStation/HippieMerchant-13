@@ -60,11 +60,11 @@ Slimecrossing Items
 		return
 	if(!used)//selfie time
 		if(user == target)
-			to_chat(user, "<span class=notice>You take a selfie!</span>")
+			to_chat(user, span_notice("You take a selfie!"))
 		else
-			to_chat(user, "<span class=notice>You take a photo with [target]!</span>")
-			to_chat(target, "<span class=notice>[user] takes a photo with you!</span>")
-		to_chat(target, "<span class=notice>You'll remember this moment forever!</span>")
+			to_chat(user, span_notice("You take a photo with [target]!"))
+			to_chat(target, span_notice("[user] takes a photo with you!"))
+		to_chat(target, span_boldnotice("You'll remember this moment forever!"))
 
 		used = TRUE
 		target.AddComponent(/datum/component/dejavu, 2)
@@ -89,14 +89,18 @@ Slimecrossing Items
 		desc = "This camera has seen better days."
 	. = ..()
 
-
 //Hypercharged slime cell - Charged Yellow
-/obj/item/stock_parts/cell/high/slime/hypercharged
+/obj/item/stock_parts/cell/high/slime_hypercharged
 	name = "hypercharged slime core"
-	desc = "A charged yellow slime extract, infused with even more plasma. It almost hurts to touch."
-	rating = 7 //Roughly 1.5 times the original.
-	maxcharge = 20000 //2 times the normal one.
-	chargerate = 2250 //1.5 times the normal rate.
+	desc = "A charged yellow slime extract, infused with plasma. It almost hurts to touch."
+	icon = 'icons/mob/slimes.dmi'
+	icon_state = "yellow slime extract"
+	rating = 7
+	custom_materials = null
+	maxcharge = 50000
+	chargerate = 2500
+	charge_light_type = null
+	connector_type = "slimecore"
 
 //Barrier cube - Chilling Grey
 /obj/item/barriercube
@@ -130,7 +134,7 @@ Slimecrossing Items
 	desc = "A mass of solidified slime gel - completely impenetrable, but it's melting away!"
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "slimebarrier_thick"
-	CanAtmosPass = ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
 	opacity = TRUE
 	timeleft = 100
 
@@ -148,9 +152,9 @@ Slimecrossing Items
 	icon_state = "frozen"
 	density = TRUE
 	max_integrity = 100
-	armor = list(MELEE = 30, BULLET = 50, LASER = -50, ENERGY = -50, BOMB = 0, BIO = 100, RAD = 100, FIRE = -80, ACID = 30)
+	armor = list(MELEE = 30, BULLET = 50, LASER = -50, ENERGY = -50, BOMB = 0, BIO = 0, FIRE = -80, ACID = 30)
 
-/obj/structure/ice_stasis/Initialize()
+/obj/structure/ice_stasis/Initialize(mapload)
 	. = ..()
 	playsound(src, 'sound/magic/ethereal_exit.ogg', 50, TRUE)
 

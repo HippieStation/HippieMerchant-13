@@ -1,6 +1,6 @@
 //Fire
 /mob/living/simple_animal/hostile/guardian/fire
-	istate = new /datum/interaction_state
+	combat_mode = FALSE
 	melee_damage_lower = 7
 	melee_damage_upper = 7
 	attack_sound = 'sound/items/welder.ogg'
@@ -49,4 +49,4 @@
 		var/mob/living/M = AM
 		if(!hasmatchingsummoner(M) && M != summoner && M.fire_stacks < 7)
 			M.set_fire_stacks(7)
-			M.IgniteMob()
+			M.ignite_mob()

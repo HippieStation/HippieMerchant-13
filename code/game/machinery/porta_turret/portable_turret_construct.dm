@@ -15,9 +15,30 @@
 	desc = "An unfinished covered turret frame."
 	anchored = FALSE
 	density = TRUE
+	use_power = NO_POWER_USE
 	var/build_step = PTURRET_UNSECURED //the current step in the building process
 	var/finish_name = "turret" //the name applied to the product turret
 	var/obj/item/gun/installed_gun = null
+
+/obj/machinery/porta_turret_construct/examine(mob/user)
+	. = ..()
+	switch(build_step)
+		if(PTURRET_UNSECURED)
+			. += span_notice("The external bolts are <b>unwrenched</b>, and the frame could be <i>pried</i> apart.")
+		if(PTURRET_BOLTED)
+			. += span_notice("The frame requires <b>metal</b> for its internal armor, the external bolts are <i>wrenched</i> in place.")
+		if(PTURRET_START_INTERNAL_ARMOUR)
+			. += span_notice("The turret's armor needs to be <b>bolted</b> in place, the armor looked like it could be <i>welded</i> out.")
+		if(PTURRET_INTERNAL_ARMOUR_ON)
+			. += span_notice("The turret requires an <b>energy based gun</b> to function, the armor is secured by <i>bolts</i>.")
+		if(PTURRET_GUN_EQUIPPED)
+			. += span_notice("The turret requires an <b>proximity sensor</b> to function. The energy gun could <i>be removed</i>.")
+		if(PTURRET_SENSORS_ON)
+			. += span_notice("The turret's access hatch is <b>unscrewed</b>. The proximity sensor could <i>be removed</i>.")
+		if(PTURRET_CLOSED)
+			. += span_notice("The turret requires <b>metal</b> for its external armor, the access hatch could be <i>unscrewed</i>.")
+		if(PTURRET_START_EXTERNAL_ARMOUR)
+			. += span_notice("The turret's armor needs to be <b>welded</b> in place, the armor looks like it could be <i>pried</i> off.")
 
 /obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user, params)
 	//this is a bit unwieldy but self-explanatory
@@ -69,7 +90,7 @@
 
 				to_chat(user, span_notice("You start to remove the turret's interior metal armor..."))
 
-				if(I.use_tool(src, user, volume=50, amount=5)) //uses up 5 fuel
+				if(I.use_tool(src, user, 20, volume=50, amount=5)) //uses up 5 fuel
 					build_step = PTURRET_BOLTED
 					to_chat(user, span_notice("You remove the turret's interior metal armor."))
 					new /obj/item/stack/sheet/iron(drop_location(), 2)
@@ -132,7 +153,7 @@
 					return
 
 				to_chat(user, span_notice("You begin to weld the turret's armor down..."))
-				if(I.use_tool(src, user, volume=50, amount=5))
+				if(I.use_tool(src, user, 30, volume=50, amount=5))
 					build_step = PTURRET_EXTERNAL_ARMOUR_ON
 					to_chat(user, span_notice("You weld the turret's armor down."))
 
@@ -158,18 +179,18 @@
 				return
 
 	if(istype(I, /obj/item/pen)) //you can rename turrets like bots!
-		var/t = stripped_input(user, "Enter new turret name", name, finish_name)
-		if(!t)
+		var/choice = tgui_input_text(user, "Enter a new turret name", "Turret Classification", finish_name, MAX_NAME_LEN)
+		if(!choice)
 			return
-		if(!Adjacent(user))
+		if(!user.canUseTopic(src, BE_CLOSE))
 			return
 
-		finish_name = t
+		finish_name = choice
 		return
 	return ..()
 
 
-/obj/machinery/porta_turret_construct/attack_hand(mob/user)
+/obj/machinery/porta_turret_construct/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

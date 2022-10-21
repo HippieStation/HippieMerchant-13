@@ -60,9 +60,12 @@
 	action_icon_state = "mindread"
 
 /obj/effect/proc_holder/spell/targeted/mindread/cast(list/targets, mob/living/carbon/human/user = usr)
+	if(!user.can_cast_magic(MAGIC_RESISTANCE_MIND))
+		return
+
 	for(var/mob/living/M in targets)
-		if(usr.anti_magic_check(FALSE, FALSE, TRUE, 0) || M.anti_magic_check(FALSE, FALSE, TRUE, 0))
-			to_chat(usr, span_warning("As you reach out with your mind, you're suddenly stopped by a vision of a massive tinfoil wall that streches beyond visible range. It seems you've been foiled."))
+		if(M.can_block_magic(MAGIC_RESISTANCE_MIND, charge_cost = 0))
+			to_chat(usr, span_warning("As you reach into [M]'s mind, you are stopped by a mental blockage. It seems you've been foiled."))
 			return
 		if(M.stat == DEAD)
 			to_chat(user, span_boldnotice("[M] is dead!"))
@@ -79,21 +82,22 @@
 				if(nlog_type & LOG_SAY)
 					var/list/reversed = log_source[log_type]
 					if(islist(reversed))
-						say_log = reverseRange(reversed.Copy())
+						say_log = reverse_range(reversed.Copy())
 						break
 			if(LAZYLEN(say_log))
 				for(var/spoken_memory in say_log)
 					if(recent_speech.len >= 3)//up to 3 random lines of speech, favoring more recent speech
 						break
 					if(prob(50))
-						recent_speech[spoken_memory] = say_log[spoken_memory]
+						//log messages with tags like telepathy are displayed like "(Telepathy to Ckey/(target)) "greetings"" by splitting the text by using a " delimiter we can grab just the greetings part
+						recent_speech[spoken_memory] = splittext(say_log[spoken_memory], "\"", 1, 0, TRUE)[3]
 			if(recent_speech.len)
 				to_chat(user, span_boldnotice("You catch some drifting memories of their past conversations..."))
 				for(var/spoken_memory in recent_speech)
 					to_chat(user, span_notice("[recent_speech[spoken_memory]]"))
 			if(iscarbon(M))
 				var/mob/living/carbon/human/H = M
-				to_chat(user, span_boldnotice("You find that their intent is to [H.istate.harm ? "Harm" : "Help"]..."))
+				to_chat(user, span_boldnotice("You find that their intent is to [H.combat_mode ? "Harm" : "Help"]..."))
 				if(H.mind)
 					to_chat(user, span_boldnotice("You uncover that [H.p_their()] true identity is [H.mind.name]."))
 		else

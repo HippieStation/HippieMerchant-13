@@ -26,8 +26,8 @@
 	name = "Repair Compound Fracture"
 	steps = list(
 		/datum/surgery_step/incise,
-		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/retract_skin,
+		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/reset_compound_fracture,
 		/datum/surgery_step/repair_bone_compound,
 		/datum/surgery_step/close)
@@ -61,6 +61,7 @@
 		display_results(user, target, span_notice("You begin to repair the fracture in [target]'s [parse_zone(user.zone_selected)]..."),
 			span_notice("[user] begins to repair the fracture in [target]'s [parse_zone(user.zone_selected)] with [tool]."),
 			span_notice("[user] begins to repair the fracture in [target]'s [parse_zone(user.zone_selected)]."))
+		display_pain(target, "Your [parse_zone(user.zone_selected)] aches with pain!")
 	else
 		user.visible_message(span_notice("[user] looks for [target]'s [parse_zone(user.zone_selected)]."), span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
 
@@ -72,7 +73,7 @@
 		display_results(user, target, span_notice("You successfully repair the fracture in [target]'s [parse_zone(target_zone)]."),
 			span_notice("[user] successfully repairs the fracture in [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] successfully repairs the fracture in [target]'s [parse_zone(target_zone)]!"))
-		log_combat(user, target, "repaired a hairline fracture in", addition="ISTATE: [user.istate.logging()]")
+		log_combat(user, target, "repaired a hairline fracture in", addition="COMBAT_MODE: [uppertext(user.combat_mode)]")
 		qdel(surgery.operated_wound)
 	else
 		to_chat(user, span_warning("[target] has no hairline fracture there!"))
@@ -101,6 +102,7 @@
 		display_results(user, target, span_notice("You begin to reset the bone in [target]'s [parse_zone(user.zone_selected)]..."),
 			span_notice("[user] begins to reset the bone in [target]'s [parse_zone(user.zone_selected)] with [tool]."),
 			span_notice("[user] begins to reset the bone in [target]'s [parse_zone(user.zone_selected)]."))
+		display_pain(target, "The aching pain in your [parse_zone(user.zone_selected)] is overwhelming!")
 	else
 		user.visible_message(span_notice("[user] looks for [target]'s [parse_zone(user.zone_selected)]."), span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
 
@@ -112,7 +114,7 @@
 		display_results(user, target, span_notice("You successfully reset the bone in [target]'s [parse_zone(target_zone)]."),
 			span_notice("[user] successfully resets the bone in [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] successfully resets the bone in [target]'s [parse_zone(target_zone)]!"))
-		log_combat(user, target, "reset a compound fracture in", addition="ISTATE: [user.istate.logging()]")
+		log_combat(user, target, "reset a compound fracture in", addition="COMBAT MODE: [uppertext(user.combat_mode)]")
 	else
 		to_chat(user, span_warning("[target] has no compound fracture there!"))
 	return ..()
@@ -139,6 +141,7 @@
 		display_results(user, target, span_notice("You begin to repair the fracture in [target]'s [parse_zone(user.zone_selected)]..."),
 			span_notice("[user] begins to repair the fracture in [target]'s [parse_zone(user.zone_selected)] with [tool]."),
 			span_notice("[user] begins to repair the fracture in [target]'s [parse_zone(user.zone_selected)]."))
+		display_pain(target, "The aching pain in your [parse_zone(user.zone_selected)] is overwhelming!")
 	else
 		user.visible_message(span_notice("[user] looks for [target]'s [parse_zone(user.zone_selected)]."), span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
 
@@ -150,7 +153,7 @@
 		display_results(user, target, span_notice("You successfully repair the fracture in [target]'s [parse_zone(target_zone)]."),
 			span_notice("[user] successfully repairs the fracture in [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] successfully repairs the fracture in [target]'s [parse_zone(target_zone)]!"))
-		log_combat(user, target, "repaired a compound fracture in", addition="ISTATE: [user.istate.logging()]")
+		log_combat(user, target, "repaired a compound fracture in", addition="COMBAT MODE: [uppertext(user.combat_mode)]")
 		qdel(surgery.operated_wound)
 	else
 		to_chat(user, span_warning("[target] has no compound fracture there!"))

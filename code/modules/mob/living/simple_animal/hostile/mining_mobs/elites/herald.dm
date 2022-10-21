@@ -60,7 +60,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/become_ghost()
 	icon_state = "herald_ghost"
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/hostile/asteroid/elite/herald/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
 	. = ..()
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 
@@ -143,7 +143,7 @@
 	ranged_cooldown = world.time + 30
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	var/target_turf = get_turf(target)
-	var/angle_to_target = Get_Angle(src, target_turf)
+	var/angle_to_target = get_angle(src, target_turf)
 	shoot_projectile(target_turf, angle_to_target, FALSE, TRUE)
 	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 2)
 	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 4)
@@ -178,7 +178,7 @@
 	ranged_cooldown = world.time + 30
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	var/target_turf = get_turf(target)
-	var/angle_to_target = Get_Angle(src, target_turf)
+	var/angle_to_target = get_angle(src, target_turf)
 	shoot_projectile(target_turf, angle_to_target, TRUE, FALSE)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_mirror()
@@ -205,7 +205,7 @@
 	is_mirror = TRUE
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/my_master = null
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Initialize()
+/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/simple_flying)
 	toggle_ai(AI_OFF)
@@ -231,16 +231,14 @@
 	color = rgb(255,255,102)
 
 /obj/projectile/herald/on_hit(atom/target, blocked = FALSE)
+	if(ismob(target) && ismob(firer))
+		var/mob/living/mob_target = target
+		if(mob_target.faction_check_mob(firer))
+			nodamage = TRUE
 	. = ..()
 	if(ismineralturf(target))
-		var/turf/closed/mineral/M = target
-		M.gets_drilled()
-		return
-	else if(isliving(target))
-		var/mob/living/L = target
-		var/mob/living/F = firer
-		if(F != null && istype(F, /mob/living/simple_animal/hostile/asteroid/elite) && F.faction_check_mob(L))
-			L.heal_overall_damage(damage)
+		var/turf/closed/mineral/rock_target = target
+		rock_target.gets_drilled()
 
 /obj/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()

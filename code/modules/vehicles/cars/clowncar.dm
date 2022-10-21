@@ -3,7 +3,7 @@
 	desc = "How someone could even fit in there is byond me."
 	icon_state = "clowncar"
 	max_integrity = 150
-	armor = list(MELEE = 70, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 70, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 30, BIO = 0, FIRE = 80, ACID = 80)
 	enter_delay = 20
 	max_occupants = 50
 	movedelay = 0.6
@@ -22,7 +22,7 @@
 	///Current status of the cannon, alternates between CLOWN_CANNON_INACTIVE, CLOWN_CANNON_BUSY and CLOWN_CANNON_READY
 	var/cannonmode = CLOWN_CANNON_INACTIVE
 
-/obj/vehicle/sealed/car/clowncar/Initialize()
+/obj/vehicle/sealed/car/clowncar/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj,src)
 
@@ -49,6 +49,20 @@
 /obj/vehicle/sealed/car/clowncar/mob_forced_enter(mob/M, silent = FALSE)
 	. = ..()
 	playsound(src, pick('sound/vehicles/clowncar_load1.ogg', 'sound/vehicles/clowncar_load2.ogg'), 75)
+	if(iscarbon(M))
+		var/mob/living/carbon/forced_mob = M
+		if(forced_mob.has_reagent(/datum/reagent/consumable/ethanol/irishcarbomb))
+			var/reagent_amount = forced_mob.reagents.get_reagent_amount(/datum/reagent/consumable/ethanol/irishcarbomb)
+			forced_mob.reagents.del_reagent(/datum/reagent/consumable/ethanol/irishcarbomb)
+			if(reagent_amount >= 30)
+				message_admins("[ADMIN_LOOKUPFLW(forced_mob)] was forced into a clown car with [reagent_amount] unit(s) of Irish Car Bomb, causing an explosion.")
+				forced_mob.log_message("was forced into a clown car with [reagent_amount] unit(s) of Irish Car Bomb, causing an explosion.", LOG_GAME)
+				audible_message(span_userdanger("You hear a rattling sound coming from the engine. That can't be good..."), null, 1)
+				addtimer(CALLBACK(src, .proc/irish_car_bomb), 5 SECONDS)
+
+/obj/vehicle/sealed/car/clowncar/proc/irish_car_bomb()
+	dump_mobs()
+	explosion(src, light_impact_range = 1)
 
 /obj/vehicle/sealed/car/clowncar/after_add_occupant(mob/M, control_flags)
 	. = ..()
@@ -68,15 +82,15 @@
 	. = ..()
 	if(prob(33))
 		visible_message(span_danger("[src] spews out a ton of space lube!"))
-		new /obj/effect/particle_effect/foam(loc) //YEET
+		new /obj/effect/particle_effect/fluid/foam(loc) //YEET
 
 /obj/vehicle/sealed/car/clowncar/attacked_by(obj/item/I, mob/living/user)
 	. = ..()
 	if(!istype(I, /obj/item/food/grown/banana))
 		return
 	var/obj/item/food/grown/banana/banana = I
-	obj_integrity += min(banana.seed.potency, max_integrity-obj_integrity)
-	to_chat(user, span_danger("You use the [banana] to repair the [src]!"))
+	atom_integrity += min(banana.seed.potency, max_integrity-atom_integrity)
+	to_chat(user, span_danger("You use the [banana] to repair [src]!"))
 	qdel(banana)
 
 /obj/vehicle/sealed/car/clowncar/Bump(atom/bumped)
@@ -105,12 +119,12 @@
 	if(obj_flags & EMAGGED)
 		return
 	obj_flags |= EMAGGED
-	to_chat(user, span_danger("You scramble \the [src]'s child safety lock, and a panel with six colorful buttons appears!"))
+	to_chat(user, span_danger("You scramble [src]'s child safety lock, and a panel with six colorful buttons appears!"))
 	initialize_controller_action_type(/datum/action/vehicle/sealed/roll_the_dice, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/cannon, VEHICLE_CONTROL_DRIVE)
 	AddElement(/datum/element/waddling)
 
-/obj/vehicle/sealed/car/clowncar/obj_destruction(damage_flag)
+/obj/vehicle/sealed/car/clowncar/atom_destruction(damage_flag)
 	playsound(src, 'sound/vehicles/clowncar_fart.ogg', 100)
 	STOP_PROCESSING(SSobj,src)
 	return ..()
@@ -140,7 +154,7 @@
 			var/datum/reagents/randomchems = new/datum/reagents(300)
 			randomchems.my_atom = src
 			randomchems.add_reagent(get_random_reagent_id(), 100)
-			var/datum/effect_system/foam_spread/foam = new
+			var/datum/effect_system/fluid_spread/foam/foam = new
 			foam.set_up(200, loc, randomchems)
 			foam.start()
 		if(3)
@@ -153,8 +167,8 @@
 			var/datum/reagents/funnychems = new/datum/reagents(300)
 			funnychems.my_atom = src
 			funnychems.add_reagent(/datum/reagent/consumable/superlaughter, 50)
-			var/datum/effect_system/smoke_spread/chem/smoke = new()
-			smoke.set_up(funnychems, 4)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new()
+			smoke.set_up(4, location = src, carry = funnychems)
 			smoke.attach(src)
 			smoke.start()
 		if(5)
@@ -193,12 +207,12 @@
 		icon_state = "clowncar"
 		addtimer(CALLBACK(src, .proc/deactivate_cannon), 2 SECONDS)
 		playsound(src, 'sound/vehicles/clowncar_cannonmode2.ogg', 75)
-		visible_message(span_danger("The [src] starts going back into mobile mode."))
+		visible_message(span_danger("[src] starts going back into mobile mode."))
 	else
 		canmove = FALSE //anchor and activate canon
 		flick("clowncar_tofire", src)
 		icon_state = "clowncar_fire"
-		visible_message(span_danger("The [src] opens up and reveals a large cannon."))
+		visible_message(span_danger("[src] opens up and reveals a large cannon."))
 		addtimer(CALLBACK(src, .proc/activate_cannon), 2 SECONDS)
 		playsound(src, 'sound/vehicles/clowncar_cannonmode1.ogg', 75)
 	cannonmode = CLOWN_CANNON_BUSY
@@ -219,16 +233,19 @@
 		driver.update_mouse_pointer()
 
 ///Fires the cannon where the user clicks
-/obj/vehicle/sealed/car/clowncar/proc/fire_cannon_at(mob/user, atom/A, params)
+/obj/vehicle/sealed/car/clowncar/proc/fire_cannon_at(mob/user, atom/target, list/modifiers)
 	SIGNAL_HANDLER
 	if(cannonmode != CLOWN_CANNON_READY || !length(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED)))
-		return NONE
+		return
+	//The driver can still examine things and interact with his inventory.
+	if(modifiers[SHIFT_CLICK] || (ismovable(target) && !isturf(target.loc)))
+		return
 	var/mob/living/unlucky_sod = pick(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
 	mob_exit(unlucky_sod, TRUE)
 	flick("clowncar_recoil", src)
 	playsound(src, pick('sound/vehicles/carcannon1.ogg', 'sound/vehicles/carcannon2.ogg', 'sound/vehicles/carcannon3.ogg'), 75)
-	unlucky_sod.throw_at(A, 10, 2)
-	log_combat(user, unlucky_sod, "fired", src, "towards [A]") //this doesn't catch if the mob hits something between the car and the target
+	unlucky_sod.throw_at(target, 10, 2)
+	log_combat(user, unlucky_sod, "fired", src, "towards [target]") //this doesn't catch if the mob hits something between the car and the target
 	return COMSIG_MOB_CANCEL_CLICKON
 
 ///Increments the thanks counter every time someone thats been kidnapped thanks the driver

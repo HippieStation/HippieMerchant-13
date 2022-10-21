@@ -2,8 +2,8 @@
 	name = "Prosthetic replacement"
 	steps = list(
 		/datum/surgery_step/incise,
-		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/retract_skin,
+		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/add_prosthetic)
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD)
@@ -42,18 +42,15 @@
 		tool = organ_storage_contents
 	if(istype(tool, /obj/item/bodypart))
 		var/obj/item/bodypart/bodypart_to_attach = tool
-		if(ismonkey(target))// monkey patient only accept organic monkey limbs
-			if(bodypart_to_attach.status == BODYPART_ROBOTIC || bodypart_to_attach.animal_origin != MONKEY_BODYPART)
-				to_chat(user, span_warning("[bodypart_to_attach] doesn't match the patient's morphology."))
-				return -1
-		if(bodypart_to_attach.status != BODYPART_ROBOTIC)
+		if(IS_ORGANIC_LIMB(bodypart_to_attach))
 			organ_rejection_dam = 10
 			if(ishuman(target))
-				if(bodypart_to_attach.animal_origin)
+				var/mob/living/carbon/human/human_target = target
+				var/obj/item/bodypart/chest/target_chest = human_target.get_bodypart(BODY_ZONE_CHEST)
+				if(!(bodypart_to_attach.bodytype & target_chest.acceptable_bodytype))
 					to_chat(user, span_warning("[bodypart_to_attach] doesn't match the patient's morphology."))
 					return -1
-				var/mob/living/carbon/human/human_target = target
-				if(human_target.dna.species.id != bodypart_to_attach.species_id)
+				if(human_target.dna.species.id != bodypart_to_attach.limb_id)
 					organ_rejection_dam = 30
 
 		if(target_zone == bodypart_to_attach.body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
@@ -90,6 +87,7 @@
 		display_results(user, target, span_notice("You succeed in replacing [target]'s [parse_zone(target_zone)]."),
 			span_notice("[user] successfully replaces [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] successfully replaces [target]'s [parse_zone(target_zone)]!"))
+		display_pain(target, "You feel synthetic sensation wash from your [parse_zone(target_zone)], which you can feel again!", TRUE)
 		return
 	else
 		var/obj/item/bodypart/limb_to_attach = target.newBodyPart(target_zone, FALSE, FALSE)
@@ -104,6 +102,7 @@
 		display_results(user, target, span_notice("You attach [tool]."),
 			span_notice("[user] finishes attaching [tool]!"),
 			span_notice("[user] finishes the attachment procedure!"))
+		display_pain(target, "You feel a strange sensation from your new [parse_zone(target_zone)].", TRUE)
 		qdel(tool)
 		if(istype(tool, /obj/item/chainsaw))
 			var/obj/item/mounted_chainsaw/new_arm = new(target)

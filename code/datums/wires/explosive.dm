@@ -46,22 +46,32 @@
 		var/obj/item/assembly/timer/T = S
 		G.det_time = T.saved_time*10
 	else if(istype(S,/obj/item/assembly/prox_sensor))
-		var/obj/item/grenade/chem_grenade/G = holder
-		G.landminemode = S
-		S.proximity_monitor.wire = TRUE
+		var/obj/item/assembly/prox_sensor/sensor = S
+		var/obj/item/grenade/chem_grenade/grenade = holder
+		grenade.landminemode = sensor
+		sensor.proximity_monitor.set_ignore_if_not_on_turf(FALSE)
+	else if(istype(S,/obj/item/assembly/health))
+		var/obj/item/assembly/health/sensor = S
+		if(!sensor.secured)
+			sensor.toggle_secure()
+		if(!sensor.scanning)
+			sensor.toggle_scan()
 	fingerprint = S.fingerprintslast
 	return ..()
 
 /datum/wires/explosive/chem_grenade/explode()
-	var/obj/item/grenade/chem_grenade/G = holder
+	var/obj/item/grenade/chem_grenade/grenade = holder
 	var/obj/item/assembly/assembly = get_attached(get_wire(1))
-	if(!G.dud_flags)
-		message_admins("\An [assembly] has pulsed [G] ([G.type]), which was installed by [fingerprint].")
-	log_game("\An [assembly] has pulsed [G] ([G.type]), which was installed by [fingerprint].")
+	if(!grenade.dud_flags)
+		message_admins("\An [assembly] has pulsed [grenade] ([grenade.type]), which was installed by [fingerprint].")
+	log_game("\An [assembly] has pulsed [grenade] ([grenade.type]), which was installed by [fingerprint].")
 	var/mob/M = get_mob_by_ckey(fingerprint)
-	var/turf/T = get_turf(M)
-	G.log_grenade(M, T)
-	G.detonate()
+	grenade.log_grenade(M) //Used in arm_grenade() too but this one conveys where the mob who triggered the bomb is
+	if(grenade.landminemode)
+		grenade.detonate() ///already armed
+	else
+		grenade.arm_grenade() //The one here conveys where the bomb was when it went boom
+
 
 /datum/wires/explosive/chem_grenade/detach_assembly(color)
 	var/obj/item/assembly/S = get_attached(color)
@@ -133,17 +143,3 @@
 /datum/wires/explosive/gibtonite/explode()
 	var/obj/item/gibtonite/P = holder
 	P.GibtoniteReaction(null, 2)
-
-/datum/wires/explosive/pipebomb
-	duds_number = 1
-	holder_type = /obj/item/grenade/pipebomb
-
-/datum/wires/explosive/pipebomb/on_pulse(wire)
-	var/obj/item/grenade/pipebomb/P = holder
-	P.arm_grenade()
-	. = ..()
-
-/datum/wires/explosive/pipebomb/on_cut(wire, mend)
-	var/obj/item/grenade/pipebomb/P = holder
-	P.arm_grenade()
-	. = ..()

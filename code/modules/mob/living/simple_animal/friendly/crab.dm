@@ -10,7 +10,7 @@
 	emote_see = list("clacks.")
 	speak_chance = 1
 	turns_per_move = 5
-	butcher_results = list(/obj/item/food/meat/rawcrab = 2)
+	butcher_results = list(/obj/item/food/meat/slab/rawcrab = 2)
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
 	response_disarm_continuous = "gently pushes aside"
@@ -29,7 +29,7 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	attack_vis_effect = ATTACK_EFFECT_BITE
 
-/mob/living/simple_animal/crab/Initialize()
+/mob/living/simple_animal/crab/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
@@ -70,7 +70,7 @@
 	icon_state = "kreb"
 	icon_living = "kreb"
 	icon_dead = "kreb_dead"
-	gold_core_spawnable = FRIENDLY_SPAWN
+	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/crab/evil/kreb
 	name = "Evil Kreb"
@@ -78,4 +78,4 @@
 	icon_state = "evilkreb"
 	icon_living = "evilkreb"
 	icon_dead = "evilkreb_dead"
-	gold_core_spawnable = FRIENDLY_SPAWN
+	gold_core_spawnable = NO_SPAWN

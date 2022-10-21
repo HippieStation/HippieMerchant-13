@@ -12,14 +12,14 @@
 	var/list/songs = list()
 	var/datum/track/selection = null
 	/// Volume of the songs played
-	var/volume = 100
+	var/volume = 50
 	COOLDOWN_DECLARE(jukebox_error_cd)
 
 /obj/machinery/jukebox/disco
 	name = "radiant dance machine mark IV"
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
 	icon_state = "disco"
-	req_access = list(ACCESS_ENGINE)
+	req_access = list(ACCESS_ENGINEERING)
 	anchored = FALSE
 	var/list/spotlights = list()
 	var/list/sparkles = list()
@@ -44,7 +44,7 @@
 	song_length = length
 	song_beat = beat
 
-/obj/machinery/jukebox/Initialize()
+/obj/machinery/jukebox/Initialize(mapload)
 	. = ..()
 	var/list/tracks = flist("[global.config.directory]/jukebox_music/sounds/")
 
@@ -159,14 +159,14 @@
 			return TRUE
 		if("set_volume")
 			var/new_volume = params["volume"]
-			if(new_volume  == "reset")
+			if(new_volume == "reset")
 				volume = initial(volume)
 				return TRUE
 			else if(new_volume == "min")
 				volume = 0
 				return TRUE
 			else if(new_volume == "max")
-				volume = 100
+				volume = initial(volume)
 				return TRUE
 			else if(text2num(new_volume) != null)
 				volume = text2num(new_volume)
@@ -174,6 +174,7 @@
 
 /obj/machinery/jukebox/proc/activate_music()
 	active = TRUE
+	update_use_power(ACTIVE_POWER_USE)
 	update_appearance()
 	START_PROCESSING(SSobj, src)
 	stop = world.time + selection.song_length
@@ -466,6 +467,7 @@
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
 	else if(active)
 		active = FALSE
+		update_use_power(IDLE_POWER_USE)
 		STOP_PROCESSING(SSobj, src)
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,TRUE)

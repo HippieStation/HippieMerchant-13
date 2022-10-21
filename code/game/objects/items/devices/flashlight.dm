@@ -1,7 +1,7 @@
 /obj/item/flashlight
 	name = "flashlight"
 	desc = "A hand-held emergency light."
-	custom_price = PAYCHECK_EASY
+	custom_price = PAYCHECK_CREW
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
 	inhand_icon_state = "flashlight"
@@ -20,7 +20,7 @@
 	var/on = FALSE
 
 
-/obj/item/flashlight/Initialize()
+/obj/item/flashlight/Initialize(mapload)
 	. = ..()
 	if(icon_state == "[initial(icon_state)]-on")
 		on = TRUE
@@ -90,7 +90,7 @@
 						span_danger("You direct [src] to [M]'s eyes."))
 					if(M.stat == DEAD || (M.is_blind()) || !M.flash_act(visual = 1)) //mob is dead or fully blind
 						to_chat(user, span_warning("[M]'s pupils don't react to the light!"))
-					else if(M.dna && M.dna.check_mutation(XRAY)) //mob has X-ray vision
+					else if(M.dna && M.dna.check_mutation(/datum/mutation/human/xray)) //mob has X-ray vision
 						to_chat(user, span_danger("[M]'s pupils give an eerie glow!"))
 					else //they're okay!
 						to_chat(user, span_notice("[M]'s pupils narrow."))
@@ -216,6 +216,7 @@
 	desc = "A robust flashlight used by security."
 	icon_state = "seclite"
 	inhand_icon_state = "seclite"
+	worn_icon_state = "seclite"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	force = 9 // Not as good as a stun baton.
@@ -282,7 +283,7 @@
 	light_system = MOVABLE_LIGHT
 	grind_results = list(/datum/reagent/sulfur = 15)
 
-/obj/item/flashlight/flare/Initialize()
+/obj/item/flashlight/flare/Initialize(mapload)
 	. = ..()
 	fuel = rand(1600, 2000)
 
@@ -397,8 +398,8 @@
 	/// How many seconds between each recharge
 	var/charge_delay = 20
 
-/obj/item/flashlight/emp/New()
-	..()
+/obj/item/flashlight/emp/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/emp/Destroy()
@@ -449,7 +450,7 @@
 /obj/item/flashlight/glowstick
 	name = "glowstick"
 	desc = "A military-grade glowstick."
-	custom_price = PAYCHECK_PRISONER
+	custom_price = PAYCHECK_LOWER
 	w_class = WEIGHT_CLASS_SMALL
 	light_range = 4
 	light_system = MOVABLE_LIGHT
@@ -463,7 +464,7 @@
 	var/fuel = 0
 
 
-/obj/item/flashlight/glowstick/Initialize()
+/obj/item/flashlight/glowstick/Initialize(mapload)
 	fuel = rand(3200, 4000)
 	set_light_color(color)
 	return ..()
@@ -558,15 +559,6 @@
 	name = "pink glowstick"
 	color = LIGHT_COLOR_PINK
 
-/obj/effect/spawner/lootdrop/glowstick
-	name = "random colored glowstick"
-	icon = 'icons/obj/lighting.dmi'
-	icon_state = "random_glowstick"
-
-/obj/effect/spawner/lootdrop/glowstick/Initialize()
-	loot = typesof(/obj/item/flashlight/glowstick)
-	. = ..()
-
 /obj/item/flashlight/spotlight //invisible lighting source
 	name = "disco light"
 	desc = "Groovy..."
@@ -575,18 +567,15 @@
 	light_range = 4
 	light_power = 10
 	alpha = 0
-	layer = 0
+	plane = FLOOR_PLANE
 	on = TRUE
 	anchored = TRUE
-	var/range = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	///Boolean that switches when a full color flip ends, so the light can appear in all colors.
 	var/even_cycle = FALSE
 	///Base light_range that can be set on Initialize to use in smooth light range expansions and contractions.
 	var/base_light_range = 4
 
-/obj/item/flashlight/spotlight/staticlight
-	light_system = STATIC_LIGHT
 
 /obj/item/flashlight/spotlight/Initialize(mapload, _light_range, _light_power, _light_color)
 	. = ..()

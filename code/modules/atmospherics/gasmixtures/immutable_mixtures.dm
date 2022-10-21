@@ -20,8 +20,8 @@
 /datum/gas_mixture/immutable/merge()
 	return FALSE //we're immutable.
 
-/datum/gas_mixture/immutable/share(datum/gas_mixture/sharer, atmos_adjacent_turfs = 4)
-	. = ..(sharer, 0)
+/datum/gas_mixture/immutable/share(datum/gas_mixture/sharer, our_coeff, sharer_coeff)
+	. = ..()
 	sharer.temperature = initial_temperature
 	garbage_collect()
 
@@ -57,18 +57,6 @@
 /datum/gas_mixture/immutable/space/remove_ratio()
 	return copy() //we're always empty, so we can just return a copy.
 
-//used by cloners
-/datum/gas_mixture/immutable/cloner
-	initial_temperature = T20C
-
-/datum/gas_mixture/immutable/cloner/garbage_collect()
-	..()
-	ADD_GAS(/datum/gas/nitrogen, gases)
-	gases[/datum/gas/nitrogen][MOLES] = MOLES_O2STANDARD + MOLES_N2STANDARD
-
-/datum/gas_mixture/immutable/cloner/heat_capacity()
-	return (MOLES_O2STANDARD + MOLES_N2STANDARD)*20 //specific heat of nitrogen is 20
-	
 //planet side stuff
 /datum/gas_mixture/immutable/planetary
 	var/list/initial_gas = list()

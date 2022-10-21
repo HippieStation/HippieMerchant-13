@@ -17,7 +17,7 @@
 /obj/structure/tank_dispenser/plasma
 	oxygentanks = 0
 
-/obj/structure/tank_dispenser/Initialize()
+/obj/structure/tank_dispenser/Initialize(mapload)
 	. = ..()
 	for(var/i in 1 to oxygentanks)
 		new /obj/item/tank/internals/oxygen(src)
@@ -38,6 +38,11 @@
 		if(5 to TANK_DISPENSER_CAPACITY)
 			. += "plasma-5"
 
+/obj/structure/tank_dispenser/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
 /obj/structure/tank_dispenser/attackby(obj/item/I, mob/living/user, params)
 	var/full
 	if(istype(I, /obj/item/tank/internals/plasma))
@@ -50,10 +55,7 @@
 			oxygentanks++
 		else
 			full = TRUE
-	else if(I.tool_behaviour == TOOL_WRENCH)
-		default_unfasten_wrench(user, I, time = 20)
-		return
-	else if(!user.istate.harm)
+	else if(!user.combat_mode)
 		to_chat(user, span_notice("[I] does not fit into [src]."))
 		return
 	else

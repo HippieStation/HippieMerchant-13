@@ -1,3 +1,6 @@
+/// The max range we can zoom in on people from.
+#define MAX_LIONHUNTER_RANGE 16
+
 // The Lionhunter, a gun for heretics
 // The ammo it uses takes time to "charge" before firing,
 // releasing a homing, very damaging projectile
@@ -5,14 +8,15 @@
 	name = "\improper Lionhunter's Rifle"
 	desc = "An antique looking rifle that looks immaculate despite being clearly very old."
 	slot_flags = ITEM_SLOT_BACK
-	icon_state = "moistnugget"
-	inhand_icon_state = "moistnugget"
-	worn_icon_state = "moistnugget"
+	icon_state = "moistprime"
+	inhand_icon_state = "moistprime"
+	worn_icon_state = "moistprime"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
 	fire_sound = 'sound/weapons/gun/sniper/shot.ogg'
-	zoomable = TRUE
-	zoom_amt = 5
-	zoom_out_amt = 3
+
+/obj/item/gun/ballistic/rifle/lionhunter/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/scope, range_modifier = 1.25)
 
 /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
 	name = "lionhunter rifle internal magazine"
@@ -45,10 +49,13 @@
 		return TRUE
 
 	if(currently_aiming)
-		user.balloon_alert(user, "Already aiming!")
+		user.balloon_alert(user, "already aiming!")
 		return FALSE
 
 	var/distance = get_dist(user, target)
+	if(target.z != user.z || distance > MAX_LIONHUNTER_RANGE)
+		return FALSE
+
 	var/fire_time = min(distance * seconds_per_distance, 10 SECONDS)
 
 	if(distance <= min_distance || !isliving(target))
@@ -141,3 +148,5 @@
 	layer = BELOW_MOB_LAYER
 	plane = GAME_PLANE
 	light_range = 2
+
+#undef MAX_LIONHUNTER_RANGE

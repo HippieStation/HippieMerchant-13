@@ -3,13 +3,17 @@
 	icon_state = "0"
 	state = 0
 
+/obj/structure/frame/computer/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/simple_rotation)
+
 /obj/structure/frame/computer/attackby(obj/item/P, mob/living/user, params)
 	add_fingerprint(user)
 	switch(state)
 		if(0)
 			if(P.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, span_notice("You start wrenching the frame into place..."))
-				if(P.use_tool(src, user, volume=50))
+				if(P.use_tool(src, user, 20, volume=50))
 					to_chat(user, span_notice("You wrench the frame into place."))
 					set_anchored(TRUE)
 					state = 1
@@ -19,16 +23,17 @@
 					return
 
 				to_chat(user, span_notice("You start deconstructing the frame..."))
-				if(P.use_tool(src, user, volume=50))
+				if(P.use_tool(src, user, 20, volume=50))
 					to_chat(user, span_notice("You deconstruct the frame."))
 					var/obj/item/stack/sheet/iron/M = new (drop_location(), 5)
-					M.add_fingerprint(user)
+					if (!QDELETED(M))
+						M.add_fingerprint(user)
 					qdel(src)
 				return
 		if(1)
 			if(P.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, span_notice("You start to unfasten the frame..."))
-				if(P.use_tool(src, user, volume=50))
+				if(P.use_tool(src, user, 20, volume=50))
 					to_chat(user, span_notice("You unfasten the frame."))
 					set_anchored(FALSE)
 					state = 0
@@ -72,7 +77,7 @@
 				if(!P.tool_start_check(user, amount=5))
 					return
 				to_chat(user, span_notice("You start adding cables to the frame..."))
-				if(P.use_tool(src, user, volume=50, amount=5))
+				if(P.use_tool(src, user, 20, volume=50, amount=5))
 					if(state != 2)
 						return
 					to_chat(user, span_notice("You add cables to the frame."))
@@ -86,7 +91,8 @@
 				state = 2
 				icon_state = "2"
 				var/obj/item/stack/cable_coil/A = new (drop_location(), 5)
-				A.add_fingerprint(user)
+				if (!QDELETED(A))
+					A.add_fingerprint(user)
 				return
 
 			if(istype(P, /obj/item/stack/sheet/glass))
@@ -94,7 +100,7 @@
 					return
 				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 				to_chat(user, span_notice("You start to put in the glass panel..."))
-				if(P.use_tool(src, user, amount=2))
+				if(P.use_tool(src, user, 20, amount=2))
 					if(state != 3)
 						return
 					to_chat(user, span_notice("You put in the glass panel."))
@@ -108,7 +114,8 @@
 				state = 3
 				icon_state = "3"
 				var/obj/item/stack/sheet/glass/G = new(drop_location(), 2)
-				G.add_fingerprint(user)
+				if (!QDELETED(G))
+					G.add_fingerprint(user)
 				return
 			if(P.tool_behaviour == TOOL_SCREWDRIVER)
 				P.play_tool_sound(src)
@@ -154,9 +161,11 @@
 
 				qdel(src)
 				return
-	if(user.istate.harm)
+	if(user.combat_mode)
 		return ..()
 
+/obj/structure/frame/computer/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/structure/frame/computer/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -166,14 +175,3 @@
 		if(state >= 3)
 			new /obj/item/stack/cable_coil(drop_location(), 5)
 	..()
-
-/obj/structure/frame/computer/AltClick(mob/user)
-	..()
-	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
-		return
-
-	if(anchored)
-		to_chat(usr, span_warning("You must unwrench [src] before rotating it!"))
-		return
-
-	setDir(turn(dir, -90))

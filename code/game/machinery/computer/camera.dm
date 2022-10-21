@@ -13,7 +13,6 @@
 	/// The turf where the camera was last updated.
 	var/turf/last_camera_turf
 	var/list/concurrent_users = list()
-	var/list/vis_obj
 
 	// Stuff needed to render the map
 	var/map_name
@@ -22,9 +21,9 @@
 	var/list/cam_plane_masters
 	var/atom/movable/screen/background/cam_background
 
-	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_SET_MACHINE | INTERACT_MACHINE_REQUIRES_SIGHT
+	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON|INTERACT_MACHINE_SET_MACHINE|INTERACT_MACHINE_REQUIRES_SIGHT
 
-/obj/machinery/computer/security/Initialize()
+/obj/machinery/computer/security/Initialize(mapload)
 	. = ..()
 	// Map name has to start and end with an A-Z character,
 	// and definitely NOT with a square bracket or even a number.
@@ -41,8 +40,10 @@
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
 	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
-		var/atom/movable/screen/instance = new plane()
+	for(var/plane in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+		var/atom/movable/screen/plane_master/instance = new plane()
+		if(instance.blend_mode_override)
+			instance.blend_mode = instance.blend_mode_override
 		instance.assigned_map = map_name
 		instance.del_on_map_removal = FALSE
 		instance.screen_loc = "[map_name]:CENTER"
@@ -50,68 +51,11 @@
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
-	
-	AddComponent(/datum/component/usb_port, list(
-		/obj/item/circuit_component/security_console_clickintercept,
-	))
-
-
-/obj/item/circuit_component/security_console_clickintercept
-	display_name = "Security Console Click Interceptor"
-	display_desc = "Allows the interception of mouse clicks on a camera console. Warning: may break space and time."
-	//circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL
-
-	/// The GPS coordinates (no Z)
-	var/datum/port/output/gps_x
-	var/datum/port/output/gps_y
-
-	/// Sends a signal on mouse clicks
-	var/datum/port/output/click
-	var/datum/port/output/mclick
-
-	var/obj/machinery/computer/security/attached_console
-
-/obj/item/circuit_component/security_console_clickintercept/Initialize()
-	. = ..()
-	gps_x = add_output_port("GPS X", PORT_TYPE_NUMBER)
-	gps_y = add_output_port("GPS Y", PORT_TYPE_NUMBER)
-	click = add_output_port("Click", PORT_TYPE_SIGNAL)
-	mclick = add_output_port("Alt Click", PORT_TYPE_SIGNAL)
-
-/obj/item/circuit_component/security_console_clickintercept/Destroy()
-	gps_x = null
-	gps_y = null
-	click = null
-	mclick = null
-	return ..()
-
-/obj/item/circuit_component/security_console_clickintercept/register_usb_parent(atom/movable/parent)
-	. = ..()
-	if(istype(parent, /obj/machinery/computer/security))
-		attached_console = parent
-		RegisterSignal(attached_console, COMSIG_CIRCUIT_CLICKED, .proc/click_intercept)
-
-/obj/item/circuit_component/security_console_clickintercept/proc/click_intercept(datum/source, mob/user, atom/target, params)
-	SIGNAL_HANDLER
-	var/turf/curr = get_turf(target)
-	gps_x.set_output(curr.x)
-	gps_y.set_output(curr.y)
-	var/list/modifiers = params2list(params)
-	if(LAZYACCESS(modifiers, ALT_CLICK))
-		mclick.set_output(COMPONENT_SIGNAL)
-	else
-		click.set_output(COMPONENT_SIGNAL)
-
-/obj/item/circuit_component/security_console_clickintercept/unregister_usb_parent(atom/movable/parent)
-	UnregisterSignal(attached_console, COMSIG_CIRCUIT_CLICKED)
-
-	attached_console = null
-	return ..()
 
 /obj/machinery/computer/security/Destroy()
-	qdel(cam_screen)
+	QDEL_NULL(cam_screen)
 	QDEL_LIST(cam_plane_masters)
-	qdel(cam_background)
+	QDEL_NULL(cam_background)
 	return ..()
 
 /obj/machinery/computer/security/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
@@ -120,6 +64,7 @@
 		network += "[port.id]_[i]"
 
 /obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui)
 
@@ -133,8 +78,6 @@
 		// an audible terminal_on click.
 		if(is_living)
 			concurrent_users += user_ref
-			RegisterSignal(user, COMSIG_MOB_CLICKON, .proc/on_click_mapobj)
-			RegisterSignal(user, COMSIG_MOB_MIDDLECLICKON, .proc/on_click_mapobj)
 		// Turn on the console
 		if(length(concurrent_users) == 1 && is_living)
 			playsound(src, 'sound/machines/terminal_on.ogg', 25, FALSE)
@@ -147,6 +90,12 @@
 		// Open UI
 		ui = new(user, src, "CameraConsole", name)
 		ui.open()
+
+/obj/machinery/computer/security/ui_status(mob/user)
+	. = ..()
+	if(. == UI_DISABLED)
+		return UI_CLOSE
+	return .
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
@@ -178,11 +127,11 @@
 		return
 
 	if(action == "switch_camera")
-		var/c_tag = params["name"]
+		var/c_tag = format_text(params["name"])
 		var/list/cameras = get_available_cameras()
 		var/obj/machinery/camera/selected_camera = cameras[c_tag]
 		active_camera = selected_camera
-		playsound(src, get_sfx("terminal_type"), 25, FALSE)
+		playsound(src, get_sfx(SFX_TERMINAL_TYPE), 25, FALSE)
 
 		if(!selected_camera)
 			return TRUE
@@ -213,13 +162,9 @@
 	last_camera_turf = get_turf(cam_location)
 
 	var/list/visible_things = active_camera.isXRay() ? range(active_camera.view_range, cam_location) : view(active_camera.view_range, cam_location)
-	vis_obj = list()
-	for(var/atom/A in visible_things)
-		vis_obj += visible_things
 
 	for(var/turf/visible_turf in visible_things)
 		visible_turfs += visible_turf
-		vis_obj += visible_turf
 
 	var/list/bbox = get_bbox_of_atoms(visible_turfs)
 	var/size_x = bbox[3] - bbox[1] + 1
@@ -229,23 +174,12 @@
 	cam_background.icon_state = "clear"
 	cam_background.fill_rect(1, 1, size_x, size_y)
 
-/obj/machinery/computer/security/proc/on_click_mapobj(mob/user, atom/target, params)
-	SIGNAL_HANDLER
-	if(user.stat != CONSCIOUS)
-		return
-	if(!isturf(target) && !isturf(target.loc))
-		return
-	if(!vis_obj.Find(target))
-		return
-	SEND_SIGNAL(src, COMSIG_CIRCUIT_CLICKED, user, target, params)
-
 /obj/machinery/computer/security/ui_close(mob/user)
+	. = ..()
 	var/user_ref = REF(user)
 	var/is_living = isliving(user)
 	// Living creature or not, we remove you anyway.
 	concurrent_users -= user_ref
-	UnregisterSignal(user, COMSIG_MOB_CLICKON)
-	UnregisterSignal(user, COMSIG_MOB_MIDDLECLICKON)
 	// Unregister map objects
 	user.client.clear_map(map_name)
 	// Turn off the console
@@ -353,23 +287,9 @@
 	var/icon_state_off = "entertainment_blank"
 	var/icon_state_on = "entertainment"
 
-/obj/machinery/computer/security/telescreen/entertainment/directional/north
-	dir = SOUTH
-	pixel_y = 32
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertainment, 32)
 
-/obj/machinery/computer/security/telescreen/entertainment/directional/south
-	dir = NORTH
-	pixel_y = -32
-
-/obj/machinery/computer/security/telescreen/entertainment/directional/east
-	dir = WEST
-	pixel_x = 32
-
-/obj/machinery/computer/security/telescreen/entertainment/directional/west
-	dir = EAST
-	pixel_x = -32
-
-/obj/machinery/computer/security/telescreen/entertainment/Initialize()
+/obj/machinery/computer/security/telescreen/entertainment/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_CLICK, .proc/BigClick)
 
@@ -393,7 +313,7 @@
 /obj/machinery/computer/security/telescreen/rd
 	name = "\improper Research Director's telescreen"
 	desc = "Used for watching the AI and the RD's goons from the safety of his office."
-	network = list("rd", "aicore", "aiupload", "minisat", "xeno", "test")
+	network = list("rd", "aicore", "aiupload", "minisat", "xeno", "test", "toxins")
 
 /obj/machinery/computer/security/telescreen/research
 	name = "research telescreen"
@@ -415,10 +335,10 @@
 	desc = "A telescreen that connects to the vault's camera network."
 	network = list("vault")
 
-/obj/machinery/computer/security/telescreen/toxins
+/obj/machinery/computer/security/telescreen/ordnance
 	name = "bomb test site monitor"
 	desc = "A telescreen that connects to the bomb test site's camera."
-	network = list("toxins")
+	network = list("ordnance")
 
 /obj/machinery/computer/security/telescreen/engine
 	name = "engine monitor"

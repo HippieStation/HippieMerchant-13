@@ -18,12 +18,8 @@
 	else
 		return ..()
 
-/obj/structure/ore_box/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/rad_insulation, 0.01) //please datum mats no more cancer
-
 /obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/I)
-	if(I.use_tool(src, user, volume=50))
+	if(I.use_tool(src, user, 50, volume=50))
 		user.visible_message(span_notice("[user] pries \the [src] apart."),
 			span_notice("You pry apart \the [src]."),
 			span_hear("You hear splitting wood."))
@@ -35,7 +31,7 @@
 		ui_interact(user)
 	. = ..()
 
-/obj/structure/ore_box/attack_hand(mob/user)
+/obj/structure/ore_box/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -93,10 +89,11 @@
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
 	var/obj/item/stack/sheet/mineral/wood/WD = new (loc, 4)
-	if(user)
+	if(user && !QDELETED(WD))
 		WD.add_fingerprint(user)
 	dump_box_contents()
 	qdel(src)
 
-/obj/structure/ore_box/onTransitZ()
-	return
+/// Special override for notify_contents = FALSE.
+/obj/structure/ore_box/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = FALSE)
+	return ..()

@@ -20,6 +20,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 120
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	armor = list(MELEE = 40, BULLET = 30, LASER = 20, ENERGY = 15, BOMB = 30, BIO = 100, FIRE = 100, ACID = 100)
 	///Whether or not we're currently draining something
 	var/draining = FALSE
 	///Minimum amount of power we can drain in a single drain action
@@ -57,7 +58,7 @@
 
 	if(isnum(.)) //Numerical values of drained handle their feedback here, Alpha values handle it themselves (Research hacking)
 		if(.)
-			to_chat(wearer, span_notice("Gained <B>[DisplayEnergy(.)]</B> of energy from [A]."))
+			to_chat(wearer, span_notice("Gained <B>[display_energy(.)]</B> of energy from [A]."))
 		else
 			to_chat(wearer, span_danger("\The [A] has run dry of energy, you must find another source!"))
 	else

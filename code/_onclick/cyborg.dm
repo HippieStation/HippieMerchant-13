@@ -18,8 +18,6 @@
 		return
 
 	var/list/modifiers = params2list(params)
-	if (client)
-		client.imode.update_istate(src, modifiers)
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		if(LAZYACCESS(modifiers, CTRL_CLICK))
 			CtrlShiftClickOn(A)
@@ -38,7 +36,7 @@
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
-	if(istate.secondary && !module_active)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !module_active)
 		var/secondary_result = A.attack_robot_secondary(src, modifiers)
 		if(secondary_result == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || secondary_result == SECONDARY_ATTACK_CONTINUE_CHAIN)
 			return
@@ -68,6 +66,10 @@
 		//while buckled, you can still connect to and control things like doors, but you can't use your modules
 		if(buckled)
 			to_chat(src, span_warning("You can't use modules while buckled to [buckled]!"))
+			return
+
+		//if your "hands" are blocked you shouldn't be able to use modules
+		if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 			return
 
 		if(W == A)

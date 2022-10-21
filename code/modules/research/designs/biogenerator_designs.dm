@@ -2,14 +2,6 @@
 ///////Biogenerator Designs ///////
 ///////////////////////////////////
 
-/datum/design/strange
-	name = "Strange Seed Packet"
-	id = "strangeseed"
-	build_type = BIOGENERATOR
-	materials = list(/datum/material/biomass= 600)
-	build_path = /obj/item/seeds/random
-	category = list("initial","Organic Materials")
-
 /datum/design/milk
 	name = "10u Milk"
 	id = "milk"
@@ -72,6 +64,14 @@
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 250)
 	build_path = /obj/item/food/monkeycube
+	category = list("initial","Food")
+
+/datum/design/seaweed_sheet
+	name = "Seaweed sheet"
+	id = "seaweedsheet"
+	build_type = BIOGENERATOR
+	materials = list(/datum/material/biomass= 30)
+	build_path = /obj/item/food/seaweedsheet
 	category = list("initial","Food")
 
 /datum/design/ez_nut   //easy nut :)

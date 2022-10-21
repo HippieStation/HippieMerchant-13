@@ -14,7 +14,6 @@
 	var/can_gain = TRUE
 	var/random_gain = TRUE //can this be gained through random traumas?
 	var/resilience = TRAUMA_RESILIENCE_BASIC //how hard is this to cure?
-	var/clonable = TRUE // will this transfer if the brain is cloned?
 
 /datum/brain_trauma/Destroy()
 	if(brain?.traumas)
@@ -25,11 +24,6 @@
 	owner = null
 	return ..()
 
-
-/datum/brain_trauma/proc/on_clone()
-	if(clonable)
-		return new type
-		
 //Called on life ticks
 /datum/brain_trauma/proc/on_life(delta_time, times_fired)
 	return
@@ -47,7 +41,7 @@
 
 //Called when removed from a mob
 /datum/brain_trauma/proc/on_lose(silent)
-	if(!silent)
+	if(!silent && lose_text)
 		to_chat(owner, lose_text)
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 	UnregisterSignal(owner, COMSIG_MOVABLE_HEAR)

@@ -20,7 +20,7 @@
 	if(istype(tool, /obj/item/borg/apparatus/organ_storage) && istype(tool.contents[1], /obj/item/bodypart))
 		tool = tool.contents[1]
 	var/obj/item/bodypart/aug = tool
-	if(aug.status != BODYPART_ROBOTIC)
+	if(IS_ORGANIC_LIMB(aug))
 		to_chat(user, span_warning("That's not an augment, silly!"))
 		return -1
 	if(aug.body_zone != target_zone)
@@ -31,6 +31,7 @@
 		display_results(user, target, span_notice("You begin to augment [target]'s [parse_zone(user.zone_selected)]..."),
 			span_notice("[user] begins to augment [target]'s [parse_zone(user.zone_selected)] with [aug]."),
 			span_notice("[user] begins to augment [target]'s [parse_zone(user.zone_selected)]."))
+		display_pain(target, "You feel a horrible pain in your [parse_zone(user.zone_selected)]!")
 	else
 		user.visible_message(span_notice("[user] looks for [target]'s [parse_zone(user.zone_selected)]."), span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
 
@@ -41,8 +42,8 @@
 	name = "Augmentation"
 	steps = list(
 		/datum/surgery_step/incise,
-		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/retract_skin,
+		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/replace_limb)
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
@@ -58,11 +59,17 @@
 			tool.cut_overlays()
 			tool = tool.contents[1]
 		if(istype(tool) && user.temporarilyRemoveItemFromInventory(tool))
-			tool.replace_limb(target, TRUE)
+			if(!tool.replace_limb(target))
+				display_results(user, target, span_warning("You fail in replacing [target]'s [parse_zone(target_zone)]! Their body has rejected [tool]!"),
+					span_warning("[user] fails to replace [target]'s [parse_zone(target_zone)]!"),
+					span_warning("[user] fails to replaces [target]'s [parse_zone(target_zone)]!"))
+				tool.forceMove(target.loc)
+				return
 		display_results(user, target, span_notice("You successfully augment [target]'s [parse_zone(target_zone)]."),
 			span_notice("[user] successfully augments [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] successfully augments [target]'s [parse_zone(target_zone)]!"))
-		log_combat(user, target, "augmented", addition="by giving him new [parse_zone(target_zone)] ISTATE: [user.istate.logging()]")
+		display_pain(target, "Your [parse_zone(target_zone)] comes awash with synthetic sensation!", mechanical_surgery = TRUE)
+		log_combat(user, target, "augmented", addition="by giving him new [parse_zone(target_zone)] COMBAT MODE: [uppertext(user.combat_mode)]")
 	else
 		to_chat(user, span_warning("[target] has no organic [parse_zone(target_zone)] there!"))
 	return ..()

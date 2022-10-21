@@ -1,5 +1,3 @@
-/mob/var/suiciding = FALSE
-
 /mob/proc/set_suicide(suicide_state)
 	suiciding = suicide_state
 	if(suicide_state)
@@ -37,8 +35,10 @@
 			return
 		set_suicide(TRUE) //need to be called before calling suicide_act as fuck knows what suicide_act will do with your suicider
 		var/obj/item/held_item = get_active_held_item()
-		if(held_item)
-			var/damagetype = held_item.suicide_act(src)
+		var/damagetype = SEND_SIGNAL(src, COMSIG_HUMAN_SUICIDE_ACT)
+		if(held_item || damagetype)
+			if(!damagetype && held_item)
+				damagetype = held_item.suicide_act(src)
 			if(damagetype)
 				if(damagetype & SHAME)
 					adjustStaminaLoss(200)
@@ -84,7 +84,7 @@
 
 		var/suicide_message
 
-		if(!istate.harm)
+		if(!combat_mode)
 			var/obj/item/organ/brain/userbrain = getorgan(/obj/item/organ/brain)
 			if(userbrain?.damage >= 75)
 				suicide_message = "[src] pulls both arms outwards in front of [p_their()] chest and pumps them behind [p_their()] back, repeats this motion in a smaller range of motion \

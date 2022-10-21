@@ -69,7 +69,6 @@
 	R.uneq_active()
 
 /datum/hud/robot
-	has_interaction_ui = TRUE
 	ui_style = 'icons/hud/screen_cyborg.dmi'
 
 /datum/hud/robot/New(mob/owner)
@@ -80,6 +79,11 @@
 
 	using = new/atom/movable/screen/language_menu
 	using.screen_loc = ui_borg_language_menu
+	static_inventory += using
+
+// Navigation
+	using = new /atom/movable/screen/navigate
+	using.screen_loc = ui_borg_navigate_menu
 	static_inventory += using
 
 //Radio
@@ -126,14 +130,14 @@
 	static_inventory += using
 
 //Borg Integrated Tablet
-	using = new /atom/movable/screen/robot/modPC()
+	using = new /atom/movable/screen/robot/modpc()
 	using.screen_loc = ui_borg_tablet
 	using.hud = src
 	static_inventory += using
 	robit.interfaceButton = using
 	if(robit.modularInterface)
 		using.vis_contents += robit.modularInterface
-	var/atom/movable/screen/robot/modPC/tabletbutton = using
+	var/atom/movable/screen/robot/modpc/tabletbutton = using
 	tabletbutton.robot = robit
 
 //Alerts
@@ -141,6 +145,13 @@
 	using.screen_loc = ui_borg_alerts
 	using.hud = src
 	static_inventory += using
+
+	//Combat Mode
+	action_intent = new /atom/movable/screen/combattoggle/robot()
+	action_intent.hud = src
+	action_intent.icon = ui_style
+	action_intent.screen_loc = ui_combat_toggle
+	static_inventory += action_intent
 
 //Health
 	healths = new /atom/movable/screen/healths/robot()
@@ -281,24 +292,26 @@
 	return ..()
 
 /atom/movable/screen/robot/lamp/Destroy()
-	robot.lampButton = null
-	robot = null
+	if(robot)
+		robot.lampButton = null
+		robot = null
 	return ..()
 
-/atom/movable/screen/robot/modPC
+/atom/movable/screen/robot/modpc
 	name = "Modular Interface"
 	icon_state = "template"
 	var/mob/living/silicon/robot/robot
 
-/atom/movable/screen/robot/modPC/Click()
+/atom/movable/screen/robot/modpc/Click()
 	. = ..()
 	if(.)
 		return
 	robot.modularInterface?.interact(robot)
 
-/atom/movable/screen/robot/modPC/Destroy()
-	robot.interfaceButton = null
-	robot = null
+/atom/movable/screen/robot/modpc/Destroy()
+	if(robot)
+		robot.interfaceButton = null
+		robot = null
 	return ..()
 
 /atom/movable/screen/robot/alerts
@@ -311,4 +324,4 @@
 	if(.)
 		return
 	var/mob/living/silicon/robot/borgo = usr
-	borgo.robot_alerts()
+	borgo.alert_control.ui_interact(borgo)

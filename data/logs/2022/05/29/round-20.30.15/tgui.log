@@ -1,0 +1,33 @@
+[2022-05-29 15:00:15.551] Starting up round ID .
+ - -------------------------
+[2022-05-29 15:01:11.423] spacelove in statbrowser/initialize
+[2022-05-29 15:01:20.497] spacelove in browseroutput/initialize
+[2022-05-29 15:01:35.809] spacelove (as SpaceLove at 8,174,1)
+ - Using: /datum/tgui_modal [0x21018b3b]
+ - new AlertModal fancy 1
+[2022-05-29 15:01:36.160] spacelove in tgui-window-1/initialize
+ - Using: /datum/tgui_modal [0x21018b3b]
+[2022-05-29 15:01:39.721] spacelove in tgui-window-1/close (suspending)
+[2022-05-29 15:01:39.721] spacelove in tgui-window-1/close (suspending)
+[2022-05-29 15:02:13.085] spacelove (as SpaceLove at 8,174,1)
+ - Using: /datum/preferences [0x21009c49]
+ - new PreferencesMenu fancy 1
+[2022-05-29 15:02:27.298] spacelove in tgui-window-1/close (suspending)
+[2022-05-29 15:02:27.317] spacelove in tgui-window-1/close (suspending)
+[2022-05-29 15:03:48.655] spacelove (as Parker Ludwig at 99,175,2)
+ - Using: /obj/item/mod/control/pre_equipped/security [0x2014a6a]
+ - new MODsuit fancy 1
+[2022-05-29 15:03:53.623] spacelove in tgui-window-1/close (suspending)
+[2022-05-29 15:03:53.623] spacelove in tgui-window-1/close (suspending)
+[2022-05-29 15:03:55.655] spacelove (as Parker Ludwig at 99,175,2)
+ - Using: /obj/item/mod/control/pre_equipped/safeguard [0x201649d]
+ - new MODsuit fancy 1
+[2022-05-29 15:04:02.689] spacelove in tgui-window-1/close (suspending)
+[2022-05-29 15:04:02.690] spacelove in tgui-window-1/close (suspending)
+[2022-05-29 15:04:26.704] spacelove (as Parker Ludwig at 98,174,2)
+ - Using: /obj/item/paper/fluff/spare_id_safe_code [0x20111c4]
+ - new PaperSheet fancy 1
+[2022-05-29 15:04:43.394] spacelove in tgui-window-1/close (suspending)
+[2022-05-29 15:04:43.394] spacelove (as Parker Ludwig at 98,176,2)
+ - Using: /obj/item/paper/fluff/spare_id_safe_code [0x20111c4]
+ - new PaperSheet fancy 1

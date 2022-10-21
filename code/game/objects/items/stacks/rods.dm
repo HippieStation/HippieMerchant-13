@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	new/datum/stack_recipe("railing", /obj/structure/railing, 3, time = 18, window_checks = TRUE), \
 	new/datum/stack_recipe("tank holder", /obj/structure/tank_holder, 2, time = 5, one_per_turf = TRUE, on_floor = FALSE), \
 	new/datum/stack_recipe("ladder", /obj/structure/ladder/crafted, 15, time = 150, one_per_turf = TRUE, on_floor = FALSE), \
+	new/datum/stack_recipe("catwalk floor tile", /obj/item/stack/tile/catwalk_tile, 1, 4, 20), \
 	))
 
 /obj/item/stack/rods
@@ -63,7 +64,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 			to_chat(user, span_warning("You need at least two rods to do this!"))
 			return
 
-		if(W.use_tool(src, user, volume=40))
+		if(W.use_tool(src, user, 0, volume=40))
 			var/obj/item/stack/sheet/iron/new_item = new(usr.loc)
 			user.visible_message(span_notice("[user.name] shaped [src] into iron sheets with [W]."), \
 				span_notice("You shape [src] into iron sheets with [W]."), \

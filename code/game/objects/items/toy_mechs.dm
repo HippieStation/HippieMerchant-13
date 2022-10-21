@@ -50,7 +50,7 @@
 	/// ...And their loss count in combat
 	var/losses = 0
 
-/obj/item/toy/mecha/Initialize()
+/obj/item/toy/mecha/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/series, /obj/item/toy/mecha, "Mini-Mecha action figures")
 	combat_health = max_combat_health
@@ -98,8 +98,8 @@
 		if(attacker_controller.incapacitated())
 			return FALSE
 		//if the attacker_controller isn't next to the attacking toy (and doesn't have telekinesis), the battle ends
-		if(!in_range(attacker, attacker_controller) && !(attacker_controller.dna.check_mutation(TK)))
-			attacker_controller.visible_message(span_notice("[attacker_controller.name] seperates from [attacker], ending the battle."), \
+		if(!in_range(attacker, attacker_controller) && !(attacker_controller.dna.check_mutation(/datum/mutation/human/telekinesis)))
+			attacker_controller.visible_message(span_notice("[attacker_controller.name] separates from [attacker], ending the battle."), \
 								span_notice("You separate from [attacker], ending the battle."))
 			return FALSE
 
@@ -107,14 +107,14 @@
 		if(opponent)
 			if(opponent.incapacitated())
 				return FALSE
-			if(!in_range(src, opponent) && !(opponent.dna.check_mutation(TK)))
-				opponent.visible_message(span_notice("[opponent.name] seperates from [src], ending the battle."), \
+			if(!in_range(src, opponent) && !(opponent.dna.check_mutation(/datum/mutation/human/telekinesis)))
+				opponent.visible_message(span_notice("[opponent.name] separates from [src], ending the battle."), \
 							span_notice("You separate from [src], ending the battle."))
 				return FALSE
 		//if it's not PVP and the attacker_controller isn't next to the defending toy (and doesn't have telekinesis), the battle ends
 		else
-			if (!in_range(src, attacker_controller) && !(attacker_controller.dna.check_mutation(TK)))
-				attacker_controller.visible_message(span_notice("[attacker_controller.name] seperates from [src] and [attacker], ending the battle."), \
+			if (!in_range(src, attacker_controller) && !(attacker_controller.dna.check_mutation(/datum/mutation/human/telekinesis)))
+				attacker_controller.visible_message(span_notice("[attacker_controller.name] separates from [src] and [attacker], ending the battle."), \
 									span_notice("You separate [attacker] and [src], ending the battle."))
 				return FALSE
 
@@ -132,7 +132,7 @@
 	else
 		. = ..()
 
-/obj/item/toy/mecha/attack_hand(mob/user)
+/obj/item/toy/mecha/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -156,7 +156,7 @@
 	if(target == user)
 		to_chat(user, span_notice("Target another toy mech if you want to start a battle with yourself."))
 		return
-	else if(!user.istate.harm)
+	else if(!user.combat_mode)
 		if(wants_to_battle) //prevent spamming someone with offers
 			to_chat(user, span_notice("You already are offering battle to someone!"))
 			return
@@ -266,7 +266,7 @@
 /**
  * Override the say proc if they're mute
  */
-/obj/item/toy/mecha/say()
+/obj/item/toy/mecha/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
 	if(!quiet)
 		. = ..()
 

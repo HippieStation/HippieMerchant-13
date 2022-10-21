@@ -64,8 +64,11 @@
 /obj/singularity/academy
 	move_self = FALSE
 
-/obj/singularity/academy/Initialize()
+/obj/singularity/academy/Initialize(mapload)
 	. = ..()
+
+	var/datum/component/singularity/singularity = singularity_component.resolve()
+	singularity?.grav_pull = 1
 
 /obj/singularity/academy/process(delta_time)
 	if(DT_PROB(0.5, delta_time))
@@ -81,7 +84,7 @@
 /obj/structure/academy_wizard_spawner
 	name = "Academy Defensive System"
 	desc = "Made by Abjuration, Inc."
-	icon = 'icons/obj/cult.dmi'
+	icon = 'icons/obj/cult/structures.dmi'
 	icon_state = "forge"
 	anchored = TRUE
 	max_integrity = 200
@@ -123,7 +126,7 @@
 
 	if(!current_wizard)
 		return
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as Wizard Academy Defender?", ROLE_WIZARD, ROLE_WIZARD, 50, current_wizard, POLL_IGNORE_ACADEMY_WIZARD)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as Wizard Academy Defender?", ROLE_WIZARD, ROLE_WIZARD, 5 SECONDS, current_wizard, POLL_IGNORE_ACADEMY_WIZARD)
 
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
@@ -268,7 +271,7 @@
 		if(8)
 			//Fuel tank Explosion
 			T.visible_message(span_userdanger("An explosion bursts into existence around [user]!"))
-			explosion(get_turf(user), devastation_range = -1, light_impact_range = 2, flame_range = 2)
+			explosion(get_turf(user), devastation_range = -1, light_impact_range = 2, flame_range = 2, explosion_cause = src)
 		if(9)
 			//Cold
 			var/datum/disease/D = new /datum/disease/cold()
@@ -281,7 +284,7 @@
 			//Cookie
 			T.visible_message(span_userdanger("A cookie appears out of thin air!"))
 			var/obj/item/food/cookie/C = new(drop_location())
-			do_smoke(0, drop_location())
+			do_smoke(DIAMOND_AREA(0), drop_location())
 			C.name = "Cookie of Fate"
 		if(12)
 			//Healing
@@ -302,18 +305,18 @@
 		if(14)
 			//Free Gun
 			T.visible_message(span_userdanger("An impressive gun appears!"))
-			do_smoke(0, drop_location())
+			do_smoke(DIAMOND_AREA(0), drop_location())
 			new /obj/item/gun/ballistic/revolver/mateba(drop_location())
 		if(15)
 			//Random One-use spellbook
 			T.visible_message(span_userdanger("A magical looking book drops to the floor!"))
-			do_smoke(0, drop_location())
+			do_smoke(DIAMOND_AREA(0), drop_location())
 			new /obj/item/book/granter/spell/random(drop_location())
 		if(16)
 			//Servant & Servant Summon
 			T.visible_message(span_userdanger("A Dice Servant appears in a cloud of smoke!"))
 			var/mob/living/carbon/human/H = new(drop_location())
-			do_smoke(0, drop_location())
+			do_smoke(DIAMOND_AREA(0), drop_location())
 
 			H.equipOutfit(/datum/outfit/butler)
 			var/datum/mind/servant_mind = new /datum/mind()
@@ -322,7 +325,7 @@
 			A.setup_master(user)
 			servant_mind.transfer_to(H)
 
-			var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [user.real_name] Servant?", ROLE_WIZARD, ROLE_WIZARD, 50, H)
+			var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [user.real_name] Servant?", ROLE_WIZARD, ROLE_WIZARD, 5 SECONDS, H)
 			if(LAZYLEN(candidates))
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
@@ -336,12 +339,12 @@
 			//Tator Kit
 			T.visible_message(span_userdanger("A suspicious box appears!"))
 			new /obj/item/storage/box/syndicate/bundle_a(drop_location())
-			do_smoke(0, drop_location())
+			do_smoke(DIAMOND_AREA(0), drop_location())
 		if(18)
 			//Captain ID
 			T.visible_message(span_userdanger("A golden identification card appears!"))
 			new /obj/item/card/id/advanced/gold/captains_spare(drop_location())
-			do_smoke(0, drop_location())
+			do_smoke(DIAMOND_AREA(0), drop_location())
 		if(19)
 			//Instrinct Resistance
 			T.visible_message(span_userdanger("[user] looks very robust!"))

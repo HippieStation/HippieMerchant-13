@@ -15,21 +15,34 @@
 	var/can_be_tanked = TRUE
 	///Is this source self-replenishing?
 	var/refilling = FALSE
+	///Can this dispenser be opened using a wrench?
+	var/openable = FALSE
+	///Is this dispenser slowly leaking its reagent?
+	var/leaking = FALSE
+
+/obj/structure/reagent_dispensers/Initialize(mapload)
+	. = ..()
+
+	if(icon_state == "water" && SSevents.holidays?[APRIL_FOOLS])
+		icon_state = "water_fools"
 
 /obj/structure/reagent_dispensers/examine(mob/user)
 	. = ..()
 	if(can_be_tanked)
 		. += span_notice("Use a sheet of iron to convert this into a plumbing-compatible tank.")
+	if(leaking)
+		. += span_warning("Its tap is wrenched open!")
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
-	if(. && obj_integrity > 0)
+	if(. && atom_integrity > 0)
 		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
 			boom()
 
 /obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)
 	if(W.is_refillable())
 		return FALSE //so we can refill them via their afterattack.
+
 	if(istype(W, /obj/item/stack/sheet/iron) && can_be_tanked)
 		var/obj/item/stack/sheet/iron/metal_stack = W
 		metal_stack.use(1)
@@ -41,10 +54,10 @@
 		new_tank.set_anchored(anchored)
 		qdel(src)
 		return FALSE
-	else
-		return ..()
 
-/obj/structure/reagent_dispensers/Initialize()
+	return ..()
+
+/obj/structure/reagent_dispensers/Initialize(mapload)
 	create_reagents(tank_volume, DRAINABLE | AMOUNT_VISIBLE)
 	if(reagent_id)
 		reagents.add_reagent(reagent_id, tank_volume)
@@ -62,10 +75,27 @@
 	else
 		qdel(src)
 
+/obj/structure/reagent_dispensers/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	if(!openable)
+		return FALSE
+	leaking = !leaking
+	balloon_alert(user, "[leaking ? "opened" : "closed"] [src]'s tap")
+	log_game("[key_name(user)] [leaking ? "opened" : "closed"] [src]")
+	if(leaking && reagents)
+		reagents.expose(get_turf(src), TOUCH, 10 / max(10, reagents.total_volume))
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/obj/structure/reagent_dispensers/Moved(atom/OldLoc, Dir)
+	. = ..()
+	if(leaking && reagents)
+		reagents.expose(get_turf(src), TOUCH, 10 / max(10, reagents.total_volume))
+
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"
 	desc = "A water tank."
 	icon_state = "water"
+	openable = TRUE
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
@@ -79,12 +109,20 @@
 	icon_state = "foam"
 	reagent_id = /datum/reagent/firefighting_foam
 	tank_volume = 500
+	openable = TRUE
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
 	desc = "A tank full of industrial welding fuel. Do not consume."
 	icon_state = "fuel"
 	reagent_id = /datum/reagent/fuel
+	openable = TRUE
+
+/obj/structure/reagent_dispensers/fueltank/Initialize(mapload)
+	. = ..()
+
+	if(SSevents.holidays?[APRIL_FOOLS])
+		icon_state = "fuel_fools"
 
 /obj/structure/reagent_dispensers/fueltank/boom()
 	explosion(src, heavy_impact_range = 1, light_impact_range = 5, flame_range = 5)
@@ -142,31 +180,21 @@
 	explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 7, flame_range = 12)
 	qdel(src)
 
-/obj/structure/reagent_dispensers/peppertank
+/// Wall mounted dispeners, like pepper spray or virus food. Not a normal tank, and shouldn't be able to be turned into a plumbed stationary one.
+/obj/structure/reagent_dispensers/wall
+	anchored = TRUE
+	density = FALSE
+	can_be_tanked = FALSE
+
+/obj/structure/reagent_dispensers/wall/peppertank
 	name = "pepper spray refiller"
 	desc = "Contains condensed capsaicin for use in law \"enforcement.\""
 	icon_state = "pepper"
-	anchored = TRUE
-	density = FALSE
 	reagent_id = /datum/reagent/consumable/condensedcapsaicin
 
-/obj/structure/reagent_dispensers/peppertank/directional/north
-	dir = SOUTH
-	pixel_y = 30
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/wall/peppertank, 30)
 
-/obj/structure/reagent_dispensers/peppertank/directional/south
-	dir = NORTH
-	pixel_y = -30
-
-/obj/structure/reagent_dispensers/peppertank/directional/east
-	dir = WEST
-	pixel_x = 30
-
-/obj/structure/reagent_dispensers/peppertank/directional/west
-	dir = EAST
-	pixel_x = -30
-
-/obj/structure/reagent_dispensers/peppertank/Initialize()
+/obj/structure/reagent_dispensers/wall/peppertank/Initialize(mapload)
 	. = ..()
 	if(prob(1))
 		desc = "IT'S PEPPER TIME, BITCH!"
@@ -206,36 +234,20 @@
 	desc = "Beer is liquid bread, it's good for you..."
 	icon_state = "beer"
 	reagent_id = /datum/reagent/consumable/ethanol/beer
+	openable = TRUE
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
 	explosion(src, heavy_impact_range = 3, light_impact_range = 5, flame_range = 10, flash_range = 7)
 	if(!QDELETED(src))
 		qdel(src)
 
-
-/obj/structure/reagent_dispensers/virusfood
+/obj/structure/reagent_dispensers/wall/virusfood
 	name = "virus food dispenser"
 	desc = "A dispenser of low-potency virus mutagenic."
 	icon_state = "virus_food"
-	anchored = TRUE
-	density = FALSE
 	reagent_id = /datum/reagent/consumable/virus_food
 
-/obj/structure/reagent_dispensers/virusfood/directional/north
-	dir = SOUTH
-	pixel_y = 30
-
-/obj/structure/reagent_dispensers/virusfood/directional/south
-	dir = NORTH
-	pixel_y = -30
-
-/obj/structure/reagent_dispensers/virusfood/directional/east
-	dir = WEST
-	pixel_x = 30
-
-/obj/structure/reagent_dispensers/virusfood/directional/west
-	dir = EAST
-	pixel_x = -30
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/wall/virusfood, 30)
 
 /obj/structure/reagent_dispensers/cooking_oil
 	name = "vat of cooking oil"
@@ -243,6 +255,7 @@
 	icon_state = "vat"
 	anchored = TRUE
 	reagent_id = /datum/reagent/consumable/cooking_oil
+	openable = TRUE
 
 /obj/structure/reagent_dispensers/servingdish
 	name = "serving dish"
@@ -259,22 +272,26 @@
 	desc = "A stationary, plumbed, water tank."
 	can_be_tanked = FALSE
 
-/obj/structure/reagent_dispensers/plumbed/wrench_act(mob/living/user, obj/item/I)
-	..()
-	default_unfasten_wrench(user, I)
-	return TRUE
+/obj/structure/reagent_dispensers/plumbed/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/plumbing/simple_supply)
 
-/obj/structure/reagent_dispensers/plumbed/ComponentInitialize()
-	AddComponent(/datum/component/plumbing/supply/south)
+/obj/structure/reagent_dispensers/plumbed/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/structure/reagent_dispensers/plumbed/storage
 	name = "stationary storage tank"
 	icon_state = "tank_stationary"
 	reagent_id = null //start empty
 
-/obj/structure/reagent_dispensers/plumbed/storage/ComponentInitialize()
+/obj/structure/reagent_dispensers/plumbed/storage/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+	AddComponent(/datum/component/simple_rotation)
+
+/obj/structure/reagent_dispensers/plumbed/storage/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/structure/reagent_dispensers/plumbed/storage/update_overlays()
 	. = ..()
@@ -287,11 +304,6 @@
 	var/mutable_appearance/tank_color = mutable_appearance('icons/obj/chemical_tanks.dmi', "tank_chem_overlay")
 	tank_color.color = mix_color_from_reagents(reagents.reagent_list)
 	. += tank_color
-
-/obj/structure/reagent_dispensers/plumbed/storage/proc/can_be_rotated(mob/user, rotation_type)
-	if(anchored)
-		to_chat(user, span_warning("It is fastened to the floor!"))
-	return !anchored
 
 /obj/structure/reagent_dispensers/plumbed/fuel
 	name = "stationary fuel tank"

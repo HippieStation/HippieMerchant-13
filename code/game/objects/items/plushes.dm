@@ -35,7 +35,7 @@
 	var/normal_desc
 	//--end of love :'(--
 
-/obj/item/toy/plush/Initialize()
+/obj/item/toy/plush/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, squeak_override)
 	AddElement(/datum/element/bed_tuckable, 6, -5, 90)
@@ -129,10 +129,8 @@
 				stuffed = FALSE
 			else
 				to_chat(user, span_notice("What a fool you are. [src] is a god, how can you kill a god? What a grand and intoxicating innocence."))
-				if(iscarbon(user))
-					var/mob/living/carbon/C = user
-					if(C.drunkenness < 50)
-						C.drunkenness = min(C.drunkenness + 20, 50)
+				user.adjust_drunk_effect(20, up_to = 50)
+
 				var/turf/current_location = get_turf(user)
 				var/area/current_area = current_location.loc //copied from hand tele code
 				if(current_location && current_area && (current_area.area_flags & NOTELEPORT))
@@ -236,8 +234,7 @@
 
 /obj/item/toy/plush/proc/heartbreak(obj/item/toy/plush/Brutus)
 	if(lover != Brutus)
-		to_chat(world, "lover != Brutus")
-		return //why are we considering someone we don't love?
+		CRASH("plushie heartbroken by a plushie that is not their lover")
 
 	scorned.Add(Brutus)
 	Brutus.scorned_by(src)
@@ -502,13 +499,13 @@
 /obj/item/toy/plush/lizard_plushie
 	name = "lizard plushie"
 	desc = "An adorable stuffed toy that resembles a lizardperson."
-	icon_state = "map_pushie_lizard"
+	icon_state = "map_plushie_lizard"
 	greyscale_config = /datum/greyscale_config/plush_lizard
 	attack_verb_continuous = list("claws", "hisses", "tail slaps")
 	attack_verb_simple = list("claw", "hiss", "tail slap")
 	squeak_override = list('sound/weapons/slash.ogg' = 1)
 
-/obj/item/toy/plush/lizard_plushie/Initialize()
+/obj/item/toy/plush/lizard_plushie/Initialize(mapload)
 	. = ..()
 	if(!greyscale_colors)
 		// Generate a random valid lizard color for our plushie friend
@@ -599,50 +596,58 @@
 	icon_state = "goat"
 	desc = "Despite its cuddly appearance and plush nature, it will beat you up all the same. Goats never change."
 	squeak_override = list('sound/weapons/punch1.ogg'=1)
+	/// Whether or not this goat is currently taking in a monsterous doink
+	var/going_hard = FALSE
+	/// Whether or not this goat has been flattened like a funny pancake
+	var/splat = FALSE
 
-/obj/item/toy/plush/goatplushie/angry
-	var/mob/living/carbon/target
-	throwforce = 6
-	var/cooldown = 0
-	var/cooldown_modifier = 20
-
-/obj/item/toy/plush/goatplushie/angry/Initialize()
+/obj/item/toy/plush/goatplushie/Initialize(mapload)
 	. = ..()
-	START_PROCESSING(SSprocessing, src)
+	var/static/list/loc_connections = list(
+		COMSIG_TURF_INDUSTRIAL_LIFT_ENTER = .proc/splat,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/toy/plush/goatplushie/angry/process()
-	if(prob(25) && !target)
-		var/list/targets_to_pick_from = list()
-		for(var/mob/living/carbon/C in view(7, src))
-			if(considered_alive(C.mind))
-				targets_to_pick_from += C
-		if (!targets_to_pick_from.len)
-			return
-		target = pick(targets_to_pick_from)
-		visible_message("<span class='notice'>[src] stares at [target].</span>")
-	if(world.time > cooldown && target)
-		ram()
-
-/obj/item/toy/plush/goatplushie/angry/proc/ram()
-	if(prob((obj_flags & EMAGGED) ? 98:90) && isturf(loc) && considered_alive(target.mind))
-		throw_at(target, 10, 10)
-		visible_message("<span class='danger'>[src] rams [target]!</span>")
-		cooldown = world.time + cooldown_modifier
-	target = null
-	visible_message("<span class='notice'>[src] looks disinterested.</span>")
-
-/obj/item/toy/plush/goatplushie/angry/emag_act(mob/user)
-	if (obj_flags&EMAGGED)
-		visible_message("<span class='notice'>[src] already looks angry enough, you shouldn't anger it more.</span>")
+/obj/item/toy/plush/goatplushie/attackby(obj/item/clothing/mask/cigarette/rollie/fat_dart, mob/user, params)
+	if(!istype(fat_dart))
+		return ..()
+	if(splat)
+		to_chat(user, span_notice("[src] doesn't seem to be able to go hard right now."))
 		return
-	cooldown_modifier = 5
-	throwforce = 20
-	obj_flags |= EMAGGED
-	visible_message("<span class='danger'>[src] stares at [user] angrily before going docile.</span>")
+	if(going_hard)
+		to_chat(user, span_notice("[src] is already going too hard!"))
+		return
+	if(!fat_dart.lit)
+		to_chat(user, span_notice("You'll have to light that first!"))
+		return
+	to_chat(user, span_notice("You put [fat_dart] into [src]'s mouth."))
+	qdel(fat_dart)
+	going_hard = TRUE
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/toy/plush/goatplushie/angry/Destroy()
-	STOP_PROCESSING(SSprocessing, src)
-	return ..()
+/obj/item/toy/plush/goatplushie/proc/splat(datum/source)
+	SIGNAL_HANDLER
+	if(splat)
+		return
+	if(going_hard)
+		going_hard = FALSE
+		update_icon(UPDATE_OVERLAYS)
+	icon_state = "goat_splat"
+	playsound(src, SFX_DESECRATION, 50, TRUE)
+	visible_message(span_danger("[src] gets absolutely flattened!"))
+	splat = TRUE
+
+/obj/item/toy/plush/goatplushie/examine()
+	. = ..()
+	if(splat)
+		. += span_notice("[src] might need medical attention.")
+	if(going_hard)
+		. += span_notice("[src] is going so hard, feel free to take a picture.")
+
+/obj/item/toy/plush/goatplushie/update_overlays()
+	. = ..()
+	if(going_hard)
+		. += "goat_dart"
 
 /obj/item/toy/plush/moth
 	name = "moth plushie"

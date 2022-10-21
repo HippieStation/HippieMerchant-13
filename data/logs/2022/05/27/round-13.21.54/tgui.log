@@ -1,0 +1,130 @@
+[2022-05-27 07:51:54.533] Starting up round ID .
+ - -------------------------
+[2022-05-27 07:52:57.269] guest2620842499 in statbrowser/initialize
+[2022-05-27 07:53:02.787] guest2620842499 in browseroutput/initialize
+[2022-05-27 07:53:28.172] guest2620842499 (as Guest-2620842499 at 8,174,1)
+ - Using: /datum/preferences [0x21027123]
+ - new PreferencesMenu fancy 1
+[2022-05-27 07:53:28.172] guest2620842499 in tgui-window-1/initialize
+ - Using: /datum/preferences [0x21027123]
+[2022-05-27 07:53:35.199] guest2620842499 (as Guest-2620842499 at 8,174,1) in tgui-window-1
+ - Using: /datum/preferences [0x21027123]
+ - Action: set_preference {"preference":"sound_lobby","value":false}
+[2022-05-27 07:53:37.783] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:53:37.796] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:54:12.126] guest2620842499 (as Guest-2620842499 at 8,174,1)
+ - Using: /datum/interview_manager [0x2100066f]
+ - new InterviewManager fancy 1
+[2022-05-27 07:54:14.760] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:54:14.760] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:54:22.929] guest2620842499 (as Guest-2620842499 at 8,174,1)
+ - Using: /datum/colorblind_tester [0x21027122]
+ - new ColorBlindTester fancy 1
+[2022-05-27 07:54:28.335] guest2620842499 (as Guest-2620842499 at 8,174,1) in tgui-window-1
+ - Using: /datum/colorblind_tester [0x21027122]
+ - Action: set_matrix {"name":"Protanopia"}
+[2022-05-27 07:54:29.127] guest2620842499 (as Guest-2620842499 at 8,174,1) in tgui-window-1
+ - Using: /datum/colorblind_tester [0x21027122]
+ - Action: clear_matrix {}
+[2022-05-27 07:54:31.077] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:54:31.077] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:54:34.312] guest2620842499 (as Guest-2620842499 at 8,174,1)
+ - Using: /datum/adventure_browser [0x2102a755]
+ - new AdventureBrowser fancy 1
+[2022-05-27 07:54:36.380] guest2620842499 (as Guest-2620842499 at 8,174,1) in tgui-window-1
+ - Using: /datum/adventure_browser [0x2102a755]
+ - Action: create {}
+[2022-05-27 07:54:41.026] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:54:41.026] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:55:38.510] guest2620842499 (as Guest-2620842499 at 8,174,1)
+ - Using: /datum/paintings_manager [0x210163fe]
+ - new PaintingAdminPanel fancy 1
+[2022-05-27 07:55:39.726] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:55:39.726] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:59:47.520] guest2620842499 (as Unknown at 117,176,2)
+ - Using: /obj/item/modular_computer/tablet/pda/heads/captain [0x2001fc9]
+ - new NtosMain fancy 1
+[2022-05-27 07:59:51.389] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:59:51.389] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:59:54.253] guest2620842499 (as Skyler Kemerer at 116,171,2)
+ - Using: /obj/item/modular_computer/tablet/pda/heads/captain [0x2001fc9]
+ - new NtosMain fancy 1
+[2022-05-27 07:59:55.872] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 07:59:55.872] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:01:19.303] guest2620842499 (as Skyler Kemerer at 126,104,2)
+ - Using: /obj/machinery/computer/rdconsole [0x20083b1]
+ - new Techweb fancy 1
+[2022-05-27 08:01:27.254] guest2620842499 (as Skyler Kemerer at 126,104,2) in tgui-window-1
+ - Using: /obj/machinery/computer/rdconsole [0x20083b1]
+ - Action: uploadDisk {"type":"tech"}
+[2022-05-27 08:01:55.387] guest2620842499 (as Skyler Kemerer at 126,104,2) in tgui-window-1
+ - Using: /obj/machinery/computer/rdconsole [0x20083b1]
+ - Action: ejectDisk {"type":"tech"}
+[2022-05-27 08:01:56.203] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:01:56.203] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:02:11.653] guest2620842499 (as Skyler Kemerer at 126,104,2)
+ - Using: /obj/machinery/computer/rdconsole [0x20083b1]
+ - new Techweb fancy 1
+[2022-05-27 08:02:15.671] guest2620842499 (as Skyler Kemerer at 126,104,2) in tgui-window-1
+ - Using: /obj/machinery/computer/rdconsole [0x20083b1]
+ - Action: uploadDisk {"type":"tech"}
+[2022-05-27 08:02:58.669] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:02:58.670] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:03:07.053] guest2620842499 (as Skyler Kemerer at 111,95,2)
+ - Using: /obj/machinery/mecha_part_fabricator [0x20074e5]
+ - new ExosuitFabricator fancy 1
+[2022-05-27 08:03:08.835] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:03:08.835] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:03:47.650] guest2620842499 (as Skyler Kemerer at 111,94,2)
+ - Using: /obj/machinery/mecha_part_fabricator [0x20074e5]
+ - new ExosuitFabricator fancy 1
+[2022-05-27 08:03:49.634] guest2620842499 (as Skyler Kemerer at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x20074e5]
+ - Action: sync_rnd {}
+[2022-05-27 08:03:49.933] guest2620842499 (as Skyler Kemerer at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x20074e5]
+ - Action: sync_rnd {}
+[2022-05-27 08:06:30.815] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:06:30.815] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:07:27.712] guest2620842499 (as Skyler Kemerer at 114,94,2)
+ - Using: /datum/tgui_list_input [0x21013c96]
+ - new ListInputModal fancy 1
+[2022-05-27 08:07:35.814] guest2620842499 (as Skyler Kemerer at 114,94,2) in tgui-window-1
+ - Using: /datum/tgui_list_input [0x21013c96]
+ - Action: submit {"entry":"MOD pepper shoulders module"}
+[2022-05-27 08:07:35.814] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:10:46.609] guest2620842499 (as Skyler Kemerer at 115,144,2)
+ - Using: /datum/tgui_modal [0x21045c68]
+ - new AlertModal fancy 1
+[2022-05-27 08:10:47.810] guest2620842499 (as Skyler Kemerer at 115,144,2) in tgui-window-1
+ - Using: /datum/tgui_modal [0x21045c68]
+ - Action: choose {"choice":"Yes"}
+[2022-05-27 08:10:47.810] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:11:15.192] guest2620842499 (as Harley Noton at 112,144,2)
+ - Using: /datum/tgui_modal [0x210505b3]
+ - new AlertModal fancy 1
+[2022-05-27 08:11:16.060] guest2620842499 (as Harley Noton at 112,144,2) in tgui-window-1
+ - Using: /datum/tgui_modal [0x210505b3]
+ - Action: choose {"choice":"Yes"}
+[2022-05-27 08:11:16.060] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:15:47.995] guest2620842499 (as Harley Noton at 107,157,2)
+ - Using: /datum/tgui_modal [0x21002810]
+ - new AlertModal fancy 1
+[2022-05-27 08:15:49.863] guest2620842499 (as Harley Noton at 107,157,2) in tgui-window-1
+ - Using: /datum/tgui_modal [0x21002810]
+ - Action: choose {"choice":"Yes"}
+[2022-05-27 08:15:49.863] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:16:33.677] guest2620842499 (as Skyler Kemerer at 99,163,2)
+ - Using: /datum/tgui_modal [0x21052230]
+ - new AlertModal fancy 1
+[2022-05-27 08:16:36.294] guest2620842499 (as Skyler Kemerer at 99,163,2) in tgui-window-1
+ - Using: /datum/tgui_modal [0x21052230]
+ - Action: choose {"choice":"Yes"}
+[2022-05-27 08:16:36.294] guest2620842499 in tgui-window-1/close (suspending)
+[2022-05-27 08:16:37.464] guest2620842499 (as Skyler Kemerer at 99,163,2)
+ - Using: /datum/tgui_modal [0x2105abcd]
+ - new AlertModal fancy 1
+[2022-05-27 08:16:38.444] guest2620842499 (as Skyler Kemerer at 99,163,2) in tgui-window-1
+ - Using: /datum/tgui_modal [0x2105abcd]
+ - Action: choose {"choice":"Yes"}
+[2022-05-27 08:16:38.445] guest2620842499 in tgui-window-1/close (suspending)

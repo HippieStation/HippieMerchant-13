@@ -10,8 +10,8 @@
 	// First, we get a list of all knowledge types
 	// EXCLUDING types which have route unset / set to null.
 	// (Types without a route set are assumed to be abstract or purposefully unreachable)
-	var/list/all_possible_knowledge = typesof(/datum/eldritch_knowledge)
-	for(var/datum/eldritch_knowledge/knowledge_type as anything in all_possible_knowledge)
+	var/list/all_possible_knowledge = typesof(/datum/heretic_knowledge)
+	for(var/datum/heretic_knowledge/knowledge_type as anything in all_possible_knowledge)
 		if(isnull(initial(knowledge_type.route)))
 			all_possible_knowledge -= knowledge_type
 
@@ -22,14 +22,14 @@
 	var/list/list_to_check = GLOB.heretic_start_knowledge.Copy()
 	var/i = 0
 	while(i < length(list_to_check))
-		var/datum/eldritch_knowledge/path_to_create = list_to_check[++i]
+		var/datum/heretic_knowledge/path_to_create = list_to_check[++i]
 		if(!ispath(path_to_create))
-			Fail("Heretic Knowlege: Got a non-heretic knowledge datum (Got: [path_to_create]) in the list knowledges!")
-		var/datum/eldritch_knowledge/instantiated_knowledge = new path_to_create()
+			TEST_FAIL("Heretic Knowlege: Got a non-heretic knowledge datum (Got: [path_to_create]) in the list knowledges!")
+		var/datum/heretic_knowledge/instantiated_knowledge = new path_to_create()
 		// Next knowledge is a list of typepaths.
-		for(var/datum/eldritch_knowledge/next_knowledge as anything in instantiated_knowledge.next_knowledge)
+		for(var/datum/heretic_knowledge/next_knowledge as anything in instantiated_knowledge.next_knowledge)
 			if(!ispath(next_knowledge))
-				Fail("Heretic Knowlege: [next_knowledge.type] has a [isnull(next_knowledge) ? "null":"invalid path"] in its next_knowledge list!")
+				TEST_FAIL("Heretic Knowlege: [next_knowledge.type] has a [isnull(next_knowledge) ? "null":"invalid path"] in its next_knowledge list!")
 				continue
 			if(next_knowledge in list_to_check)
 				continue
@@ -43,8 +43,8 @@
 	if(length(all_possible_knowledge) != length(all_possible_knowledge & list_to_check))
 		// Unreachables is a list of typepaths - all paths that cannot be obtained.
 		var/list/unreachables = all_possible_knowledge - list_to_check
-		for(var/datum/eldritch_knowledge/lost_knowledge as anything in unreachables)
-			Fail("Heretic Knowlege: [lost_knowledge] is unreachable by players! Add it to another knowledge's 'next_knowledge' list. If it is purposeful, set its route to 'null'.")
+		for(var/datum/heretic_knowledge/lost_knowledge as anything in unreachables)
+			TEST_FAIL("Heretic Knowlege: [lost_knowledge] is unreachable by players! Add it to another knowledge's 'next_knowledge' list. If it is purposeful, set its route to 'null'.")
 
 
 /*
@@ -61,23 +61,23 @@
 	// An assoc list of [path string] to [number of nodes we found of that path].
 	var/list/paths = list()
 	// The starting knowledge node, we use this to deduce what main paths we have.
-	var/datum/eldritch_knowledge/spell/basic/starter_node = new()
+	var/datum/heretic_knowledge/spell/basic/starter_node = new()
 
 	// Go through and determine what paths exist from our base node.
-	for(var/datum/eldritch_knowledge/possible_path as anything in starter_node.next_knowledge)
+	for(var/datum/heretic_knowledge/possible_path as anything in starter_node.next_knowledge)
 		paths[initial(possible_path.route)] = 0
 
 	qdel(starter_node) // Get rid of that starter node, we don't need it anymore.
 
 	// Now go through all the knowledges and record how many of each  main path exist.
-	for(var/datum/eldritch_knowledge/knowledge as anything in subtypesof(/datum/eldritch_knowledge))
+	for(var/datum/heretic_knowledge/knowledge as anything in subtypesof(/datum/heretic_knowledge))
 		var/knowledge_route = initial(knowledge.route)
 		// null (abstract), side paths, and start paths we can skip
 		if(isnull(knowledge_route) || (knowledge_route in paths_we_dont_check))
 			continue
 
 		if(isnull(paths[knowledge_route]))
-			Fail("Heretic Knowledge: An invalid knowledge route ([knowledge_route]) was found on [knowledge].")
+			TEST_FAIL("Heretic Knowledge: An invalid knowledge route ([knowledge_route]) was found on [knowledge].")
 			continue
 
 		paths[knowledge_route]++

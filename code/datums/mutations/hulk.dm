@@ -32,7 +32,7 @@
 
 	if(!proximity)
 		return
-	if(!source.istate.harm || source.istate.secondary)
+	if(!source.combat_mode || LAZYACCESS(modifiers, RIGHT_CLICK))
 		return
 	if(target.attack_hulk(owner))
 		if(world.time > (last_scream + scream_delay))
@@ -47,8 +47,26 @@
 /datum/mutation/human/hulk/proc/scream_attack(mob/living/carbon/human/source)
 	source.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced="hulk")
 
+/**
+ *Checks damage of a hulk's arm and applies bone wounds as necessary.
+ *
+ *Called by specific atoms being attacked, such as walls. If an atom
+ *does not call this proc, than punching that atom will not cause
+ *arm breaking (even if the atom deals recoil damage to hulks).
+ *Arguments:
+ *arg1 is the arm to evaluate damage of and possibly break.
+ */
+/datum/mutation/human/hulk/proc/break_an_arm(obj/item/bodypart/arm)
+	switch(arm.brute_dam)
+		if(45 to 50)
+			arm.force_wound_upwards(/datum/wound/blunt/critical)
+		if(41 to 45)
+			arm.force_wound_upwards(/datum/wound/blunt/severe)
+		if(35 to 41)
+			arm.force_wound_upwards(/datum/wound/blunt/moderate)
+
 /datum/mutation/human/hulk/on_life(delta_time, times_fired)
-	if(owner.health < 0)
+	if(owner.health < owner.crit_threshold)
 		on_losing(owner)
 		to_chat(owner, span_danger("You suddenly feel very weak."))
 
@@ -79,11 +97,10 @@
 #define HULK_TAILTHROW_STEPS 28
 
 /// Run a barrage of checks to see if any given click is actually able to swing
-/datum/mutation/human/hulk/proc/check_swing(mob/living/carbon/human/user, atom/clicked_atom, params)
+/datum/mutation/human/hulk/proc/check_swing(mob/living/carbon/human/user, atom/clicked_atom, list/modifiers)
 	SIGNAL_HANDLER
 
 	/// Basically, we only proceed if we're in throw mode with a tailed carbon in our grasp with at least a neck grab and we're not restrained in some way
-	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, ALT_CLICK) || LAZYACCESS(modifiers, SHIFT_CLICK) || LAZYACCESS(modifiers, CTRL_CLICK) || LAZYACCESS(modifiers, MIDDLE_CLICK))
 		return
 	if(!user.throw_mode || user.get_active_held_item() || user.zone_selected != BODY_ZONE_PRECISE_GROIN)
@@ -223,7 +240,7 @@
 	yeeted_person.visible_message(span_danger("[the_hulk] throws [yeeted_person]!"), \
 					span_userdanger("You're thrown by [the_hulk]!"), span_hear("You hear aggressive shuffling and a loud thud!"), null, the_hulk)
 	to_chat(the_hulk, span_danger("You throw [yeeted_person]!"))
-	playsound(the_hulk.loc, "swing_hit", 50, TRUE)
+	playsound(the_hulk.loc, SFX_SWING_HIT, 50, TRUE)
 	var/turf/T = get_edge_target_turf(the_hulk, the_hulk.dir)
 	if(!isturf(T))
 		return

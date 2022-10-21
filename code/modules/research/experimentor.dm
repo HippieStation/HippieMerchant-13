@@ -27,8 +27,10 @@
 	use_power = IDLE_POWER_USE
 	circuit = /obj/item/circuitboard/machine/experimentor
 	var/recentlyExperimented = 0
-	var/mob/trackedIan
-	var/mob/trackedRuntime
+	/// Weakref to the first ian we can find at init
+	var/datum/weakref/tracked_ian_ref
+	/// Weakref to the first runtime we can find at init
+	var/datum/weakref/tracked_runtime_ref
 	var/badThingCoeff = 0
 	var/resetTime = 15
 	var/cloneMode = FALSE
@@ -59,7 +61,7 @@
 		if(is_type_in_typecache(I, banned_typecache))
 			continue
 
-		if(ispath(I, /obj/item/stock_parts) || ispath(I, /obj/item/grenade/chem_grenade) || ispath(I, /obj/item/kitchen))
+		if(ispath(I, /obj/item/stock_parts) || ispath(I, /obj/item/grenade/chem_grenade) || ispath(I, /obj/item/knife))
 			var/obj/item/tempCheck = I
 			if(initial(tempCheck.icon_state) != null) //check it's an actual usable item, in a hacky way
 				valid_items["[I]"] += 15
@@ -69,11 +71,11 @@
 			if(initial(tempCheck.icon_state) != null) //check it's an actual usable item, in a hacky way
 				valid_items["[I]"] += rand(1,4)
 
-/obj/machinery/rnd/experimentor/Initialize()
+/obj/machinery/rnd/experimentor/Initialize(mapload)
 	. = ..()
 
-	trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/ian) in GLOB.mob_living_list
-	trackedRuntime = locate(/mob/living/simple_animal/pet/cat/runtime) in GLOB.mob_living_list
+	tracked_ian_ref = WEAKREF(locate(/mob/living/simple_animal/pet/dog/corgi/ian) in GLOB.mob_living_list)
+	tracked_runtime_ref = WEAKREF(locate(/mob/living/simple_animal/pet/cat/runtime) in GLOB.mob_living_list)
 	SetTypeReactions()
 
 	critical_items_typecache = typecacheof(list(
@@ -86,6 +88,7 @@
 		/obj/item/transfer_valve))
 
 /obj/machinery/rnd/experimentor/RefreshParts()
+	. = ..()
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(resetTime > 0 && (resetTime - M.rating) >= 1)
 			resetTime -= M.rating
@@ -108,7 +111,7 @@
 	return TRUE
 
 /obj/machinery/rnd/experimentor/Insert_Item(obj/item/O, mob/living/user)
-	if(!user.istate.harm)
+	if(!user.combat_mode)
 		. = 1
 		if(!is_insertion_ready(user))
 			return
@@ -194,8 +197,8 @@
 			use_power(750)
 			if(dotype != FAIL)
 				var/list/nodes = techweb_item_boost_check(process)
-				var/picked = pickweight(nodes) //This should work.
-				stored_research.boost_with_path(SSresearch.techweb_node_by_id(picked), process.type)
+				var/picked = pick_weight(nodes) //This should work.
+				stored_research.boost_with_item(SSresearch.techweb_node_by_id(picked), process.type)
 	updateUsrDialog()
 
 /obj/machinery/rnd/experimentor/proc/matchReaction(matching,reaction)
@@ -229,8 +232,8 @@
 		loaded_item = null
 
 /obj/machinery/rnd/experimentor/proc/throwSmoke(turf/where)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(0, where)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(0, location = where)
 	smoke.start()
 
 
@@ -273,7 +276,7 @@
 			ejectItem()
 		else if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message(span_danger("[src] malfunctions, melting [exp_on] and leaking radiation!"))
-			radiation_pulse(src, 500)
+			radiation_pulse(src, max_range = 6, threshold = 0.3)
 			ejectItem(TRUE)
 		else if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message(span_warning("[src] malfunctions, spewing toxic waste!"))
@@ -285,7 +288,7 @@
 		else if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			var/savedName = "[exp_on]"
 			ejectItem(TRUE)
-			var/newPath = text2path(pickweight(valid_items))
+			var/newPath = text2path(pick_weight(valid_items))
 			loaded_item = new newPath(src)
 			visible_message(span_warning("[src] malfunctions, transforming [savedName] into [loaded_item]!"))
 			investigate_log("Experimentor has transformed [savedName] into [loaded_item]", INVESTIGATE_EXPERIMENTOR)
@@ -302,27 +305,27 @@
 		else if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message(span_danger("[src] destroys [exp_on], leaking dangerous gas!"))
 			chosenchem = pick(/datum/reagent/carbon,/datum/reagent/uranium/radium,/datum/reagent/toxin,/datum/reagent/consumable/condensedcapsaicin,/datum/reagent/drug/mushroomhallucinogen,/datum/reagent/drug/space_drugs,/datum/reagent/consumable/ethanol,/datum/reagent/consumable/ethanol/beepsky_smash)
-			var/datum/reagents/R = new/datum/reagents(50)
-			R.my_atom = src
-			R.add_reagent(chosenchem , 50)
+			var/datum/reagents/tmp_holder = new/datum/reagents(50)
+			tmp_holder.my_atom = src
+			tmp_holder.add_reagent(chosenchem , 50)
 			investigate_log("Experimentor has released [chosenchem] smoke.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(R, 0, src, silent = TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(0, location = src, carry = tmp_holder, silent = TRUE)
 			playsound(src, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
-			qdel(R)
+			qdel(tmp_holder)
 			ejectItem(TRUE)
 		else if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message(span_danger("[src]'s chemical chamber has sprung a leak!"))
 			chosenchem = pick(/datum/reagent/mutationtoxin/classic,/datum/reagent/cyborg_mutation_nanomachines,/datum/reagent/toxin/acid)
-			var/datum/reagents/R = new/datum/reagents(50)
-			R.my_atom = src
-			R.add_reagent(chosenchem , 50)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(R, 0, src, silent = TRUE)
+			var/datum/reagents/tmp_holder = new/datum/reagents(50)
+			tmp_holder.my_atom = src
+			tmp_holder.add_reagent(chosenchem , 50)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(0, location = src, carry = tmp_holder, silent = TRUE)
 			playsound(src, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
-			qdel(R)
+			qdel(tmp_holder)
 			ejectItem(TRUE)
 			warn_admins(usr, "[chosenchem] smoke")
 			investigate_log("Experimentor has released <font color='red'>[chosenchem]</font> smoke!", INVESTIGATE_EXPERIMENTOR)
@@ -354,7 +357,7 @@
 			if(MT)
 				visible_message(span_danger("[src] dangerously overheats, launching a flaming fuel orb!"))
 				investigate_log("Experimentor has launched a <font color='red'>fireball</font> at [M]!", INVESTIGATE_EXPERIMENTOR)
-				var/obj/projectile/magic/aoe/fireball/FB = new /obj/projectile/magic/aoe/fireball(start)
+				var/obj/projectile/magic/fireball/FB = new /obj/projectile/magic/fireball(start)
 				FB.preparePixelProjectile(MT, start)
 				FB.fire()
 		else if(prob(EFFECT_PROB_LOW-badThingCoeff))
@@ -398,15 +401,15 @@
 			investigate_log("Experimentor has made a cup of [chosenchem] coffee.", INVESTIGATE_EXPERIMENTOR)
 		else if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message(span_danger("[src] malfunctions, shattering [exp_on] and releasing a dangerous cloud of coolant!"))
-			var/datum/reagents/R = new/datum/reagents(50)
-			R.my_atom = src
-			R.add_reagent(/datum/reagent/consumable/frostoil , 50)
+			var/datum/reagents/tmp_holder = new/datum/reagents(50)
+			tmp_holder.my_atom = src
+			tmp_holder.add_reagent(/datum/reagent/consumable/frostoil, 50)
 			investigate_log("Experimentor has released frostoil gas.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(R, 0, src, silent = TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(0, location = src, carry = tmp_holder, silent = TRUE)
 			playsound(src, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
-			qdel(R)
+			qdel(tmp_holder)
 			ejectItem(TRUE)
 		else if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message(span_warning("[src] malfunctions, shattering [exp_on] and leaking cold air!"))
@@ -424,8 +427,8 @@
 			ejectItem(TRUE)
 		else if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message(span_warning("[src] malfunctions, releasing a flurry of chilly air as [exp_on] pops out!"))
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(0, loc)
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(0, location = loc)
 			smoke.start()
 			ejectItem()
 	////////////////////////////////////////////////////////////////////////////////////////////////
@@ -477,9 +480,10 @@
 		if(globalMalf > 16 && globalMalf < 35)
 			visible_message(span_warning("[src] melts [exp_on], ian-izing the air around it!"))
 			throwSmoke(loc)
-			if(trackedIan)
-				throwSmoke(trackedIan.loc)
-				trackedIan.forceMove(loc)
+			var/mob/living/tracked_ian = tracked_ian_ref?.resolve()
+			if(tracked_ian)
+				throwSmoke(tracked_ian.loc)
+				tracked_ian.forceMove(loc)
 				investigate_log("Experimentor has stolen Ian!", INVESTIGATE_EXPERIMENTOR) //...if anyone ever fixes it...
 			else
 				new /mob/living/simple_animal/pet/dog/corgi(loc)
@@ -494,9 +498,10 @@
 		if(globalMalf > 51 && globalMalf < 75)
 			visible_message(span_warning("[src] encounters a run-time error!"))
 			throwSmoke(loc)
-			if(trackedRuntime)
-				throwSmoke(trackedRuntime.loc)
-				trackedRuntime.forceMove(drop_location())
+			var/mob/living/tracked_runtime = tracked_runtime_ref?.resolve()
+			if(tracked_runtime)
+				throwSmoke(tracked_runtime.loc)
+				tracked_runtime.forceMove(drop_location())
 				investigate_log("Experimentor has stolen Runtime!", INVESTIGATE_EXPERIMENTOR)
 			else
 				new /mob/living/simple_animal/pet/cat(loc)
@@ -564,7 +569,7 @@
 	var/reset_timer = 60
 	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/relic/Initialize()
+/obj/item/relic/Initialize(mapload)
 	. = ..()
 	icon_state = pick("shock_kit","armor-igniter-analyzer","infra-igniter0","infra-igniter1","radio-multitool","prox-radio1","radio-radio","timer-multitool0","radio-igniter-tank")
 	realName = "[pick("broken","twisted","spun","improved","silly","regular","badly made")] [pick("device","object","toy","illegal tech","weapon")]"
@@ -593,24 +598,25 @@
 //////////////// RELIC PROCS /////////////////////////////
 
 /obj/item/relic/proc/throwSmoke(turf/where)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(0, get_turf(where))
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(0, location = get_turf(where))
 	smoke.start()
 
 /obj/item/relic/proc/corgicannon(mob/user)
-	playsound(src, "sparks", rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, SFX_SPARKS, rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	var/mob/living/simple_animal/pet/dog/corgi/C = new/mob/living/simple_animal/pet/dog/corgi(get_turf(user))
 	C.throw_at(pick(oview(10,user)), 10, rand(3,8), callback = CALLBACK(src, .proc/throwSmoke, C))
 	warn_admins(user, "Corgi Cannon", 0)
 
 /obj/item/relic/proc/clean(mob/user)
-	playsound(src, "sparks", rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, SFX_SPARKS, rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	var/obj/item/grenade/chem_grenade/cleaner/CL = new/obj/item/grenade/chem_grenade/cleaner(get_turf(user))
 	CL.detonate()
+	qdel(CL)
 	warn_admins(user, "Foam", 0)
 
 /obj/item/relic/proc/flash(mob/user)
-	playsound(src, "sparks", rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, SFX_SPARKS, rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	var/obj/item/grenade/flashbang/CB = new/obj/item/grenade/flashbang(user.loc)
 	CB.detonate()
 	warn_admins(user, "Flash")

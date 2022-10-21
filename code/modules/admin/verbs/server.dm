@@ -6,12 +6,7 @@
 	set desc = "Toggles random events such as meteors, black holes, blob (but not space dust) on/off"
 	var/new_are = !CONFIG_GET(flag/allow_random_events)
 	CONFIG_SET(flag/allow_random_events, new_are)
-	if(new_are)
-		to_chat(usr, "Random events enabled", confidential = TRUE)
-		message_admins("Admin [key_name_admin(usr)] has enabled random events.")
-	else
-		to_chat(usr, "Random events disabled", confidential = TRUE)
-		message_admins("Admin [key_name_admin(usr)] has disabled random events.")
+	message_admins("[key_name_admin(usr)] has [new_are ? "enabled" : "disabled"] random events.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Random Events", "[new_are ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_hub()
@@ -40,7 +35,7 @@
 		options += "Server Restart (Kill and restart DD)";
 
 	if(SSticker.admin_delay_notice)
-		if(tgui_alert(usr, "Are you sure? An admin has already delayed the round end for the following reason: [SSticker.admin_delay_notice]", "Confirmation", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Are you sure? An admin has already delayed the round end for the following reason: [SSticker.admin_delay_notice]", "Confirmation", "Yes", "No") != "Yes")
 			return FALSE
 
 	var/result = input(usr, "Select reboot method", "World Reboot", options[1]) as null|anything in options
@@ -50,7 +45,7 @@
 		switch(result)
 			if("Regular Restart")
 				if(!(isnull(usr.client.address) || (usr.client.address in localhost_addresses)))
-					if(tgui_alert(usr, "Are you sure you want to restart the server?","This server is live",list("Restart","Cancel")) != "Restart")
+					if(alert(usr, "Are you sure you want to restart the server?","This server is live", "Restart", "Cancel") != "Restart")
 						return FALSE
 				SSticker.Reboot(init_by, "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", 10)
 			if("Regular Restart (with delay)")
@@ -58,7 +53,7 @@
 				if(!delay)
 					return FALSE
 				if(!(isnull(usr.client.address) || (usr.client.address in localhost_addresses)))
-					if(tgui_alert(usr,"Are you sure you want to restart the server?","This server is live",list("Restart","Cancel")) != "Restart")
+					if(alert(usr,"Are you sure you want to restart the server?","This server is live", "Restart", "Cancel") != "Restart")
 						return FALSE
 				SSticker.Reboot(init_by, "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay * 10)
 			if("Hard Restart (No Delay, No Feeback Reason)")
@@ -126,10 +121,7 @@
 		SSticker.start_immediately = FALSE
 		SSticker.SetTimeLeft(1800)
 		to_chat(world, "<span class='infoplain'><b>The game will start in 180 seconds.</b></span>")
-		if(prob(20))
-			SEND_SOUND(world, sound(pick('sound/voice/choose1.ogg', 'sound/voice/choose2.ogg')))
-		else
-			SEND_SOUND(world, sound('sound/ai/default/attention.ogg'))
+		SEND_SOUND(world, sound('sound/ai/default/attention.ogg'))
 		message_admins("<font color='blue'>[usr.key] has cancelled immediate game start. Game will start in 180 seconds.</font>")
 		log_admin("[usr.key] has cancelled immediate game start.")
 	else
@@ -193,10 +185,7 @@
 			log_admin("[key_name(usr)] delayed the round start.")
 		else
 			to_chat(world, "<span class='infoplain'><b>The game will start in [DisplayTimeText(newtime)].</b></span>", confidential = TRUE)
-			if(prob(20))
-				SEND_SOUND(world, sound(pick('sound/voice/choose1.ogg', 'sound/voice/choose2.ogg')))
-			else
-				SEND_SOUND(world, sound('sound/ai/default/attention.ogg'))
+			SEND_SOUND(world, sound('sound/ai/default/attention.ogg'))
 			log_admin("[key_name(usr)] set the pre-game delay to [DisplayTimeText(newtime)].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay Game Start") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

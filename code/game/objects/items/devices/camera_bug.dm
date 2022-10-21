@@ -31,7 +31,7 @@
 	var/last_found = null
 	var/last_seen = null
 
-/obj/item/camera_bug/Initialize()
+/obj/item/camera_bug/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -82,12 +82,12 @@
 		for(var/obj/machinery/camera/camera in GLOB.cameranet.cameras)
 			if(camera.machine_stat || !camera.can_use())
 				continue
-			if(length(list("ss13","mine", "rd", "labor", "toxins", "minisat") & camera.network))
+			if(length(list("ss13","mine", "rd", "labor", "ordnance", "minisat") & camera.network))
 				var/datum/weakref/camera_ref = WEAKREF(camera)
 				if(!camera_ref || !camera.c_tag)
 					continue
 				bugged_cameras[camera.c_tag] = camera_ref
-	return sortList(bugged_cameras)
+	return sort_list(bugged_cameras)
 
 
 /obj/item/camera_bug/proc/menu(list/cameras)
@@ -259,18 +259,20 @@
 				to_chat(usr, span_warning("Something's wrong with that camera! You can't get a feed."))
 				return
 			current = camera
-			spawn(6)
-				if(src.check_eye(usr))
-					usr.reset_perspective(camera)
-					interact()
-				else
-					usr.unset_machine()
-					usr << browse(null, "window=camerabug")
+			addtimer(CALLBACK(src, .proc/view_camera, usr, camera), 0.6 SECONDS)
 			return
 		else
 			usr.unset_machine()
 
 	interact()
+
+/obj/item/camera_bug/proc/view_camera(mob/show, obj/machinery/camera/camera)
+	if(check_eye(show))
+		show.reset_perspective(camera)
+		interact()
+	else
+		show.unset_machine()
+		show << browse(null, "window=camerabug")
 
 /obj/item/camera_bug/process()
 	if(track_mode == BUGMODE_LIST || (world.time < (last_tracked + refresh_interval)))

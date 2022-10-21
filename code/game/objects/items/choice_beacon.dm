@@ -22,10 +22,14 @@
 
 /obj/item/choice_beacon/proc/generate_options(mob/living/M)
 	var/list/display_names = generate_display_names()
-	if(!display_names.len)
+	if(!length(display_names))
 		return
-	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in sortList(display_names)
-	if(!choice || !M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	var/choice = tgui_input_list(M, "Which item would you like to order?", "Select an Item", display_names)
+	if(isnull(choice))
+		return
+	if(isnull(display_names[choice]))
+		return
+	if(!M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 
 	spawn_option(display_names[choice],M)
@@ -41,7 +45,7 @@
 		"style" = STYLE_BLUESPACE,
 		"spawn" = choice,
 	))
-	var/msg = "<span class=danger>After making your selection, you notice a strange target on the ground. It might be best to step back!</span>"
+	var/msg = span_danger("After making your selection, you notice a strange target on the ground. It might be best to step back!")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(istype(H.ears, /obj/item/radio/headset))
@@ -93,8 +97,8 @@
 		augment_list = list()
 		var/list/templist = list(
 		/obj/item/organ/cyberimp/brain/anti_drop,
-		/obj/item/organ/cyberimp/arm/item_set/toolset,
-		/obj/item/organ/cyberimp/arm/item_set/surgery,
+		/obj/item/organ/cyberimp/arm/toolset,
+		/obj/item/organ/cyberimp/arm/surgery,
 		/obj/item/organ/cyberimp/chest/thrusters,
 		/obj/item/organ/lungs/cybernetic/tier3,
 		/obj/item/organ/liver/cybernetic/tier3) //cyberimplants range from a nice bonus to fucking broken bullshit so no subtypesof

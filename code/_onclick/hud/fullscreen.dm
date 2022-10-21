@@ -129,6 +129,11 @@
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "flash"
 
+/atom/movable/screen/fullscreen/flash/black
+	icon = 'icons/hud/screen_gen.dmi'
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	icon_state = "black"
+
 /atom/movable/screen/fullscreen/flash/static
 	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
@@ -144,6 +149,14 @@
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "flash"
 	alpha = 80
+
+/atom/movable/screen/fullscreen/bluespace_sparkle
+	icon = 'icons/effects/effects.dmi'
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	icon_state = "shieldsparkles"
+	layer = FLASH_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	show_when_dead = TRUE
 
 /atom/movable/screen/fullscreen/color_vision/green
 	color = "#00ff00"
@@ -188,12 +201,3 @@
 	plane = LIGHTING_PLANE
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
-
-/atom/movable/screen/fullscreen/blood_tracker
-	layer = BELOW_MOB_LAYER
-
-/atom/movable/screen/fullscreen/thanos_snap
-	show_when_dead = TRUE
-	icon = 'icons/hud/screen_full.dmi'
-	icon_state = "snap"
-	layer = ABOVE_SPLASHSCREEN_LAYER

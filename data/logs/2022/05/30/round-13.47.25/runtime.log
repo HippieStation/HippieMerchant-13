@@ -1,0 +1,115 @@
+[2022-05-30 08:17:25.607] Starting up round ID .
+ - -------------------------
+[2022-05-30 08:17:25.685] Running /tg/ revision: 2022-05-30
+ - origin/master: 01df25ad5cccff9a62b83917120cfaf6a1a6754b
+ - HEAD: 4aecfabdd6b41e8d7d9990456eb2b98abf68693b
+[2022-05-30 08:17:31.946] Initialized Title Screen subsystem within 0.1 seconds!
+[2022-05-30 08:17:32.143] Initialized Server Tasks subsystem within 0 seconds!
+[2022-05-30 08:17:32.145] Initialized Input subsystem within 0 seconds!
+[2022-05-30 08:17:32.146] Initialized Stat Panels subsystem within 0 seconds!
+[2022-05-30 08:17:32.149] Initialized Profiler subsystem within 0 seconds!
+[2022-05-30 08:17:32.150] Initialized Database subsystem within 0 seconds!
+[2022-05-30 08:17:32.151] Initialized Blackbox subsystem within 0 seconds!
+[2022-05-30 08:17:32.202] Initialized Sounds subsystem within 0 seconds!
+[2022-05-30 08:17:32.216] Initialized Instruments subsystem within 0 seconds!
+[2022-05-30 08:17:32.817] Initialized Greyscale subsystem within 0.6 seconds!
+[2022-05-30 08:17:32.818] Initialized Vis contents overlays subsystem within 0 seconds!
+[2022-05-30 08:17:32.821] Initialized Discord subsystem within 0 seconds!
+[2022-05-30 08:17:32.822] Initialized Achievements subsystem within 0 seconds!
+[2022-05-30 08:17:32.825] Initialized Station subsystem within 0 seconds!
+[2022-05-30 08:17:32.826] Initialized Quirks subsystem within 0 seconds!
+[2022-05-30 08:17:32.827] Initialized Reagents subsystem within 0 seconds!
+[2022-05-30 08:17:32.849] Initialized Events subsystem within 0 seconds!
+[2022-05-30 08:17:32.857] Initialized IDs and Access subsystem within 0 seconds!
+[2022-05-30 08:17:32.858] Initialized Jobs subsystem within 0 seconds!
+[2022-05-30 08:17:32.859] Initialized AI movement subsystem within 0 seconds!
+[2022-05-30 08:17:32.913] Initialized Ticker subsystem within 0.1 seconds!
+[2022-05-30 08:17:33.168] Initialized AI Controller Ticker subsystem within 0 seconds!
+[2022-05-30 08:17:33.170] Initialized AI Behavior Ticker subsystem within 0 seconds!
+[2022-05-30 08:17:33.299] Initialized Trading Card Game subsystem within 0.1 seconds!
+[2022-05-30 08:17:33.303] Loading Meta Station...
+[2022-05-30 08:17:36.129] Loaded Station in 2.8s!
+[2022-05-30 08:17:37.160] Loaded Lavaland in 0.9s!
+[2022-05-30 08:17:41.048] Ruin loader finished with 3 left to spend.
+[2022-05-30 08:17:42.587] Ruin loader finished with 0 left to spend.
+[2022-05-30 08:17:44.750] Cave Generator finished in 2.2s!
+[2022-05-30 08:17:44.824] Cave Generator finished in 0.1s!
+[2022-05-30 08:17:45.391] Initialized Mapping subsystem within 12 seconds!
+[2022-05-30 08:17:59.988] Initialized Early Assets subsystem within 14.6 seconds!
+[2022-05-30 08:18:00.023] Initialized Research subsystem within 0.1 seconds!
+[2022-05-30 08:18:00.024] Initialized Time Tracking subsystem within 0 seconds!
+[2022-05-30 08:18:00.049] Initialized Networks subsystem within 0 seconds!
+[2022-05-30 08:18:00.050] Initialized Spatial Grid subsystem within 0 seconds!
+[2022-05-30 08:18:00.067] Initialized Economy subsystem within 0 seconds!
+[2022-05-30 08:18:00.068] Initialized Restaurant subsystem within 0 seconds!
+[2022-05-30 08:18:19.808] runtime error: Incompatible /datum/component/plumbing/simple_demand assigned to a /obj/structure/sink! args: [null]
+ - proc name: stack trace (/proc/stack_trace)
+ -   source file: stack_trace.dm,3
+ -   usr: (src)
+ -   src: null
+ -   call stack:
+ - stack trace("Incompatible /datum/component/...")
+ - /datum/component/plumbing/simp... (/datum/component/plumbing/simple_demand): New(/list (/list))
+ - the sink (/obj/structure/sink):  AddComponent(/list (/list))
+ - the sink (/obj/structure/sink): Initialize(1, null)
+ - Atoms (/datum/controller/subsystem/atoms): InitAtom(the sink (/obj/structure/sink), 0, /list (/list))
+ - Atoms (/datum/controller/subsystem/atoms): CreateAtoms(null, null)
+ - Atoms (/datum/controller/subsystem/atoms): InitializeAtoms(null, null)
+ - Atoms (/datum/controller/subsystem/atoms): Initialize(298800)
+ - Master (/datum/controller/master): Initialize(10, 0, 1)
+ - 
+[2022-05-30 08:18:20.231] runtime error: Incompatible /datum/component/plumbing/simple_demand assigned to a /obj/structure/sink/kitchen! args: [null]
+ - proc name: stack trace (/proc/stack_trace)
+ -   source file: stack_trace.dm,3
+ -   usr: (src)
+ -   src: null
+ -   call stack:
+ - stack trace("Incompatible /datum/component/...")
+ - /datum/component/plumbing/simp... (/datum/component/plumbing/simple_demand): New(/list (/list))
+ - the old sink (/obj/structure/sink/kitchen):  AddComponent(/list (/list))
+ - the old sink (/obj/structure/sink/kitchen): Initialize(1, null)
+ - Atoms (/datum/controller/subsystem/atoms): InitAtom(the old sink (/obj/structure/sink/kitchen), 0, /list (/list))
+ - Atoms (/datum/controller/subsystem/atoms): CreateAtoms(null, null)
+ - Atoms (/datum/controller/subsystem/atoms): InitializeAtoms(null, null)
+ - Atoms (/datum/controller/subsystem/atoms): Initialize(298800)
+ - Master (/datum/controller/master): Initialize(10, 0, 1)
+ - 
+[2022-05-30 08:18:45.930] Initialized Atoms subsystem within 45.9 seconds!
+[2022-05-30 08:18:45.944] Initialized Language subsystem within 0 seconds!
+[2022-05-30 08:18:46.012] Initialized Machines subsystem within 0.1 seconds!
+[2022-05-30 08:18:46.013] Initialized Skills subsystem within 0 seconds!
+[2022-05-30 08:18:46.015] Initialized Addiction subsystem within 0 seconds!
+[2022-05-30 08:18:46.018] Initialized Blackmarket subsystem within 0 seconds!
+[2022-05-30 08:18:46.019] Initialized Circuit Components subsystem within 0 seconds!
+[2022-05-30 08:18:46.021] Initialized Disease subsystem within 0 seconds!
+[2022-05-30 08:18:46.022] Initialized Smoke subsystem within 0 seconds!
+[2022-05-30 08:18:46.022] Initialized Foam subsystem within 0 seconds!
+[2022-05-30 08:18:46.023] Initialized Fluid subsystem within 0 seconds!
+[2022-05-30 08:18:46.024] Initialized Lag Switch subsystem within 0 seconds!
+[2022-05-30 08:18:46.025] Initialized Library Loading subsystem within 0 seconds!
+[2022-05-30 08:18:46.029] Initialized Night Shift subsystem within 0 seconds!
+[2022-05-30 08:18:46.030] Initialized Parallax subsystem within 0 seconds!
+[2022-05-30 08:18:46.030] Initialized Security Level subsystem within 0 seconds!
+[2022-05-30 08:18:46.031] Initialized Sun subsystem within 0 seconds!
+[2022-05-30 08:18:46.032] Initialized Traitor subsystem within 0 seconds!
+[2022-05-30 08:18:46.038] Initialized Vote subsystem within 0 seconds!
+[2022-05-30 08:18:46.038] Initialized Wardrobe subsystem within 0 seconds!
+[2022-05-30 08:18:46.056] Initialized Weather subsystem within 0 seconds!
+[2022-05-30 08:18:46.058] Initialized Wiremod Composite Templates subsystem within 0 seconds!
+[2022-05-30 08:18:50.014] ## WARNING: HEY! LISTEN! right now were wasted processing 13 turf(s) (connected to 41 other turfs) with atmos differences at round start.
+[2022-05-30 08:18:50.909] Initialized Atmospherics subsystem within 4.9 seconds!
+[2022-05-30 08:18:50.914] Initialized Persistence subsystem within 0 seconds!
+[2022-05-30 08:18:50.915] Initialized Persistent Paintings subsystem within 0 seconds!
+[2022-05-30 08:18:59.304] Initialized Assets subsystem within 8.4 seconds!
+[2022-05-30 08:19:01.037] Initialized Icon Smoothing subsystem within 1.7 seconds!
+[2022-05-30 08:19:07.048] Initialized Overlay subsystem within 6 seconds!
+[2022-05-30 08:19:07.049] Initialized XKeyScore subsystem within 0 seconds!
+[2022-05-30 08:19:07.051] Initialized PRISM subsystem within 0 seconds!
+[2022-05-30 08:19:12.401] Initialized Lighting subsystem within 5.4 seconds!
+[2022-05-30 08:19:14.865] Initialized Shuttle subsystem within 2.4 seconds!
+[2022-05-30 08:19:14.930] Initialized Minor Mapping subsystem within 0.1 seconds!
+[2022-05-30 08:19:14.934] Initialized Pathfinder subsystem within 0 seconds!
+[2022-05-30 08:19:14.935] Initialized Init Profiler subsystem within 0 seconds!
+[2022-05-30 08:19:14.936] Initialized Chat subsystem within 0 seconds!
+[2022-05-30 08:19:14.937] Initializations complete within 103.1 seconds!
+[2022-05-30 08:19:54.078] Game start took 1.2s

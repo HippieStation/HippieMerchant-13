@@ -10,7 +10,7 @@
 
 /datum/round_event/wizard/shuffleloc/start()
 	var/list/moblocs = list()
-	var/list/mobs  = list()
+	var/list/mobs = list()
 
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(!is_station_level(H.z))
@@ -31,8 +31,8 @@
 		moblocs.len -= 1
 
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(0, H.loc)
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(0, location = H.loc)
 		smoke.start()
 
 //---//
@@ -46,7 +46,7 @@
 
 /datum/round_event/wizard/shufflenames/start()
 	var/list/mobnames = list()
-	var/list/mobs  = list()
+	var/list/mobs = list()
 
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		mobnames += H.real_name
@@ -65,8 +65,8 @@
 		mobnames.len -= 1
 
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(0, H.loc)
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(0, location = H.loc)
 		smoke.start()
 
 //---//
@@ -79,7 +79,7 @@
 	earliest_start = 0 MINUTES
 
 /datum/round_event/wizard/shuffleminds/start()
-	var/list/mobs  = list()
+	var/list/mobs = list()
 
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(H.stat || !H.mind || IS_WIZARD(H))
@@ -99,6 +99,6 @@
 		mobs -= mobs[mobs.len]
 
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(0, H.loc)
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(0, location = H.loc)
 		smoke.start()

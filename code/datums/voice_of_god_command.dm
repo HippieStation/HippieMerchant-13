@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
  * The first matching command (from a list of static datums) the listeners must obey,
  * and the return value of this proc the cooldown variable of the command dictates. (only relevant for things with cooldowns i guess)
  */
-/proc/voice_of_god(message, mob/living/user, list/span_list, base_multiplier = 1, include_speaker = FALSE, message_admins = TRUE)
+/proc/voice_of_god(message, mob/living/user, list/span_list, base_multiplier = 1, include_speaker = FALSE, forced = null)
 	var/log_message = uppertext(message)
 	var/is_cultie = IS_CULTIST(user)
 	if(LAZYLEN(span_list) && is_cultie)
@@ -48,7 +48,11 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 	var/to_remove_string
 	var/list/candidates = get_hearers_in_view(8, user) - (include_speaker ? null : user)
 	for(var/mob/living/candidate in candidates)
-		if(candidate.stat != DEAD && candidate.can_hear() && !candidate.anti_magic_check(magic = FALSE, holy = TRUE))
+		if(candidate.stat != DEAD && candidate.can_hear())
+			if(candidate.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND, charge_cost = 0))
+				to_chat(span_userdanger("Something's wrong! [candidate] seems to be resisting your commands."))
+				continue
+
 			listeners += candidate
 
 			//Let's ensure the listener's name is not matched within another word or command (and viceversa). e.g. "Saul" in "somersault"
@@ -90,9 +94,9 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 			. = command.execute(listeners, user, power_multiplier, message) || command.cooldown
 			break
 
-	if(message_admins)
+	if(!forced)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
-	log_game("[key_name(user)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
+	log_game("[key_name(user)] has said '[log_message]' with a Voice of God[forced ? " forced by [forced]" : ""], affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
 	SSblackbox.record_feedback("tally", "voice_of_god", 1, log_message)
 
 /// Voice of god command datums that are used in [/proc/voice_of_god()]
@@ -120,13 +124,22 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 	return
 
 /// This command knocks the listeners down.
-/datum/voice_of_god_command/paralyze
-	trigger = "drop|fall|trip|knockdown|stop|wait|stand\\s*still|hold\\s*on|halt"
+/datum/voice_of_god_command/knockdown
+	trigger = "drop|fall|trip|knockdown"
 	cooldown = COOLDOWN_STUN
 
-/datum/voice_of_god_command/paralyze/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
+/datum/voice_of_god_command/knockdown/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
 	for(var/mob/living/target as anything in listeners)
 		target.Knockdown(4 SECONDS * power_multiplier)
+
+/// This command stops the listeners from moving.
+/datum/voice_of_god_command/immobilize
+	trigger = "stop|wait|stand\\s*still|hold\\s*on|halt"
+	cooldown = COOLDOWN_STUN
+
+/datum/voice_of_god_command/immobilize/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
+	for(var/mob/living/target as anything in listeners)
+		target.Immobilize(4 SECONDS * power_multiplier)
 
 /// This command makes carbon listeners throw up like Mr. Creosote.
 /datum/voice_of_god_command/vomit
@@ -190,7 +203,7 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 /datum/voice_of_god_command/bleed/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
 	for(var/mob/living/carbon/human/target in listeners)
 		var/obj/item/bodypart/chosen_part = pick(target.bodyparts)
-		chosen_part.generic_bleedstacks += 5
+		chosen_part.adjustBleedStacks(5)
 
 /// This command sets the listeners ablaze.
 /datum/voice_of_god_command/burn
@@ -200,7 +213,7 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 /datum/voice_of_god_command/burn/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
 	for(var/mob/living/target as anything in listeners)
 		target.adjust_fire_stacks(1 * power_multiplier)
-		target.IgniteMob()
+		target.ignite_mob()
 
 /// This command heats the listeners up like boiling water.
 /datum/voice_of_god_command/hot

@@ -26,13 +26,13 @@
 	. = ..()
 	UnregisterSignal(target, COMSIG_ATOM_ATTACK_HAND)
 
-/datum/element/pet_bonus/proc/on_attack_hand(mob/living/pet, mob/living/petter)
+/datum/element/pet_bonus/proc/on_attack_hand(mob/living/pet, mob/living/petter, list/modifiers)
 	SIGNAL_HANDLER
 
-	if(pet.stat != CONSCIOUS || petter.istate.harm)
+	if(pet.stat != CONSCIOUS || petter.combat_mode || LAZYACCESS(modifiers, RIGHT_CLICK))
 		return
 
 	new /obj/effect/temp_visual/heart(pet.loc)
 	if(emote_message && prob(33))
 		pet.manual_emote(emote_message)
-	SEND_SIGNAL(petter, COMSIG_ADD_MOOD_EVENT, pet, moodlet, pet)
+	SEND_SIGNAL(petter, COMSIG_ADD_MOOD_EVENT, "petting_bonus", moodlet, pet)

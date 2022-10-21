@@ -14,11 +14,11 @@ As such, they can either help or harm other aliens. Help works like the human he
 In all, this is a lot like the monkey code. /N
 */
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/user, list/modifiers)
-	if(isturf(loc) && istype(loc.loc, /area/start))
+	if(isturf(loc) && istype(loc.loc, /area/misc/start))
 		to_chat(user, "No attacking people at spawn, you jackass.")
 		return
 
-	if(user.istate.harm)
+	if(user.combat_mode)
 		if(user == src && check_self_for_injuries())
 			return
 		set_resting(FALSE)
@@ -29,8 +29,6 @@ In all, this is a lot like the monkey code. /N
 		AdjustUnconscious(-60)
 		AdjustSleeping(-100)
 		visible_message(span_notice("[user.name] nuzzles [src] trying to wake [p_them()] up!"))
-	else if (user.istate.control)
-		grabbedby(user)
 	else if(health > 0)
 		user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 		playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
@@ -58,14 +56,12 @@ In all, this is a lot like the monkey code. /N
 	if (martial_result != MARTIAL_ATTACK_INVALID)
 		return martial_result
 
-	if(user.istate.secondary)
-		user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-		return TRUE
-	else if(user.istate.harm)
+	if(user.combat_mode)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+			return TRUE
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		return TRUE
-	else if (user.istate.control)
-		grabbedby(user)
 	else
 		help_shake_act(user)
 
@@ -135,3 +131,6 @@ In all, this is a lot like the monkey code. /N
 
 /mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
 	return FALSE//aliens are immune to acid.
+
+/mob/living/carbon/alien/on_fire_stack(delta_time, times_fired, datum/status_effect/fire_handler/fire_stacks/fire_handler)
+	adjust_bodytemperature(BODYTEMP_HEATING_MAX * 0.5 * delta_time)

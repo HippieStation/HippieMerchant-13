@@ -1,0 +1,738 @@
+[2022-05-30 07:57:24.278] Starting up round ID .
+ - -------------------------
+[2022-05-30 07:57:24.304] Running /tg/ revision: 2022-05-30
+ - origin/master: 01df25ad5cccff9a62b83917120cfaf6a1a6754b
+ - HEAD: a53162cfa77e2b84e97aa82945000f7110f66303
+[2022-05-30 07:57:25.374] Initialized Title Screen subsystem within 0 seconds!
+[2022-05-30 07:57:25.385] Initialized Server Tasks subsystem within 0 seconds!
+[2022-05-30 07:57:25.389] Initialized Input subsystem within 0 seconds!
+[2022-05-30 07:57:25.392] Initialized Stat Panels subsystem within 0 seconds!
+[2022-05-30 07:57:25.399] Initialized Profiler subsystem within 0 seconds!
+[2022-05-30 07:57:25.402] Initialized Database subsystem within 0 seconds!
+[2022-05-30 07:57:25.406] Initialized Blackbox subsystem within 0 seconds!
+[2022-05-30 07:57:25.416] Initialized Sounds subsystem within 0 seconds!
+[2022-05-30 07:57:25.436] Initialized Instruments subsystem within 0 seconds!
+[2022-05-30 07:57:26.475] Initialized Greyscale subsystem within 1 second!
+[2022-05-30 07:57:26.476] Initialized Vis contents overlays subsystem within 0 seconds!
+[2022-05-30 07:57:26.479] Initialized Discord subsystem within 0 seconds!
+[2022-05-30 07:57:26.480] Initialized Achievements subsystem within 0 seconds!
+[2022-05-30 07:57:26.484] Initialized Station subsystem within 0 seconds!
+[2022-05-30 07:57:26.488] Initialized Quirks subsystem within 0 seconds!
+[2022-05-30 07:57:26.489] Initialized Reagents subsystem within 0 seconds!
+[2022-05-30 07:57:26.685] Initialized Events subsystem within 0 seconds!
+[2022-05-30 07:57:26.697] Initialized IDs and Access subsystem within 0 seconds!
+[2022-05-30 07:57:26.699] Initialized Jobs subsystem within 0 seconds!
+[2022-05-30 07:57:26.702] Initialized AI movement subsystem within 0 seconds!
+[2022-05-30 07:57:26.712] Initialized Ticker subsystem within 0 seconds!
+[2022-05-30 07:57:26.717] Initialized AI Controller Ticker subsystem within 0 seconds!
+[2022-05-30 07:57:26.720] Initialized AI Behavior Ticker subsystem within 0 seconds!
+[2022-05-30 07:57:26.762] Initialized Trading Card Game subsystem within 0 seconds!
+[2022-05-30 07:57:26.764] Loading Meta Station...
+[2022-05-30 07:57:29.630] Loaded Station in 2.9s!
+[2022-05-30 07:57:30.986] Loaded Lavaland in 1.2s!
+[2022-05-30 07:57:32.519] Ruin loader finished with 0 left to spend.
+[2022-05-30 07:57:33.972] Ruin loader finished with 0 left to spend.
+[2022-05-30 07:57:36.607] Cave Generator finished in 2.7s!
+[2022-05-30 07:57:36.696] Cave Generator finished in 0s!
+[2022-05-30 07:57:37.311] Initialized Mapping subsystem within 10.6 seconds!
+[2022-05-30 07:58:07.793] Initialized Early Assets subsystem within 30.4 seconds!
+[2022-05-30 07:58:07.819] ## WARNING: Invalid research design with ID mod_project_dampener detected in node Security Modular Suits[mod_security] removed. in code/controllers/subsystem/research.dm at line 208 src: Research usr: .
+[2022-05-30 07:58:07.829] runtime error: Invalid techweb nodes detected
+ - proc name: stack trace (/proc/stack_trace)
+ -   source file: stack_trace.dm,3
+ -   usr: (src)
+ -   src: null
+ -   call stack:
+ - stack trace("Invalid techweb nodes detected")
+ - Research (/datum/controller/subsystem/research): initialize all techweb nodes(0)
+ - Research (/datum/controller/subsystem/research): Initialize(286877)
+ - Master (/datum/controller/master): Initialize(10, 0, 1)
+ - 
+[2022-05-30 07:58:07.847] Initialized Research subsystem within 0.1 seconds!
+[2022-05-30 07:58:07.851] Initialized Time Tracking subsystem within 0 seconds!
+[2022-05-30 07:58:07.878] Initialized Networks subsystem within 0 seconds!
+[2022-05-30 07:58:07.879] Initialized Spatial Grid subsystem within 0 seconds!
+[2022-05-30 07:58:07.904] Initialized Economy subsystem within 0 seconds!
+[2022-05-30 07:58:07.905] Initialized Restaurant subsystem within 0 seconds!
+[2022-05-30 07:59:15.157] Initialized Atoms subsystem within 67.2 seconds!
+[2022-05-30 07:59:15.356] Initialized Language subsystem within 0 seconds!
+[2022-05-30 07:59:15.464] Initialized Machines subsystem within 0.1 seconds!
+[2022-05-30 07:59:15.470] Initialized Skills subsystem within 0 seconds!
+[2022-05-30 07:59:15.472] Initialized Addiction subsystem within 0 seconds!
+[2022-05-30 07:59:15.476] Initialized Blackmarket subsystem within 0 seconds!
+[2022-05-30 07:59:15.479] Initialized Circuit Components subsystem within 0 seconds!
+[2022-05-30 07:59:15.484] Initialized Disease subsystem within 0 seconds!
+[2022-05-30 07:59:15.489] Initialized Smoke subsystem within 0 seconds!
+[2022-05-30 07:59:15.490] Initialized Foam subsystem within 0 seconds!
+[2022-05-30 07:59:15.492] Initialized Fluid subsystem within 0 seconds!
+[2022-05-30 07:59:15.493] Initialized Lag Switch subsystem within 0 seconds!
+[2022-05-30 07:59:15.497] Initialized Library Loading subsystem within 0 seconds!
+[2022-05-30 07:59:15.503] Initialized Night Shift subsystem within 0 seconds!
+[2022-05-30 07:59:15.505] Initialized Parallax subsystem within 0 seconds!
+[2022-05-30 07:59:15.506] Initialized Security Level subsystem within 0 seconds!
+[2022-05-30 07:59:15.507] Initialized Sun subsystem within 0 seconds!
+[2022-05-30 07:59:15.509] Initialized Traitor subsystem within 0 seconds!
+[2022-05-30 07:59:15.517] Initialized Vote subsystem within 0 seconds!
+[2022-05-30 07:59:15.518] Initialized Wardrobe subsystem within 0 seconds!
+[2022-05-30 07:59:15.542] Initialized Weather subsystem within 0 seconds!
+[2022-05-30 07:59:15.544] Initialized Wiremod Composite Templates subsystem within 0 seconds!
+[2022-05-30 07:59:23.559] Initialized Atmospherics subsystem within 8 seconds!
+[2022-05-30 07:59:23.568] Initialized Persistence subsystem within 0 seconds!
+[2022-05-30 07:59:23.572] Initialized Persistent Paintings subsystem within 0 seconds!
+[2022-05-30 07:59:35.649] Initialized Assets subsystem within 12.1 seconds!
+[2022-05-30 07:59:38.691] Initialized Icon Smoothing subsystem within 2.9 seconds!
+[2022-05-30 07:59:48.513] Initialized Overlay subsystem within 9.9 seconds!
+[2022-05-30 07:59:48.520] Initialized XKeyScore subsystem within 0 seconds!
+[2022-05-30 07:59:48.522] Initialized PRISM subsystem within 0 seconds!
+[2022-05-30 07:59:58.000] Initialized Lighting subsystem within 9.4 seconds!
+[2022-05-30 08:00:03.315] Initialized Shuttle subsystem within 5.3 seconds!
+[2022-05-30 08:00:03.455] Initialized Minor Mapping subsystem within 0.1 seconds!
+[2022-05-30 08:00:03.460] Initialized Pathfinder subsystem within 0 seconds!
+[2022-05-30 08:00:03.466] Initialized Init Profiler subsystem within 0 seconds!
+[2022-05-30 08:00:03.468] Initialized Chat subsystem within 0 seconds!
+[2022-05-30 08:00:03.471] Initializations complete within 158.1 seconds!
+[2022-05-30 08:00:05.376] Game start took 1.8s
+[2022-05-30 08:09:00.067] runtime error: Failed to implant Parker Ludwig with K33P-TH4T-D15K skillchip, on job Captain (MODsuit). Failure message: Duplicate chip detected: K33P-TH4T-D15K skillchip
+ - proc name: stack trace (/proc/stack_trace)
+ -   source file: stack_trace.dm,3
+ -   usr: Parker Ludwig (/mob/living/carbon/human)
+ -   src: null
+ -   usr.loc: the floor (113,94,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - stack trace("Failed to implant Parker Ludwi...")
+ - Captain (MODsuit) (/datum/outfit/job/captain/mod): equip(Parker Ludwig (/mob/living/carbon/human), 0)
+ - Parker Ludwig (/mob/living/carbon/human): equipOutfit(/datum/outfit/job/captain/mod (/datum/outfit/job/captain/mod), 0)
+ - /datum/buildmode_mode/outfit (/datum/buildmode_mode/outfit): handle click(SpaceLove (/client), "icon-x=16;icon-y=16;left=1;scr...", Parker Ludwig (/mob/living/carbon/human))
+ - /datum/buildmode (/datum/buildmode): InterceptClickOn(Parker Ludwig (/mob/living/carbon/human), "icon-x=16;icon-y=16;left=1;scr...", Parker Ludwig (/mob/living/carbon/human))
+ - Parker Ludwig (/mob/living/carbon/human): check click intercept("icon-x=16;icon-y=16;left=1;scr...", Parker Ludwig (/mob/living/carbon/human))
+ - Parker Ludwig (/mob/living/carbon/human): ClickOn(Parker Ludwig (/mob/living/carbon/human), "icon-x=16;icon-y=16;left=1;scr...")
+ - Parker Ludwig (/mob/living/carbon/human): Click(the floor (113,94,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=16;icon-y=16;left=1;scr...")
+ - SpaceLove (/client): Click(Parker Ludwig (/mob/living/carbon/human), the floor (113,94,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=16;icon-y=16;left=1;scr...")
+ - 
+[2022-05-30 08:10:46.820] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ -   usr: Parker Ludwig (/mob/living/carbon/human)
+ -   src: the floor (112,92,2) (/turf/open/floor/iron/dark)
+ -   usr.loc: the floor (112,92,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - the floor (112,92,2) (/turf/open/floor/iron/dark):  SendSignal("atom_entered", /list (/list))
+ - the floor (112,92,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (112,93,2) (/turf/open/floor/iron/dark), null)
+ - the floor (112,92,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (112,93,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 2, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 2, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 2, null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 2)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 2)
+ - SpaceLove (/client): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 2)
+ - Parker Ludwig (/mob/living/carbon/human): keyLoop(SpaceLove (/client))
+ - Input (/datum/controller/subsystem/input): fire(0)
+ - Input (/datum/controller/subsystem/input): ignite(0)
+ - Master (/datum/controller/master): RunQueue()
+ - Master (/datum/controller/master): Loop(2)
+ - Master (/datum/controller/master): StartProcessing(0)
+ - 
+[2022-05-30 08:10:59.702] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ -   usr: (src)
+ -   src: Parker Ludwig (/mob/living/carbon/human)
+ -   src.loc: the floor (113,93,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - Parker Ludwig (/mob/living/carbon/human):  SendSignal("atom_entered", /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,93,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,93,2) (/turf/open/floor/iron/dark), null)
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): forceMove(Parker Ludwig (/mob/living/carbon/human))
+ - Parker Ludwig (/mob/living/carbon/human): put in hand(the iron (/obj/item/stack/sheet/iron/fifty), 1, 0, 0)
+ - Parker Ludwig (/mob/living/carbon/human): put in active hand(the iron (/obj/item/stack/sheet/iron/fifty), 0, 0)
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): UnarmedAttack(the iron (/obj/item/stack/sheet/iron/fifty), 1, /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): ClickOn(the iron (/obj/item/stack/sheet/iron/fifty), "icon-x=16;icon-y=15;left=1;scr...")
+ - the iron (/obj/item/stack/sheet/iron/fifty): Click(the floor (114,93,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=16;icon-y=15;left=1;scr...")
+ - SpaceLove (/client): Click(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,93,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=16;icon-y=15;left=1;scr...")
+ - 
+[2022-05-30 08:11:04.198] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ -   usr: (src)
+ -   src: Parker Ludwig (/mob/living/carbon/human)
+ -   src.loc: the floor (113,93,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - Parker Ludwig (/mob/living/carbon/human):  SendSignal("atom_entered", /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,93,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,93,2) (/turf/open/floor/iron/dark), null)
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): forceMove(Parker Ludwig (/mob/living/carbon/human))
+ - Parker Ludwig (/mob/living/carbon/human): put in hand(the iron (/obj/item/stack/sheet/iron/fifty), 2, 0, 0)
+ - Parker Ludwig (/mob/living/carbon/human): put in active hand(the iron (/obj/item/stack/sheet/iron/fifty), 0, 0)
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): UnarmedAttack(the iron (/obj/item/stack/sheet/iron/fifty), 1, /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): ClickOn(the iron (/obj/item/stack/sheet/iron/fifty), "icon-x=16;icon-y=17;left=1;scr...")
+ - the iron (/obj/item/stack/sheet/iron/fifty): Click(the floor (114,93,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=16;icon-y=17;left=1;scr...")
+ - SpaceLove (/client): Click(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,93,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=16;icon-y=17;left=1;scr...")
+ - 
+[2022-05-30 08:11:07.698] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ -   usr: (src)
+ -   src: Parker Ludwig (/mob/living/carbon/human)
+ -   src.loc: the floor (113,93,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - Parker Ludwig (/mob/living/carbon/human):  SendSignal("atom_entered", /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,94,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,94,2) (/turf/open/floor/iron/dark), null)
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): forceMove(Parker Ludwig (/mob/living/carbon/human))
+ - Parker Ludwig (/mob/living/carbon/human): put in hand(the iron (/obj/item/stack/sheet/iron/fifty), 1, 0, 0)
+ - Parker Ludwig (/mob/living/carbon/human): put in active hand(the iron (/obj/item/stack/sheet/iron/fifty), 0, 0)
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): UnarmedAttack(the iron (/obj/item/stack/sheet/iron/fifty), 1, /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): ClickOn(the iron (/obj/item/stack/sheet/iron/fifty), "icon-x=19;icon-y=21;left=1;scr...")
+ - the iron (/obj/item/stack/sheet/iron/fifty): Click(the floor (114,94,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=19;icon-y=21;left=1;scr...")
+ - SpaceLove (/client): Click(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,94,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=19;icon-y=21;left=1;scr...")
+ - 
+[2022-05-30 08:11:08.216] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ -   usr: (src)
+ -   src: Parker Ludwig (/mob/living/carbon/human)
+ -   src.loc: the floor (113,94,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - Parker Ludwig (/mob/living/carbon/human):  SendSignal("atom_entered", /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,95,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,95,2) (/turf/open/floor/iron/dark), null)
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): forceMove(Parker Ludwig (/mob/living/carbon/human))
+ - Parker Ludwig (/mob/living/carbon/human): put in hand(the iron (/obj/item/stack/sheet/iron/fifty), 2, 0, 0)
+ - Parker Ludwig (/mob/living/carbon/human): put in active hand(the iron (/obj/item/stack/sheet/iron/fifty), 0, 0)
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): UnarmedAttack(the iron (/obj/item/stack/sheet/iron/fifty), 1, /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): ClickOn(the iron (/obj/item/stack/sheet/iron/fifty), "icon-x=19;icon-y=26;left=1;scr...")
+ - the iron (/obj/item/stack/sheet/iron/fifty): Click(the floor (114,95,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=19;icon-y=26;left=1;scr...")
+ - SpaceLove (/client): Click(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,95,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=19;icon-y=26;left=1;scr...")
+ - 
+[2022-05-30 08:11:11.115] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ -   usr: (src)
+ -   src: Parker Ludwig (/mob/living/carbon/human)
+ -   src.loc: the floor (113,94,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - Parker Ludwig (/mob/living/carbon/human):  SendSignal("atom_entered", /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,94,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,94,2) (/turf/open/floor/iron/dark), null)
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): forceMove(Parker Ludwig (/mob/living/carbon/human))
+ - Parker Ludwig (/mob/living/carbon/human): put in hand(the iron (/obj/item/stack/sheet/iron/fifty), 1, 0, 0)
+ - Parker Ludwig (/mob/living/carbon/human): put in active hand(the iron (/obj/item/stack/sheet/iron/fifty), 0, 0)
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): UnarmedAttack(the iron (/obj/item/stack/sheet/iron/fifty), 1, /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): ClickOn(the iron (/obj/item/stack/sheet/iron/fifty), "icon-x=14;icon-y=16;left=1;scr...")
+ - the iron (/obj/item/stack/sheet/iron/fifty): Click(the floor (114,94,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=14;icon-y=16;left=1;scr...")
+ - SpaceLove (/client): Click(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,94,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=14;icon-y=16;left=1;scr...")
+ - 
+[2022-05-30 08:11:11.632] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ -   usr: (src)
+ -   src: Parker Ludwig (/mob/living/carbon/human)
+ -   src.loc: the floor (113,94,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - Parker Ludwig (/mob/living/carbon/human):  SendSignal("atom_entered", /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,95,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,95,2) (/turf/open/floor/iron/dark), null)
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the iron (/obj/item/stack/sheet/iron/fifty): forceMove(Parker Ludwig (/mob/living/carbon/human))
+ - Parker Ludwig (/mob/living/carbon/human): put in hand(the iron (/obj/item/stack/sheet/iron/fifty), 2, 0, 0)
+ - Parker Ludwig (/mob/living/carbon/human): put in active hand(the iron (/obj/item/stack/sheet/iron/fifty), 0, 0)
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - the iron (/obj/item/stack/sheet/iron/fifty): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): UnarmedAttack(the iron (/obj/item/stack/sheet/iron/fifty), 1, /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): ClickOn(the iron (/obj/item/stack/sheet/iron/fifty), "icon-x=17;icon-y=12;left=1;scr...")
+ - the iron (/obj/item/stack/sheet/iron/fifty): Click(the floor (114,95,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=17;icon-y=12;left=1;scr...")
+ - SpaceLove (/client): Click(the iron (/obj/item/stack/sheet/iron/fifty), the floor (114,95,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=17;icon-y=12;left=1;scr...")
+ - 
+[2022-05-30 08:11:56.566] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ -   usr: (src)
+ -   src: Parker Ludwig (/mob/living/carbon/human)
+ -   src.loc: the floor (111,94,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - Parker Ludwig (/mob/living/carbon/human):  SendSignal("atom_entered", /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the atmospheric gas filter (/obj/item/gas_filter), the welding mask (/obj/item/clothing/mask/gas/welding/up), null)
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the atmospheric gas filter (/obj/item/gas_filter), the welding mask (/obj/item/clothing/mask/gas/welding/up), null)
+ - the atmospheric gas filter (/obj/item/gas_filter): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the atmospheric gas filter (/obj/item/gas_filter): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the atmospheric gas filter (/obj/item/gas_filter): forceMove(Parker Ludwig (/mob/living/carbon/human))
+ - Parker Ludwig (/mob/living/carbon/human): put in hand(the atmospheric gas filter (/obj/item/gas_filter), 1, 0, 1)
+ - Parker Ludwig (/mob/living/carbon/human): put in active hand(the atmospheric gas filter (/obj/item/gas_filter), 0, 1)
+ - Parker Ludwig (/mob/living/carbon/human): put in hands(the atmospheric gas filter (/obj/item/gas_filter), 0, 1, 0)
+ - the welding mask (/obj/item/clothing/mask/gas/welding/up): attack hand secondary(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): right click attack chain(the welding mask (/obj/item/clothing/mask/gas/welding/up), /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): UnarmedAttack(the welding mask (/obj/item/clothing/mask/gas/welding/up), 0, /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): ClickOn(the welding mask (/obj/item/clothing/mask/gas/welding/up), "icon-x=18;icon-y=19;right=1;sc...")
+ - the welding mask (/obj/item/clothing/mask/gas/welding/up): Click(null, "mapwindow.map", "icon-x=18;icon-y=19;right=1;sc...")
+ - SpaceLove (/client): Click(the welding mask (/obj/item/clothing/mask/gas/welding/up), null, "mapwindow.map", "icon-x=18;icon-y=19;right=1;sc...")
+ - 
+[2022-05-30 08:11:59.575] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ -   usr: (src)
+ -   src: Parker Ludwig (/mob/living/carbon/human)
+ -   src.loc: the floor (111,94,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - Parker Ludwig (/mob/living/carbon/human):  SendSignal("atom_entered", /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the atmospheric gas filter (/obj/item/gas_filter), the welding mask (/obj/item/clothing/mask/gas/welding/up), null)
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the atmospheric gas filter (/obj/item/gas_filter), the welding mask (/obj/item/clothing/mask/gas/welding/up), null)
+ - the atmospheric gas filter (/obj/item/gas_filter): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the atmospheric gas filter (/obj/item/gas_filter): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the atmospheric gas filter (/obj/item/gas_filter): forceMove(Parker Ludwig (/mob/living/carbon/human))
+ - Parker Ludwig (/mob/living/carbon/human): put in hand(the atmospheric gas filter (/obj/item/gas_filter), 1, 0, 1)
+ - Parker Ludwig (/mob/living/carbon/human): put in active hand(the atmospheric gas filter (/obj/item/gas_filter), 0, 1)
+ - Parker Ludwig (/mob/living/carbon/human): put in hands(the atmospheric gas filter (/obj/item/gas_filter), 0, 1, 0)
+ - the welding mask (/obj/item/clothing/mask/gas/welding/up): attack hand secondary(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): right click attack chain(the welding mask (/obj/item/clothing/mask/gas/welding/up), /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): UnarmedAttack(the welding mask (/obj/item/clothing/mask/gas/welding/up), 0, /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): ClickOn(the welding mask (/obj/item/clothing/mask/gas/welding/up), "icon-x=18;icon-y=14;right=1;sc...")
+ - the welding mask (/obj/item/clothing/mask/gas/welding/up): Click(null, "mapwindow.map", "icon-x=18;icon-y=14;right=1;sc...")
+ - SpaceLove (/client): Click(the welding mask (/obj/item/clothing/mask/gas/welding/up), null, "mapwindow.map", "icon-x=18;icon-y=14;right=1;sc...")
+ - 
+[2022-05-30 08:12:21.833] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ -   usr: Parker Ludwig (/mob/living/carbon/human)
+ -   src: the floor (114,93,2) (/turf/open/floor/iron/dark)
+ -   usr.loc: the floor (114,93,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - the floor (114,93,2) (/turf/open/floor/iron/dark):  SendSignal("atom_entered", /list (/list))
+ - the floor (114,93,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (113,93,2) (/turf/open/floor/iron/dark), null)
+ - the floor (114,93,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (113,93,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 4, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 4, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 4, null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 4)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 4)
+ - SpaceLove (/client): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 4)
+ - Parker Ludwig (/mob/living/carbon/human): keyLoop(SpaceLove (/client))
+ - Input (/datum/controller/subsystem/input): fire(0)
+ - Input (/datum/controller/subsystem/input): ignite(0)
+ - Master (/datum/controller/master): RunQueue()
+ - Master (/datum/controller/master): Loop(2)
+ - Master (/datum/controller/master): StartProcessing(0)
+ - 
+[2022-05-30 08:12:22.288] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ -   usr: Parker Ludwig (/mob/living/carbon/human)
+ -   src: the floor (114,93,2) (/turf/open/floor/iron/dark)
+ -   usr.loc: the floor (114,93,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - the floor (114,93,2) (/turf/open/floor/iron/dark):  SendSignal("atom_entered", /list (/list))
+ - the floor (114,93,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (115,93,2) (/turf/open/floor/iron/dark), null)
+ - the floor (114,93,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (115,93,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 8, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 8, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 8, null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 8)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 8)
+ - SpaceLove (/client): Move(the floor (114,93,2) (/turf/open/floor/iron/dark), 8)
+ - Parker Ludwig (/mob/living/carbon/human): keyLoop(SpaceLove (/client))
+ - Input (/datum/controller/subsystem/input): fire(0)
+ - Input (/datum/controller/subsystem/input): ignite(0)
+ - Master (/datum/controller/master): RunQueue()
+ - Master (/datum/controller/master): Loop(2)
+ - Master (/datum/controller/master): StartProcessing(0)
+ - 
+[2022-05-30 08:12:43.790] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ -   usr: Parker Ludwig (/mob/living/carbon/human)
+ -   src: the floor (112,92,2) (/turf/open/floor/iron/dark)
+ -   usr.loc: the floor (112,92,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - the floor (112,92,2) (/turf/open/floor/iron/dark):  SendSignal("atom_entered", /list (/list))
+ - the floor (112,92,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (111,92,2) (/turf/open/floor/iron/dark), null)
+ - the floor (112,92,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (111,92,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 4, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 4, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 4, null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 4)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 4)
+ - SpaceLove (/client): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 4)
+ - Parker Ludwig (/mob/living/carbon/human): keyLoop(SpaceLove (/client))
+ - Input (/datum/controller/subsystem/input): fire(0)
+ - Input (/datum/controller/subsystem/input): ignite(0)
+ - Master (/datum/controller/master): RunQueue()
+ - Master (/datum/controller/master): Loop(2)
+ - Master (/datum/controller/master): StartProcessing(0)
+ - 
+[2022-05-30 08:12:43.990] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ -   usr: Parker Ludwig (/mob/living/carbon/human)
+ -   src: the floor (113,92,2) (/turf/open/floor/iron/dark)
+ -   usr.loc: the floor (113,92,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - the floor (113,92,2) (/turf/open/floor/iron/dark):  SendSignal("atom_entered", /list (/list))
+ - the floor (113,92,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (112,92,2) (/turf/open/floor/iron/dark), null)
+ - the floor (113,92,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (112,92,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4, null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4)
+ - SpaceLove (/client): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4)
+ - Parker Ludwig (/mob/living/carbon/human): keyLoop(SpaceLove (/client))
+ - Input (/datum/controller/subsystem/input): fire(0)
+ - Input (/datum/controller/subsystem/input): ignite(0)
+ - Master (/datum/controller/master): RunQueue()
+ - Master (/datum/controller/master): Loop(2)
+ - Master (/datum/controller/master): StartProcessing(0)
+ - 
+[2022-05-30 08:13:02.242] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ -   usr: Parker Ludwig (/mob/living/carbon/human)
+ -   src: the floor (112,92,2) (/turf/open/floor/iron/dark)
+ -   usr.loc: the floor (112,92,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - the floor (112,92,2) (/turf/open/floor/iron/dark):  SendSignal("atom_entered", /list (/list))
+ - the floor (112,92,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (113,92,2) (/turf/open/floor/iron/dark), null)
+ - the floor (112,92,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (113,92,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 8, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 8, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 8, null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 8)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 8)
+ - SpaceLove (/client): Move(the floor (112,92,2) (/turf/open/floor/iron/dark), 8)
+ - Parker Ludwig (/mob/living/carbon/human): keyLoop(SpaceLove (/client))
+ - Input (/datum/controller/subsystem/input): fire(0)
+ - Input (/datum/controller/subsystem/input): ignite(0)
+ - Master (/datum/controller/master): RunQueue()
+ - Master (/datum/controller/master): Loop(2)
+ - Master (/datum/controller/master): StartProcessing(0)
+ - 
+[2022-05-30 08:13:05.091] runtime error: Empty or null string in to_chat proc call.
+ - proc name: to chat (/proc/to_chat)
+ -   source file: to_chat.dm,88
+ -   usr: Parker Ludwig (/mob/living/carbon/human)
+ -   src: null
+ -   usr.loc: the floor (112,92,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - to chat(SpaceLove (/client), "", null, "", 0, 1, 1, 0)
+ - /datum/buildmode_mode/basic (/datum/buildmode_mode/basic): show help(SpaceLove (/client))
+ - Buildmode Help (/atom/movable/screen/buildmode/help): Click(null, "mapwindow.map", "icon-x=3;icon-y=10;left=1;scre...")
+ - SpaceLove (/client): Click(Buildmode Help (/atom/movable/screen/buildmode/help), null, "mapwindow.map", "icon-x=3;icon-y=10;left=1;scre...")
+ - 
+[2022-05-30 08:13:24.852] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ -   usr: (src)
+ -   src: Parker Ludwig (/mob/living/carbon/human)
+ -   src.loc: the floor (112,92,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - Parker Ludwig (/mob/living/carbon/human):  SendSignal("atom_entered", /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the gold (/obj/item/stack/sheet/mineral/gold), the floor (112,93,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Entered(the gold (/obj/item/stack/sheet/mineral/gold), the floor (112,93,2) (/turf/open/floor/iron/dark), null)
+ - the gold (/obj/item/stack/sheet/mineral/gold): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the gold (/obj/item/stack/sheet/mineral/gold): doMove(Parker Ludwig (/mob/living/carbon/human))
+ - the gold (/obj/item/stack/sheet/mineral/gold): forceMove(Parker Ludwig (/mob/living/carbon/human))
+ - Parker Ludwig (/mob/living/carbon/human): put in hand(the gold (/obj/item/stack/sheet/mineral/gold), 1, 0, 0)
+ - Parker Ludwig (/mob/living/carbon/human): put in active hand(the gold (/obj/item/stack/sheet/mineral/gold), 0, 0)
+ - the gold (/obj/item/stack/sheet/mineral/gold): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - the gold (/obj/item/stack/sheet/mineral/gold): attack hand(Parker Ludwig (/mob/living/carbon/human), /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): UnarmedAttack(the gold (/obj/item/stack/sheet/mineral/gold), 1, /list (/list))
+ - Parker Ludwig (/mob/living/carbon/human): ClickOn(the gold (/obj/item/stack/sheet/mineral/gold), "icon-x=10;icon-y=13;left=1;scr...")
+ - the gold (/obj/item/stack/sheet/mineral/gold): Click(the floor (112,93,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=10;icon-y=13;left=1;scr...")
+ - SpaceLove (/client): Click(the gold (/obj/item/stack/sheet/mineral/gold), the floor (112,93,2) (/turf/open/floor/iron/dark), "mapwindow.map", "icon-x=10;icon-y=13;left=1;scr...")
+ - 
+[2022-05-30 08:13:25.796] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ -   usr: Parker Ludwig (/mob/living/carbon/human)
+ -   src: the floor (113,92,2) (/turf/open/floor/iron/dark)
+ -   usr.loc: the floor (113,92,2) (/turf/open/floor/iron/dark)
+ -   call stack:
+ - the floor (113,92,2) (/turf/open/floor/iron/dark):  SendSignal("atom_entered", /list (/list))
+ - the floor (113,92,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (112,92,2) (/turf/open/floor/iron/dark), null)
+ - the floor (113,92,2) (/turf/open/floor/iron/dark): Entered(Parker Ludwig (/mob/living/carbon/human), the floor (112,92,2) (/turf/open/floor/iron/dark), null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4, 0)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4, null)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4)
+ - Parker Ludwig (/mob/living/carbon/human): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4)
+ - SpaceLove (/client): Move(the floor (113,92,2) (/turf/open/floor/iron/dark), 4)
+ - Parker Ludwig (/mob/living/carbon/human): keyLoop(SpaceLove (/client))
+ - Input (/datum/controller/subsystem/input): fire(0)
+ - Input (/datum/controller/subsystem/input): ignite(0)
+ - Master (/datum/controller/master): RunQueue()
+ - Master (/datum/controller/master): Loop(2)
+ - Master (/datum/controller/master): StartProcessing(0)
+ - 
+[2022-05-30 08:13:26.109] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:13:26.709] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:13:26.963] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:13:41.610] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:13:45.077] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:13:58.461] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:14:37.011] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:14:39.728] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:02.423] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:05.960] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:09.409] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:27.221] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:27.887] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:27.902] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:27.910] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:27.924] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:27.939] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:27.953] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:28.687] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:28.698] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:28.709] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:28.724] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:28.739] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:28.754] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:29.200] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:29.213] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:29.225] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:29.239] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:29.254] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:29.263] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:37.540] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:39.131] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:40.532] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:43.243] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:15:44.017] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:44.033] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:44.044] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:44.057] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:44.070] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:44.080] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:44.280] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:44.294] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:44.309] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:44.322] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:44.335] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:44.347] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,322
+ - 
+[2022-05-30 08:15:49.842] runtime error: Cannot execute null.forceMove().
+ - proc name: on select use (/obj/item/mod/module/criminalcapture/on_select_use)
+ -   source file: modules_security.dm,297
+ - 
+[2022-05-30 08:15:50.541] runtime error: Cannot execute null.forceMove().
+ - proc name: on select use (/obj/item/mod/module/criminalcapture/on_select_use)
+ -   source file: modules_security.dm,297
+ - 
+[2022-05-30 08:15:52.391] runtime error: Cannot execute null.forceMove().
+ - proc name: on select use (/obj/item/mod/module/criminalcapture/on_select_use)
+ -   source file: modules_security.dm,297
+ - 
+[2022-05-30 08:15:54.040] runtime error: Cannot execute null.forceMove().
+ - proc name: on select use (/obj/item/mod/module/criminalcapture/on_select_use)
+ -   source file: modules_security.dm,297
+ - 
+[2022-05-30 08:15:56.491] runtime error: Cannot execute null.forceMove().
+ - proc name: on select use (/obj/item/mod/module/criminalcapture/on_select_use)
+ -   source file: modules_security.dm,297
+ - 
+[2022-05-30 08:15:56.737] ## TESTING: GC: -- [0x2007a62] | /obj/item/stack/sheet/iron/fifty was unable to be GC'd --
+[2022-05-30 08:15:58.441] runtime error: Cannot execute null.forceMove().
+ - proc name: on select use (/obj/item/mod/module/criminalcapture/on_select_use)
+ -   source file: modules_security.dm,297
+ - 
+[2022-05-30 08:15:58.591] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:16:00.737] ## TESTING: GC: -- [0x201391b] | /obj/item/stack/sheet/iron/fifty was unable to be GC'd --
+[2022-05-30 08:16:00.739] ## TESTING: GC: -- [0x2007619] | /obj/item/stack/sheet/iron/fifty was unable to be GC'd --
+[2022-05-30 08:16:01.342] runtime error: Cannot execute null.forceMove().
+ - proc name: on select use (/obj/item/mod/module/criminalcapture/on_select_use)
+ -   source file: modules_security.dm,297
+ - 
+[2022-05-30 08:16:03.390] runtime error: Cannot execute null.forceMove().
+ - proc name: on select use (/obj/item/mod/module/criminalcapture/on_select_use)
+ -   source file: modules_security.dm,297
+ - 
+[2022-05-30 08:16:04.975] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:16:06.737] ## TESTING: GC: -- [0x201ae34] | /obj/item/stack/sheet/iron/fifty was unable to be GC'd --
+[2022-05-30 08:16:09.425] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:16:11.012] ## TESTING: GC: -- [0x201390a] | /obj/item/stack/sheet/iron/fifty was unable to be GC'd --
+[2022-05-30 08:16:11.019] ## TESTING: GC: -- [0x201ae36] | /obj/item/stack/sheet/iron/fifty was unable to be GC'd --
+[2022-05-30 08:16:11.558] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:16:16.727] runtime error: bad index
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:16:17.470] ## TESTING: GC: -- [0x20085b0] | /obj/item/stack/sheet/iron/fifty was unable to be GC'd --
+[2022-05-30 08:16:17.472] ## TESTING: GC: -- [0x20087cd] | /obj/item/stack/sheet/iron/fifty was unable to be GC'd --
+[2022-05-30 08:16:17.474] ## TESTING: GC: -- [0x201ae33] | /obj/item/stack/sheet/iron/fifty was unable to be GC'd --
+[2022-05-30 08:16:17.779] runtime error: Cannot read null.signal_procs
+ - proc name:  SendSignal (/datum/proc/_SendSignal)
+ -   source file: _component.dm,329
+ - 
+[2022-05-30 08:16:19.730] runtime error: Cannot execute null.forceMove().
+ - proc name: on select use (/obj/item/mod/module/criminalcapture/on_select_use)
+ -   source file: modules_security.dm,297
+ - 
+[2022-05-30 08:16:55.018] World rebooted at 13:46:55

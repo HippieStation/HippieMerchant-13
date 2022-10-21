@@ -5,32 +5,18 @@
 	icon_state = "fireaxe"
 	anchored = TRUE
 	density = FALSE
-	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 0, FIRE = 90, ACID = 50)
 	max_integrity = 150
 	integrity_failure = 0.33
 	var/locked = TRUE
 	var/open = FALSE
 	var/obj/item/fireaxe/fireaxe
 
-/obj/structure/fireaxecabinet/directional/north
-	dir = SOUTH
-	pixel_y = 32
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 
-/obj/structure/fireaxecabinet/directional/south
-	dir = NORTH
-	pixel_y = -32
-
-/obj/structure/fireaxecabinet/directional/east
-	dir = WEST
-	pixel_x = 32
-
-/obj/structure/fireaxecabinet/directional/west
-	dir = EAST
-	pixel_x = -32
-
-/obj/structure/fireaxecabinet/Initialize()
+/obj/structure/fireaxecabinet/Initialize(mapload)
 	. = ..()
-	fireaxe = new
+	fireaxe = new(src)
 	update_appearance()
 
 /obj/structure/fireaxecabinet/Destroy()
@@ -41,14 +27,14 @@
 /obj/structure/fireaxecabinet/attackby(obj/item/I, mob/living/user, params)
 	if(iscyborg(user) || I.tool_behaviour == TOOL_MULTITOOL)
 		toggle_lock(user)
-	else if(I.tool_behaviour == TOOL_WELDER && !user.istate.harm && !broken)
-		if(obj_integrity < max_integrity)
+	else if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode && !broken)
+		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=2))
 				return
 
 			to_chat(user, span_notice("You begin repairing [src]."))
-			if(I.use_tool(src, user, volume=50, amount=2))
-				obj_integrity = max_integrity
+			if(I.use_tool(src, user, 40, volume=50, amount=2))
+				atom_integrity = max_integrity
 				update_appearance()
 				to_chat(user, span_notice("You repair [src]."))
 		else
@@ -62,18 +48,17 @@
 		to_chat(user, span_notice("You start fixing [src]..."))
 		if(do_after(user, 20, target = src) && G.use(2))
 			broken = FALSE
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			update_appearance()
 	else if(open || broken)
 		if(istype(I, /obj/item/fireaxe) && !fireaxe)
-			var/obj/item/fireaxe/F = I
-			if(F?.wielded)
-				to_chat(user, span_warning("Unwield the [F.name] first."))
+			if(HAS_TRAIT(I, TRAIT_WIELDED))
+				to_chat(user, span_warning("Unwield [I] first."))
 				return
-			if(!user.transferItemToLoc(F, src))
+			if(!user.transferItemToLoc(I, src))
 				return
-			fireaxe = F
-			to_chat(user, span_notice("You place the [F.name] back in the [name]."))
+			fireaxe = I
+			to_chat(user, span_notice("You place [I] back in [src]."))
 			update_appearance()
 			return
 		else if(!broken)
@@ -98,7 +83,7 @@
 	if(.)
 		update_appearance()
 
-/obj/structure/fireaxecabinet/obj_break(damage_flag)
+/obj/structure/fireaxecabinet/atom_break(damage_flag)
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		update_appearance()
@@ -121,20 +106,19 @@
 		fireaxe = null
 	qdel(src)
 
-/obj/structure/fireaxecabinet/attack_hand(mob/user)
+/obj/structure/fireaxecabinet/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
-	if(open || broken)
-		if(fireaxe)
-			user.put_in_hands(fireaxe)
-			fireaxe = null
-			to_chat(user, span_notice("You take the fire axe from the [name]."))
-			src.add_fingerprint(user)
-			update_appearance()
-			return
+	if((open || broken) && fireaxe)
+		user.put_in_hands(fireaxe)
+		to_chat(user, span_notice("You take [fireaxe] from [src]."))
+		fireaxe = null
+		src.add_fingerprint(user)
+		update_appearance()
+		return
 	if(locked)
-		to_chat(user, span_warning("The [name] won't budge!"))
+		to_chat(user, span_warning("\The [src] won't budge!"))
 		return
 	else
 		open = !open
@@ -165,7 +149,7 @@
 	if(open)
 		. += "glass_raised"
 		return
-	var/hp_percent = obj_integrity/max_integrity * 100
+	var/hp_percent = atom_integrity/max_integrity * 100
 	if(broken)
 		. += "glass4"
 	else

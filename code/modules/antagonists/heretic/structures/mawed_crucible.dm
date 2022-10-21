@@ -53,6 +53,11 @@
 		var/potion_string = span_info("\tThe " + initial(potion.name) + " - " + initial(potion.crucible_tip))
 		. += potion_string
 
+/obj/structure/destructible/eldritch_crucible/examine_status(mob/user)
+	if(IS_HERETIC_OR_MONSTER(user) || isobserver(user))
+		return span_notice("It's at <b>[round(atom_integrity * 100 / max_integrity)]%</b> stability.")
+	return ..()
+
 /obj/structure/destructible/eldritch_crucible/attacked_by(obj/item/weapon, mob/living/user)
 	if(!iscarbon(user))
 		return ..()
@@ -70,7 +75,7 @@
 	if(istype(weapon, /obj/item/bodypart))
 
 		var/obj/item/bodypart/consumed = weapon
-		if(consumed.status != BODYPART_ORGANIC)
+		if(!IS_ORGANIC_LIMB(consumed))
 			balloon_alert(user, "not organic!")
 			return
 
@@ -91,7 +96,7 @@
 
 	return ..()
 
-/obj/structure/destructible/eldritch_crucible/attack_hand(mob/user)
+/obj/structure/destructible/eldritch_crucible/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

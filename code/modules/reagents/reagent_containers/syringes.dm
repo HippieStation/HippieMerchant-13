@@ -10,16 +10,14 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
-	var/busy = FALSE // needed for delayed drawing of blood
-	var/proj_piercing = 0 //does it pierce through thick clothes when shot with syringe gun
 	custom_materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	reagent_flags = TRANSPARENT
-	custom_price = PAYCHECK_EASY * 0.5
+	custom_price = PAYCHECK_CREW * 0.5
 	sharpness = SHARP_POINTY
+	/// Flags used by the injection
+	var/inject_flags = NONE
 
-	var/syringe_sprite="syringe"
-
-/obj/item/reagent_containers/syringe/Initialize()
+/obj/item/reagent_containers/syringe/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
 
@@ -27,8 +25,6 @@
 	return
 
 /obj/item/reagent_containers/syringe/proc/try_syringe(atom/target, mob/user, proximity)
-	if(busy)
-		return FALSE
 	if(!proximity)
 		return FALSE
 	if(!target.reagents)
@@ -36,7 +32,7 @@
 
 	if(isliving(target))
 		var/mob/living/living_target = target
-		if(!living_target.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
+		if(!living_target.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE|inject_flags))
 			return FALSE
 
 	// chance of monkey retaliation
@@ -49,7 +45,7 @@
 	if (!try_syringe(target, user, proximity))
 		return
 
-	var/contained = reagents.log_list()
+	var/contained = reagents.get_reagent_log_string()
 	log_combat(user, target, "attempted to inject", src, addition="which had [contained]")
 
 	if(!reagents.total_volume)
@@ -66,12 +62,12 @@
 
 	if(isliving(target))
 		var/mob/living/living_target = target
-		if(!living_target.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
+		if(!living_target.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE|inject_flags))
 			return
 		if(living_target != user)
 			living_target.visible_message(span_danger("[user] is trying to inject [living_target]!"), \
 									span_userdanger("[user] is trying to inject you!"))
-			if(!do_mob(user, living_target, CHEM_INTERACT_DELAY(3 SECONDS, user), extra_checks = CALLBACK(living_target, /mob/living/proc/try_inject, user, null, INJECT_TRY_SHOW_ERROR_MESSAGE)))
+			if(!do_mob(user, living_target, CHEM_INTERACT_DELAY(3 SECONDS, user), extra_checks = CALLBACK(living_target, /mob/living/proc/try_inject, user, null, INJECT_TRY_SHOW_ERROR_MESSAGE|inject_flags)))
 				return
 			if(!reagents.total_volume)
 				return
@@ -101,13 +97,10 @@
 		if(target != user)
 			target.visible_message(span_danger("[user] is trying to take a blood sample from [target]!"), \
 							span_userdanger("[user] is trying to take a blood sample from you!"))
-			busy = TRUE
-			if(!do_mob(user, target, CHEM_INTERACT_DELAY(3 SECONDS, user), extra_checks = CALLBACK(living_target, /mob/living/proc/try_inject, user, null, INJECT_TRY_SHOW_ERROR_MESSAGE)))
-				busy = FALSE
+			if(!do_mob(user, target, CHEM_INTERACT_DELAY(3 SECONDS, user), extra_checks = CALLBACK(living_target, /mob/living/proc/try_inject, user, null, INJECT_TRY_SHOW_ERROR_MESSAGE|inject_flags)))
 				return SECONDARY_ATTACK_CONTINUE_CHAIN
 			if(reagents.total_volume >= reagents.maximum_volume)
 				return SECONDARY_ATTACK_CONTINUE_CHAIN
-		busy = FALSE
 		if(living_target.transfer_blood_to(src, drawn_amount))
 			user.visible_message(span_notice("[user] takes a blood sample from [living_target]."))
 		else
@@ -149,7 +142,7 @@
 /obj/item/reagent_containers/syringe/update_overlays()
 	. = ..()
 	if(reagents?.total_volume)
-		var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "[syringe_sprite][get_rounded_vol()]")
+		var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[get_rounded_vol()]")
 		filling_overlay.color = mix_color_from_reagents(reagents.reagent_list)
 		. += filling_overlay
 
@@ -228,7 +221,6 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(10, 20, 30, 40, 50, 60)
 	volume = 60
-	syringe_sprite = "bsyringe"
 
 /obj/item/reagent_containers/syringe/piercing
 	name = "piercing syringe"
@@ -237,7 +229,15 @@
 	base_icon_state = "piercing"
 	volume = 10
 	possible_transfer_amounts = list(5, 10)
-	proj_piercing = 1
+	inject_flags = INJECT_CHECK_PENETRATE_THICK
+
+/obj/item/reagent_containers/syringe/crude
+	name = "crude syringe"
+	desc = "A crudely made syringe. The flimsy wooden construction makes it hold a minimal amounts of reagents, but its very disposable."
+	icon_state = "crude_0"
+	base_icon_state = "crude"
+	possible_transfer_amounts = list(1,5)
+	volume = 5
 
 /obj/item/reagent_containers/syringe/spider_extract
 	name = "spider extract syringe"
@@ -274,8 +274,8 @@
 /obj/item/reagent_containers/syringe/contraband/krokodil
 	list_reagents = list(/datum/reagent/drug/krokodil = 15)
 
-/obj/item/reagent_containers/syringe/contraband/crank
-	list_reagents = list(/datum/reagent/drug/crank = 15)
+/obj/item/reagent_containers/syringe/contraband/saturnx
+	list_reagents = list(/datum/reagent/drug/saturnx = 15)
 
 /obj/item/reagent_containers/syringe/contraband/methamphetamine
 	list_reagents = list(/datum/reagent/drug/methamphetamine = 15)
@@ -288,9 +288,3 @@
 
 /obj/item/reagent_containers/syringe/contraband/morphine
 	list_reagents = list(/datum/reagent/medicine/morphine = 15)
-
-/obj/item/reagent_containers/syringe/noreact
-	name = "cryo syringe"
-	desc = "An advanced syringe that stops reagents inside from reacting. It can hold up to 20 units."
-	volume = 20
-	reagent_flags = TRANSPARENT | NO_REACT

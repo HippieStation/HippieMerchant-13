@@ -7,7 +7,7 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/water = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("tasteless soup" = 1)
 	foodtypes = VEGETABLES
-	eatverbs = list("slurp","sip","inhale","drink")
+	eatverbs = list("slurp", "sip", "inhale", "drink")
 	venue_value = FOOD_PRICE_CHEAP
 
 /obj/item/food/soup/wish
@@ -17,7 +17,7 @@
 	food_reagents = list(/datum/reagent/water = 10)
 	tastes = list("wishes" = 1)
 
-/obj/item/food/soup/wish/Initialize()
+/obj/item/food/soup/wish/Initialize(mapload)
 	. = ..()
 	var/wish_true = prob(25)
 	if(wish_true)
@@ -64,7 +64,7 @@
 	name = "clown's tears"
 	desc = "Not very funny."
 	icon_state = "clownstears"
-	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/banana = 10, /datum/reagent/water = 5, /datum/reagent/consumable/nutriment/vitamin = 16, /datum/reagent/consumable/clownstears = 10)
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/banana = 10, /datum/reagent/lube = 5, /datum/reagent/consumable/nutriment/vitamin = 16, /datum/reagent/consumable/clownstears = 10)
 	tastes = list("a bad joke" = 1)
 	foodtypes = FRUIT | SUGAR
 
@@ -93,7 +93,7 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/protein = 5)
 	tastes = list("chaos" = 1)
 
-/obj/item/food/soup/mystery/Initialize()
+/obj/item/food/soup/mystery/Initialize(mapload)
 	. = ..()
 	var/extra_reagent = null
 	extra_reagent = pick(
@@ -183,9 +183,9 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 9, /datum/reagent/water = 5, /datum/reagent/consumable/nutriment/vitamin = 6)
 	foodtypes = VEGETABLES
 
-/obj/item/food/soup/beet/Initialize()
+/obj/item/food/soup/beet/Initialize(mapload)
 	. = ..()
-	name = pick("borsch","bortsch","borstch","borsh","borshch","borscht")
+	name = pick("borsch", "bortsch", "borstch", "borsh", "borshch", "borscht")
 	tastes = list(name = 1)
 
 
@@ -211,7 +211,7 @@
 	name = "stew"
 	desc = "A nice and warm stew. Healthy and strong."
 	icon_state = "stew"
-	food_reagents = list(/datum/reagent/consumable/nutriment = 11, /datum/reagent/medicine/oculine = 5, /datum/reagent/consumable/tomatojuice = 10, /datum/reagent/consumable/nutriment/vitamin = 6)
+	food_reagents = list(/datum/reagent/consumable/nutriment = 11, /datum/reagent/consumable/tomatojuice = 10, /datum/reagent/consumable/nutriment/vitamin = 6)
 	bite_consumption = 7
 	max_volume = 100
 	tastes = list("tomato" = 1, "carrot" = 1)
@@ -239,7 +239,7 @@
 	name = "french onion soup"
 	desc = "Good enough to make a grown mime cry."
 	icon_state = "onionsoup"
-	food_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/protein = 8, /datum/reagent/medicine/oculine = 5, /datum/reagent/consumable/tomatojuice = 8, /datum/reagent/consumable/nutriment/vitamin = 5)
+	food_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/protein = 8, /datum/reagent/consumable/tomatojuice = 8, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("caramelized onions" = 1)
 	foodtypes = VEGETABLES | DAIRY
 
@@ -256,7 +256,7 @@
 	name = "electron soup"
 	desc = "A gastronomic curiosity of ethereal origin. It is famed for the minature weather system formed over a properly prepared soup."
 	icon_state = "electronsoup"
-	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/liquidelectricity/enriched = 5)
+	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/liquidelectricity/enriched = 12)
 	tastes = list("mushroom" = 1, "electrons" = 4)
 	foodtypes = VEGETABLES | TOXIC
 
@@ -278,7 +278,7 @@
 	name = "pea soup"
 	desc = "A humble split pea soup."
 	icon_state = "peasoup"
-	food_reagents = list (/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/medicine/oculine = 2)
+	food_reagents = list (/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("creamy peas"= 2, "parsnip" = 1)
 	foodtypes = VEGETABLES
 
@@ -298,3 +298,12 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 11, /datum/reagent/consumable/milk = 10, /datum/reagent/consumable/nutriment/vitamin = 6)
 	tastes = list("oats" = 1, "milk" = 1)
 	foodtypes = DAIRY | GRAIN | BREAKFAST
+
+/obj/item/food/soup/zurek
+	name = "zurek"
+	desc = "A traditional Polish soup composed of vegetables, meat, and an egg. Goes great with bread."
+	icon_state = "zurek"
+	food_reagents = list (/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/nutriment/protein = 2)
+	tastes = list("creamy vegetables"= 2, "sausage" = 1)
+	foodtypes = VEGETABLES | MEAT | GRAIN | BREAKFAST
+	

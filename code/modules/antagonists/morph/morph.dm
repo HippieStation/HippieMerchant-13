@@ -8,11 +8,11 @@
 	icon_state = "morph"
 	icon_living = "morph"
 	icon_dead = "morph_dead"
-	istate = new /datum/interaction_state/harm
+	combat_mode = TRUE
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxHealth = 150
 	health = 150
@@ -20,7 +20,7 @@
 	obj_damage = 50
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
 	wander = FALSE
@@ -35,14 +35,15 @@
 	var/eat_while_disguised = FALSE
 	var/atom/movable/form = null
 	var/static/list/blacklist_typecache = typecacheof(list(
-	/atom/movable/screen,
-	/obj/singularity,
-	/obj/energy_ball,
-	/obj/narsie,
-	/mob/living/simple_animal/hostile/morph,
-	/obj/effect))
+		/atom/movable/screen,
+		/obj/singularity,
+		/obj/energy_ball,
+		/obj/narsie,
+		/mob/living/simple_animal/hostile/morph,
+		/obj/effect,
+	))
 
-/mob/living/simple_animal/hostile/morph/Initialize()
+/mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 

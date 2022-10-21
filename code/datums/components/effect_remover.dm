@@ -44,8 +44,13 @@
 /datum/component/effect_remover/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT, .proc/try_remove_effect)
 
+	if(tip_text)
+		var/obj/item/item_parent = parent
+		item_parent.item_flags |= ITEM_HAS_CONTEXTUAL_SCREENTIPS
+		RegisterSignal(parent, COMSIG_ITEM_REQUESTING_CONTEXT_FOR_TARGET, .proc/add_item_context)
+
 /datum/component/effect_remover/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT)
+	UnregisterSignal(parent, list(COMSIG_ITEM_ATTACK_EFFECT, COMSIG_ITEM_REQUESTING_CONTEXT_FOR_TARGET))
 
 /*
  * Signal proc for [COMSIG_ITEM_ATTACK_EFFECT].
@@ -75,3 +80,17 @@
 
 	if(!QDELETED(target))
 		qdel(target)
+
+/*
+ * Signal proc for [COMSIG_ITEM_REQUESTING_CONTEXT_FOR_TARGET].
+ *
+ * Adds some context for the target, if we have one set and it's a valid target.
+ */
+/datum/component/effect_remover/proc/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
+	SIGNAL_HANDLER
+
+	if(effects_we_clear[target.type])
+		context[SCREENTIP_CONTEXT_LMB] = tip_text
+		return CONTEXTUAL_SCREENTIP_SET
+
+	return NONE

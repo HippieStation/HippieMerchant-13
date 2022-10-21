@@ -44,13 +44,13 @@
 			to_chat(user, span_warning("[src] is full."))
 		return
 
-	else if(!user.istate.harm)
+	else if(!user.combat_mode)
 		open = !open
 		update_appearance()
 	else
 		return ..()
 
-/obj/structure/guncase/attack_hand(mob/user)
+/obj/structure/guncase/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

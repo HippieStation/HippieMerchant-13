@@ -48,6 +48,10 @@
 	. = ..()
 	explode_flash(equilibrium.reacted_vol/10, 10)
 
+/datum/chemical_reaction/medicine/oculine/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
+	. = ..()
+	explode_flash(3, 30)
+
 
 /datum/chemical_reaction/medicine/inacusiate
 	results = list(/datum/reagent/medicine/inacusiate = 2)
@@ -55,23 +59,29 @@
 	mix_message = "The mixture sputters loudly and becomes a light grey color!"
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_ORGAN
 	//Fermichem vars
-	required_temp = 200
+	required_temp = 300
 	optimal_temp = 400
-	overheat_temp = 450
-	optimal_ph_min = 2
-	optimal_ph_max = 5
+	overheat_temp = 500
+	optimal_ph_min = 5
+	optimal_ph_max = 10
 	determin_ph_range = 10
-	temp_exponent_factor = 3
+	temp_exponent_factor = 0.35
 	ph_exponent_factor = 0.5
-	thermic_constant = 200
-	H_ion_release = 0.05
-	rate_up_lim = 50
+	thermic_constant = 20
+	H_ion_release = 1.5
+	rate_up_lim = 3
 	purity_min = 0.25
 
 ///Calls it over and over
 /datum/chemical_reaction/medicine/inacusiate/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
 	holder.my_atom.audible_message(span_notice("[icon2html(holder.my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))]The [holder.my_atom] suddenly gives out a loud bang!"))
 	explode_deafen(holder, equilibrium, 0.5, 10, 3)
+
+/datum/chemical_reaction/medicine/inacusiate/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
+	var/power = equilibrium.reacted_vol/10
+	holder.my_atom.audible_message(span_notice("[icon2html(holder.my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))]The [holder.my_atom] suddenly gives out an ear-crushingly loud bang!"))
+	explode_deafen(holder, equilibrium, power/2, power*2, max(power/2, 3))
+	clear_products(holder)
 
 /datum/chemical_reaction/medicine/synaptizine
 	results = list(/datum/reagent/medicine/synaptizine = 3)
@@ -164,6 +174,9 @@
 /datum/chemical_reaction/medicine/ephedrine/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
 	default_explode(holder, equilibrium.reacted_vol, 0, 25)
 
+/datum/chemical_reaction/medicine/ephedrine/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
+	default_explode(holder, equilibrium.reacted_vol, 0, 20)
+
 /datum/chemical_reaction/medicine/diphenhydramine
 	results = list(/datum/reagent/medicine/diphenhydramine = 4)
 	required_reagents = list(/datum/reagent/fuel/oil = 1, /datum/reagent/carbon = 1, /datum/reagent/bromine = 1, /datum/reagent/diethylamine = 1, /datum/reagent/consumable/ethanol = 1)
@@ -214,6 +227,9 @@
 		explode_attack_chem(holder, equilibrium, /datum/reagent/impurity/mannitol, 5)
 		explode_invert_smoke(holder, equilibrium)
 
+/datum/chemical_reaction/medicine/mannitol/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
+	overheated(holder, equilibrium, vol_added)
+
 /datum/chemical_reaction/medicine/neurine
 	results = list(/datum/reagent/medicine/neurine = 3)
 	required_reagents = list(/datum/reagent/medicine/mannitol = 1, /datum/reagent/acetone = 1, /datum/reagent/oxygen = 1)
@@ -237,6 +253,10 @@
 		explode_invert_smoke(holder, equilibrium, clear_products = FALSE, clear_reactants = FALSE)
 		explode_attack_chem(holder, equilibrium, /datum/reagent/inverse/neurine, 10)
 		clear_products(holder, 5)
+
+/datum/chemical_reaction/medicine/neurine/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
+	overheated(holder, equilibrium, vol_added)
+
 /datum/chemical_reaction/medicine/mutadone
 	results = list(/datum/reagent/medicine/mutadone = 3)
 	required_reagents = list(/datum/reagent/toxin/mutagen = 1, /datum/reagent/acetone = 1, /datum/reagent/bromine = 1)
@@ -262,6 +282,9 @@
 	reaction_flags = REACTION_CLEAR_INVERSE
 
 /datum/chemical_reaction/medicine/antihol/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
+	explode_smoke(holder, equilibrium)
+
+/datum/chemical_reaction/medicine/antihol/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
 	explode_smoke(holder, equilibrium)
 
 
@@ -327,7 +350,7 @@
 
 /datum/chemical_reaction/medicine/medsuture/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
+	for(var/i in 1 to created_volume)
 		new /obj/item/stack/medical/suture/medicated(location)
 
 /datum/chemical_reaction/medicine/medmesh
@@ -336,7 +359,7 @@
 
 /datum/chemical_reaction/medicine/medmesh/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
+	for(var/i in 1 to created_volume)
 		new /obj/item/stack/medical/mesh/advanced(location)
 
 /datum/chemical_reaction/medicine/poultice

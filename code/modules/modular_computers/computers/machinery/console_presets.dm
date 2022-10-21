@@ -5,11 +5,10 @@
 	var/_has_battery = FALSE
 	var/_has_ai = FALSE
 
-/obj/machinery/modular_computer/console/preset/Initialize()
+/obj/machinery/modular_computer/console/preset/Initialize(mapload)
 	. = ..()
 	if(!cpu)
 		return
-	cpu.install_component(new /obj/item/computer_hardware/processor_unit)
 
 	cpu.install_component(new /obj/item/computer_hardware/card_slot)
 	if(_has_second_id_slot)
@@ -52,7 +51,7 @@
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
 	hard_drive.store_file(new/datum/computer_file/program/aidiag())
 	hard_drive.store_file(new/datum/computer_file/program/robocontrol())
-
+	hard_drive.store_file(new/datum/computer_file/program/scipaper_program())
 
 // ===== COMMAND CONSOLE =====
 /obj/machinery/modular_computer/console/preset/command

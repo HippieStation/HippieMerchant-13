@@ -12,8 +12,9 @@
 #define TRANSPARENT (1<<5) // Used on containers which you want to be able to see the reagents off.
 #define AMOUNT_VISIBLE (1<<6) // For non-transparent containers that still have the general amount of reagents in them visible.
 #define NO_REACT (1<<7) // Applied to a reagent holder, the contents will not react with each other.
+#define REAGENT_HOLDER_INSTANT_REACT (1<<8)  // Applied to a reagent holder, all of the reactions in the reagents datum will be instant. Meant to be used for things like smoke effects where reactions aren't meant to occur
 ///If the holder is "alive" (i.e. mobs and organs) - If this flag is applied to a holder it will cause reagents to split upon addition to the object
-#define REAGENT_HOLDER_ALIVE (1<<8)
+#define REAGENT_HOLDER_ALIVE (1<<9)
 
 // Is an open container for all intents and purposes.
 #define OPENCONTAINER (REFILLABLE | DRAINABLE | TRANSPARENT)
@@ -39,6 +40,11 @@
 //used by chem masters and pill presses
 #define PILL_STYLE_COUNT 22 //Update this if you add more pill icons or you die
 #define RANDOM_PILL_STYLE 22 //Dont change this one though
+
+//used by chem masters and pill presses
+//update this if you add more patch icons
+#define PATCH_STYLE_LIST list("bandaid", "bandaid_brute", "bandaid_burn", "bandaid_both") //icon_state list
+#define DEFAULT_PATCH_STYLE "bandaid"
 
 //used by chem master
 #define CONDIMASTER_STYLE_AUTO "auto"
@@ -79,6 +85,10 @@
 #define REAGENT_CAN_BE_SYNTHESIZED (1<<5)
 ///Allows a reagent to work on a mob regardless of stasis
 #define REAGENT_IGNORE_STASIS (1<<6)
+///This reagent won't be used in most randomized recipes. Meant for reagents that could be synthetized but are normally inaccessible or TOO hard to get.
+#define REAGENT_NO_RANDOM_RECIPE (1<<7)
+///Does this reagent clean things?
+#define REAGENT_CLEANS (1<<8)
 
 //Chemical reaction flags, for determining reaction specialties
 ///Convert into impure/pure on reaction completion
@@ -110,7 +120,7 @@
 #define MAX_ADDICTION_POINTS 1000
 
 ///Addiction start/ends
-#define WITHDRAWAL_STAGE1_START_CYCLE 60
+#define WITHDRAWAL_STAGE1_START_CYCLE 61
 #define WITHDRAWAL_STAGE1_END_CYCLE 120
 #define WITHDRAWAL_STAGE2_START_CYCLE 121
 #define WITHDRAWAL_STAGE2_END_CYCLE 180
@@ -171,3 +181,17 @@
 #define GOLDSCHLAGER_GOLD (1)
 
 #define GOLDSCHLAGER_GOLD_RATIO (GOLDSCHLAGER_GOLD/(GOLDSCHLAGER_VODKA+GOLDSCHLAGER_GOLD))
+
+#define BLASTOFF_DANCE_MOVE_CHANCE_PER_UNIT 3
+#define BLASTOFF_DANCE_MOVES_PER_SUPER_MOVE 3
+
+///This is the center of a 1 degree deadband in which water will neither freeze to ice nor melt to liquid
+#define WATER_MATTERSTATE_CHANGE_TEMP 274.5
+
+//chem grenades defines
+/// Grenade is empty
+#define GRENADE_EMPTY 1
+/// Grenade has a activation trigger
+#define GRENADE_WIRED 2
+/// Grenade is ready to be finished
+#define GRENADE_READY 3

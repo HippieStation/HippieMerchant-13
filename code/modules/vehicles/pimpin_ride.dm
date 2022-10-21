@@ -16,10 +16,12 @@
 	. = ..()
 	update_appearance()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
+	GLOB.janitor_devices += src
 	if (installed_upgrade)
 		installed_upgrade.install(src)
 
 /obj/vehicle/ridden/janicart/Destroy()
+	GLOB.janitor_devices -= src
 	if (trash_bag)
 		QDEL_NULL(trash_bag)
 	if (installed_upgrade)
@@ -74,9 +76,9 @@
 		overlay.icon_state = "janicart_upgrade"
 		. += overlay
 
-/obj/vehicle/ridden/janicart/attack_hand(mob/user)
+/obj/vehicle/ridden/janicart/attack_hand(mob/user, list/modifiers)
 	// right click removes bag without unbuckling when possible
-	. = (user.istate.secondary && try_remove_bag(user)) || ..()
+	. = (LAZYACCESS(modifiers, RIGHT_CLICK) && try_remove_bag(user)) || ..()
 	if (!.)
 		try_remove_bag(user)
 
@@ -150,10 +152,10 @@
 	greyscale_colors = "#ffffff#6aa3ff#a2a2a2#d1d15f"
 
 /obj/item/janicart_upgrade/buffer/install(obj/vehicle/ridden/janicart/installee)
-	installee._AddElement(list(/datum/element/cleaning))
+	installee.AddElement(/datum/element/cleaning)
 
 /obj/item/janicart_upgrade/buffer/uninstall(obj/vehicle/ridden/janicart/installee)
-	installee._RemoveElement(list(/datum/element/cleaning))
+	installee.RemoveElement(/datum/element/cleaning)
 
 /obj/item/janicart_upgrade/vacuum
 	name = "vacuum upgrade"
@@ -161,68 +163,7 @@
 	greyscale_colors = "#ffffff#ffea6a#a2a2a2#d1d15f"
 
 /obj/item/janicart_upgrade/vacuum/install(obj/vehicle/ridden/janicart/installee)
-	installee._AddComponent(list(/datum/component/vacuum, installee.trash_bag))
+	installee.AddComponent(/datum/component/vacuum, installee.trash_bag)
 
 /obj/item/janicart_upgrade/vacuum/uninstall(obj/vehicle/ridden/janicart/installee)
 	qdel(installee.GetComponent(/datum/component/vacuum))
-
-/obj/vehicle/ridden/lawnmower
-	name = "lawn mower"
-	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
-	icon = 'icons/obj/vehicles.dmi'
-	icon_state = "lawnmower"
-	var/emagged = FALSE
-	var/list/drive_sounds = list('sound/effects/mowermove1.ogg', 'sound/effects/mowermove2.ogg')
-	var/list/gib_sounds = list('sound/effects/mowermovesquish.ogg')
-
-/obj/vehicle/ridden/lawnmower/Initialize()
-	.= ..()
-	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower)
-
-/obj/vehicle/ridden/lawnmower/emagged
-	emagged = TRUE
-
-/obj/vehicle/ridden/lawnmower/emag_act(mob/user)
-	if(emagged)
-		to_chat(user, "<span class='warning'>The safety mechanisms on \the [src] are already disabled!</span>")
-		return
-	to_chat(user, "<span class='warning'>You disable the safety mechanisms on \the [src].</span>")
-	emagged = TRUE
-
-/obj/vehicle/ridden/lawnmower/Bump(atom/A)
-	if(!emagged || !isliving(A))
-		return
-	var/mob/living/M = A
-	M.adjustBruteLoss(25)
-	var/atom/newLoc = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
-	M.throw_at(newLoc, 4, 1)
-
-/obj/vehicle/ridden/lawnmower/Move()
-	..()
-	var/gibbed = FALSE
-	var/gib_scream = FALSE
-	var/mob/living/carbon/H
-
-	if(has_buckled_mobs())
-		H = buckled_mobs[1]
-
-	if(emagged)
-		for(var/mob/living/carbon/human/M in loc)
-			if(M == H)
-				continue
-			if(M.body_position == LYING_DOWN)
-				visible_message("<span class='danger'>\the [src] grinds [M.name] into a fine paste!</span>")
-				if (M.stat != DEAD)
-					gib_scream = TRUE
-				M.gib()
-				shake_camera(M, 20, 1)
-				gibbed = TRUE
-
-	if(gibbed)
-		shake_camera(H, 10, 1)
-		if (gib_scream)
-			playsound(loc, 'sound/voice/gib_scream.ogg', 100, 1, frequency = rand(11025*0.75, 11025*1.25))
-		else
-			playsound(loc, pick(gib_sounds), 75, 1)
-	else
-		playsound(loc, pick(drive_sounds), 75, 1)

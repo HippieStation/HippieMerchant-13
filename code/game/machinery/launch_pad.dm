@@ -1,50 +1,55 @@
+#define BEAM_FADE_TIME 1 SECONDS
+
 /obj/machinery/launchpad
 	name = "bluespace launchpad"
 	desc = "A bluespace pad able to thrust matter through bluespace, teleporting it to or from nearby locations."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "lpad-idle"
-	use_power = TRUE
-	idle_power_usage = 200
-	active_power_usage = 2500
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2.5
 	hud_possible = list(DIAG_LAUNCHPAD_HUD)
 	circuit = /obj/item/circuitboard/machine/launchpad
 	var/icon_teleport = "lpad-beam"
 	var/stationary = TRUE //to prevent briefcase pad deconstruction and such
 	var/display_name = "Launchpad"
 	var/teleport_speed = 35
-	var/range = 15
+	var/range = 10
 	var/teleporting = FALSE //if it's in the process of teleporting
 	var/power_efficiency = 1
 	var/x_offset = 0
 	var/y_offset = 0
 	var/indicator_icon = "launchpad_target"
+	/// Determines if the bluespace launchpad is blatantly obvious on teleportation.
+	var/hidden = FALSE
+	/// The beam on teleportation
+	var/teleport_beam = "sm_arc_supercharged"
 
 /obj/machinery/launchpad/RefreshParts()
-	var/E = 0
+	. = ..()
+	var/max_range_multiplier = 0
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		E += M.rating
+		max_range_multiplier += M.rating
 	range = initial(range)
-	range *= E
+	range *= max_range_multiplier
 
-/obj/machinery/launchpad/Initialize()
+/obj/machinery/launchpad/Initialize(mapload)
 	. = ..()
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+		diag_hud.add_atom_to_hud(src)
 
 	var/image/holder = hud_list[DIAG_LAUNCHPAD_HUD]
 	var/mutable_appearance/MA = new /mutable_appearance()
 	MA.icon = 'icons/effects/effects.dmi'
 	MA.icon_state = "launchpad_target"
 	MA.layer = ABOVE_OPEN_TURF_LAYER
-	MA.plane = 0
+	MA.plane = GAME_PLANE
 	holder.appearance = MA
 
 	update_indicator()
 
 /obj/machinery/launchpad/Destroy()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.remove_from_hud(src)
+		diag_hud.remove_atom_from_hud(src)
 	return ..()
 
 /obj/machinery/launchpad/examine(mob/user)
@@ -54,7 +59,7 @@
 
 /obj/machinery/launchpad/attackby(obj/item/I, mob/user, params)
 	if(stationary)
-		if(default_deconstruction_screwdriver(user, "lpad-idle-o", "lpad-idle", I))
+		if(default_deconstruction_screwdriver(user, "lpad-idle-open", "lpad-idle", I))
 			update_indicator()
 			return
 
@@ -108,6 +113,11 @@
 		y_offset = clamp(y, -range, range)
 	update_indicator()
 
+/obj/effect/ebeam/launchpad/Initialize(mapload)
+	. = ..()
+	animate(src, alpha = 0, flags = ANIMATION_PARALLEL, time = BEAM_FADE_TIME)
+
+
 /// Performs the teleport.
 /// sending - TRUE/FALSE depending on if the launch pad is teleporting *to* or *from* the target.
 /// alternate_log_name - An alternative name to use in logs, if `user` is not present..
@@ -132,6 +142,11 @@
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
 	teleporting = TRUE
 
+	if(!hidden)
+		playsound(target, 'sound/weapons/flash.ogg', 25, TRUE)
+		var/datum/effect_system/spark_spread/quantum/spark_system = new /datum/effect_system/spark_spread/quantum()
+		spark_system.set_up(5, TRUE, target)
+		spark_system.start()
 
 	sleep(teleport_speed)
 
@@ -143,13 +158,17 @@
 		return
 
 	teleporting = FALSE
+	if(!hidden)
+		// Takes twice as long to make sure it properly fades out.
+		Beam(target, icon_state = teleport_beam, time = BEAM_FADE_TIME*2, beam_type = /obj/effect/ebeam/launchpad)
+		playsound(target, 'sound/weapons/emitter2.ogg', 25, TRUE)
 
 	// use a lot of power
-	use_power(1000)
+	use_power(active_power_usage)
 
 	var/turf/source = target
 	var/list/log_msg = list()
-	log_msg += ": [alternate_log_name || key_name(user)] triggered a teleport "
+	log_msg += "[alternate_log_name || key_name(user)] triggered a teleport "
 
 	if(sending)
 		source = dest
@@ -202,8 +221,7 @@
 	if (first)
 		log_msg += "nothing"
 	log_msg += " [sending ? "to" : "from"] [target_x], [target_y], [z] ([A ? A.name : "null area"])"
-	investigate_log(log_msg.Join(), INVESTIGATE_TELESCI)
-	updateDialog()
+	log_game(log_msg.Join())
 
 //Starts in the briefcase. Don't spawn this directly, or it will runtime when closing.
 /obj/machinery/launchpad/briefcase
@@ -212,12 +230,12 @@
 	icon_state = "blpad-idle"
 	icon_teleport = "blpad-beam"
 	anchored = FALSE
-	use_power = FALSE
-	idle_power_usage = 0
+	use_power = NO_POWER_USE
 	active_power_usage = 0
 	teleport_speed = 20
 	range = 8
 	stationary = FALSE
+	hidden = TRUE
 	var/closed = TRUE
 	var/obj/item/storage/briefcase/launchpad/briefcase
 
@@ -229,13 +247,17 @@
 	briefcase = _briefcase
 
 /obj/machinery/launchpad/briefcase/Destroy()
-	QDEL_NULL(briefcase)
+	if(!QDELETED(briefcase))
+		qdel(briefcase)
+	briefcase = null
 	return ..()
 
 /obj/machinery/launchpad/briefcase/isAvailable()
 	if(closed)
 		return FALSE
-	return ..()
+	if(panel_open)
+		return FALSE
+	return TRUE
 
 /obj/machinery/launchpad/briefcase/MouseDrop(over_object, src_location, over_location)
 	. = ..()
@@ -263,13 +285,14 @@
 /obj/item/storage/briefcase/launchpad
 	var/obj/machinery/launchpad/briefcase/pad
 
-/obj/item/storage/briefcase/launchpad/Initialize()
+/obj/item/storage/briefcase/launchpad/Initialize(mapload)
 	pad = new(null, src) //spawns pad in nullspace to hide it from briefcase contents
 	. = ..()
 
 /obj/item/storage/briefcase/launchpad/Destroy()
 	if(!QDELETED(pad))
-		QDEL_NULL(pad)
+		qdel(pad)
+	pad = null
 	return ..()
 
 /obj/item/storage/briefcase/launchpad/PopulateContents()
@@ -382,7 +405,7 @@
 			our_pad.display_name = new_name
 		if("remove")
 			. = TRUE
-			if(usr && tgui_alert(usr, "Are you sure?", "Unlink Launchpad", list("I'm Sure", "Abort")) != "Abort")
+			if(usr && tgui_alert(usr, "Are you sure?", "Unlink Launchpad", list("Confirm", "Abort")) == "I'm Sure")
 				our_pad = null
 		if("launch")
 			sending = TRUE
@@ -392,3 +415,5 @@
 			sending = FALSE
 			teleport(usr, our_pad)
 			. = TRUE
+
+#undef BEAM_FADE_TIME

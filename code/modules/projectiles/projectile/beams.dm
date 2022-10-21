@@ -6,7 +6,7 @@
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
-	flag = LASER
+	armor_flag = LASER
 	eyeblur = 2
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_system = MOVABLE_LIGHT
@@ -34,7 +34,7 @@
 	damage = 25
 	speed = 0.6 // higher power = faster, that's how light works right
 
-/obj/projectile/beam/laser/hellfire/Initialize()
+/obj/projectile/beam/laser/hellfire/Initialize(mapload)
 	. = ..()
 	transform *= 2
 
@@ -50,17 +50,12 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.IgniteMob()
+		M.ignite_mob()
 	else if(isturf(target))
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
-/obj/projectile/beam/shotgun
-	damage = 9
-	light_on = FALSE
-
-/obj/projectile/beam/shotgun/fire(angle, atom/direct_target)
-	. = ..()
-	set_light_on(TRUE)
+/obj/projectile/beam/weak
+	damage = 15
 
 /obj/projectile/beam/weak/penetrator
 	armour_penetration = 50
@@ -78,10 +73,9 @@
 /obj/projectile/beam/xray
 	name = "\improper X-ray beam"
 	icon_state = "xray"
-	flag = RAD
 	damage = 15
-	irradiate = 300
 	range = 15
+	armour_penetration = 100
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -95,7 +89,7 @@
 	icon_state = "omnilaser"
 	damage = 30
 	damage_type = STAMINA
-	flag = ENERGY
+	armor_flag = ENERGY
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
@@ -103,14 +97,6 @@
 	tracer_type = /obj/effect/projectile/tracer/disabler
 	muzzle_type = /obj/effect/projectile/muzzle/disabler
 	impact_type = /obj/effect/projectile/impact/disabler
-
-/obj/projectile/beam/disabler/shotgun
-	damage = 16
-	light_on = FALSE
-
-/obj/projectile/beam/disabler/shotgun/fire(angle, atom/direct_target)
-	. = ..()
-	set_light_on(TRUE)
 
 /obj/projectile/beam/pulse
 	name = "pulse"
@@ -174,41 +160,12 @@
 	impact_light_range = 2.5
 	impact_light_color_override = COLOR_LIME
 
-//This is basically a cannon beam
-/obj/projectile/beam/emitter/heavy
-	name = "heavy emitter beam"
-	icon_state = "emitter_heavy"
-	damage = 600
-	wound_bonus = 70
-	armour_penetration = 100
-
-/obj/projectile/beam/emitter/heavy/on_hit(atom/target, blocked)
-	. = ..()
-
-	if(iscarbon(target))
-		var/mob/living/carbon/carbon_target = target
-		for(var/i in 1 to 3)
-			var/obj/item/bodypart/bodypart = pick(carbon_target.bodyparts)
-			var/type_found = pick(GLOB.global_wound_types[WOUND_BURN])
-			var/datum/wound/burnies = new type_found()
-			burnies.apply_wound(bodypart)
-
-	if(istype(target,/obj/machinery/power/supermatter_crystal))
-		return
-
-	explosion(src,rand(0,1),1+rand(0,1),2+rand(0,1))
-
-/obj/projectile/beam/emitter/heavy/on_range()
-	explosion(src,rand(1,2),1+rand(1,2),2+rand(1,2))
-	return ..()
-
 /obj/projectile/beam/lasertag
 	name = "laser tag beam"
 	icon_state = "omnilaser"
 	hitsound = null
 	damage = 0
 	damage_type = STAMINA
-	flag = LASER
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
@@ -250,7 +207,7 @@
 	hitsound = 'sound/weapons/shrink_hit.ogg'
 	damage = 0
 	damage_type = STAMINA
-	flag = ENERGY
+	armor_flag = ENERGY
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/shrink
 	light_color = LIGHT_COLOR_BLUE
 	var/shrink_time = 90

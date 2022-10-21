@@ -12,10 +12,10 @@
 	attack_verb_continuous = list("bans")
 	attack_verb_simple = list("ban")
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/banhammer/Initialize()
+/obj/item/banhammer/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/kneejerk)
 
@@ -33,7 +33,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	else
 		M.visible_message(span_danger("[M] has been banned FOR NO REISIN by [user]!"), span_userdanger("You have been banned FOR NO REISIN by [user]!"), span_hear("You hear a banhammer banning someone."))
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
-	if(user.istate.harm)
+	if(user.combat_mode)
 		return ..(M, user)
 
 /obj/item/sord
@@ -74,10 +74,10 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_chance = 50
 	sharpness = SHARP_EDGED
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/claymore/Initialize()
+/obj/item/claymore/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 40, 105)
 
@@ -111,7 +111,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/notches = 0 //HOW MANY PEOPLE HAVE BEEN SLAIN WITH THIS BLADE
 	var/obj/item/disk/nuclear/nuke_disk //OUR STORED NUKE DISK
 
-/obj/item/claymore/highlander/Initialize()
+/obj/item/claymore/highlander/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER_TRAIT)
 	START_PROCESSING(SSobj, src)
@@ -127,7 +127,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/claymore/highlander/process()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		loc.layer = LARGE_MOB_LAYER //NO HIDING BEHIND PLANTS FOR YOU, DICKWEED (HA GET IT, BECAUSE WEEDS ARE PLANTS)
+		loc.plane = GAME_PLANE_UPPER_FOV_HIDDEN //NO HIDING BEHIND PLANTS FOR YOU, DICKWEED (HA GET IT, BECAUSE WEEDS ARE PLANTS)
 		ADD_TRAIT(H, TRAIT_NOBLEED, HIGHLANDER_TRAIT) //AND WE WON'T BLEED OUT LIKE COWARDS
 	else
 		if(!(flags_1 & ADMIN_SPAWNED_1))
@@ -234,15 +234,15 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "claymore_cyborg"
 	var/mob/living/silicon/robot/robot
 
-/obj/item/claymore/highlander/robot/Initialize()
+/obj/item/claymore/highlander/robot/Initialize(mapload)
 	var/obj/item/robot_model/kiltkit = loc
 	robot = kiltkit.loc
+	. = ..()
 	if(!istype(robot))
-		qdel(src)
-	return ..()
+		return INITIALIZE_HINT_QDEL
 
 /obj/item/claymore/highlander/robot/process()
-	loc.layer = LARGE_MOB_LAYER
+	loc.plane = GAME_PLANE_UPPER_FOV_HIDDEN
 
 /obj/item/katana
 	name = "katana"
@@ -263,26 +263,15 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_chance = 50
 	sharpness = SHARP_EDGED
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/katana/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"))
 	return(BRUTELOSS)
 
-/obj/item/katana/cursed
+/obj/item/katana/cursed //used by wizard events, see the tendril_loot.dm file for the miner one
 	slot_flags = null
-	item_flags = DROPDEL
-
-/obj/item/katana/cursed/equipped(mob/living/carbon/human/user)
-	. = ..()
-	if(!istype(user))
-		return
-	user.gain_trauma(/datum/brain_trauma/magic/stalker, TRAUMA_RESILIENCE_MAGIC)
-
-/obj/item/katana/cursed/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type))
 
 /obj/item/wirerod
 	name = "wired rod"
@@ -292,37 +281,58 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	flags_1 = CONDUCT_1
 	force = 9
 	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 	custom_materials = list(/datum/material/iron=1150, /datum/material/glass=75)
 	attack_verb_continuous = list("hits", "bludgeons", "whacks", "bonks")
 	attack_verb_simple = list("hit", "bludgeon", "whack", "bonk")
 
-/obj/item/wirerod/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/shard))
-		var/obj/item/spear/S = new /obj/item/spear
+/obj/item/wirerod/Initialize(mapload)
+	. = ..()
 
-		remove_item_from_storage(user)
-		if (!user.transferItemToLoc(I, S))
-			return
-		S.CheckParts(list(I))
-		qdel(src)
+	var/static/list/hovering_item_typechecks = list(
+		/obj/item/shard = list(
+			SCREENTIP_CONTEXT_LMB = "Craft spear",
+		),
 
-		user.put_in_hands(S)
-		to_chat(user, span_notice("You fasten the glass shard to the top of the rod with the cable."))
+		/obj/item/assembly/igniter = list(
+			SCREENTIP_CONTEXT_LMB = "Craft stunprod",
+		),
+	)
 
-	else if(istype(I, /obj/item/assembly/igniter) && !(HAS_TRAIT(I, TRAIT_NODROP)))
-		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
+	AddElement(/datum/element/contextual_screentip_item_typechecks, hovering_item_typechecks)
 
-		remove_item_from_storage(user)
+/obj/item/wirerod/attackby(obj/item/attacking_item, mob/user, params)
+	if(istype(attacking_item, /obj/item/shard))
+		var/datum/crafting_recipe/recipe_to_use = /datum/crafting_recipe/spear
+		user.balloon_alert(user, "crafting spear...")
+		if(do_after(user, initial(recipe_to_use.time), src)) // we do initial work here to get the correct timer
+			var/obj/item/spear/crafted_spear = new /obj/item/spear()
 
-		to_chat(user, span_notice("You fasten [I] to the top of the rod with the cable."))
+			remove_item_from_storage(user)
+			if (!user.transferItemToLoc(attacking_item, crafted_spear))
+				return
+			crafted_spear.CheckParts(list(attacking_item))
+			qdel(src)
 
-		qdel(I)
-		qdel(src)
+			user.put_in_hands(crafted_spear)
+			user.balloon_alert(user, "crafted spear")
+		return
 
-		user.put_in_hands(P)
-	else
-		return ..()
+	if(istype(attacking_item, /obj/item/assembly/igniter) && !(HAS_TRAIT(attacking_item, TRAIT_NODROP)))
+		var/datum/crafting_recipe/recipe_to_use = /datum/crafting_recipe/stunprod
+		user.balloon_alert(user, "crafting cattleprod...")
+		if(do_after(user, initial(recipe_to_use.time), src))
+			var/obj/item/melee/baton/security/cattleprod/prod = new
+
+			remove_item_from_storage(user)
+
+			qdel(attacking_item)
+			qdel(src)
+
+			user.put_in_hands(prod)
+			user.balloon_alert(user, "crafted cattleprod")
+		return
+	return ..()
 
 
 /obj/item/throwing_star
@@ -375,48 +385,30 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_continuous = list("stubs", "pokes")
 	attack_verb_simple = list("stub", "poke")
 	resistance_flags = FIRE_PROOF
-	var/extended = FALSE
+	/// Whether the switchblade starts extended or not.
+	var/start_extended = FALSE
 
-/obj/item/switchblade/Initialize()
+/obj/item/switchblade/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
 	AddComponent(/datum/component/butchering, 7 SECONDS, 100)
-	set_extended(extended)
-
-/obj/item/switchblade/attack_self(mob/user)
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
-	set_extended(!extended)
-
-/obj/item/switchblade/update_icon_state()
-	icon_state = "[base_icon_state][extended ? "_ext" : ""]"
-	return ..()
-
-/obj/item/switchblade/proc/set_extended(new_extended)
-	extended = new_extended
-	update_icon_state()
-	if(extended)
-		force = 20
-		w_class = WEIGHT_CLASS_NORMAL
-		throwforce = 23
-		attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
-		attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-		hitsound = 'sound/weapons/bladeslice.ogg'
-		sharpness = SHARP_EDGED
-	else
-		force = 3
-		w_class = WEIGHT_CLASS_SMALL
-		throwforce = 5
-		attack_verb_continuous = list("stubs", "pokes")
-		attack_verb_simple = list("stub", "poke")
-		hitsound = 'sound/weapons/genhit.ogg'
-		sharpness = NONE
+	AddComponent(/datum/component/transforming, \
+		start_transformed = start_extended, \
+		force_on = 20, \
+		throwforce_on = 23, \
+		throw_speed_on = throw_speed, \
+		sharpness_on = SHARP_EDGED, \
+		hitsound_on = 'sound/weapons/bladeslice.ogg', \
+		w_class_on = WEIGHT_CLASS_NORMAL, \
+		attack_verb_continuous_on = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts"), \
+		attack_verb_simple_on = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut"))
 
 /obj/item/switchblade/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is slitting [user.p_their()] own throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return (BRUTELOSS)
 
 /obj/item/switchblade/extended
-	extended = TRUE
+	start_extended = TRUE
 
 /obj/item/phone
 	name = "red phone"
@@ -531,7 +523,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1
 
-/obj/item/mounted_chainsaw/Initialize()
+/obj/item/mounted_chainsaw/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 
@@ -560,7 +552,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_simple = list("bust")
 	var/impressiveness = 45
 
-/obj/item/statuebust/Initialize()
+/obj/item/statuebust/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/art, impressiveness)
 	AddElement(/datum/element/beauty, 1000)
@@ -624,7 +616,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "skateboard2"
 	inhand_icon_state = "skateboard2"
 	board_item_type = /obj/vehicle/ridden/scooter/skateboard/pro
-	custom_premium_price = PAYCHECK_HARD * 5
+	custom_premium_price = PAYCHECK_COMMAND * 5
 
 /obj/item/melee/skateboard/hoverboard
 	name = "hoverboard"
@@ -659,7 +651,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/homerun_ready = 0
 	var/homerun_able = 0
 
-/obj/item/melee/baseball_bat/Initialize()
+/obj/item/melee/baseball_bat/Initialize(mapload)
 	. = ..()
 	if(prob(1))
 		name = "cricket bat"
@@ -696,7 +688,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		return
-	var/atom/throw_target = get_edge_target_turf(target, user.dir)
+	// we obtain the relative direction from the bat itself to the target
+	var/relative_direction = get_cardinal_dir(src, target)
+	var/atom/throw_target = get_edge_target_turf(target, relative_direction)
 	if(homerun_ready)
 		user.visible_message(span_userdanger("It's a home run!"))
 		target.throw_at(throw_target, rand(8,10), 14, user)
@@ -742,29 +736,35 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	//Things in this list will be instantly splatted.  Flyman weakness is handled in the flyman species weakness proc.
 	var/list/strong_against
 
-/obj/item/melee/flyswatter/Initialize()
+/obj/item/melee/flyswatter/Initialize(mapload)
 	. = ..()
 	strong_against = typecacheof(list(
-					/mob/living/simple_animal/hostile/bee/,
-					/mob/living/simple_animal/butterfly,
-					/mob/living/simple_animal/hostile/cockroach,
-					/obj/item/queen_bee,
-					/obj/structure/spider/spiderling
+		/mob/living/simple_animal/hostile/bee,
+		/mob/living/simple_animal/butterfly,
+		/mob/living/basic/cockroach,
+		/obj/item/queen_bee,
+		/obj/structure/spider/spiderling,
+		/mob/living/simple_animal/hostile/ant,
+		/obj/effect/decal/cleanable/ants,
 	))
 
 
 /obj/item/melee/flyswatter/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
-	if(proximity_flag)
-		if(is_type_in_typecache(target, strong_against))
-			if(!HAS_TRAIT(user, TRAIT_PACIFISM))
-				new /obj/effect/decal/cleanable/insectguts(target.drop_location())
-				to_chat(user, span_warning("You easily splat [target]."))
-				if(isliving(target))
-					var/mob/living/bug = target
-					bug.gib()
-				else
-					qdel(target)
+	if(!proximity_flag)
+		return
+	if(!is_type_in_typecache(target, strong_against))
+		return
+	if (HAS_TRAIT(user, TRAIT_PACIFISM))
+		return
+
+	new /obj/effect/decal/cleanable/insectguts(target.drop_location())
+	to_chat(user, span_warning("You easily splat [target]."))
+	if(isliving(target))
+		var/mob/living/bug = target
+		bug.gib()
+	else
+		qdel(target)
 
 /obj/item/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
@@ -801,7 +801,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A wooden stick with white streamers at the end. Originally used by shrine maidens to purify things. Now used by the station's valued weeaboos."
 	force = 5
 	throwforce = 5
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	attack_verb_continuous = list("whacks", "thwacks", "wallops", "socks")
 	attack_verb_simple = list("whack", "thwack", "wallop", "sock")
 	icon = 'icons/obj/items_and_weapons.dmi'
@@ -828,59 +828,150 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 
-/obj/item/mantis_blade
-	name = "C.H.R.O.M.A.T.A. mantis blade"
-	desc = "Powerful inbuilt blade, hidden just beneath the skin. Singular brain signals directly link to this bad boy, allowing it to spring into action in just seconds."
-	icon_state = "mantis"
-	inhand_icon_state = "mantis"
+//High Frequency Blade
+
+/obj/item/highfrequencyblade
+	name = "high frequency blade"
+	desc = "A sword reinforced by a powerful alternating current and resonating at extremely high vibration frequencies. \
+		This oscillation weakens the molecular bonds of anything it cuts, thereby increasing its cutting ability."
+	icon_state = "hfrequency0"
+	worn_icon_state = "hfrequency0"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	flags_1 = CONDUCT_1
-	force = 12
-	wound_bonus = 20
-	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
-	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
+	force = 10
+	wound_bonus = 25
+	bare_wound_bonus = 50
+	throwforce = 25
+	throw_speed = 4
+	embedding = list("embed_chance" = 100)
+	block_chance = 25
 	sharpness = SHARP_EDGED
-	max_integrity = 200
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	/// The color of the slash we create
+	var/slash_color = COLOR_BLUE
+	/// Previous x position of where we clicked on the target's icon
+	var/previous_x
+	/// Previous y position of where we clicked on the target's icon
+	var/previous_y
+	/// The previous target we attacked
+	var/datum/weakref/previous_target
 
-/obj/item/mantis_blade/equipped(mob/user, slot, initial)
+/obj/item/highfrequencyblade/Initialize(mapload)
 	. = ..()
-	if(slot != ITEM_SLOT_HANDS)
-		return
-	var/side = user.get_held_index_of_item(src)
+	AddElement(/datum/element/update_icon_updates_onmob)
 
-	if(side == LEFT_HANDS)
-		transform = null
-	else
-		transform = matrix(-1, 0, 0, 0, 1, 0)
-
-/obj/item/mantis_blade/attack(mob/living/M, mob/living/user)
+/obj/item/highfrequencyblade/ComponentInitialize()
 	. = ..()
-	if(user.get_active_held_item() != src)
+	AddComponent(/datum/component/two_handed, wield_callback = CALLBACK(src, .proc/on_wield), unwield_callback = CALLBACK(src, .proc/on_unwield))
+
+/obj/item/highfrequencyblade/update_icon_state()
+	icon_state = "hfrequency[HAS_TRAIT(src, TRAIT_WIELDED)]"
+	return ..()
+
+/obj/item/highfrequencyblade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(attack_type == PROJECTILE_ATTACK)
+		if(HAS_TRAIT(src, TRAIT_WIELDED) || prob(final_block_chance))
+			owner.visible_message(span_danger("[owner] deflects [attack_text] with [src]!"))
+			playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+			return TRUE
+		return FALSE
+	if(prob(final_block_chance * (HAS_TRAIT(src, TRAIT_WIELDED) ? 2 : 1)))
+		owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
+		return TRUE
+
+/obj/item/highfrequencyblade/attack(mob/living/target, mob/living/user, params)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		return ..()
+	slash(target, user, params)
+
+/obj/item/highfrequencyblade/attack_atom(atom/target, mob/living/user, params)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return
+	return ..()
 
-	var/obj/item/some_item = user.get_inactive_held_item()
-
-	if(!istype(some_item,type))
+/obj/item/highfrequencyblade/afterattack(atom/target, mob/user, proximity_flag, params)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		return ..()
+	if(!proximity_flag || !(isclosedturf(target) || isitem(target) || ismachinery(target) || isstructure(target) || isvehicle(target)))
 		return
+	slash(target, user, params)
 
-	user.do_attack_animation(M,null,some_item)
-	some_item.attack(M,user)
+/// triggered on wield of two handed item
+/obj/item/highfrequencyblade/proc/on_wield(obj/item/source, mob/user)
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/mantis_blade/syndicate
-	name = "A.R.A.S.A.K.A. mantis blade"
-	icon_state = "syndie_mantis"
-	inhand_icon_state = "syndie_mantis"
-	force = 15
-	block_chance = 20
+/// triggered on unwield of two handed item
+/obj/item/highfrequencyblade/proc/on_unwield(obj/item/source, mob/user)
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/mantis_blade/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/highfrequencyblade/proc/slash(atom/target, mob/living/user, params)
+	user.changeNext_move(0.1 SECONDS)
+	user.do_attack_animation(target, "nothing")
+	var/list/modifiers = params2list(params)
+	var/damage_mod = 1
+	var/x_slashed = text2num(modifiers[ICON_X]) || world.icon_size/2 //in case we arent called by a client
+	var/y_slashed = text2num(modifiers[ICON_Y]) || world.icon_size/2 //in case we arent called by a client
+	new /obj/effect/temp_visual/slash(get_turf(target), target, x_slashed, y_slashed, slash_color)
+	if(target == previous_target?.resolve()) //if the same target, we calculate a damage multiplier if you swing your mouse around
+		var/x_mod = previous_x - x_slashed
+		var/y_mod = previous_y - y_slashed
+		damage_mod = max(1, round((sqrt(x_mod ** 2 + y_mod ** 2) / 10), 0.1))
+	previous_target = WEAKREF(target)
+	previous_x = x_slashed
+	previous_y = y_slashed
+	playsound(src, 'sound/weapons/bladeslice.ogg', 100, vary = TRUE)
+	playsound(src, 'sound/weapons/zapbang.ogg', 50, vary = TRUE)
+	if(isliving(target))
+		var/mob/living/living_target = target
+		living_target.apply_damage(force*damage_mod, BRUTE, sharpness = SHARP_EDGED, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, def_zone = user.zone_selected)
+		log_combat(user, living_target, "slashed", src)
+		if(living_target.stat == DEAD && prob(force*damage_mod*0.5))
+			living_target.visible_message(span_danger("[living_target] explodes in a shower of gore!"), blind_message = span_hear("You hear organic matter ripping and tearing!"))
+			living_target.gib()
+			log_combat(user, living_target, "gibbed", src)
+	else if(target.uses_integrity)
+		target.take_damage(force*damage_mod*3, BRUTE, MELEE, FALSE, null, 50)
+	else if(iswallturf(target) && prob(force*damage_mod*0.5))
+		var/turf/closed/wall/wall_target = target
+		wall_target.dismantle_wall()
+	else if(ismineralturf(target) && prob(force*damage_mod))
+		var/turf/closed/mineral/mineral_target = target
+		mineral_target.gets_drilled()
+
+/obj/effect/temp_visual/slash
+	icon_state = "highfreq_slash"
+	alpha = 150
+	duration = 0.5 SECONDS
+	layer = ABOVE_ALL_MOB_LAYER
+	plane = ABOVE_GAME_PLANE
+
+/obj/effect/temp_visual/slash/Initialize(mapload, atom/target, x_slashed, y_slashed, slash_color)
 	. = ..()
-	if(proximity_flag || get_dist(user,target) > 3 || !isliving(target))
+	if(!target)
 		return
+	var/matrix/new_transform = matrix()
+	new_transform.Turn(rand(1, 360)) // Random slash angle
+	var/datum/decompose_matrix/decomp = target.transform.decompose()
+	new_transform.Translate((x_slashed - world.icon_size/2) * decomp.scale_x, (y_slashed - world.icon_size/2) * decomp.scale_y) // Move to where we clicked
+	//Follow target's transform while ignoring scaling
+	new_transform.Turn(decomp.rotation)
+	new_transform.Translate(decomp.shift_x, decomp.shift_y)
+	new_transform.Translate(target.pixel_x, target.pixel_y) // Follow target's pixel offsets
+	transform = new_transform
+	//Double the scale of the matrix by doubling the 2x2 part without touching the translation part
+	var/matrix/scaled_transform = new_transform + matrix(new_transform.a, new_transform.b, 0, new_transform.d, new_transform.e, 0)
+	animate(src, duration*0.5, color = slash_color, transform = scaled_transform, alpha = 255)
 
-	for(var/i in 1 to get_dist(user,target))
-		step_towards(user,target)
-	attack(target,user)
+/obj/item/highfrequencyblade/wizard
+	desc = "A blade that was mastercrafted by a legendary blacksmith. Its' enchantments let it slash through anything."
+	force = 8
+	throwforce = 20
+	wound_bonus = 20
+	bare_wound_bonus = 25
+
+/obj/item/highfrequencyblade/wizard/attack_self(mob/user, modifiers)
+	if(!IS_WIZARD(user))
+		balloon_alert(user, "you're too weak!")
+		return
+	return ..()

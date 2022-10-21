@@ -17,7 +17,7 @@
 	throw_speed = 3
 	throw_range = 7
 	drop_sound = 'sound/items/handling/component_drop.ogg'
-	pickup_sound =  'sound/items/handling/component_pickup.ogg'
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 
 	/**
 	 * Set to true if the device has different icons for each position.
@@ -30,7 +30,6 @@
 	var/wire_type = WIRE_RECEIVE | WIRE_PULSE
 	var/attachable = FALSE // can this be attached to wires
 	var/datum/wires/connected = null
-	var/activation_delay = 30
 	var/next_activate = 0 //When we're next allowed to activate - for spam control
 
 /obj/item/assembly/Destroy()
@@ -87,7 +86,7 @@
 /obj/item/assembly/proc/activate()
 	if(QDELETED(src) || !secured || (next_activate > world.time))
 		return FALSE
-	next_activate = world.time + activation_delay
+	next_activate = world.time + 30
 	return TRUE
 
 /obj/item/assembly/proc/toggle_secure()
@@ -105,6 +104,10 @@
 		else
 			to_chat(user, span_warning("Both devices must be in attachable mode to be attached together."))
 		return
+	if(istype(W, /obj/item/assembly_holder))
+		if(!secured)
+			var/obj/item/assembly_holder/added_to_holder = W
+			added_to_holder.add_assembly(src, user)
 	..()
 
 /obj/item/assembly/screwdriver_act(mob/living/user, obj/item/I)

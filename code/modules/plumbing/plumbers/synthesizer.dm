@@ -5,7 +5,7 @@
 
 	icon_state = "synthesizer"
 	icon = 'icons/obj/plumbing/plumbers.dmi'
-
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
 	///Amount we produce for every process. Ideally keep under 5 since thats currently the standard duct capacity
 	var/amount = 1
 	///I track them here because I have no idea how I'd make tgui loop like that
@@ -32,7 +32,6 @@
 		/datum/reagent/potassium,
 		/datum/reagent/uranium/radium,
 		/datum/reagent/silicon,
-		/datum/reagent/silver,
 		/datum/reagent/sodium,
 		/datum/reagent/stable_plasma,
 		/datum/reagent/consumable/sugar,
@@ -44,7 +43,7 @@
 
 /obj/machinery/plumbing/synthesizer/Initialize(mapload, bolt, layer)
 	. = ..()
-	AddComponent(/datum/component/plumbing/supply/south, bolt, layer)
+	AddComponent(/datum/component/plumbing/simple_supply, bolt, layer)
 
 /obj/machinery/plumbing/synthesizer/process(delta_time)
 	if(machine_stat & NOPOWER || !reagent_id || !amount)
@@ -52,6 +51,7 @@
 	if(reagents.total_volume >= amount*delta_time*0.5) //otherwise we get leftovers, and we need this to be precise
 		return
 	reagents.add_reagent(reagent_id, amount*delta_time*0.5)
+	use_power(active_power_usage * amount * delta_time * 0.5)
 
 /obj/machinery/plumbing/synthesizer/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

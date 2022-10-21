@@ -26,6 +26,7 @@ SUBSYSTEM_DEF(materials)
 		new /datum/stack_recipe("Toilet", /obj/structure/toilet/greyscale, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE),
 		new /datum/stack_recipe("Sink Frame", /obj/structure/sinkframe, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE),
 		new /datum/stack_recipe("Material floor tile", /obj/item/stack/tile/material, 1, 4, 20, applies_mats = TRUE),
+		new /datum/stack_recipe("Material airlock assembly", /obj/structure/door_assembly/door_assembly_material, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE),
 	)
 	///List of stackcrafting recipes for materials using rigid recipes
 	var/list/rigid_stack_recipes = list(
@@ -138,7 +139,7 @@ SUBSYSTEM_DEF(materials)
 			fullid += "[key]"
 
 	if(length(named_arguments))
-		named_arguments = sortList(named_arguments)
+		named_arguments = sort_list(named_arguments)
 		fullid += named_arguments
 	return list2params(fullid)
 

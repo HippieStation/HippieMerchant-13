@@ -1,11 +1,11 @@
 /obj/machinery/griddle
 	name = "griddle"
 	desc = "Because using pans is for pansies."
-	icon = 'icons/obj/machines/griddle.dmi'
+	icon = 'icons/obj/machines/kitchenmachines.dmi'
 	icon_state = "griddle1_off"
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
+	pass_flags_self = PASSMACHINE | PASSTABLE| LETPASSTHROW // It's roughly the height of a table.
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
 	layer = BELOW_OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/griddle
 	processing_flags = START_PROCESSING_MANUALLY
@@ -22,7 +22,7 @@
 	///How many shit fits on the griddle?
 	var/max_items = 8
 
-/obj/machinery/griddle/Initialize()
+/obj/machinery/griddle/Initialize(mapload)
 	. = ..()
 	grill_loop = new(src, FALSE)
 	if(isnum(variant))
@@ -80,7 +80,7 @@
 	else
 		return ..()
 
-/obj/machinery/griddle/attack_hand(mob/user)
+/obj/machinery/griddle/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	on = !on
 	if(on)
@@ -122,13 +122,13 @@
 	else
 		grill_loop.stop()
 
-/obj/machinery/griddle/wrench_act(mob/living/user, obj/item/I)
-	..()
-	default_unfasten_wrench(user, I, 2 SECONDS)
-	return TRUE
+/obj/machinery/griddle/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool, time = 2 SECONDS)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 ///Override to prevent storage dumping onto the griddle until I figure out how to navigate the mess that is storage code to allow me to nicely move the dumped objects onto the griddle.
-/obj/machinery/griddle/get_dumping_location(obj/item/storage/source, mob/user)
+/obj/machinery/griddle/get_dumping_location()
 	return
 
 /obj/machinery/griddle/process(delta_time)
@@ -140,6 +140,8 @@
 		griddled_item.fire_act(1000) //Hot hot hot!
 		if(prob(10))
 			visible_message(span_danger("[griddled_item] doesn't seem to be doing too great on the [src]!"))
+
+		use_power(active_power_usage)
 
 /obj/machinery/griddle/update_icon_state()
 	icon_state = "griddle[variant]_[on ? "on" : "off"]"

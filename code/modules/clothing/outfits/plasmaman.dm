@@ -126,13 +126,6 @@
 	gloves = /obj/item/clothing/gloves/color/plasmaman/white
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 
-/datum/outfit/plasmaman/arms
-	name = "Arms Dealer Plasmaman"
-
-	uniform = /obj/item/clothing/under/plasmaman/security
-	gloves = /obj/item/clothing/gloves/color/plasmaman/black
-	head = /obj/item/clothing/head/helmet/space/plasmaman/white
-
 /datum/outfit/plasmaman/chef
 	name = "Chef Plasmaman"
 
@@ -151,7 +144,7 @@
 	name = "Botany Plasmaman"
 
 	uniform = /obj/item/clothing/under/plasmaman/botany
-	gloves = /obj/item/clothing/gloves/botanic_leather/plasmaman
+	gloves = /obj/item/clothing/gloves/color/plasmaman/botanic_leather
 	head = /obj/item/clothing/head/helmet/space/plasmaman/botany
 
 /datum/outfit/plasmaman/janitor
@@ -174,7 +167,7 @@
 	uniform = /obj/item/clothing/under/plasmaman/mime
 	gloves = /obj/item/clothing/gloves/color/plasmaman/white
 	head = /obj/item/clothing/head/helmet/space/plasmaman/mime
-	mask = /obj/item/clothing/mask/gas/mime
+	mask = /obj/item/clothing/mask/gas/mime/plasmaman
 
 /datum/outfit/plasmaman/clown
 	name = "Clown Plasmaman"
@@ -182,7 +175,7 @@
 	uniform = /obj/item/clothing/under/plasmaman/clown
 	gloves = /obj/item/clothing/gloves/color/plasmaman/clown
 	head = /obj/item/clothing/head/helmet/space/plasmaman/clown
-	mask = /obj/item/clothing/mask/gas/clown_hat
+	mask = /obj/item/clothing/mask/gas/clown_hat/plasmaman
 
 /datum/outfit/plasmaman/captain
 	name = "Captain Plasmaman"
@@ -276,4 +269,4 @@
 	uniform = /obj/item/clothing/under/plasmaman/clown
 	gloves = /obj/item/clothing/gloves/color/plasmaman/clown
 	head = /obj/item/clothing/head/helmet/space/plasmaman/clown
-	mask = /obj/item/clothing/mask/gas/clown_hat
+	mask = /obj/item/clothing/mask/gas/clown_hat/plasmaman

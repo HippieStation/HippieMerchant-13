@@ -10,8 +10,6 @@
 	can_buckle = TRUE
 	buckle_lying = 90
 	circuit = /obj/item/circuitboard/machine/stasis
-	idle_power_usage = 40
-	active_power_usage = 340
 	fair_market_price = 10
 	payment_department = ACCOUNT_MED
 	var/stasis_enabled = TRUE
@@ -19,17 +17,13 @@
 	var/stasis_can_toggle = 0
 	var/mattress_state = "stasis_on"
 	var/obj/effect/overlay/vis/mattress_on
-	var/obj/machinery/computer/operating/computer
 
 /obj/machinery/stasis/Destroy()
 	. = ..()
-	if(computer && computer.sbed == src)
-		computer.sbed = null
 
 /obj/machinery/stasis/examine(mob/user)
 	. = ..()
 	. += span_notice("Alt-click to [stasis_enabled ? "turn off" : "turn on"] the machine.")
-	. += span_notice("\The [src] is [computer ? "linked" : "<b>NOT</b> linked"] to a nearby operating computer.")
 
 /obj/machinery/stasis/proc/play_power_sound()
 	var/_running = stasis_running()
@@ -42,6 +36,9 @@
 		last_stasis_sound = _running
 
 /obj/machinery/stasis/AltClick(mob/user)
+	. = ..()
+	if(!can_interact(user))
+		return
 	if(world.time >= stasis_can_toggle && user.canUseTopic(src, !issilicon(user)))
 		stasis_enabled = !stasis_enabled
 		stasis_can_toggle = world.time + STASIS_TOGGLE_COOLDOWN
@@ -92,7 +89,7 @@
 		animate(mattress_on, alpha = new_alpha, time = 50, easing = CUBIC_EASING|easing_direction)
 
 
-/obj/machinery/stasis/obj_break(damage_flag)
+/obj/machinery/stasis/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		play_power_sound()
@@ -106,16 +103,16 @@
 		return
 	var/freq = rand(24750, 26550)
 	playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 2, frequency = freq)
-	target.apply_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
+	target.apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_MACHINE_EFFECT)
 	ADD_TRAIT(target, TRAIT_TUMOR_SUPPRESSED, TRAIT_GENERIC)
 	target.extinguish_mob()
-	use_power = ACTIVE_POWER_USE
+	update_use_power(ACTIVE_POWER_USE)
 
 /obj/machinery/stasis/proc/thaw_them(mob/living/target)
-	target.remove_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
+	target.remove_status_effect(/datum/status_effect/grouped/stasis, STASIS_MACHINE_EFFECT)
 	REMOVE_TRAIT(target, TRAIT_TUMOR_SUPPRESSED, TRAIT_GENERIC)
 	if(target == occupant)
-		use_power = IDLE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
 
 /obj/machinery/stasis/post_buckle_mob(mob/living/L)
 	if(!can_be_occupant(L))
@@ -132,8 +129,8 @@
 	update_appearance()
 
 /obj/machinery/stasis/process()
-	if( !( occupant && isliving(occupant) && check_nap_violations() ) )
-		use_power = IDLE_POWER_USE
+	if(!(occupant && isliving(occupant) && check_nap_violations()))
+		update_use_power(IDLE_POWER_USE)
 		return
 	var/mob/living/L_occupant = occupant
 	if(stasis_running())

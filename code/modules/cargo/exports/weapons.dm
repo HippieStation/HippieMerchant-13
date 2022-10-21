@@ -6,14 +6,14 @@
 /datum/export/weapon/baton
 	cost = CARGO_CRATE_VALUE * 0.5
 	unit_name = "stun baton"
-	export_types = list(/obj/item/melee/baton)
-	exclude_types = list(/obj/item/melee/baton/cattleprod)
+	export_types = list(/obj/item/melee/baton/security)
+	exclude_types = list(/obj/item/melee/baton/security/cattleprod)
 	include_subtypes = TRUE
 
 /datum/export/weapon/knife
 	cost = CARGO_CRATE_VALUE * 0.5
 	unit_name = "combat knife"
-	export_types = list(/obj/item/kitchen/knife/combat)
+	export_types = list(/obj/item/knife/combat)
 
 
 /datum/export/weapon/taser
@@ -31,20 +31,20 @@
 	unit_name = "disabler"
 	export_types = list(/obj/item/gun/energy/disabler)
 
-/datum/export/weapon/taser
-	cost = CARGO_CRATE_VALUE * 0.5
-	unit_name = "taser"
-	export_types = list(/obj/item/gun/energy/taser)
-
 /datum/export/weapon/energy_gun
 	cost = CARGO_CRATE_VALUE * 1.5
 	unit_name = "energy gun"
 	export_types = list(/obj/item/gun/energy/e_gun)
 
-/datum/export/weapon/wt550
+/datum/export/weapon/inferno
 	cost = CARGO_CRATE_VALUE * 1.5
-	unit_name = "WT-550 automatic rifle"
-	export_types = list(/obj/item/gun/ballistic/automatic/wt550)
+	unit_name = "inferno pistol"
+	export_types = list(/obj/item/gun/energy/laser/thermal/inferno)
+
+/datum/export/weapon/cryo
+	cost = CARGO_CRATE_VALUE * 1.5
+	unit_name = "cryo pistol"
+	export_types = list(/obj/item/gun/energy/laser/thermal/cryo)
 
 /datum/export/weapon/shotgun
 	cost = CARGO_CRATE_VALUE * 1.5

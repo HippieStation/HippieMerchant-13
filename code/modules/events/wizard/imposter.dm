@@ -10,12 +10,12 @@
 		if(!ishuman(M.current))
 			continue
 		var/mob/living/carbon/human/W = M.current
-		var/list/candidates = pollGhostCandidates("Would you like to be an imposter wizard?", ROLE_WIZARD)
+		var/list/candidates = poll_ghost_candidates("Would you like to be an imposter wizard?", ROLE_WIZARD)
 		if(!candidates)
 			return //Sad Trombone
 		var/mob/dead/observer/C = pick(candidates)
 
-		new /obj/effect/particle_effect/smoke(W.loc)
+		new /obj/effect/particle_effect/fluid/smoke(W.loc)
 
 		var/mob/living/carbon/human/I = new /mob/living/carbon/human(W.loc)
 		W.dna.transfer_identity(I, transfer_SE=1)

@@ -69,8 +69,7 @@
 		if(istype(new_mob))
 			if(bantype && is_banned_from(affected_mob.ckey, bantype))
 				replace_banned_player(new_mob)
-			// TODO: make sure this is correct, used to be set_combat_mode() call.
-			new_mob.istate.harm = TRUE
+			new_mob.set_combat_mode(TRUE)
 			if(affected_mob.mind)
 				affected_mob.mind.transfer_to(new_mob)
 			else
@@ -84,7 +83,7 @@
 /datum/disease/transformation/proc/replace_banned_player(mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
 	set waitfor = FALSE
 
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [affected_mob.real_name]?", bantype, bantype, 50, affected_mob)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [affected_mob.real_name]?", bantype, bantype, 5 SECONDS, affected_mob)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(affected_mob, span_userdanger("Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!"))
@@ -98,24 +97,23 @@
 			new_mob.ghostize(can_reenter_corpse = FALSE)
 			new_mob.key = null
 
-/datum/disease/transformation/jungle_fever
-	name = "Jungle Fever"
+/datum/disease/transformation/jungle_flu
+	name = "Jungle Flu"
 	cure_text = "Death."
 	cures = list(/datum/reagent/medicine/adminordrazine)
-	spread_text = "Monkey Bites"
-	spread_flags = DISEASE_SPREAD_SPECIAL
+	spread_text = "Unknown"
+	spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 	viable_mobtypes = list(/mob/living/carbon/human)
-	permeability_mod = 1
+	spreading_modifier = 1
 	cure_chance = 0.5
 	disease_flags = CAN_CARRY|CAN_RESIST
-	desc = "Monkeys with this disease will bite humans, causing humans to mutate into a monkey."
+	desc = "A neutered but still dangerous descendent of the ancient \"Jungle Fever\", victims will eventually genetically backtrack into a primate. \
+	Luckily, once turned the new monkey will not gain the rabies-like rage of the fever."
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	stage_prob = 2
 	visibility_flags = NONE
 	agent = "Kongey Vibrion M-909"
 	new_form = /mob/living/carbon/human/species/monkey
-	bantype = ROLE_MONKEY
-
 
 	stage1 = list()
 	stage2 = list()
@@ -124,14 +122,10 @@
 					"<span class='warning'>You have a craving for bananas.</span>", "<span class='warning'>Your mind feels clouded.</span>")
 	stage5 = list("<span class='warning'>You feel like monkeying around.</span>")
 
-/datum/disease/transformation/jungle_fever/do_disease_transformation(mob/living/carbon/affected_mob)
-	if(affected_mob.mind && !IS_INFECTED_MONKEY(affected_mob.mind))
-		affected_mob.mind.add_antag_datum(/datum/antagonist/monkey)
-		affected_mob.monkeyize()
-		ADD_TRAIT(affected_mob, TRAIT_VENTCRAWLER_ALWAYS, type)
+/datum/disease/transformation/jungle_flu/do_disease_transformation(mob/living/carbon/affected_mob)
+	affected_mob.monkeyize()
 
-
-/datum/disease/transformation/jungle_fever/stage_act(delta_time, times_fired)
+/datum/disease/transformation/jungle_flu/stage_act(delta_time, times_fired)
 	. = ..()
 	if(!.)
 		return
@@ -143,25 +137,10 @@
 		if(3)
 			if(DT_PROB(2, delta_time))
 				to_chat(affected_mob, span_danger("You feel a stabbing pain in your head."))
-				affected_mob.add_confusion(10)
+				affected_mob.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/confusion)
 		if(4)
 			if(DT_PROB(1.5, delta_time))
 				affected_mob.say(pick("Eeek, ook ook!", "Eee-eeek!", "Eeee!", "Ungh, ungh."), forced = "jungle fever")
-
-
-/datum/disease/transformation/jungle_fever/cure()
-	affected_mob.mind.remove_antag_datum(/datum/antagonist/monkey)
-	..()
-
-/datum/disease/transformation/jungle_fever/monkeymode
-	visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
-	disease_flags = CAN_CARRY //no vaccines! no cure!
-
-/datum/disease/transformation/jungle_fever/monkeymode/after_add()
-	if(affected_mob && !IS_MONKEY_LEADER(affected_mob.mind))
-		visibility_flags = NONE
-
-
 
 /datum/disease/transformation/robot
 
@@ -180,7 +159,7 @@
 	stage5 = list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
 	new_form = /mob/living/silicon/robot
 	infectable_biotypes = MOB_ORGANIC|MOB_UNDEAD|MOB_ROBOTIC
-	bantype = "Cyborg"
+	bantype = JOB_CYBORG
 
 
 /datum/disease/transformation/robot/stage_act(delta_time, times_fired)
@@ -359,43 +338,3 @@
 				if(held_item)
 					to_chat(affected_mob, span_danger("You let go of what you were holding."))
 					affected_mob.dropItemToGround(held_item)
-
-/datum/disease/transformation/clowndola
-	name = "Clowndola Transformation"
-	cure_text = "Laughter, ingested or injected."
-	cures = list(/datum/reagent/consumable/superlaughter)
-	cure_chance = 80
-	stage_prob = 10
-	agent = "Delirium"
-	desc = "Consuming the flesh of a Clowndola comes at a terrible price."
-	severity = DISEASE_SEVERITY_BIOHAZARD
-	visibility_flags = 0
-	stage1	= list("You seem a little clumsier in your step.")
-	stage2	= list("You catch yourself laughing for no reason.")
-	stage3	= list("<span class='danger'>A cruel sense of chaos overcomes you.</span>", "<span class='danger'>You can't feel your arms!</span>", "<span class='danger'>You let go of the urge to hurt clowns.</span>")
-	stage4	= list("<span class='danger'>You can't feel your arms. It does not bother you anymore.</span>", "<span class='danger'>You start to have vision of the Honkmother.</span>")
-	stage5	= list("<span class='danger'>You have become a Clowndola.</span>")
-	new_form = /mob/living/simple_animal/hostile/retaliate/clowndola
-
-/datum/disease/transformation/clowndola/stage_act()
-	..()
-	switch(stage)
-		if(2)
-			if (prob(5))
-				affected_mob.emote("laugh")
-			if (prob(10))
-				affected_mob.reagents.add_reagent_list(list(/datum/reagent/lithium = 2))
-		if(3)
-			if (prob(10))
-				affected_mob.emote("laugh")
-			if (prob(20))
-				affected_mob.reagents.add_reagent_list(list(/datum/reagent/lithium = 3))
-		if(4)
-			if (prob(15))
-				affected_mob.emote("laugh")
-			if (prob(30))
-				affected_mob.reagents.add_reagent_list(list(/datum/reagent/lithium = 5))
-				to_chat(affected_mob, "<span class='danger'>You clumsily let go of what you were holding.</span>")
-				var/obj/item/I = affected_mob.get_active_held_item()
-				affected_mob.dropItemToGround(I)
-

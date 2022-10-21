@@ -4,10 +4,35 @@
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(/mob/living/brain)
 
+/// The time it takes for the blush visual to be removed
+#define BLUSH_DURATION 5.2 SECONDS
+
 /datum/emote/living/blush
 	key = "blush"
 	key_third_person = "blushes"
 	message = "blushes."
+	/// Timer for the blush visual to wear off
+	var/blush_timer = TIMER_ID_NULL
+
+/datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(. && isliving(user))
+		var/mob/living/living_user = user
+		ADD_TRAIT(living_user, TRAIT_BLUSHING, "[type]")
+		living_user.update_body()
+
+		// Use a timer to remove the blush effect after the BLUSH_DURATION has passed
+		var/list/key_emotes = GLOB.emote_list["blush"]
+		for(var/datum/emote/living/blush/living_emote in key_emotes)
+			// The existing timer restarts if it's already running
+			blush_timer = addtimer(CALLBACK(living_emote, .proc/end_blush, living_user), BLUSH_DURATION, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/datum/emote/living/blush/proc/end_blush(mob/living/living_user)
+	if(!QDELETED(living_user))
+		REMOVE_TRAIT(living_user, TRAIT_BLUSHING, "[type]")
+		living_user.update_body()
+
+#undef BLUSH_DURATION
 
 /datum/emote/living/bow
 	key = "bow"
@@ -78,7 +103,7 @@
 	message_alien = "lets out a waning guttural screech, and collapses onto the floor..."
 	message_larva = "lets out a sickly hiss of air and falls limply to the floor..."
 	message_monkey = "lets out a faint chimper as it collapses and stops moving..."
-	message_simple =  "stops moving..."
+	message_simple = "stops moving..."
 	cooldown = (15 SECONDS)
 	stat_allowed = HARD_CRIT
 
@@ -124,7 +149,7 @@
 		var/mob/living/carbon/human/H = user
 		var/open = FALSE
 		var/obj/item/organ/external/wings/functional/wings = H.getorganslot(ORGAN_SLOT_EXTERNAL_WINGS)
-		if(wings)
+		if(istype(wings))
 			if(wings.wings_open)
 				open = TRUE
 				wings.close_wings()
@@ -202,10 +227,10 @@
 	. = ..()
 	if(!.)
 		return
-	var/kiss_type = /obj/item/kisser
+	var/kiss_type = /obj/item/hand_item/kisser
 
 	if(HAS_TRAIT(user, TRAIT_KISS_OF_DEATH))
-		kiss_type = /obj/item/kisser/death
+		kiss_type = /obj/item/hand_item/kisser/death
 
 	var/obj/item/kiss_blower = new kiss_type(user)
 	if(user.put_in_hands(kiss_blower))
@@ -330,43 +355,6 @@
 	key_third_person = "smugs"
 	message = "grins smugly."
 
-/obj/effect/smug
-	name = "smug"
-	desc = ":smug:"
-	icon = 'icons/mob/smug.dmi'
-	icon_state = "smug"
-	anchored = 1
-	pixel_x = -16
-	pixel_y = -16
-	layer = 5.0
-
-
-/datum/emote/living/smug/run_emote(mob/living/carbon/user, params)
-	if(!ishuman(user))
-		return ..()
-	var/obj/item/organ/tongue/L = user.getorgan(/obj/item/organ/tongue)
-	var/mob/living/carbon/human/H = user
-	if(!L)
-		to_chat(user, "<span class='warning'>You can't be smug without a tongue!</span>")
-		return FALSE // This will tell you that the emote is unusable as well.
-	var/bloodkind = /obj/effect/decal/cleanable/blood
-	var/toosmug = rand(1,20)
-	if(toosmug == 1 || world.time < H.smug_cd)
-		user.visible_message("<span class='warning'><b>[H]</b> tries to smugly grin, but bites their tongue off!</span>", "<span class='warning'>Holy shit, you just bit your tongue off!</span>")
-		playsound(H, 'sound/effects/snap.ogg', 50, TRUE)
-		L.Remove(user)
-		L.forceMove(get_turf(H))
-		new bloodkind(H.loc)
-		return
-	H.smug_cd = world.time + 300
-	var/obj/effect/smug/S = new(H.loc) // I heard the Goons didn't need this code any more. Oh well!
-	S.alpha = 0
-	animate(S,transform = matrix(0.5, MATRIX_SCALE), time = 20, alpha = 255, pixel_y = 27, easing = ELASTIC_EASING)
-	animate(time = 5, alpha = 0, pixel_y = -16, easing = CIRCULAR_EASING)
-	spawn(30) qdel(S)
-	return ..()
-
-
 /datum/emote/living/sniff
 	key = "sniff"
 	key_third_person = "sniffs"
@@ -408,7 +396,7 @@
 	if(. && isliving(user))
 		var/mob/living/L = user
 		L.Paralyze(200)
-		L.remove_status_effect(STATUS_EFFECT_SURRENDER)
+		L.remove_status_effect(/datum/status_effect/grouped/surrender)
 
 /datum/emote/living/sway
 	key = "sway"
@@ -451,11 +439,58 @@
 	key_third_person = "wsmiles"
 	message = "smiles weakly."
 
+/// The base chance for your yawn to propagate to someone else if they're on the same tile as you
+#define YAWN_PROPAGATE_CHANCE_BASE 60
+/// The base chance for your yawn to propagate to someone else if they're on the same tile as you
+#define YAWN_PROPAGATE_CHANCE_DECAY 10
+
 /datum/emote/living/yawn
 	key = "yawn"
 	key_third_person = "yawns"
 	message = "yawns."
 	emote_type = EMOTE_AUDIBLE
+	cooldown = 3 SECONDS
+
+/datum/emote/living/yawn/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(!. || !isliving(user))
+		return
+
+	if(!TIMER_COOLDOWN_CHECK(user, COOLDOWN_YAWN_PROPAGATION))
+		TIMER_COOLDOWN_START(user, COOLDOWN_YAWN_PROPAGATION, cooldown * 3)
+
+	var/mob/living/carbon/carbon_user = user
+	if(istype(carbon_user) && ((carbon_user.wear_mask?.flags_inv & HIDEFACE) || carbon_user.head?.flags_inv & HIDEFACE))
+		return // if your face is obscured, skip propagation
+
+	var/propagation_distance = user.client ? 5 : 2 // mindless mobs are less able to spread yawns
+
+	for(var/mob/living/iter_living in view(user, propagation_distance))
+		if(IS_DEAD_OR_INCAP(iter_living) || TIMER_COOLDOWN_CHECK(user, COOLDOWN_YAWN_PROPAGATION))
+			continue
+
+		var/dist_between = get_dist(user, iter_living)
+		var/recently_examined = FALSE // if you yawn just after someone looks at you, it forces them to yawn as well. Tradecraft!
+
+		if(iter_living.client)
+			var/examine_time = LAZYACCESS(iter_living.client?.recent_examines, user)
+			if(examine_time && (world.time - examine_time < YAWN_PROPAGATION_EXAMINE_WINDOW))
+				recently_examined = TRUE
+
+		if(!recently_examined && !prob(YAWN_PROPAGATE_CHANCE_BASE - (YAWN_PROPAGATE_CHANCE_DECAY * dist_between)))
+			continue
+
+		var/yawn_delay = rand(0.25 SECONDS, 0.75 SECONDS) * dist_between
+		addtimer(CALLBACK(src, .proc/propagate_yawn, iter_living), yawn_delay)
+
+/// This yawn has been triggered by someone else yawning specifically, likely after a delay. Check again if they don't have the yawned recently trait
+/datum/emote/living/yawn/proc/propagate_yawn(mob/user)
+	if(!istype(user) || TIMER_COOLDOWN_CHECK(user, COOLDOWN_YAWN_PROPAGATION))
+		return
+	user.emote("yawn")
+
+#undef YAWN_PROPAGATE_CHANCE_BASE
+#undef YAWN_PROPAGATE_CHANCE_DECAY
 
 /datum/emote/living/gurgle
 	key = "gurgle"
@@ -535,4 +570,10 @@
 	key = "exhale"
 	key_third_person = "exhales"
 	message = "breathes out."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/swear
+	key = "swear"
+	key_third_person = "swears"
+	message = "says a swear word!"
 	emote_type = EMOTE_AUDIBLE

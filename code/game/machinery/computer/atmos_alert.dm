@@ -11,7 +11,7 @@
 	var/datum/radio_frequency/radio_connection
 
 
-/obj/machinery/computer/atmos_alert/Initialize()
+/obj/machinery/computer/atmos_alert/Initialize(mapload)
 	. = ..()
 	set_frequency(receive_frequency)
 
@@ -20,6 +20,7 @@
 	return ..()
 
 /obj/machinery/computer/atmos_alert/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosAlertConsole", name)

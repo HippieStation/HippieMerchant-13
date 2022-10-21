@@ -26,7 +26,7 @@
 		/obj/effect/dummy/phased_mob,
 		/obj/effect/mapping_helpers,
 		/obj/effect/wisp,
-		))
+	))
 
 /datum/component/chasm/Initialize(turf/target)
 	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/Entered)
@@ -45,7 +45,7 @@
 
 /datum/component/chasm/proc/is_safe()
 	//if anything matching this typecache is found in the chasm, we don't drop things
-	var/static/list/chasm_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
+	var/static/list/chasm_safeties_typecache = typecacheof(list(/obj/structure/lattice, /obj/structure/lattice/catwalk, /obj/structure/stone_tile))
 
 	var/atom/parent = src.parent
 	var/list/found_safeties = typecache_filter_list(parent.contents, chasm_safeties_typecache)
@@ -82,13 +82,14 @@
 			if((!ismob(M.buckled) || (buckled_to.buckled != M)) && !droppable(M.buckled))
 				return FALSE
 		if(ishuman(AM))
-			var/mob/living/carbon/human/H = AM
-			if(istype(H.belt, /obj/item/wormhole_jaunter))
-				var/obj/item/wormhole_jaunter/J = H.belt
-				//To freak out any bystanders
-				H.visible_message(span_boldwarning("[H] falls into [parent]!"))
-				J.chasm_react(H)
-				return FALSE
+			var/mob/living/carbon/human/victim = AM
+			if(istype(victim.belt, /obj/item/wormhole_jaunter))
+				var/obj/item/wormhole_jaunter/jaunter = victim.belt
+				var/turf/chasm = get_turf(victim)
+				var/fall_into_chasm = jaunter.chasm_react(victim)
+				if(!fall_into_chasm)
+					chasm.visible_message(span_boldwarning("[victim] falls into the [chasm]!")) //To freak out any bystanders
+				return fall_into_chasm
 	return TRUE
 
 /datum/component/chasm/proc/drop(atom/movable/AM)

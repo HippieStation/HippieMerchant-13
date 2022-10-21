@@ -1,0 +1,196 @@
+[2022-05-30 08:17:25.607] Starting up round ID .
+ - -------------------------
+[2022-05-30 08:17:31.653] spacelove in statbrowser/initialize
+[2022-05-30 08:17:32.139] spacelove in browseroutput/initialize
+[2022-05-30 08:21:18.744] spacelove (as Parker Ludwig at 126,105,2)
+ - Using: /obj/machinery/computer/rdconsole [0x2008409]
+ - new Techweb fancy 1
+[2022-05-30 08:21:18.745] spacelove in tgui-window-1/initialize
+ - Using: /obj/machinery/computer/rdconsole [0x2008409]
+[2022-05-30 08:21:22.650] spacelove (as Parker Ludwig at 126,105,2) in tgui-window-1
+ - Using: /obj/machinery/computer/rdconsole [0x2008409]
+ - Action: uploadDisk {"type":"tech"}
+[2022-05-30 08:21:24.607] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:21:24.608] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:21:52.827] spacelove (as Parker Ludwig at 111,94,2)
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - new ExosuitFabricator fancy 1
+[2022-05-30 08:21:54.778] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: sync_rnd {}
+[2022-05-30 08:22:31.444] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_projectile_dampener"}
+[2022-05-30 08:22:33.711] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_criminal_capture"}
+[2022-05-30 08:22:35.876] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_holster"}
+[2022-05-30 08:22:39.510] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_visor_sechud"}
+[2022-05-30 08:22:45.426] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_microwave_beam"}
+[2022-05-30 08:22:51.010] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: sync_rnd {}
+[2022-05-30 08:22:52.494] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: sync_rnd {}
+[2022-05-30 08:23:01.326] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_dna_lock"}
+[2022-05-30 08:23:03.727] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_emp_shield"}
+[2022-05-30 08:23:07.159] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_plasma"}
+[2022-05-30 08:23:08.859] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_thermal_regulator"}
+[2022-05-30 08:23:10.509] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_longfall"}
+[2022-05-30 08:23:14.803] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_rad_protection"}
+[2022-05-30 08:23:17.126] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_tether"}
+[2022-05-30 08:23:18.859] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_magboot"}
+[2022-05-30 08:23:21.409] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_antigrav"}
+[2022-05-30 08:23:23.459] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_teleporter"}
+[2022-05-30 08:23:27.393] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_drill"}
+[2022-05-30 08:23:34.975] spacelove (as Parker Ludwig at 111,94,2) in tgui-window-1
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - Action: build_part {"id":"mod_bikehorn"}
+[2022-05-30 08:23:36.610] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:23:36.610] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:24:16.075] spacelove (as Parker Ludwig at 112,94,2)
+ - Using: /datum/tgui_list_input [0x210131a9]
+ - new ListInputModal fancy 1
+[2022-05-30 08:24:19.441] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:24:19.441] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:25:36.654] spacelove (as Parker Ludwig at 114,93,2)
+ - Using: /datum/tgui_list_input [0x2100f0b3]
+ - new ListInputModal fancy 1
+[2022-05-30 08:25:41.606] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:25:41.606] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:25:51.764] spacelove (as Parker Ludwig at 114,93,2)
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - new CentcomPodLauncher fancy 1
+[2022-05-30 08:26:13.124] spacelove (as Parker Ludwig at 114,93,2) in tgui-window-1
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - Action: effectTarget {}
+[2022-05-30 08:26:13.126] spacelove (as Parker Ludwig at 114,93,2)
+ - Using: /datum/tgui_list_input [0x210131aa]
+ - new ListInputModal fancy 1
+[2022-05-30 08:26:13.126] spacelove in tgui-window-2/initialize
+ - Using: /datum/tgui_list_input [0x210131aa]
+[2022-05-30 08:26:16.024] spacelove (as Parker Ludwig at 114,93,2) in tgui-window-2
+ - Using: /datum/tgui_list_input [0x210131aa]
+ - Action: submit {"entry":"Parker Ludwig"}
+[2022-05-30 08:26:16.024] spacelove in tgui-window-2/close (suspending)
+[2022-05-30 08:26:32.707] spacelove (as Parker Ludwig at 114,93,2) in tgui-window-1
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - Action: teleportCentcom {}
+[2022-05-30 08:26:34.849] spacelove (as Parker Ludwig at 196,64,1) in tgui-window-1
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - Action: teleportBack {}
+[2022-05-30 08:26:43.290] spacelove (as Parker Ludwig at 114,93,2) in tgui-window-1
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - Action: setStyle {"style":7}
+[2022-05-30 08:26:45.306] spacelove (as Parker Ludwig at 114,93,2) in tgui-window-1
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - Action: editTiming {"timer":"3","value":3,"reverse":false}
+[2022-05-30 08:26:47.406] spacelove (as Parker Ludwig at 114,93,2) in tgui-window-1
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - Action: fallingSound {}
+[2022-05-30 08:26:57.556] spacelove (as Parker Ludwig at 114,93,2) in tgui-window-1
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - Action: damageCustom {}
+[2022-05-30 08:27:05.303] spacelove (as Parker Ludwig at 114,93,2) in tgui-window-1
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - Action: explosionCustom {}
+[2022-05-30 08:27:13.155] spacelove (as Parker Ludwig at 114,93,2) in tgui-window-1
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - Action: giveLauncher {}
+[2022-05-30 08:27:25.295] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - Action: effectReverse {}
+[2022-05-30 08:27:28.539] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /datum/centcom_podlauncher [0x2105ce97]
+ - Action: effectReverse {}
+[2022-05-30 08:27:30.105] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:27:30.107] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:28:37.910] spacelove (as Parker Ludwig at 106,173,2)
+ - Using: /datum/tgui_list_input [0x2104a808]
+ - new ListInputModal fancy 1
+[2022-05-30 08:28:43.403] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:28:43.403] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:29:02.068] spacelove (as Parker Ludwig at 106,173,2)
+ - Using: /obj/item/radio/headset/headset_cent/commander [0x20049c6]
+ - new Radio fancy 1
+[2022-05-30 08:29:03.436] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:29:03.436] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:29:14.985] spacelove (as Parker Ludwig at 105,168,2)
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - new MODsuit fancy 1
+[2022-05-30 08:29:16.569] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:29:16.570] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:29:17.651] spacelove (as Parker Ludwig at 107,168,2)
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - new MODsuit fancy 1
+[2022-05-30 08:29:25.152] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:29:25.152] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:31:04.074] spacelove (as Parker Ludwig at 111,94,2)
+ - Using: /obj/machinery/mecha_part_fabricator [0x200754a]
+ - new ExosuitFabricator fancy 1
+[2022-05-30 08:31:06.367] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:31:06.367] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:31:26.132] spacelove (as Parker Ludwig at 114,94,2)
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - new MODsuit fancy 1
+[2022-05-30 08:31:27.983] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - Action: activate {}
+[2022-05-30 08:31:29.550] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - Action: lock {}
+[2022-05-30 08:31:38.233] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - Action: pin {"ref":"[0x200cb50]"}
+[2022-05-30 08:31:40.834] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - Action: pin {"ref":"[0x20078ac]"}
+[2022-05-30 08:31:42.688] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - Action: pin {"ref":"[0x2004e37]"}
+[2022-05-30 08:31:44.117] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - Action: pin {"ref":"[0x2005e08]"}
+[2022-05-30 08:31:45.617] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - Action: pin {"ref":"[0x2009c24]"}
+[2022-05-30 08:31:48.434] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - Action: pin {"ref":"[0x2002eb5]"}
+[2022-05-30 08:32:00.533] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - Action: pin {"ref":"[0x200b56c]"}
+[2022-05-30 08:32:07.483] spacelove (as Parker Ludwig at 114,94,2) in tgui-window-1
+ - Using: /obj/item/mod/control/pre_equipped/administrative [0x2002f5b]
+ - Action: pin {"ref":"[0x2007a87]"}
+[2022-05-30 08:32:08.639] spacelove in tgui-window-1/close (suspending)
+[2022-05-30 08:32:08.639] spacelove in tgui-window-1/close (suspending)

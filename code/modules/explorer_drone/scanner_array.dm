@@ -179,7 +179,7 @@ GLOBAL_LIST_INIT(scan_conditions,init_scan_conditions())
 	failed_popup = TRUE
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/exoscanner_control/Initialize()
+/obj/machinery/computer/exoscanner_control/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
@@ -195,10 +195,8 @@ GLOBAL_LIST_INIT(scan_conditions,init_scan_conditions())
 	icon = 'icons/obj/exploration.dmi'
 	icon_state = "scanner_off"
 	desc = "Sophisticated scanning array. Easily influenced by enviroment."
-	idle_power_usage = 0
-	active_power_usage = 500
 
-/obj/machinery/exoscanner/Initialize()
+/obj/machinery/exoscanner/Initialize(mapload)
 	. = ..()
 	RegisterSignal(GLOB.exoscanner_controller,list(COMSIG_EXOSCAN_STARTED,COMSIG_EXOSCAN_FINISHED),.proc/scan_change)
 	update_readiness()
@@ -206,9 +204,9 @@ GLOBAL_LIST_INIT(scan_conditions,init_scan_conditions())
 /obj/machinery/exoscanner/proc/scan_change()
 	SIGNAL_HANDLER
 	if(GLOB.exoscanner_controller.current_scan)
-		use_power = ACTIVE_POWER_USE
+		update_use_power(ACTIVE_POWER_USE)
 	else
-		use_power = IDLE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
 	update_icon_state()
 
 /obj/machinery/exoscanner/Destroy()
@@ -235,10 +233,10 @@ GLOBAL_LIST_INIT(scan_conditions,init_scan_conditions())
 	else
 		icon_state = "scanner_off"
 
-/obj/machinery/exoscanner/wrench_act(mob/living/user, obj/item/I)
-	..()
-	default_unfasten_wrench(user, I, 10)
-	return TRUE
+/obj/machinery/exoscanner/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool, time = 1 SECONDS)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/exoscanner/set_anchored(anchorvalue)
 	. = ..()

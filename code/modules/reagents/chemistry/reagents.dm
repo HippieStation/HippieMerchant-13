@@ -17,7 +17,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /// A single reagent
 /datum/reagent
 	/// datums don't have names by default
-	var/name = "Reagent"
+	var/name = ""
 	/// nor do they have descriptions
 	var/description = ""
 	///J/(K*mol)
@@ -40,7 +40,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/datum/reagents/holder = null
 	/// LIQUID, SOLID, GAS
 	var/reagent_state = LIQUID
-	/// special data associated with this like viruses etc
+	/// Special data associated with the reagent that will be passed on upon transfer to a new holder.
 	var/list/data
 	/// increments everytime on_mob_life is called
 	var/current_cycle = 0
@@ -82,7 +82,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/chemical_flags = NONE
 	///impure chem values (see fermi_readme.dm for more details on impure/inverse/failed mechanics):
 	/// What chemical path is made when metabolised as a function of purity
-	var/impure_chem = null
+	var/impure_chem = /datum/reagent/impurity
 	/// If the impurity is below 0.5, replace ALL of the chem with inverse_chem upon metabolising
 	var/inverse_chem_val = 0.25
 	/// What chem is metabolised when purity is below inverse_chem_val
@@ -98,8 +98,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/list/addiction_types = null
 	///The amount a robot will pay for a glass of this (20 units but can be higher if you pour more, be frugal!)
 	var/glass_price
-	///If this chemical can be used in the forge
-	var/can_forge = TRUE
+
 
 /datum/reagent/New()
 	SHOULD_CALL_PARENT(TRUE)
@@ -107,6 +106,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 	if(material)
 		material = GET_MATERIAL_REF(material)
+	if(glass_price)
+		AddElement(/datum/element/venue_price, glass_price)
 	if(!mass)
 		mass = rand(10, 800)
 
@@ -199,7 +200,8 @@ Primarily used in reagents/reaction_agents
 
 /// Called after add_reagents creates a new reagent.
 /datum/reagent/proc/on_new(data)
-	return
+	if(data)
+		src.data = data
 
 /// Called when two reagents of the same are mixing.
 /datum/reagent/proc/on_merge(data, amount)
@@ -207,10 +209,6 @@ Primarily used in reagents/reaction_agents
 
 /// Called by [/datum/reagents/proc/conditional_update]
 /datum/reagent/proc/on_update(atom/A)
-	return
-
-/// Called when the reagent container is hit by an explosion
-/datum/reagent/proc/on_ex_act(severity)
 	return
 
 /// Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects

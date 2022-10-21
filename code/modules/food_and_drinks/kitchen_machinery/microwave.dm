@@ -7,9 +7,6 @@
 	icon_state = "mw"
 	layer = BELOW_OBJ_LAYER
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/microwave
 	pass_flags = PASSTABLE
 	light_color = LIGHT_COLOR_YELLOW
@@ -32,7 +29,7 @@
 	var/static/list/radial_options = list("eject" = radial_eject, "use" = radial_use)
 	var/static/list/ai_radial_options = list("eject" = radial_eject, "use" = radial_use, "examine" = radial_examine)
 
-/obj/machinery/microwave/Initialize()
+/obj/machinery/microwave/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/microwave(src)
 	create_reagents(100)
@@ -46,6 +43,7 @@
 	. = ..()
 
 /obj/machinery/microwave/RefreshParts()
+	. = ..()
 	efficiency = 0
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		efficiency += M.rating
@@ -107,6 +105,14 @@
 	icon_state = "mw"
 	return ..()
 
+/obj/machinery/microwave/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	if(dirty >= 100)
+		return FALSE
+	if(default_unfasten_wrench(user, tool))
+		update_appearance()
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
 /obj/machinery/microwave/attackby(obj/item/O, mob/living/user, params)
 	if(operating)
 		return
@@ -114,7 +120,7 @@
 		return
 
 	if(dirty < 100)
-		if(default_deconstruction_screwdriver(user, icon_state, icon_state, O) || default_unfasten_wrench(user, O))
+		if(default_deconstruction_screwdriver(user, icon_state, icon_state, O))
 			update_appearance()
 			return
 
@@ -184,7 +190,7 @@
 			to_chat(user, span_notice("You insert [loaded] items into \the [src]."))
 		return
 
-	if(O.w_class <= WEIGHT_CLASS_NORMAL && !istype(O, /obj/item/storage) && !user.istate.harm)
+	if(O.w_class <= WEIGHT_CLASS_NORMAL && !istype(O, /obj/item/storage) && !user.combat_mode)
 		if(ingredients.len >= max_n_of_items)
 			to_chat(user, span_warning("\The [src] is full, you can't put anything in!"))
 			return TRUE
@@ -201,6 +207,7 @@
 /obj/machinery/microwave/attack_hand_secondary(mob/user, list/modifiers)
 	if(user.canUseTopic(src, !issilicon(usr)))
 		cook()
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/microwave/ui_interact(mob/user)
 	. = ..()
@@ -310,7 +317,7 @@
 				pre_success()
 		return
 	time--
-	use_power(500)
+	use_power(active_power_usage)
 	addtimer(CALLBACK(src, .proc/loop, type, time, wait), wait)
 
 /obj/machinery/microwave/power_change()
@@ -365,6 +372,18 @@
 	set_light(0)
 	soundloop.stop()
 	update_appearance()
+
+/// Type of microwave that automatically turns it self on erratically. Probably don't use this outside of the holodeck program "Microwave Paradise".
+/// You could also live your life with a microwave that will continously run in the background of everything and drain any hint of power. I think the former makes more sense.
+/obj/machinery/microwave/hell
+	desc = "Cooks and boils stuff. This one appears to be a bit... off."
+
+/obj/machinery/microwave/hell/Initialize()
+	. = ..()
+	//We want there to be some chance of them getting a working microwave (eventually).
+	if(prob(95))
+		//The microwave should turn off asynchronously from any other microwaves that initialize at the same time. Keep in mind this will not turn off, since there is nothing to call the proc that ends this microwave's looping
+		addtimer(CALLBACK(src, .proc/wzhzhzh), rand(0.5 SECONDS, 3 SECONDS))
 
 #undef MICROWAVE_NORMAL
 #undef MICROWAVE_MUCK

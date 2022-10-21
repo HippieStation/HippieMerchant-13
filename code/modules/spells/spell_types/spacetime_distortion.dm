@@ -92,7 +92,7 @@
 /obj/effect/cross_action/spacetime_dist/proc/walk_link(atom/movable/AM)
 	if(ismob(AM))
 		var/mob/M = AM
-		if(M.anti_magic_check(chargecost = 0))
+		if(M.can_block_magic(charge_cost = 0))
 			return
 	if(linked_dist && walks_left > 0)
 		flick("purplesparkles", src)
@@ -118,7 +118,7 @@
 		walk_link(user)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/effect/cross_action/spacetime_dist/attack_hand(mob/user)
+/obj/effect/cross_action/spacetime_dist/attack_hand(mob/user, list/modifiers)
 	walk_link(user)
 
 /obj/effect/cross_action/spacetime_dist/attack_paw(mob/user, list/modifiers)

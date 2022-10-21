@@ -6,6 +6,7 @@
 	shift_underlay_only = FALSE
 	construction_type = /obj/item/pipe/directional
 	pipe_state = "pvalve"
+	use_power = NO_POWER_USE
 	///Amount of pressure needed before the valve for it to open
 	var/target_pressure = ONE_ATMOSPHERE
 	///Frequency for radio signaling
@@ -65,7 +66,7 @@
 //Radio remote control
 
 /**
- * Called in atmosinit(), used to change or remove the radio frequency from the component
+ * Called in atmos_init(), used to change or remove the radio frequency from the component
  * Arguments:
  * * -new_frequency: the frequency that should be used for the radio to attach to the component, use 0 to remove the radio
  */
@@ -76,7 +77,7 @@
 		radio_connection = SSradio.add_object(src, frequency, filter = RADIO_ATMOSIA)
 
 /**
- * Called in atmosinit(), send the component status to the radio device connected
+ * Called in atmos_init(), send the component status to the radio device connected
  */
 /obj/machinery/atmospherics/components/binary/pressure_valve/proc/broadcast_status()
 	if(!radio_connection)
@@ -131,7 +132,7 @@
 				investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
 	update_appearance()
 
-/obj/machinery/atmospherics/components/binary/pressure_valve/atmosinit()
+/obj/machinery/atmospherics/components/binary/pressure_valve/atmos_init()
 	. = ..()
 	if(frequency)
 		set_frequency(frequency)

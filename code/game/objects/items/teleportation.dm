@@ -65,7 +65,7 @@
 					var/area/A = get_area(W)
 					beacon_name = A.name
 
-				var/D =  dir2text(get_dir(sr, tr))
+				var/D = dir2text(get_dir(sr, tr))
 				tele_beacons += list(list(name = beacon_name, direction = D, distance = distance))
 
 		data["telebeacons"] = tele_beacons
@@ -86,7 +86,7 @@
 			if(distance > tracking_range)
 				continue
 
-			var/D =  dir2text(get_dir(sr, tr))
+			var/D = dir2text(get_dir(sr, tr))
 			track_implants += list(list(name = W.imp_in.name, direction = D, distance = distance))
 		data["trackimplants"] = track_implants
 	return data
@@ -111,11 +111,10 @@
 	throw_speed = 3
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=10000)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/list/active_portal_pairs
 	var/max_portal_pairs = 3
-	var/atmos_link_override
 
 	/**
 	 * Represents the last place we teleported to, for making quick portals.
@@ -126,7 +125,7 @@
 	*/
 	var/last_portal_location
 
-/obj/item/hand_tele/Initialize()
+/obj/item/hand_tele/Initialize(mapload)
 	. = ..()
 	active_portal_pairs = list()
 
@@ -181,8 +180,10 @@
 
 	locations["None (Dangerous)"] = PORTAL_LOCATION_DANGEROUS
 
-	var/teleport_location_key = input(user, "Please select a teleporter to lock in on.", "Hand Teleporter") as null|anything in locations
-	if (!teleport_location_key || user.get_active_held_item() != src || user.incapacitated())
+	var/teleport_location_key = tgui_input_list(user, "Teleporter to lock on", "Hand Teleporter", sort_list(locations))
+	if (isnull(teleport_location_key))
+		return
+	if(user.get_active_held_item() != src || user.incapacitated())
 		return
 
 	// Not always a datum, but needed for IS_WEAKREF_OF to cast properly.
@@ -205,7 +206,7 @@
 
 /// Takes either PORTAL_LOCATION_DANGEROUS or an /obj/machinery/computer/teleport/computer.
 /obj/item/hand_tele/proc/try_create_portal_to(mob/user, teleport_location)
-	if (active_portal_pairs.len >= max_portal_pairs)
+	if (length(active_portal_pairs) >= max_portal_pairs)
 		user.show_message(span_notice("[src] is recharging!"))
 		return
 
@@ -243,7 +244,7 @@
 	if (!can_teleport_notifies(user))
 		return
 
-	var/list/obj/effect/portal/created = create_portal_pair(get_turf(user), get_teleport_turf(get_turf(teleport_target)), 300, 1, null, atmos_link_override)
+	var/list/obj/effect/portal/created = create_portal_pair(get_turf(user), get_teleport_turf(get_turf(teleport_target)), 300, 1, null)
 	if(LAZYLEN(created) != 2)
 		return
 
@@ -253,9 +254,7 @@
 	RegisterSignal(portal1, COMSIG_PARENT_QDELETING, .proc/on_portal_destroy)
 	RegisterSignal(portal2, COMSIG_PARENT_QDELETING, .proc/on_portal_destroy)
 
-	var/turf/check_turf = get_turf(get_step(user, user.dir))
-	if(check_turf.CanPass(user, get_dir(check_turf, user)))
-		portal1.forceMove(check_turf)
+	try_move_adjacent(portal1, user.dir)
 	active_portal_pairs[portal1] = portal2
 
 	investigate_log("was used by [key_name(user)] at [AREACOORD(user)] to create a portal pair with destinations [AREACOORD(portal1)] and [AREACOORD(portal2)].", INVESTIGATE_PORTAL)
@@ -312,154 +311,3 @@
 
 #undef PORTAL_LOCATION_DANGEROUS
 #undef PORTAL_DANGEROUS_EDGE_LIMIT
-
-/*
- * Syndicate Teleporter
- */
-
-/obj/item/teleporter
-	name = "syndicate teleporter"
-	desc = "A Syndicate reverse-engineered version of the Nanotrasen portable handheld teleporter. It uses bluespace technology to translocate users, but lacks the advanced safety features of its counterpart. Warranty voided if exposed to an electromagnetic pulse."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "syndi_tele"
-	inhand_icon_state = "electronic"
-	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	throwforce = 5
-	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 4
-	throw_range = 10
-
-	var/charges = 4
-	var/max_charges = 4
-	var/minimum_teleport_distance = 4
-	var/maximum_teleport_distance = 8
-	var/saving_throw_distance = 3
-	var/recharge_time = 200 //20 Seconds
-	var/recharging = FALSE
-
-/obj/item/teleporter/examine(mob/user)
-	. = ..()
-	. += span_notice("[src] has [charges] out of [max_charges] charges left.")
-
-/obj/item/teleporter/attack_self(mob/user)
-	..()
-	attempt_teleport(user, FALSE)
-
-/obj/item/teleporter/proc/check_charges()
-	if(recharging)
-		return
-	if(charges < max_charges)
-		addtimer(CALLBACK(src, .proc/recharge), recharge_time)
-		recharging = TRUE
-
-/obj/item/teleporter/proc/recharge()
-	charges++
-	recharging = FALSE
-	check_charges()
-
-/obj/item/teleporter/emp_act(severity)
-	if(prob(50 / severity))
-		if(istype(loc, /mob/living/carbon/human))
-			var/mob/living/carbon/human/user = loc
-			to_chat(user, span_danger("[src] buzzes and activates!"))
-			attempt_teleport(user, TRUE) //EMP Activates a teleport with no safety.
-		else
-			visible_message(span_warning("[src] activates and blinks out of existence!"))
-			do_sparks(2, 1, src)
-			qdel(src)
-
-/obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
-	if(!charges)
-		to_chat(user, span_warning("[src] is still recharging."))
-		return
-
-	var/turf/current_location = get_turf(user)
-	var/area/current_area = current_location.loc
-	if(!current_location || !(current_area.area_flags & NOTELEPORT) || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
-		to_chat(user, span_notice("\The [src] is malfunctioning."))
-		return
-
-	var/mob/living/carbon/C = user
-	var/teleport_distance = rand(minimum_teleport_distance,maximum_teleport_distance)
-	var/turf/destination = get_teleport_loc(current_location,C,teleport_distance,0,0,0,0,0,0)
-	var/list/bagholding = user.GetAllContents(/obj/item/storage/backpack/holding)
-
-	if(isclosedturf(destination))
-		if(!EMP_D && !(bagholding.len))
-			panic_teleport(user, destination) //We're in a wall, engage emergency parallel teleport.
-		else
-			get_fragged(user, destination) //EMP teleported you into a wall? Wearing a BoH? You're dead.
-	else
-		telefrag(destination, user)
-		do_teleport(C, destination, channel = TELEPORT_CHANNEL_FREE)
-		charges--
-		check_charges()
-		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(current_location)
-		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-		playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
-		playsound(destination, "sparks", 50, 1)
-
-/obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination)
-	var/mob/living/carbon/C = user
-	var/turf/mobloc = get_turf(C)
-	var/turf/emergency_destination = get_teleport_loc(destination,C,0,0,1,saving_throw_distance,0,0,0)
-
-	if(emergency_destination)
-		telefrag(emergency_destination, user)
-		do_teleport(C, emergency_destination, channel = TELEPORT_CHANNEL_FREE)
-		charges--
-		check_charges()
-		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(emergency_destination)
-		playsound(emergency_destination, 'sound/effects/phasein.ogg', 25, 1)
-		playsound(emergency_destination, "sparks", 50, 1)
-	else //We tried to save. We failed. Death time.
-		get_fragged(user, destination)
-
-/obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
-	var/turf/mobloc = get_turf(user)
-	user.forceMove(destination)
-	playsound(mobloc, "sparks", 50, TRUE)
-	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-	playsound(destination, "sparks", 50, TRUE)
-	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
-	to_chat(user, span_userdanger("You teleport into the wall, the teleporter tries to save you, but-"))
-	destination.ex_act(2) //Destroy the wall
-	if (iscarbon(user))
-		var/mob/living/carbon/cuser = user
-		cuser.gib(FALSE,FALSE,FALSE,FALSE)
-
-/obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
-	for(var/mob/living/M in fragging_location)//Hit everything in the turf
-		M.apply_damage(20, BRUTE)
-		M.Paralyze(30)
-		to_chat(M, span_userdanger("[user] teleports into you, knocking you to the floor with the bluespace wave!"))
-
-/obj/item/paper/teleporter
-	name = "Teleporter Guide"
-	icon_state = "paper"
-	info = {"<b>Instructions on your new prototype syndicate teleporter:</b><br>
-	<br>
-	This experimental teleporter will teleport the user 4-8 meters in the direction they are facing. Anything you are pulling will not be teleported with you.<br>
-	<br>
-	It has 4 charges, and will recharge over time. No, sticking the teleporter into the tesla, an APC, a microwave, or an electrified door will not make it charge faster.<br>
-	<br>
-	<b>Warning:</b> Teleporting into walls will activate a failsafe teleport parallel up to 3 meters, but the user will be ripped apart and gibbed in the wall if it fails to find a safe location.<br>
-	<br>
-	Do not expose the teleporter to electromagnetic pulses, or possess a bag of holding while operating it. Unwanted malfunctions may occur.
-"}
-/obj/item/storage/box/syndie_kit/teleporter
-	name = "syndicate teleporter kit"
-
-/obj/item/storage/box/syndie_kit/teleporter/PopulateContents()
-	new /obj/item/teleporter(src)
-	new /obj/item/paper/teleporter(src)
-
-/obj/effect/temp_visual/teleport_abductor/syndi_teleporter
-	duration = 5
-
-/obj/item/teleporter/admin
-	charges = 999
-	max_charges = 999

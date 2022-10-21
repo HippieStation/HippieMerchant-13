@@ -22,7 +22,7 @@
 	attack_verb_continuous = "barrels into"
 	attack_verb_simple = "barrel into"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	istate = new /datum/interaction_state
+	combat_mode = FALSE
 	speak_emote = list("screeches")
 	throw_message = "sinks in slowly, before being pushed out of "
 	deathmessage = "stops moving as green liquid oozes from the carcass!"
@@ -38,7 +38,7 @@
 	var/datum/action/innate/goldgrub/burrow/burrow
 	var/is_burrowed = FALSE
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize()
+/mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
 	. = ..()
 	var/i = rand(1,3)
 	while(i)
@@ -72,7 +72,7 @@
 	if(G.stat == DEAD)
 		return
 	var/turf/T = get_turf(G)
-	if (!istype(T, /turf/open/floor/plating/asteroid) || !do_after(G, 30, target = T))
+	if (!istype(T, /turf/open/misc/asteroid) || !do_after(G, 30, target = T))
 		to_chat(G, span_warning("You can only burrow in and out of mining turfs and must stay still!"))
 		return
 	if (get_dist(G, T) != 0)

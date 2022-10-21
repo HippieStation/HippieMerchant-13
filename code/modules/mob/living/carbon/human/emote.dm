@@ -50,43 +50,16 @@
 	message = "screams!"
 	message_mime = "acts out a scream!"
 	emote_type = EMOTE_AUDIBLE
+	only_forced_audio = TRUE
 	vary = TRUE
-	cooldown = 0 //if we're gonna make screaming do oxyloss, you might as well be allowed to spam it
-	audio_cooldown = 0 //ditto
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
-	LAZYINITLIST(user.alternate_screams)
-	if(LAZYLEN(user.alternate_screams))
-		user.adjustOxyLoss(user.scream_oxyloss)
-		return pick(user.alternate_screams)
 	if(!ishuman(user))
 		return
-	var/mob/living/carbon/human/H = user
-	if(H.mind?.miming)
+	var/mob/living/carbon/human/human = user
+	if(human.mind?.miming)
 		return
-	if(ishumanbasic(H) || isfelinid(H))
-		user.adjustOxyLoss(user.scream_oxyloss)
-		if(user.gender == FEMALE)
-			return pick('sound/voice/human/femalescream_1.ogg', 'sound/voice/human/femalescream_2.ogg', 'sound/voice/human/femalescream_3.ogg', 'sound/voice/human/femalescream_4.ogg', 'sound/voice/human/femalescream_5.ogg')
-		else
-			if(prob(1))
-				return 'sound/voice/human/wilhelm_scream.ogg'
-			return pick('sound/voice/human/malescream_1.ogg', 'sound/voice/human/malescream_2.ogg', 'sound/voice/human/malescream_3.ogg', 'sound/voice/human/malescream_4.ogg', 'sound/voice/human/malescream_5.ogg', 'sound/voice/human/malescream_6.ogg')
-	else if(ismoth(H))
-		return 'sound/voice/moth/scream_moth.ogg'
-	else if(islizard(H))
-		return pick('sound/voice/lizard/lizard_scream_1.ogg', 'sound/voice/lizard/lizard_scream_2.ogg', 'sound/voice/lizard/lizard_scream_3.ogg')
-	else if(isethereal(H))
-		return pick('sound/voice/ethereal/ethereal_scream_1.ogg', 'sound/voice/ethereal/ethereal_scream_2.ogg', 'sound/voice/ethereal/ethereal_scream_3.ogg')
-	else if(ismonkey(user)) //If its a monkey, override it.
-		return pick('sound/creatures/monkey/monkey_screech_1.ogg',
-					'sound/creatures/monkey/monkey_screech_2.ogg',
-					'sound/creatures/monkey/monkey_screech_3.ogg',
-					'sound/creatures/monkey/monkey_screech_4.ogg',
-					'sound/creatures/monkey/monkey_screech_5.ogg',
-					'sound/creatures/monkey/monkey_screech_6.ogg',
-					'sound/creatures/monkey/monkey_screech_7.ogg')
-
+	return human.dna.species.get_scream_sound(human)
 
 /datum/emote/living/carbon/human/scream/screech //If a human tries to screech it'll just scream.
 	key = "screech"
@@ -94,6 +67,11 @@
 	message = "screeches."
 	emote_type = EMOTE_AUDIBLE
 	vary = FALSE
+
+/datum/emote/living/carbon/human/scream/screech/should_play_sound(mob/user, intentional)
+	if(ismonkey(user))
+		return TRUE
+	return ..()
 
 /datum/emote/living/carbon/human/pale
 	key = "pale"
@@ -104,16 +82,6 @@
 	key_third_person = "raises"
 	message = "raises a hand."
 	hands_use_check = TRUE
-
-/datum/emote/living/carbon/human/rub
-	key = "rub"
-	key_third_person = "rubs"
-	message = "rubs hands."
-	hands_use_check = TRUE
-	emote_type = EMOTE_AUDIBLE
-	sound = "sound/effects/handrub.ogg"
-	cooldown = 1.2 SECONDS
-	audio_cooldown = 1.2 SECONDS
 
 /datum/emote/living/carbon/human/salute
 	key = "salute"

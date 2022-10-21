@@ -12,8 +12,8 @@
 	status_flags = CANSTUN|CANKNOCKDOWN|CANPUSH
 	mouse_opacity = MOUSE_OPACITY_ICON
 	faction = list("neutral")
-	istate = new /datum/interaction_state/harm
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	combat_mode = TRUE
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	move_to_delay = 10
 	health = 125
@@ -39,12 +39,12 @@
 	light_range = 6
 	light_on = FALSE
 	var/mode = MINEDRONE_COLLECT
-	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
+	var/obj/item/gun/energy/recharge/kinetic_accelerator/minebot/stored_gun
 
-/mob/living/simple_animal/hostile/mining_drone/Initialize()
+/mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
 	. = ..()
 
-	AddComponent(/datum/component/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, vary = TRUE)
+	AddElement(/datum/element/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, sound_vary = TRUE)
 
 	stored_gun = new(src)
 	var/datum/action/innate/minedrone/toggle_light/toggle_light_action = new()
@@ -100,7 +100,7 @@
 		to_chat(user, span_info("[src] is at full integrity."))
 		return
 
-	if(welder.use_tool(src, user, volume=40))
+	if(welder.use_tool(src, user, 0, volume=40))
 		adjustBruteLoss(-15)
 		to_chat(user, span_info("You repair some of the armor on [src]."))
 
@@ -126,7 +126,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.istate.harm)
+	if(!user.combat_mode)
 		toggle_mode()
 		switch(mode)
 			if(MINEDRONE_COLLECT)
@@ -319,7 +319,7 @@
 	minebot.melee_damage_lower = initial(minebot.melee_damage_lower) + base_damage_add
 	minebot.melee_damage_upper = initial(minebot.melee_damage_upper) + base_damage_add
 	minebot.move_to_delay = initial(minebot.move_to_delay) + base_speed_add
-	minebot.stored_gun?.overheat_time += base_cooldown_add
+	minebot.stored_gun?.recharge_time += base_cooldown_add
 
 #undef MINEDRONE_COLLECT
 #undef MINEDRONE_ATTACK

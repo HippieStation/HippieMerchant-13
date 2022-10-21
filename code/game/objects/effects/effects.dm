@@ -13,6 +13,10 @@
 	if(SEND_SIGNAL(weapon, COMSIG_ITEM_ATTACK_EFFECT, src, user, params) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
 
+	// I'm not sure why these are snowflaked to early return but they are
+	if(istype(weapon, /obj/item/mop) || istype(weapon, /obj/item/soap))
+		return
+
 	return ..()
 
 /obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -38,6 +42,9 @@
 
 /obj/effect/singularity_act()
 	qdel(src)
+
+///The abstract effect ignores even more effects and is often typechecked for atoms that should truly not be fucked with.
+/obj/effect/abstract
 
 /obj/effect/abstract/singularity_pull()
 	return

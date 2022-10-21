@@ -108,6 +108,7 @@
 	return pad
 
 /obj/machinery/computer/mechpad/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "MechpadConsole", name)
@@ -154,7 +155,7 @@
 				return
 			current_pad.display_name = new_name
 		if("remove")
-			if(usr && tgui_alert(usr, "Are you sure?", "Unlink Orbital Pad", list("I'm Sure", "Abort")) != "Abort")
+			if(usr && tgui_alert(usr, "Are you sure?", "Unlink Orbital Pad", list("I'm Sure", "Abort")) == "I'm Sure")
 				mechpads -= current_pad
 				LAZYREMOVE(current_pad.consoles, src)
 				selected_id = null

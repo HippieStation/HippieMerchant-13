@@ -10,9 +10,9 @@
 	var/device_type = null
 	var/id = null
 	var/initialized_button = 0
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 70)
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
+	var/silicon_access_disabled = FALSE
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 0, FIRE = 90, ACID = 70)
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.02
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/machinery/button/indestructible
@@ -22,8 +22,6 @@
 	. = ..()
 	if(built)
 		setDir(ndir)
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 		panel_open = TRUE
 		update_appearance()
 
@@ -61,16 +59,17 @@
 	if(board)
 		. += "button-board"
 
-/obj/machinery/button/attackby(obj/item/W, mob/living/user, params)
-	if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		if(panel_open || allowed(user))
-			default_deconstruction_screwdriver(user, "button-open", "[skin]",W)
-			update_appearance()
-		else
-			to_chat(user, span_alert("Maintenance Access Denied."))
-			flick("[skin]-denied", src)
-		return
+/obj/machinery/button/screwdriver_act(mob/living/user, obj/item/tool)
+	if(panel_open || allowed(user))
+		default_deconstruction_screwdriver(user, "button-open", "[skin]", tool)
+		update_appearance()
+	else
+		to_chat(user, span_alert("Maintenance Access Denied."))
+		flick("[skin]-denied", src)
 
+	return TRUE
+
+/obj/machinery/button/attackby(obj/item/W, mob/living/user, params)
 	if(panel_open)
 		if(!device && istype(W, /obj/item/assembly))
 			if(!user.transferItemToLoc(W, src))
@@ -102,7 +101,7 @@
 		update_appearance()
 		return
 
-	if(!user.istate.harm && !(W.item_flags & NOBLUDGEON))
+	if(!user.combat_mode && !(W.item_flags & NOBLUDGEON))
 		return attack_hand(user)
 	else
 		return ..()
@@ -112,11 +111,11 @@
 		return
 	req_access = list()
 	req_one_access = list()
-	playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	obj_flags |= EMAGGED
 
 /obj/machinery/button/attack_ai(mob/user)
-	if(!panel_open)
+	if(!silicon_access_disabled && !panel_open)
 		return attack_hand(user)
 
 /obj/machinery/button/attack_robot(mob/user)
@@ -133,7 +132,7 @@
 		id = "[port.id]_[id]"
 		setup_device()
 
-/obj/machinery/button/attack_hand(mob/user)
+/obj/machinery/button/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -162,7 +161,6 @@
 		return
 
 	if((machine_stat & (NOPOWER|BROKEN)))
-		playsound(src, 'sound/machines/buttons/button2.ogg', 100, 0)
 		return
 
 	if(device && device.next_activate > world.time)
@@ -170,11 +168,9 @@
 
 	if(!allowed(user))
 		to_chat(user, span_alert("Access Denied."))
-		playsound(src, 'sound/machines/buttons/button1.ogg', 100, 0)
 		flick("[skin]-denied", src)
 		return
 
-	playsound(src, pick('sound/machines/buttons/button3.ogg', 'sound/machines/buttons/button4.ogg', 'sound/machines/buttons/button5.ogg', 'sound/machines/buttons/button6.ogg', 'sound/machines/buttons/button7.ogg', 'sound/machines/buttons/button8.ogg', 'sound/machines/buttons/button9.ogg', 'sound/machines/buttons/button10.ogg', 'sound/machines/buttons/button11.ogg'), 100, 0)
 	use_power(5)
 	icon_state = "[skin]1"
 
@@ -191,21 +187,7 @@
 	var/specialfunctions = OPEN // Bitflag, see assembly file
 	var/sync_doors = TRUE
 
-/obj/machinery/button/door/directional/north
-	dir = SOUTH
-	pixel_y = 24
-
-/obj/machinery/button/door/directional/south
-	dir = NORTH
-	pixel_y = -24
-
-/obj/machinery/button/door/directional/east
-	dir = WEST
-	pixel_x = 24
-
-/obj/machinery/button/door/directional/west
-	dir = EAST
-	pixel_x = -24
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 
 /obj/machinery/button/door/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -222,10 +204,10 @@
 			device = C
 	..()
 
-/obj/machinery/button/door/incinerator_vent_toxmix
+/obj/machinery/button/door/incinerator_vent_ordmix
 	name = "combustion chamber vent control"
-	id = INCINERATOR_TOXMIX_VENT
-	req_access = list(ACCESS_TOXINS)
+	id = INCINERATOR_ORDMIX_VENT
+	req_access = list(ACCESS_ORDNANCE)
 
 /obj/machinery/button/door/incinerator_vent_atmos_main
 	name = "turbine vent control"
@@ -281,8 +263,8 @@
 	name = "combustion chamber ignition switch"
 	desc = "A remote control switch for the combustion chamber's igniter."
 
-/obj/machinery/button/ignition/incinerator/toxmix
-	id = INCINERATOR_TOXMIX_IGNITER
+/obj/machinery/button/ignition/incinerator/ordmix
+	id = INCINERATOR_ORDMIX_IGNITER
 
 /obj/machinery/button/ignition/incinerator/atmos
 	id = INCINERATOR_ATMOS_IGNITER
@@ -325,6 +307,7 @@
 	icon_state = "button"
 	result_path = /obj/machinery/button
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
+	pixel_shift = 24
 
 /obj/machinery/button/elevator
 	name = "elevator button"

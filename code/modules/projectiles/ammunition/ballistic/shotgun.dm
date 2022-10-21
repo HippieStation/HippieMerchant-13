@@ -34,6 +34,11 @@
 	icon_state = "ishell"
 	projectile_type = /obj/projectile/bullet/incendiary/shotgun
 
+/obj/item/ammo_casing/shotgun/incendiary/no_trail
+	name = "precision incendiary slug"
+	desc = "An incendiary-coated shotgun slug, specially treated to only ignite on impact."
+	projectile_type = /obj/projectile/bullet/incendiary/shotgun/no_trail
+
 /obj/item/ammo_casing/shotgun/dragonsbreath
 	name = "dragonsbreath shell"
 	desc = "A shotgun shell which fires a spread of incendiary pellets."
@@ -80,21 +85,11 @@
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubber shot"
 	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
-	icon_state = "bshell"
+	icon_state = "rshell"
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_rubbershot
 	pellets = 6
-	variance = 25
+	variance = 20
 	custom_materials = list(/datum/material/iron=4000)
-
-/obj/item/ammo_casing/shotgun/dart/noreact
-	name = "cryostasis shotgun dart"
-	desc = "A dart for use in shotguns, using similar technology as cryostatis beakers to keep internal reagents from reacting. Can be injected with up to 10 units of any chemical."
-	icon_state = "cnrshell"
-	reagent_amount = 10
-
-/obj/item/ammo_casing/shotgun/dart/noreact/Initialize()
-	. = ..()
-	reagents.flags |= NO_REACT
 
 /obj/item/ammo_casing/shotgun/incapacitate
 	name = "custom incapacitating shot"
@@ -114,14 +109,6 @@
 	pellets = 10
 	variance = 25
 
-/obj/item/ammo_casing/shotgun/penetrator
-	name = "penetrator shell"
-	desc = "A specialized shotgun shell, capable of piercing a single person. Slightly less damaging than conventional shells however."
-	icon_state = "penshell"
-	projectile_type = /obj/projectile/bullet/pellet/shotgun_penetrator
-	pellets = 6
-	variance = 25
-
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"
 	desc = "An advanced shotgun shell which uses a subspace ansible crystal to produce an effect similar to a standard ion rifle. \
@@ -131,24 +118,13 @@
 	pellets = 4
 	variance = 35
 
-/obj/item/ammo_casing/shotgun/laser
-	name = "laser shell"
-	desc = "An advanced shotgun shell that fires a spread of laser beams, for dealing with serious threats."
+/obj/item/ammo_casing/shotgun/laserslug
+	name = "scatter laser shell"
+	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a scatter laser weapon in a ballistic package."
 	icon_state = "lshell"
-	custom_materials = list(/datum/material/iron=3000, /datum/material/glass=1000)
-	projectile_type = /obj/projectile/beam/shotgun
+	projectile_type = /obj/projectile/beam/weak
 	pellets = 6
 	variance = 35
-
-/obj/item/ammo_casing/shotgun/disabler
-	name = "disabler shell"
-	desc = "An advanced shotgun shell which fires a spread of disabler beams, for modern-day crowd control."
-	icon_state = "dshell"
-	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=1000)
-	projectile_type = /obj/projectile/beam/disabler/shotgun
-	pellets = 6
-	variance = 35
-	harmful = FALSE
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"
@@ -163,7 +139,7 @@
 	projectile_type = /obj/projectile/bullet/dart
 	var/reagent_amount = 30
 
-/obj/item/ammo_casing/shotgun/dart/Initialize()
+/obj/item/ammo_casing/shotgun/dart/Initialize(mapload)
 	. = ..()
 	create_reagents(reagent_amount, OPENCONTAINER)
 
@@ -173,7 +149,7 @@
 /obj/item/ammo_casing/shotgun/dart/bioterror
 	desc = "A shotgun dart filled with deadly toxins."
 
-/obj/item/ammo_casing/shotgun/dart/bioterror/Initialize()
+/obj/item/ammo_casing/shotgun/dart/bioterror/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/consumable/ethanol/neurotoxin, 6)
 	reagents.add_reagent(/datum/reagent/toxin/spore, 6)

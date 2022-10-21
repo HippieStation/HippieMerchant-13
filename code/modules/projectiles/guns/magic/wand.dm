@@ -10,7 +10,7 @@
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
 	var/variable_charges = TRUE
 
-/obj/item/gun/magic/wand/Initialize()
+/obj/item/gun/magic/wand/Initialize(mapload)
 	if(prob(75) && variable_charges) //25% chance of listed max charges, 50% chance of 1/2 max charges, 25% chance of 1/3 max charges
 		if(prob(33))
 			max_charges = CEILING(max_charges / 3, 1)
@@ -38,7 +38,7 @@
 	if(target == user)
 		if(no_den_usage)
 			var/area/A = get_area(user)
-			if(istype(A, /area/wizard_station))
+			if(istype(A, /area/centcom/wizard_station))
 				to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 				return
 			else
@@ -72,7 +72,7 @@
 /obj/item/gun/magic/wand/death/zap_self(mob/living/user)
 	..()
 	charges--
-	if(user.anti_magic_check())
+	if(user.can_block_magic())
 		user.visible_message(span_warning("[src] has no effect on [user]!"))
 		return
 	if(isliving(user))
@@ -111,7 +111,7 @@
 /obj/item/gun/magic/wand/resurrection/zap_self(mob/living/user)
 	..()
 	charges--
-	if(user.anti_magic_check())
+	if(user.can_block_magic())
 		user.visible_message(span_warning("[src] has no effect on [user]!"))
 		return
 	if(isliving(user))
@@ -149,7 +149,7 @@
 /obj/item/gun/magic/wand/polymorph/zap_self(mob/living/user)
 	..() //because the user mob ceases to exists by the time wabbajack fully resolves
 
-	wabbajack(user)
+	user.wabbajack()
 	charges--
 
 /////////////////////////////////////
@@ -169,8 +169,8 @@
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
 	if(do_teleport(user, user, 10, channel = TELEPORT_CHANNEL_MAGIC))
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(3, user.loc)
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(3, location = user.loc)
 		smoke.start()
 		charges--
 	..()
@@ -192,8 +192,8 @@
 
 	if(do_teleport(user, destination, channel=TELEPORT_CHANNEL_MAGIC))
 		for(var/t in list(origin, destination))
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(0, t)
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(0, location = t)
 			smoke.start()
 	..()
 
@@ -241,7 +241,7 @@
 
 /obj/item/gun/magic/wand/fireball/zap_self(mob/living/user)
 	..()
-	explosion(user, devastation_range = -1, light_impact_range = 2, flame_range = 2, flash_range = 3, adminlog = FALSE)
+	explosion(user, devastation_range = -1, light_impact_range = 2, flame_range = 2, flash_range = 3, adminlog = FALSE, explosion_cause = src)
 	charges--
 
 /////////////////////////////////////
@@ -252,5 +252,3 @@
 	name = "wand of nothing"
 	desc = "It's not just a stick, it's a MAGIC stick?"
 	ammo_type = /obj/item/ammo_casing/magic/nothing
-
-

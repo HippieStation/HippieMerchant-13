@@ -67,9 +67,11 @@
 		T.add_overlay(intended)
 		current_overlay = intended
 
-/datum/component/wet_floor/proc/AfterSlip(mob/living/L)
-	if(highest_strength == TURF_WET_LUBE)
-		L.set_confusion(max(L.get_confusion(), 8))
+/datum/component/wet_floor/proc/AfterSlip(mob/living/slipped)
+	if(highest_strength != TURF_WET_LUBE)
+		return
+
+	slipped.set_timed_status_effect(8 SECONDS, /datum/status_effect/confusion, only_if_higher = TRUE)
 
 /datum/component/wet_floor/proc/update_flags()
 	var/intensity
@@ -80,7 +82,7 @@
 			lube_flags = NO_SLIP_WHEN_WALKING
 		if(TURF_WET_LUBE)
 			intensity = 80
-			lube_flags = SLIDE | SLIP_WHEN_CRAWLING | GALOSHES_DONT_HELP //SUFFER
+			lube_flags = SLIDE | GALOSHES_DONT_HELP
 		if(TURF_WET_ICE)
 			intensity = 120
 			lube_flags = SLIDE | GALOSHES_DONT_HELP
@@ -94,7 +96,7 @@
 			qdel(parent.GetComponent(/datum/component/slippery))
 			return
 
-	parent.LoadComponent(/datum/component/slippery, intensity, lube_flags, CALLBACK(src, .proc/AfterSlip), paralyze=intensity)
+	parent.LoadComponent(/datum/component/slippery, intensity, lube_flags, CALLBACK(src, .proc/AfterSlip))
 
 /datum/component/wet_floor/proc/dry(datum/source, strength = TURF_WET_WATER, immediate = FALSE, duration_decrease = INFINITY)
 	SIGNAL_HANDLER

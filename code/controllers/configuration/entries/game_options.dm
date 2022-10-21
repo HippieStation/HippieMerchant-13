@@ -1,12 +1,5 @@
 /datum/config_entry/number_list/repeated_mode_adjust
 
-/datum/config_entry/keyed_list/probability
-	key_mode = KEY_MODE_TEXT
-	value_mode = VALUE_MODE_NUM
-
-/datum/config_entry/keyed_list/probability/ValidateListEntry(key_name)
-	return key_name in config.modes
-
 /datum/config_entry/keyed_list/max_pop
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
@@ -64,6 +57,21 @@
 	integer = FALSE
 	min_val = 0
 
+/// Determines the ideal player count for maximum progression per minute.
+/datum/config_entry/number/traitor_ideal_player_count
+	default = 20
+	min_val = 1
+
+/// Determines how fast traitors scale in general.
+/datum/config_entry/number/traitor_scaling_multiplier
+	default = 1
+	min_val = 0.01
+
+/// Determines how many potential objectives a traitor can have.
+/datum/config_entry/number/maximum_potential_objectives
+	default = 6
+	min_val = 1
+
 /datum/config_entry/number/changeling_scaling_coeff //how much does the amount of players get divided by to determine changelings
 	default = 6
 	integer = FALSE
@@ -106,11 +114,23 @@
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_FLAG
 
+/datum/config_entry/keyed_list/roundstart_races/ValidateListEntry(key_name, key_value)
+	if(key_name in GLOB.species_list)
+		return TRUE
+
+	log_config("ERROR: [key_name] is not a valid race ID.")
+	return FALSE
+
 /datum/config_entry/keyed_list/roundstart_no_hard_check // Species contained in this list will not cause existing characters with no-longer-roundstart species set to be resetted to the human race.
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_FLAG
 
-/datum/config_entry/flag/join_with_mutant_humans //players can pick mutant bodyparts for humans before joining the game
+/datum/config_entry/keyed_list/roundstart_no_hard_check/ValidateListEntry(key_name, key_value)
+	if(key_name in GLOB.species_list)
+		return TRUE
+
+	log_config("ERROR: [key_name] is not a valid race ID.")
+	return FALSE
 
 /datum/config_entry/flag/no_summon_guns //No
 
@@ -238,8 +258,6 @@
 	movedelay_type = /mob/living/simple_animal
 /////////////////////////////////////////////////
 
-/datum/config_entry/flag/virtual_reality //Will virtual reality be loaded
-
 /datum/config_entry/flag/roundstart_away //Will random away mission be loaded.
 
 /datum/config_entry/number/gateway_delay //How long the gateway takes before it activates. Default is half an hour. Only matters if roundstart_away is enabled.
@@ -247,14 +265,17 @@
 	integer = FALSE
 	min_val = 0
 
+/datum/config_entry/number/config_gateway_chance
+	integer = FALSE
+	min_val = 0
+	max_val = 100
+
 /datum/config_entry/flag/ghost_interaction
 
 /datum/config_entry/flag/near_death_experience //If carbons can hear ghosts when unconscious and very close to death
 
 /datum/config_entry/flag/silent_ai
 /datum/config_entry/flag/silent_borg
-
-/datum/config_entry/flag/sandbox_autoclose // close the sandbox panel after spawning an item, potentially reducing griff
 
 /datum/config_entry/number/default_laws //Controls what laws the AI spawns with.
 	default = 0
@@ -282,7 +303,7 @@
 	min_val = -1
 
 /datum/config_entry/string/overflow_job
-	default = "Assistant"
+	default = JOB_ASSISTANT
 
 /datum/config_entry/flag/starlight
 /datum/config_entry/flag/grey_assistants
@@ -355,7 +376,7 @@
 /datum/config_entry/number/maxfine
 	default = 1000
 	min_val = 0
-	
+
 /datum/config_entry/flag/dynamic_config_enabled
 
 /datum/config_entry/string/drone_required_role
@@ -367,3 +388,10 @@
 	integer = FALSE // It is in hours, but just in case one wants to specify minutes.
 
 /datum/config_entry/flag/sdql_spells
+
+/datum/config_entry/flag/native_fov
+
+/datum/config_entry/number/station_goal_budget
+	default = 1
+	min_val = 0
+	integer = FALSE

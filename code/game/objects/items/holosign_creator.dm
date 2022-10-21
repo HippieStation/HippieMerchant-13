@@ -4,6 +4,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
 	inhand_icon_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	force = 0
@@ -111,14 +112,6 @@
 	holosign_type = /obj/structure/holosign/barrier/atmos
 	creation_time = 0
 	max_signs = 6
-
-/obj/item/holosign_creator/atmos/borg
-	name = "Cyborg ATMOS holofan projector"
-	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions. Can place up to 12 barriers"
-	icon_state = "signmaker_atmos"
-	holosign_type = /obj/structure/holosign/barrier/atmos
-	creation_time = 0
-	max_signs = 12
 
 /obj/item/holosign_creator/medical
 	name = "\improper PENLITE barrier projector"

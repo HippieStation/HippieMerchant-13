@@ -6,6 +6,7 @@
 	base_icon_state = "reinforced_wall"
 	opacity = TRUE
 	density = TRUE
+	turf_flags = IS_SOLID
 	smoothing_flags = SMOOTH_BITMASK
 	hardness = 10
 	sheet_type = /obj/item/stack/sheet/plasteel
@@ -51,6 +52,8 @@
 		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		to_chat(user, span_warning("This wall is far too strong for you to destroy."))
 
+/turf/closed/wall/r_wall/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 41)
+	return ..()
 
 /turf/closed/wall/r_wall/try_decon(obj/item/W, mob/user, turf/T)
 	//DECONSTRUCTION
@@ -66,7 +69,7 @@
 		if(SUPPORT_LINES)
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
 				to_chat(user, span_notice("You begin unsecuring the support lines..."))
-				if(W.use_tool(src, user, volume=100))
+				if(W.use_tool(src, user, 40, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_LINES)
 						return TRUE
 					d_state = COVER
@@ -86,7 +89,7 @@
 				if(!W.tool_start_check(user, amount=0))
 					return
 				to_chat(user, span_notice("You begin slicing through the metal cover..."))
-				if(W.use_tool(src, user, volume=100))
+				if(W.use_tool(src, user, 60, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != COVER)
 						return TRUE
 					d_state = CUT_COVER
@@ -96,7 +99,7 @@
 
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
 				to_chat(user, span_notice("You begin securing the support lines..."))
-				if(W.use_tool(src, user, volume=100))
+				if(W.use_tool(src, user, 40, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != COVER)
 						return TRUE
 					d_state = SUPPORT_LINES
@@ -107,7 +110,7 @@
 		if(CUT_COVER)
 			if(W.tool_behaviour == TOOL_CROWBAR)
 				to_chat(user, span_notice("You struggle to pry off the cover..."))
-				if(W.use_tool(src, user, volume=100))
+				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != CUT_COVER)
 						return TRUE
 					d_state = ANCHOR_BOLTS
@@ -119,7 +122,7 @@
 				if(!W.tool_start_check(user, amount=0))
 					return
 				to_chat(user, span_notice("You begin welding the metal cover back to the frame..."))
-				if(W.use_tool(src, user, volume=100))
+				if(W.use_tool(src, user, 60, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != CUT_COVER)
 						return TRUE
 					d_state = COVER
@@ -130,7 +133,7 @@
 		if(ANCHOR_BOLTS)
 			if(W.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, span_notice("You start loosening the anchoring bolts which secure the support rods to their frame..."))
-				if(W.use_tool(src, user, volume=100))
+				if(W.use_tool(src, user, 40, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != ANCHOR_BOLTS)
 						return TRUE
 					d_state = SUPPORT_RODS
@@ -140,7 +143,7 @@
 
 			if(W.tool_behaviour == TOOL_CROWBAR)
 				to_chat(user, span_notice("You start to pry the cover back into place..."))
-				if(W.use_tool(src, user, volume=100))
+				if(W.use_tool(src, user, 20, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != ANCHOR_BOLTS)
 						return TRUE
 					d_state = CUT_COVER
@@ -153,7 +156,7 @@
 				if(!W.tool_start_check(user, amount=0))
 					return
 				to_chat(user, span_notice("You begin slicing through the support rods..."))
-				if(W.use_tool(src, user, volume=100))
+				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_RODS)
 						return TRUE
 					d_state = SHEATH
@@ -175,7 +178,7 @@
 		if(SHEATH)
 			if(W.tool_behaviour == TOOL_CROWBAR)
 				to_chat(user, span_notice("You struggle to pry off the outer sheath..."))
-				if(W.use_tool(src, user, volume=100))
+				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SHEATH)
 						return TRUE
 					to_chat(user, span_notice("You pry off the outer sheath."))
@@ -186,7 +189,7 @@
 				if(!W.tool_start_check(user, amount=0))
 					return
 				to_chat(user, span_notice("You begin welding the support rods back together..."))
-				if(W.use_tool(src, user, volume=100))
+				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SHEATH)
 						return TRUE
 					d_state = SUPPORT_RODS
@@ -197,8 +200,10 @@
 
 /turf/closed/wall/r_wall/update_icon(updates=ALL)
 	. = ..()
-	if(!(updates & UPDATE_SMOOTHING) || (d_state != INTACT))
+	if(d_state != INTACT)
 		smoothing_flags = NONE
+		return
+	if (!(updates & UPDATE_SMOOTHING))
 		return
 	smoothing_flags = SMOOTH_BITMASK
 	QUEUE_SMOOTH_NEIGHBORS(src)
@@ -225,15 +230,12 @@
 	if(the_rcd.canRturf)
 		return ..()
 
-/turf/closed/wall/r_wall/rust_heretic_act(override = FALSE)
+/turf/closed/wall/r_wall/rust_heretic_act()
 	if(prob(50))
 		return
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		ScrapeAway()
 		return
-	if(prob(80))
-		new /obj/effect/temp_visual/glowing_rune(src)
-	ChangeTurf(/turf/closed/wall/r_wall/rust)
 	return ..()
 
 /turf/closed/wall/r_wall/syndicate
@@ -244,6 +246,7 @@
 	base_icon_state = "plastitanium_wall"
 	explosion_block = 20
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
+	turf_flags = IS_SOLID
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)

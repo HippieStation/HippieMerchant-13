@@ -5,8 +5,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
 	rcd_memory = null
-	var/last_event = 0
-	var/active = null
+	material_flags = MATERIAL_EFFECTS
 
 /turf/closed/wall/mineral/gold
 	name = "gold wall"
@@ -46,6 +45,8 @@
 	canSmoothWith = list(SMOOTH_GROUP_DIAMOND_WALLS)
 	custom_materials = list(/datum/material/diamond = 4000)
 
+/turf/closed/wall/mineral/diamond/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 41)
+	return ..()
 
 /turf/closed/wall/mineral/bananium
 	name = "bananium wall"
@@ -85,30 +86,48 @@
 	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
 	custom_materials = list(/datum/material/uranium = 4000)
 
-/turf/closed/wall/mineral/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			radiation_pulse(src, 40)
-			for(var/turf/closed/wall/mineral/uranium/T in orange(1,src))
-				T.radiate()
-			last_event = world.time
-			active = null
-			return
-	return
+	/// Mutex to prevent infinite recursion when propagating radiation pulses
+	var/active = null
 
-/turf/closed/wall/mineral/uranium/attack_hand(mob/user)
-	radiate()
+	/// The last time a radiation pulse was performed
+	var/last_event = 0
+
+/turf/closed/wall/mineral/uranium/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_PROPAGATE_RAD_PULSE, .proc/radiate)
+
+/turf/closed/wall/mineral/uranium/proc/radiate()
+	SIGNAL_HANDLER
+	if(active)
+		return
+	if(world.time <= last_event + 1.5 SECONDS)
+		return
+	active = TRUE
+	radiation_pulse(
+		src,
+		max_range = 3,
+		threshold = RAD_LIGHT_INSULATION,
+		chance = URANIUM_IRRADIATION_CHANCE,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
+	propagate_radiation_pulse()
+	last_event = world.time
+	active = FALSE
+
+/turf/closed/wall/mineral/uranium/attack_hand(mob/user, list/modifiers)
+	radiate()
+	return ..()
 
 /turf/closed/wall/mineral/uranium/attackby(obj/item/W, mob/user, params)
 	radiate()
-	..()
+	return ..()
 
 /turf/closed/wall/mineral/uranium/Bumped(atom/movable/AM)
 	radiate()
-	..()
+	return ..()
 
+/turf/closed/wall/mineral/uranium/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 41)
+	return ..()
 
 /turf/closed/wall/mineral/plasma
 	name = "plasma wall"
@@ -123,35 +142,6 @@
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
 	custom_materials = list(/datum/material/plasma = 4000)
 
-/turf/closed/wall/mineral/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma wall ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
-		log_game("Plasma wall ignited by [key_name(user)] in [AREACOORD(src)]")
-		ignite(W.get_temperature())
-		return
-	..()
-
-/turf/closed/wall/mineral/plasma/proc/PlasmaBurn(temperature)
-	new girder_type(src)
-	ScrapeAway()
-	var/turf/open/T = src
-	T.atmos_spawn_air("plasma=400;TEMP=[temperature]")
-
-/turf/closed/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature)//Doesn't work because walls have superconduction turned off
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
-
-/turf/closed/wall/mineral/plasma/proc/ignite(exposed_temperature)
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
-
-/turf/closed/wall/mineral/plasma/bullet_act(obj/projectile/Proj)
-	if(istype(Proj, /obj/projectile/beam))
-		PlasmaBurn(2500)
-	else if(istype(Proj, /obj/projectile/ion))
-		PlasmaBurn(500)
-	. = ..()
-
 /turf/closed/wall/mineral/wood
 	name = "wooden wall"
 	desc = "A wall with wooden plating. Stiff."
@@ -160,6 +150,7 @@
 	base_icon_state = "wood_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/wood
 	hardness = 70
+	turf_flags = IS_SOLID
 	explosion_block = 0
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
@@ -168,19 +159,32 @@
 
 /turf/closed/wall/mineral/wood/attackby(obj/item/W, mob/user)
 	if(W.get_sharpness() && W.force)
-		var/duration = (48/W.force) * 2 //In seconds, for now.
+		var/duration = ((4.8 SECONDS)/W.force) * 2 //In seconds, for now.
 		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/fireaxe))
 			duration /= 4 //Much better with hatchets and axes.
-		if(do_after(user, duration*10, target=src)) //Into deciseconds.
+		if(do_after(user, duration * (1 SECONDS), target=src)) //Into deciseconds.
 			dismantle_wall(FALSE,FALSE)
 			return
 	return ..()
 
+/turf/closed/wall/mineral/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 0)
+	return ..() //No recoil damage, wood is weak
 
 /turf/closed/wall/mineral/wood/nonmetal
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
 	girder_type = /obj/structure/barricade/wooden
 	hardness = 50
+
+/turf/closed/wall/mineral/bamboo
+	name = "bamboo wall"
+	desc = "A wall with a bamboo finish."
+	icon = 'icons/turf/walls/bamboo_wall.dmi'
+	icon_state = "bamboo"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BAMBOO_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BAMBOO_WALLS)
+	sheet_type = /obj/item/stack/sheet/mineral/bamboo
+	hardness = 60
 
 /turf/closed/wall/mineral/iron
 	name = "rough iron wall"
@@ -189,10 +193,11 @@
 	icon_state = "iron_wall-0"
 	base_icon_state = "iron_wall"
 	sheet_type = /obj/item/stack/rods
+	sheet_amount = 5
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_IRON_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_IRON_WALLS)
-	custom_materials = list(/datum/material/iron = 4000)
+	custom_materials = list(/datum/material/iron = 5000)
 
 /turf/closed/wall/mineral/snow
 	name = "packed snow wall"
@@ -211,6 +216,8 @@
 	bullet_bounce_sound = null
 	custom_materials = list(/datum/material/snow = 4000)
 
+/turf/closed/wall/mineral/snow/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 0)
+	return ..() //No recoil damage, snow is weak
 
 /turf/closed/wall/mineral/abductor
 	name = "alien wall"
@@ -262,24 +269,9 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	fixed_underlay = list("space" = TRUE)
 
-//sub-type to be used for interior shuttle walls
-//won't get an underlay of the destination turf on shuttle move
 /turf/closed/wall/mineral/titanium/interior/copyTurf(turf/T)
-	if(T.type != type)
-		T.ChangeTurf(type)
-		if(underlays.len)
-			T.underlays = underlays
-	if(T.icon_state != icon_state)
-		T.icon_state = icon_state
-	if(T.icon != icon)
-		T.icon = icon
-	if(color)
-		T.atom_colours = atom_colours.Copy()
-		T.update_atom_colour()
-	if(T.dir != dir)
-		T.setDir(dir)
+	. = ..()
 	T.transform = transform
-	return T
 
 /turf/closed/wall/mineral/titanium/copyTurf(turf/T)
 	. = ..()
@@ -344,145 +336,9 @@
 	bombcore.detonate()
 	return ..()
 
-
-//have to copypaste this code
-/turf/closed/wall/mineral/plastitanium/interior/copyTurf(turf/T)
-	if(T.type != type)
-		T.ChangeTurf(type)
-		if(underlays.len)
-			T.underlays = underlays
-	if(T.icon_state != icon_state)
-		T.icon_state = icon_state
-	if(T.icon != icon)
-		T.icon = icon
-	if(color)
-		T.atom_colours = atom_colours.Copy()
-		T.update_atom_colour()
-	if(T.dir != dir)
-		T.setDir(dir)
-	T.transform = transform
-	return T
+/turf/closed/wall/mineral/plastitanium/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 41)
+	return ..()
 
 /turf/closed/wall/mineral/plastitanium/copyTurf(turf/T)
 	. = ..()
 	T.transform = transform
-
-/turf/closed/wall/mineral/reagent
-	name = "reagent wall"
-	desc = "A wall with reagent plating."
-	icon = 'icons/turf/walls/silver_wall.dmi'
-	icon_state = "silver_wall-0"
-	base_icon_state = "silver_wall"
-	sheet_type = /obj/item/stack/sheet/mineral/reagent
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SILVER_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_SILVER_WALLS)
-	var/datum/reagent/reagent_type
-	var/obj/effect/particle_effect/fakeholder
-	sheet_amount = 4
-
-/turf/closed/wall/mineral/reagent/proc/heat(exposed_temperature)
-	if(exposed_temperature && !fakeholder)
-		fakeholder = new(get_turf(src))
-		fakeholder.create_reagents(50)
-		fakeholder.reagents.add_reagent(reagent_type.type, 50, reagtemp = exposed_temperature)
-		fakeholder.reagents.handle_reactions()
-		QDEL_IN(fakeholder, 150)
-
-	else if(exposed_temperature && fakeholder && !QDELETED(fakeholder))
-		fakeholder.reagents.chem_temp = exposed_temperature
-		fakeholder.reagents.handle_reactions()
-
-/turf/closed/wall/mineral/reagent/proc/reagent_act(atom/A)
-	if(prob(90) && reagent_type)
-		if(isliving(A))
-			reagent_type.expose_mob(A, TOUCH, 3)
-		else if(isturf(A))
-			reagent_type.expose_turf(A, TOUCH, 3)
-		else if(isobj(A))
-			reagent_type.expose_obj(A, TOUCH, 3)
-	else if(reagent_type)
-		for(var/atom/AM in view(2, src))
-			if(isliving(AM))
-				reagent_type.expose_mob(AM, TOUCH, 3)
-			else if(isturf(AM))
-				reagent_type.expose_turf(AM, TOUCH, 3)
-			else if(isobj(AM))
-				reagent_type.expose_obj(AM, TOUCH, 3)
-
-
-/turf/closed/wall/mineral/reagent/attack_hand(mob/user)
-	reagent_act(user)
-	..()
-
-/turf/closed/wall/mineral/reagent/attack_paw(mob/user)
-	reagent_act(user)
-	..()
-
-/turf/closed/wall/mineral/reagent/Bumped(atom/movable/AM)
-	reagent_act(AM)
-	..()
-
-/turf/closed/wall/mineral/reagent/attackby(obj/item/I, mob/user, params)
-	var/hotness = I.get_temperature()
-	if(hotness)
-		heat(exposed_temperature = hotness)
-		to_chat(user, "<span class='warning'>You heat [src] with [I]!</span>")
-	..()
-
-/turf/closed/wall/mineral/reagent/ex_act()
-	if(fakeholder && fakeholder.reagents && !QDELETED(fakeholder))
-		for(var/datum/reagent/R in fakeholder.reagents.reagent_list)
-			R.on_ex_act()
-	else
-		fakeholder = new(get_turf(src))
-		fakeholder.create_reagents(50)
-		fakeholder.reagents.add_reagent(reagent_type.type, 50)
-		for(var/datum/reagent/R in fakeholder.reagents.reagent_list)
-			R.on_ex_act()
-		fakeholder.reagents.handle_reactions()
-		QDEL_IN(fakeholder, 150)
-	..()
-
-/turf/closed/wall/mineral/reagent/break_wall()
-	var/turf/T = get_turf(src)
-	new sheet_type(src, sheet_amount)
-	var/obj/item/stack/sheet/mineral/reagent/RS = new(T, sheet_amount)
-	var/paths = subtypesof(/datum/reagent)//one reference per stack
-	for(var/path in paths)
-		var/datum/reagent/RR = new path
-		if(RR.type == reagent_type.type)
-			RS.reagent_type = RR
-			RS.name = "[RR.name] ingots"
-			RS.singular_name = "[RR.name] ingot"
-			RS.add_atom_colour(RR.color, FIXED_COLOUR_PRIORITY)
-			break
-		else
-			qdel(RR)
-
-/turf/closed/wall/mineral/reagent/devastate_wall()
-	var/turf/T = get_turf(src)
-	var/obj/item/stack/sheet/mineral/reagent/RS = new(T, sheet_amount)
-	var/paths = subtypesof(/datum/reagent)//one reference per stack
-	for(var/path in paths)
-		var/datum/reagent/RR = new path
-		if(RR.type == reagent_type.type)
-			RS.reagent_type = RR
-			RS.name = "[RR.name] ingots"
-			RS.singular_name = "[RR.name] ingot"
-			RS.add_atom_colour(RR.color, FIXED_COLOUR_PRIORITY)
-			break
-		else
-			qdel(RR)
-
-/turf/closed/wall/mineral/reagent/Destroy()
-	if(fakeholder)
-		QDEL_NULL(fakeholder)
-	return ..()
-
-/turf/closed/wall/mineral/reagent/bullet_act(obj/projectile/Proj)
-	if(istype(Proj, /obj/projectile/beam))
-		heat(1000)
-	else
-		reagent_act(src)
-	..()

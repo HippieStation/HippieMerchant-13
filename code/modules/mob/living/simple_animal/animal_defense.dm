@@ -3,7 +3,9 @@
 	if (..())
 		return TRUE
 
-	if(user.istate.secondary)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		if(user.move_force < move_resist)
+			return
 		user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		var/shove_dir = get_dir(user, src)
@@ -19,9 +21,7 @@
 		to_chat(src, span_userdanger("You're pushed by [user.name]!"))
 		return TRUE
 
-	if (user.istate.control)
-		grabbedby(user)
-	else if(!user.istate.harm)
+	if(!user.combat_mode)
 		if (stat == DEAD)
 			return
 		visible_message(span_notice("[user] [response_help_continuous] [src]."), \
@@ -46,19 +46,19 @@
 	. = ..()
 	if(!.)
 		return
-	playsound(loc, "punch", 25, TRUE, -1)
+	playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 	visible_message(span_danger("[user] punches [src]!"), \
 					span_userdanger("You're punched by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
 	to_chat(user, span_danger("You punch [src]!"))
 	adjustBruteLoss(15)
 
-/mob/living/simple_animal/attack_paw(mob/living/carbon/human/user)
+/mob/living/simple_animal/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	if(..()) //successful monkey bite.
 		if(stat != DEAD)
 			var/damage = rand(1, 3)
 			attack_threshold_check(damage)
 			return 1
-	if (!user.istate.harm)
+	if (!user.combat_mode)
 		if (health > 0)
 			visible_message(span_notice("[user.name] [response_help_continuous] [src]."), \
 							span_notice("[user.name] [response_help_continuous] you."), null, COMBAT_MESSAGE_RANGE, user)
@@ -66,9 +66,9 @@
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 
-/mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/user)
+/mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/user, list/modifiers)
 	if(..()) //if harm or disarm intent.
-		if(user.istate.secondary)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[user] [response_disarm_continuous] [name]!"), \
 							span_userdanger("[user] [response_disarm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
@@ -92,7 +92,13 @@
 		if(.)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 
-/mob/living/simple_animal/attack_animal(mob/living/simple_animal/user)
+/mob/living/simple_animal/attack_basic_mob(mob/living/basic/user, list/modifiers)
+	. = ..()
+	if(.)
+		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
+		return attack_threshold_check(damage, user.melee_damage_type)
+
+/mob/living/simple_animal/attack_animal(mob/living/simple_animal/user, list/modifiers)
 	. = ..()
 	if(.)
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
@@ -106,7 +112,7 @@
 		return attack_threshold_check(damage)
 
 /mob/living/simple_animal/attack_drone(mob/living/simple_animal/drone/M)
-	if(M.istate.harm) //No kicking dogs even as a rogue drone. Use a weapon.
+	if(M.combat_mode) //No kicking dogs even as a rogue drone. Use a weapon.
 		return
 	return ..()
 
@@ -125,11 +131,6 @@
 			apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
 
-/mob/living/simple_animal/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
-	apply_damage(Proj.damage, Proj.damage_type)
-	Proj.on_hit(src, 0, piercing_hit)
-	return BULLET_ACT_HIT
-
 /mob/living/simple_animal/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return FALSE
@@ -137,25 +138,37 @@
 	. = ..()
 	if(QDELETED(src))
 		return
-	var/bomb_armor = getarmor(null, BOMB)
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
-			if(prob(bomb_armor))
-				adjustBruteLoss(500)
-			else
-				gib()
-				return
+			ex_act_devastate()
 		if (EXPLODE_HEAVY)
-			var/bloss = 60
-			if(prob(bomb_armor))
-				bloss = bloss / 1.5
-			adjustBruteLoss(bloss)
-
+			ex_act_heavy()
 		if (EXPLODE_LIGHT)
-			var/bloss = 30
-			if(prob(bomb_armor))
-				bloss = bloss / 1.5
-			adjustBruteLoss(bloss)
+			ex_act_light()
+
+/// Called when a devastating explosive acts on this mob
+/mob/living/simple_animal/proc/ex_act_devastate()
+	var/bomb_armor = getarmor(null, BOMB)
+	if(prob(bomb_armor))
+		adjustBruteLoss(500)
+	else
+		gib()
+
+/// Called when a heavy explosive acts on this mob
+/mob/living/simple_animal/proc/ex_act_heavy()
+	var/bomb_armor = getarmor(null, BOMB)
+	var/bloss = 60
+	if(prob(bomb_armor))
+		bloss = bloss / 1.5
+	adjustBruteLoss(bloss)
+
+/// Called when a light explosive acts on this mob
+/mob/living/simple_animal/proc/ex_act_light()
+	var/bomb_armor = getarmor(null, BOMB)
+	var/bloss = 30
+	if(prob(bomb_armor))
+		bloss = bloss / 1.5
+	adjustBruteLoss(bloss)
 
 /mob/living/simple_animal/blob_act(obj/structure/blob/B)
 	adjustBruteLoss(20)
@@ -170,3 +183,15 @@
 		else
 			visual_effect_icon = ATTACK_EFFECT_SMASH
 	..()
+
+/mob/living/simple_animal/emp_act(severity)
+	. = ..()
+	if(mob_biotypes & MOB_ROBOTIC)
+		switch (severity)
+			if (EMP_LIGHT)
+				visible_message(span_danger("[src] shakes violently, its parts coming loose!"))
+				apply_damage(maxHealth * 0.6)
+				Shake(5, 5, 1 SECONDS)
+			if (EMP_HEAVY)
+				visible_message(span_danger("[src] suddenly bursts apart!"))
+				apply_damage(maxHealth)

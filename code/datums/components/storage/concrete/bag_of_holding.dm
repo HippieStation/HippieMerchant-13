@@ -2,7 +2,7 @@
 	var/atom/A = parent
 	if(A == W) //don't put yourself into yourself.
 		return
-	var/list/obj/item/storage/backpack/holding/matching = typecache_filter_list(W.GetAllContents(), typecacheof(/obj/item/storage/backpack/holding))
+	var/list/obj/item/storage/backpack/holding/matching = typecache_filter_list(W.get_all_contents(), typecacheof(/obj/item/storage/backpack/holding))
 	matching -= A
 	if(istype(W, /obj/item/storage/backpack/holding) || matching.len)
 		INVOKE_ASYNC(src, .proc/recursive_insertion, W, user)
@@ -15,29 +15,13 @@
 	if(safety != "Proceed" || QDELETED(A) || QDELETED(W) || QDELETED(user) || !user.canUseTopic(A, BE_CLOSE, iscarbon(user)))
 		return
 	var/turf/loccheck = get_turf(A)
-	if(istype(loccheck.loc, /area/fabric_of_reality))
-		to_chat(user, "<span class='warning'>You can't do that here!</span>")
-		return
-	to_chat(user, "<span class='danger'>The Bluespace interfaces of the two devices catastrophically malfunction!</span>")
+	to_chat(user, span_danger("The Bluespace interfaces of the two devices catastrophically malfunction!"))
 	qdel(W)
-	playsound(loccheck,'sound/effects/supermatter.ogg', 200, 1)
+	playsound(loccheck,'sound/effects/supermatter.ogg', 200, TRUE)
 
 	message_admins("[ADMIN_LOOKUPFLW(user)] detonated a bag of holding at [ADMIN_VERBOSEJMP(loccheck)].")
 	log_game("[key_name(user)] detonated a bag of holding at [loc_name(loccheck)].")
 
 	user.gib(TRUE, TRUE, TRUE)
-	for(var/turf/T in range(6,loccheck))
-		if(istype(T, /turf/open/space/transit))
-			continue
-		for(var/mob/living/M in T)
-			if(M.movement_type & FLYING)
-				M.visible_message("<span class='danger'>The bluespace collapse crushes the air towards it, pulling [M] towards the ground...</span>")
-				M.Paralyze(5, TRUE, TRUE)		//Overrides stun absorbs.
-		T.TerraformTurf(/turf/open/chasm/magic, /turf/open/chasm/magic)
-	for(var/fabricarea in get_areas(/area/fabric_of_reality))
-		var/area/fabric_of_reality/R = fabricarea
-		R.origin = loccheck
-	for(var/obj/structure/ladder/unbreakable/binary/ladder in GLOB.ladders)
-		ladder.ActivateAlmonds()
+	new/obj/boh_tear(loccheck)
 	qdel(A)
-	return

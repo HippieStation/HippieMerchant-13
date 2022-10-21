@@ -21,7 +21,7 @@ Reproductive extracts:
 	. = ..()
 	. += span_danger("It appears to have eaten [length(contents)] Monkey Cube[p_s()]")
 
-/obj/item/slimecross/reproductive/Initialize()
+/obj/item/slimecross/reproductive/Initialize(mapload)
 	. = ..()
 	slimeStorage = AddComponent(/datum/component/storage/concrete/extract_inventory)
 
@@ -35,7 +35,7 @@ Reproductive extracts:
 		slimeStorage.processCubes(src, user)
 		return
 
-	if(istype(O, /obj/item/storage/bag/bio))
+	if(istype(O, /obj/item/storage/bag/xeno))
 		var/list/inserted = list()
 		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_TAKE_TYPE, /obj/item/food/monkeycube, src, feedAmount - length(contents), TRUE, FALSE, user, inserted)
 		if(inserted.len)

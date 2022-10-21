@@ -17,7 +17,7 @@
 /area/ruin/space/has_grav/whiteship/box)
 "fd" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
+/obj/item/storage/medkit/regular{
 	pixel_x = 6;
 	pixel_y = -5
 	},
@@ -33,7 +33,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/space/has_grav/whiteship/box)
 "gO" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/whiteship/box)
 "hT" = (
@@ -74,7 +74,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/space/has_grav/whiteship/box)
 "mE" = (
-/obj/machinery/door/window/northright,
+/obj/machinery/door/window/right/directional/north,
 /obj/effect/decal/remains/human,
 /turf/open/floor/mineral/titanium/purple,
 /area/ruin/space/has_grav/whiteship/box)
@@ -141,7 +141,8 @@
 /area/ruin/space/has_grav/whiteship/box)
 "sX" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/medical,
+/obj/item/clothing/suit/space/eva,
+/obj/item/clothing/head/helmet/space/eva,
 /obj/item/clothing/mask/breath,
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/space/has_grav/whiteship/box)
@@ -154,7 +155,7 @@
 "zY" = (
 /obj/machinery/door/poddoor{
 	id = "oldship_ruin_gun";
-	name = "pod bay door"
+	name = "Pod Bay Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/whiteship/box)
@@ -170,8 +171,12 @@
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/space/has_grav/whiteship/box)
 "BG" = (
-/obj/structure/bed,
-/obj/item/bedsheet,
+/obj/structure/bed{
+	dir = 4
+	},
+/obj/item/bedsheet{
+	dir = 4
+	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -187,10 +192,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/whiteship/box)
 "Db" = (
-/obj/item/stock_parts/cell{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/space/has_grav/whiteship/box)
 "Gj" = (

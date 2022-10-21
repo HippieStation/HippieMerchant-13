@@ -12,7 +12,7 @@
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	bullet_bounce_sound = null //abandon all hope ye who enter
 
-/turf/open/chasm/Initialize()
+/turf/open/chasm/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/chasm, SSmapping.get_turf_below(src))
 
@@ -51,7 +51,7 @@
 
 /turf/open/chasm/rust_heretic_act()
 	return FALSE
-	
+
 /turf/open/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
@@ -62,29 +62,18 @@
 	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-		if(!L)
-			if(R.use(1))
-				to_chat(user, span_notice("You construct a lattice."))
-				playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
-				// Create a lattice, without reverting to our baseturf
-				new /obj/structure/lattice(src)
-			else
-				to_chat(user, span_warning("You need one rod to build a lattice."))
-			return
-	if(istype(C, /obj/item/stack/tile/iron))
-		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/iron/S = C
-			if(S.use(1))
-				qdel(L)
-				playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
-				to_chat(user, span_notice("You build a floor."))
-				// Create a floor, which has this chasm underneath it
-				PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-			else
-				to_chat(user, span_warning("You need one floor tile to build a floor!"))
-		else
-			to_chat(user, span_warning("The plating is going to need some support! Place iron rods first."))
+			return
+		if(!R.use(1))
+			to_chat(user, span_warning("You need one rod to build a lattice."))
+			return
+		to_chat(user, span_notice("You construct a lattice."))
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		// Create a lattice, without reverting to our baseturf
+		new /obj/structure/lattice(src)
+		return
+	else if(istype(C, /obj/item/stack/tile/iron))
+		build_with_floor_tiles(C, user)
 
 // Chasms for Lavaland, with planetary atmos and lava glow
 /turf/open/chasm/lavaland
@@ -120,19 +109,3 @@
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "dirt"
 	return TRUE
-
-//For BoH bombing
-/turf/open/chasm/magic
-	name = "tear in the fabric of reality"
-	desc = "Where does it lead?"
-	smoothing_flags = SMOOTH_CORNERS
-	icon = 'icons/turf/floors/magic_chasm.dmi'
-	baseturfs = /turf/open/chasm/magic
-	light_range = 1.9
-	light_power = 0.65
-
-/turf/open/chasm/magic/Initialize()
-	. = ..()
-	var/turf/T = safepick(get_area_turfs(/area/fabric_of_reality))
-	if(T)
-		set_target(T)

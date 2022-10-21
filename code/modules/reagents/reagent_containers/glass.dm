@@ -30,7 +30,7 @@
 				return // The drink might be empty after the delay, such as by spam-feeding
 			M.visible_message(span_danger("[user] feeds [M] something from [src]."), \
 						span_userdanger("[user] feeds you something from [src]."))
-			log_combat(user, M, "fed", reagents.log_list())
+			log_combat(user, M, "fed", reagents.get_reagent_log_string())
 		else
 			to_chat(user, span_notice("You swallow a gulp of [src]."))
 		SEND_SIGNAL(src, COMSIG_GLASS_DRANK, M, user)
@@ -79,6 +79,30 @@
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
+
+	target.update_appearance()
+
+/obj/item/reagent_containers/glass/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	if((!proximity_flag) || !check_allowed_items(target,target_self=1))
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	if(!spillable)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
+		if(!target.reagents.total_volume)
+			to_chat(user, span_warning("[target] is empty!"))
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+		if(reagents.holder_full())
+			to_chat(user, span_warning("[src] is full."))
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user)
+		to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
+
+	target.update_appearance()
+	return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
 	var/hotness = I.get_temperature()
@@ -130,7 +154,7 @@
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(0, 1, 20, 40, 60, 80, 100)
 
-/obj/item/reagent_containers/glass/beaker/Initialize()
+/obj/item/reagent_containers/glass/beaker/Initialize(mapload)
 	. = ..()
 	update_appearance()
 
@@ -191,14 +215,13 @@
 	icon_state = "beakerbluespace"
 	custom_materials = list(/datum/material/glass = 5000, /datum/material/plasma = 3000, /datum/material/diamond = 1000, /datum/material/bluespace = 1000)
 	volume = 300
-	material_flags = MATERIAL_NO_EFFECTS
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,100,300)
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
 
-/obj/item/reagent_containers/glass/beaker/sulphuric
+/obj/item/reagent_containers/glass/beaker/sulfuric
 	list_reagents = list(/datum/reagent/toxin/acid = 50)
 
 /obj/item/reagent_containers/glass/beaker/slime
@@ -239,7 +262,7 @@
 	flags_inv = HIDEHAIR
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_equipment_priority = list( \
 		ITEM_SLOT_BACK, ITEM_SLOT_ID,\
 		ITEM_SLOT_ICLOTHING, ITEM_SLOT_OCLOTHING,\
@@ -256,7 +279,7 @@
 	icon_state = "woodbucket"
 	inhand_icon_state = "woodbucket"
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 2)
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 50)
 	resistance_flags = FLAMMABLE
 
 /obj/item/reagent_containers/glass/bucket/attackby(obj/O, mob/user, params)

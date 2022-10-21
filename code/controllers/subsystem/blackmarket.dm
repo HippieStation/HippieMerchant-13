@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(blackmarket)
-	name  = "Blackmarket"
-	flags  = SS_BACKGROUND
-	init_order  = INIT_ORDER_DEFAULT
+	name = "Blackmarket"
+	flags = SS_BACKGROUND
+	init_order = INIT_ORDER_DEFAULT
 
 	/// Descriptions for each shipping methods.
 	var/shipping_method_descriptions = list(
@@ -11,19 +11,18 @@ SUBSYSTEM_DEF(blackmarket)
 	)
 
 	/// List of all existing markets.
-	var/list/datum/blackmarket_market/markets = list()
+	var/list/datum/market/markets = list()
 	/// List of existing ltsrbts.
 	var/list/obj/machinery/ltsrbt/telepads = list()
 	/// Currently queued purchases.
 	var/list/queued_purchases = list()
 
-
 /datum/controller/subsystem/blackmarket/Initialize(timeofday)
-	for(var/market in subtypesof(/datum/blackmarket_market))
+	for(var/market in subtypesof(/datum/market))
 		markets[market] += new market
 
-	for(var/item in subtypesof(/datum/blackmarket_item))
-		var/datum/blackmarket_item/I = new item()
+	for(var/item in subtypesof(/datum/market_item))
+		var/datum/market_item/I = new item()
 		if(!I.item)
 			continue
 
@@ -35,10 +34,9 @@ SUBSYSTEM_DEF(blackmarket)
 		qdel(I)
 	. = ..()
 
-
 /datum/controller/subsystem/blackmarket/fire(resumed)
 	while(length(queued_purchases))
-		var/datum/blackmarket_purchase/purchase = queued_purchases[1]
+		var/datum/market_purchase/purchase = queued_purchases[1]
 		queued_purchases.Cut(1,2)
 
 		// Uh oh, uplink is gone. We will just keep the money and you will not get your order.
@@ -109,31 +107,9 @@ SUBSYSTEM_DEF(blackmarket)
 	sparks.attach(item)
 	sparks.start()
 
-/// Used to add /datum/blackmarket_purchase to queued_purchases var. Returns TRUE when queued.
-/datum/controller/subsystem/blackmarket/proc/queue_item(datum/blackmarket_purchase/P)
+/// Used to add /datum/market_purchase to queued_purchases var. Returns TRUE when queued.
+/datum/controller/subsystem/blackmarket/proc/queue_item(datum/market_purchase/P)
 	if(P.method == SHIPPING_METHOD_LTSRBT && !telepads.len)
 		return FALSE
 	queued_purchases += P
 	return TRUE
-
-/// Used to repopulate the market when the auction rotation happens.
-/datum/controller/subsystem/blackmarket/proc/repopulate_market(market)
-	markets[market].available_items.Cut()
-	markets[market].categories.Cut()
-
-	for(var/item in subtypesof(/datum/blackmarket_item))
-		var/datum/blackmarket_item/rotated_item = new item()
-
-		if(rotated_item.root == rotated_item.type)
-			qdel(rotated_item)
-			continue
-
-		if(!rotated_item.item)
-			stack_trace("Blackmarket repopulation failure! [rotated_item] didn't contain a path to an item!")
-			qdel(rotated_item)
-			continue
-
-		if(market in rotated_item.markets)
-			markets[market].add_item(item)
-
-		qdel(rotated_item)

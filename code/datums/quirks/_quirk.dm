@@ -17,6 +17,9 @@
 	var/processing_quirk = FALSE
 	/// When making an abstract quirk (in OOP terms), don't forget to set this var to the type path for that abstract quirk.
 	var/abstract_parent_type = /datum/quirk
+	/// The icon to show in the preferences menu.
+	/// This references a tgui icon, so it can be FontAwesome or a tgfont (with a tg- prefix).
+	var/icon
 
 /datum/quirk/Destroy()
 	if(quirk_holder)
@@ -89,7 +92,7 @@
 		to_chat(quirk_holder, lose_text)
 
 	if(mob_trait)
-		REMOVE_TRAIT(quirk_holder, mob_trait, ROUNDSTART_TRAIT)
+		REMOVE_TRAIT(quirk_holder, mob_trait, QUIRK_TRAIT)
 
 	if(processing_quirk)
 		STOP_PROCESSING(SSquirks, src)
@@ -119,10 +122,6 @@
 /datum/quirk/proc/remove()
 /// Any special effects or chat messages which should be applied. This proc is guaranteed to run if the mob has a client when the quirk is added. Otherwise, it runs once on the next COMSIG_MOB_LOGIN.
 /datum/quirk/proc/post_add()
-/// return additional data that should be remembered by cloning
-/datum/quirk/proc/clone_data()
-/// create the quirk from clone data
-/datum/quirk/proc/on_clone(data)
 
 /// Subtype quirk that has some bonus logic to spawn items for the player.
 /datum/quirk/item_quirk

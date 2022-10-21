@@ -13,7 +13,7 @@
 	ai_controller = /datum/ai_controller/hostile_friend
 	speak_chance = 0
 	turns_per_move = 5
-	butcher_results = list(/obj/item/food/fishmeat/carp = 2)
+	butcher_results = list(/obj/item/food/fishmeat/carp = 2, /obj/item/stack/sheet/animalhide/carp = 1)
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
 	response_disarm_continuous = "gently pushes aside"
@@ -35,7 +35,7 @@
 	attack_vis_effect = ATTACK_EFFECT_BITE
 	speak_emote = list("gnashes")
 	//Space carp aren't affected by cold.
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
 	faction = list("carp")
@@ -66,6 +66,8 @@
 	var/static/list/carp_colors_rare = list(
 		"silver" = "#fdfbf3"
 	)
+	/// Is the carp tamed?
+	var/tamed = FALSE
 
 /mob/living/simple_animal/hostile/carp/Initialize(mapload, mob/tamer)
 	AddElement(/datum/element/simple_flying)
@@ -73,6 +75,7 @@
 		set_greyscale(new_config=/datum/greyscale_config/carp)
 		carp_randomify(rarechance)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_CARP_RIFTS, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	add_cell_sample()
 	if(ai_controller)
@@ -82,10 +85,24 @@
 		else
 			make_tameable()
 
+/mob/living/simple_animal/hostile/carp/revive(full_heal, admin_revive)
+	if (tamed)
+		var/datum/weakref/friendref = ai_controller.blackboard[BB_HOSTILE_FRIEND]
+		var/mob/living/friend = friendref?.resolve()
+		if(friend)
+			tamed(friend)
+	return ..()
+
+/mob/living/simple_animal/hostile/carp/death(gibbed)
+	if (tamed)
+		can_buckle = FALSE
+	return ..()
+
 /mob/living/simple_animal/hostile/carp/proc/make_tameable()
 	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/meat), tame_chance = 10, bonus_tame_chance = 5, after_tame = CALLBACK(src, .proc/tamed))
 
 /mob/living/simple_animal/hostile/carp/proc/tamed(mob/living/tamer)
+	tamed = TRUE
 	can_buckle = TRUE
 	buckle_lying = 0
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/carp)
@@ -167,17 +184,16 @@
 	obj_damage = 80
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-
+	butcher_results = list(/obj/item/food/fishmeat/carp = 2, /obj/item/stack/sheet/animalhide/carp = 3)
 	var/regen_cooldown = 0
 
-/mob/living/simple_animal/hostile/carp/megacarp/Initialize()
+/mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
 	. = ..()
 	name = "[pick(GLOB.megacarp_first_names)] [pick(GLOB.megacarp_last_names)]"
 	melee_damage_lower += rand(2, 10)
 	melee_damage_upper += rand(10,20)
 	maxHealth += rand(30,60)
 	move_to_delay = rand(3,7)
-	AddElement(/datum/element/swabable, CELL_LINE_TABLE_MEGACARP, CELL_VIRUS_TABLE_GENERIC_MOB)
 
 
 /mob/living/simple_animal/hostile/carp/megacarp/add_cell_sample()
@@ -241,12 +257,13 @@
 	/// Colored disk mouth appearance for adding it as a mouth overlay
 	var/mutable_appearance/colored_disk_mouth
 
-/mob/living/simple_animal/hostile/carp/cayenne/Initialize()
+/mob/living/simple_animal/hostile/carp/cayenne/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/pet_bonus, "bloops happily!")
 	colored_disk_mouth = mutable_appearance(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/carp/disk_mouth, greyscale_colors), "disk_mouth")
 	ADD_TRAIT(src, TRAIT_DISK_VERIFIER, INNATE_TRAIT) //carp can verify disky
-	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, INNATE_TRAIT) //carp SMART
+	ADD_TRAIT(src, TRAIT_CAN_STRIP, INNATE_TRAIT) //carp can take the disk off the captain
+	ADD_TRAIT(src, TRAIT_CAN_USE_NUKE, INNATE_TRAIT) //carp SMART
 
 /mob/living/simple_animal/hostile/carp/cayenne/death(gibbed)
 	if(disky)
@@ -278,11 +295,16 @@
 	if(disky)
 		if(isopenturf(attacked_target))
 			to_chat(src, span_notice("You place [disky] on [attacked_target]"))
-			disky.forceMove(attacked_target.drop_location())
+			disky.forceMove(attacked_target)
 			disky = null
 			update_icon()
 		else
 			disky.melee_attack_chain(src, attacked_target)
+		return
+
+	if(istype(attacked_target, /obj/machinery/nuclearbomb))
+		var/obj/machinery/nuclearbomb/nuke = attacked_target
+		nuke.ui_interact(src)
 		return
 	return ..()
 

@@ -32,26 +32,75 @@
 	var/corrupted = FALSE
 	///how much power is given every tick in a recharger
 	var/chargerate = 100
-	///does it self recharge, over time, or not?
-	var/self_recharge = 0
 	///If true, the cell will state it's maximum charge in it's description
 	var/ratingdesc = TRUE
 	///If it's a grown that acts as a battery, add a wire overlay to it.
 	var/grown_battery = FALSE
+	///What charge lige sprite to use, null if no light
+	var/charge_light_type = "standard"
+	///What connector sprite to use when in a cell charger, null if no connectors
+	var/connector_type = "standard"
+	///Does the cell start without any charge?
+	var/empty = FALSE
 
 /obj/item/stock_parts/cell/get_cell()
 	return src
 
 /obj/item/stock_parts/cell/Initialize(mapload, override_maxcharge)
 	. = ..()
-	START_PROCESSING(SSobj, src)
 	create_reagents(5, INJECTABLE | DRAINABLE)
 	if (override_maxcharge)
 		maxcharge = override_maxcharge
-	charge = maxcharge
+	rating = max(round(maxcharge / 10000, 1), 1)
+	if(!charge)
+		charge = maxcharge
+	if(empty)
+		charge = 0
 	if(ratingdesc)
-		desc += " This one has a rating of [DisplayEnergy(maxcharge)], and you should not swallow it."
+		desc += " This one has a rating of [display_energy(maxcharge)][prob(10) ? ", and you should not swallow it" : ""]." //joke works better if it's not on every cell
 	update_appearance()
+
+	RegisterSignal(src, COMSIG_ITEM_MAGICALLY_CHARGED, .proc/on_magic_charge)
+	var/static/list/loc_connections = list(
+		COMSIG_ITEM_MAGICALLY_CHARGED = .proc/on_magic_charge,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/**
+ * Signal proc for [COMSIG_ITEM_MAGICALLY_CHARGED]
+ *
+ * If we, or the item we're located in, is subject to the charge spell, gain some charge back
+ */
+/obj/item/stock_parts/cell/proc/on_magic_charge(datum/source, obj/effect/proc_holder/spell/targeted/charge/spell, mob/living/caster)
+	SIGNAL_HANDLER
+
+	// This shouldn't be running if we're not being held by a mob,
+	// or if we're not within an object being held by a mob, but just in case...
+	if(!ismovable(loc))
+		return
+
+	. = COMPONENT_ITEM_CHARGED
+
+	if(prob(80))
+		maxcharge -= 200
+
+	if(maxcharge <= 1) // Div by 0 protection
+		maxcharge = 1
+		. |= COMPONENT_ITEM_BURNT_OUT
+
+	charge = maxcharge
+	update_appearance()
+
+	// Guns need to process their chamber when we've been charged
+	if(isgun(loc))
+		var/obj/item/gun/gun_loc = loc
+		gun_loc.process_chamber()
+
+	// The thing we're in might have overlays or icon states for whether the cell is charged
+	if(!ismob(loc))
+		loc.update_appearance()
+
+	return .
 
 /obj/item/stock_parts/cell/create_reagents(max_vol, flags)
 	. = ..()
@@ -64,45 +113,25 @@
 	UnregisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT, COMSIG_PARENT_QDELETING))
 	return NONE
 
-/obj/item/stock_parts/cell/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if(NAMEOF(src, self_recharge))
-			if(var_value)
-				START_PROCESSING(SSobj, src)
-			else
-				STOP_PROCESSING(SSobj, src)
-	. = ..()
-
-/obj/item/stock_parts/cell/process(delta_time)
-	if(self_recharge)
-		give(chargerate * 0.125 * delta_time)
-	else
-		return PROCESS_KILL
-
 /obj/item/stock_parts/cell/update_overlays()
 	. = ..()
 	if(grown_battery)
 		. += mutable_appearance('icons/obj/power.dmi', "grown_wires")
-	if(charge < 0.01)
+	if((charge < 0.01) || !charge_light_type)
 		return
-	. += mutable_appearance('icons/obj/power.dmi', "cell-o[((charge / maxcharge) >= 0.995) ? 2 : 1]")
+	. += mutable_appearance('icons/obj/power.dmi', "cell-[charge_light_type]-o[(percent() >= 99.5) ? 2 : 1]")
 
 /obj/item/stock_parts/cell/proc/percent() // return % charge of cell
-	return 100*charge/maxcharge
+	return 100 * charge / maxcharge
 
 // use power from a cell
-/obj/item/stock_parts/cell/use(amount)
+/obj/item/stock_parts/cell/use(amount, force)
 	if(rigged && amount > 0)
 		explode()
 		return FALSE
-	if(charge < amount)
+	if(!force && charge < amount)
 		return FALSE
-	charge = (charge - amount)
-	SEND_SIGNAL(src,COMSIG_CELL_CHANGE_POWER)
+	charge = max(charge - amount, 0)
 	if(!istype(loc, /obj/machinery/power/apc))
 		SSblackbox.record_feedback("tally", "cell_used", 1, type)
 	return TRUE
@@ -116,7 +145,6 @@
 		amount = maxcharge
 	var/power_used = min(maxcharge-charge,amount)
 	charge += power_used
-	SEND_SIGNAL(src,COMSIG_CELL_CHANGE_POWER)
 	return power_used
 
 /obj/item/stock_parts/cell/examine(mob/user)
@@ -124,7 +152,7 @@
 	if(rigged)
 		. += span_danger("This power cell seems to be faulty!")
 	else
-		. += "The charge meter reads [round(src.percent() )]%."
+		. += "The charge meter reads [CEILING(percent(), 0.1)]%." //so it doesn't say 0% charge when the overlay indicates it still has charge
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -220,18 +248,20 @@
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)
-		return max(20 + round(charge/25000), 20) + rand(-5,5)
+		return clamp(20 + round(charge/25000), 20, 195) + rand(-5,5)
 	else
 		return 0
 
 /obj/item/stock_parts/cell/get_part_rating()
-	return rating * maxcharge
+	return maxcharge * 10 + charge
+
+/obj/item/stock_parts/cell/attackby_storage_insert(datum/component/storage, atom/storage_holder, mob/user)
+	var/obj/item/mod/control/mod = storage_holder
+	return !(istype(mod) && mod.open)
 
 /* Cell variants*/
-/obj/item/stock_parts/cell/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_appearance()
+/obj/item/stock_parts/cell/empty
+	empty = TRUE
 
 /obj/item/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargeable AA battery"
@@ -239,10 +269,8 @@
 	maxcharge = 500
 	custom_materials = list(/datum/material/glass=40)
 
-/obj/item/stock_parts/cell/crap/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_appearance()
+/obj/item/stock_parts/cell/crap/empty
+	empty = TRUE
 
 /obj/item/stock_parts/cell/upgraded
 	name = "upgraded power cell"
@@ -261,10 +289,8 @@
 	maxcharge = 600 //600 max charge / 100 charge per shot = six shots
 	custom_materials = list(/datum/material/glass=40)
 
-/obj/item/stock_parts/cell/secborg/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_appearance()
+/obj/item/stock_parts/cell/secborg/empty
+	empty = TRUE
 
 /obj/item/stock_parts/cell/mini_egun
 	name = "miniature energy gun power cell"
@@ -294,18 +320,8 @@
 	custom_materials = list(/datum/material/glass=60)
 	chargerate = 1500
 
-/obj/item/stock_parts/cell/high/plus
-	name = "high-capacity power cell+"
-	desc = "Where did these come from?"
-	icon_state = "h+cell"
-	maxcharge = 15000
-	chargerate = 2250
-	rating = 2
-
-/obj/item/stock_parts/cell/high/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_appearance()
+/obj/item/stock_parts/cell/high/empty
+	empty = TRUE
 
 /obj/item/stock_parts/cell/super
 	name = "super-capacity power cell"
@@ -313,12 +329,9 @@
 	maxcharge = 20000
 	custom_materials = list(/datum/material/glass=300)
 	chargerate = 2000
-	rating = 3
 
-/obj/item/stock_parts/cell/super/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_appearance()
+/obj/item/stock_parts/cell/super/empty
+	empty = TRUE
 
 /obj/item/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
@@ -326,12 +339,9 @@
 	maxcharge = 30000
 	custom_materials = list(/datum/material/glass=400)
 	chargerate = 3000
-	rating = 4
 
-/obj/item/stock_parts/cell/hyper/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_appearance()
+/obj/item/stock_parts/cell/hyper/empty
+	empty = TRUE
 
 /obj/item/stock_parts/cell/bluespace
 	name = "bluespace power cell"
@@ -340,23 +350,20 @@
 	maxcharge = 40000
 	custom_materials = list(/datum/material/glass=600)
 	chargerate = 4000
-	rating = 5
 
-/obj/item/stock_parts/cell/bluespace/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_appearance()
+/obj/item/stock_parts/cell/bluespace/empty
+	empty = TRUE
 
 /obj/item/stock_parts/cell/infinite
-	name = "infinite-capacity power cell!"
+	name = "infinite-capacity power cell"
 	icon_state = "icell"
-	maxcharge = 30000
+	maxcharge = INFINITY //little disappointing if you examine it and it's not huge
 	custom_materials = list(/datum/material/glass=1000)
-	rating = 100
-	chargerate = 30000
+	chargerate = INFINITY
+	ratingdesc = FALSE
 
 /obj/item/stock_parts/cell/infinite/use()
-	return 1
+	return TRUE
 
 /obj/item/stock_parts/cell/infinite/abductor
 	name = "void core"
@@ -377,39 +384,36 @@
 	icon_state = "potato"
 	charge = 100
 	maxcharge = 300
+	charge_light_type = null
+	connector_type = null
 	custom_materials = null
 	grown_battery = TRUE //it has the overlays for wires
-	custom_premium_price = PAYCHECK_ASSISTANT
-
-/obj/item/stock_parts/cell/high/slime
-	name = "charged slime core"
-	desc = "A yellow slime core infused with plasma, it crackles with power."
-	icon = 'icons/mob/slimes.dmi'
-	icon_state = "yellow slime extract"
-	custom_materials = null
-	rating = 5 //self-recharge makes these desirable
-	self_recharge = 1 // Infused slime cores self-recharge, over time
-
-/*Hypercharged slime cell - located in /code/modules/research/xenobiology/crossbreeding/_misc.dm
-/obj/item/stock_parts/cell/high/slime/hypercharged */
+	custom_premium_price = PAYCHECK_CREW
 
 /obj/item/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"
 	desc = "An EMP-proof cell."
 	maxcharge = 500
-	rating = 3
 
 /obj/item/stock_parts/cell/emproof/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
-/obj/item/stock_parts/cell/emproof/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_appearance()
+/obj/item/stock_parts/cell/emproof/empty
+	empty = TRUE
 
 /obj/item/stock_parts/cell/emproof/corrupt()
 	return
+
+/obj/item/stock_parts/cell/emproof/slime
+	name = "EMP-proof slime core"
+	desc = "A yellow slime core infused with plasma. Its organic nature makes it immune to EMPs."
+	icon = 'icons/mob/slimes.dmi'
+	icon_state = "yellow slime extract"
+	custom_materials = null
+	maxcharge = 5000
+	charge_light_type = null
+	connector_type = "slimecore"
 
 /obj/item/stock_parts/cell/beam_rifle
 	name = "beam rifle capacitor"
@@ -433,7 +437,7 @@
 	custom_materials = list(/datum/material/glass = 20)
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/stock_parts/cell/emergency_light/Initialize()
+/obj/item/stock_parts/cell/emergency_light/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(!A.lightswitch || !A.light_power)
@@ -445,17 +449,13 @@
 	icon_state = "crystal_cell"
 	maxcharge = 50000
 	chargerate = 0
+	charge_light_type = null
+	connector_type = "crystal"
 	custom_materials = null
 	grind_results = null
-	rating = 5
-
-/obj/item/stock_parts/cell/crystal_cell/Initialize()
-	. = ..()
-	charge = 50000
 
 /obj/item/stock_parts/cell/inducer_supply
 	maxcharge = 5000
-	charge = 5000
 
 #undef CELL_DRAIN_TIME
 #undef CELL_POWER_GAIN

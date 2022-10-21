@@ -72,16 +72,17 @@
 		M.swap_hand()
 	return 1
 
-/atom/movable/screen/skills
-	name = "skills"
+/atom/movable/screen/navigate
+	name = "navigate"
 	icon = 'icons/hud/screen_midnight.dmi'
-	icon_state = "skills"
-	screen_loc = ui_skill_menu
+	icon_state = "navigate"
+	screen_loc = ui_navigate_menu
 
-/atom/movable/screen/skills/Click()
-	if(ishuman(usr))
-		var/mob/living/carbon/human/H = usr
-		H.mind.print_levels(H)
+/atom/movable/screen/navigate/Click()
+	if(!isliving(usr))
+		return TRUE
+	var/mob/living/navigator = usr
+	navigator.navigate()
 
 /atom/movable/screen/craft
 	name = "crafting menu"
@@ -132,7 +133,7 @@
 	if(world.time <= usr.next_move)
 		return TRUE
 
-	if(usr.incapacitated(ignore_stasis = TRUE))
+	if(usr.incapacitated(IGNORE_STASIS))
 		return TRUE
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
@@ -265,27 +266,22 @@
 	icon = 'icons/hud/screen_midnight.dmi'
 	icon_state = "combat_off"
 	screen_loc = ui_combat_toggle
-	var/datum/interaction_mode/combat_mode/combat_mode
 
-/atom/movable/screen/combattoggle/Initialize()
+/atom/movable/screen/combattoggle/Initialize(mapload)
 	. = ..()
 	update_appearance()
 
-/atom/movable/screen/combattoggle/Destroy()
-	. = ..()
-	combat_mode = null
-
 /atom/movable/screen/combattoggle/Click()
 	if(isliving(usr))
-		combat_mode.combat_mode = !combat_mode.combat_mode
-		combat_mode.update_istate(usr, null)
+		var/mob/living/owner = usr
+		owner.set_combat_mode(!owner.combat_mode, FALSE)
 		update_appearance()
 
 /atom/movable/screen/combattoggle/update_icon_state()
 	var/mob/living/user = hud?.mymob
 	if(!istype(user) || !user.client)
 		return ..()
-	icon_state = combat_mode.combat_mode ? "combat" : "combat_off" //Treats the combat_mode
+	icon_state = user.combat_mode ? "combat" : "combat_off" //Treats the combat_mode
 	return ..()
 
 //Version of the combat toggle with the flashy overlay
@@ -299,7 +295,7 @@
 	if(!istype(user) || !user.client)
 		return
 
-	if(!combat_mode.combat_mode)
+	if(!user.combat_mode)
 		return
 
 	if(!flashy)
@@ -310,24 +306,6 @@
 /atom/movable/screen/combattoggle/robot
 	icon = 'icons/hud/screen_cyborg.dmi'
 	screen_loc = ui_borg_intents
-
-/atom/movable/screen/act_intent3
-	name = "intent"
-	icon_state = "help3"
-	screen_loc = ui_acti
-	var/datum/interaction_mode/intents3/intents
-
-/atom/movable/screen/act_intent3/Click(location, control, params)
-	var/_x = text2num(params2list(params)["icon-x"])
-	var/_y = text2num(params2list(params)["icon-y"])
-	if(_y<=16)
-		intents.intent = INTENT_HARM
-	else if(_x<=16 && _y>=17)
-		intents.intent = INTENT_HELP
-	else if(_x>=17 && _y>=16)
-		intents.intent = INTENT_GRAB
-	intents.update_istate(usr, null)
-	icon_state = "[intents.intent]3"
 
 /atom/movable/screen/internals
 	name = "toggle internals"
@@ -596,6 +574,7 @@
 	if(choice != hud.mymob.zone_selected)
 		hud.mymob.zone_selected = choice
 		update_appearance()
+		SEND_SIGNAL(user, COMSIG_MOB_SELECTED_ZONE_SET, choice)
 
 	return TRUE
 
@@ -690,14 +669,18 @@
 	return
 
 /atom/movable/screen/splash
-	icon = 'icons/blank_title.png'
+	icon = 'icons/blanks/blank_title.png'
 	icon_state = ""
 	screen_loc = "1,1"
 	plane = SPLASHSCREEN_PLANE
 	var/client/holder
 
-/atom/movable/screen/splash/New(client/C, visible, use_previous_title) //TODO: Make this use INITIALIZE_IMMEDIATE, except its not easy
+INITIALIZE_IMMEDIATE(/atom/movable/screen/splash)
+
+/atom/movable/screen/splash/Initialize(mapload, client/C, visible, use_previous_title)
 	. = ..()
+	if(!istype(C))
+		return
 
 	holder = C
 
@@ -709,8 +692,7 @@
 			icon = SStitle.icon
 	else
 		if(!SStitle.previous_icon)
-			qdel(src)
-			return
+			return INITIALIZE_HINT_QDEL
 		icon = SStitle.previous_icon
 
 	holder.screen += src
@@ -774,3 +756,8 @@
 		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
 		add_overlay(intent_icon)
 	return ..()
+
+/atom/movable/screen/stamina
+	name = "stamina"
+	icon_state = "stamina0"
+	screen_loc = ui_stamina

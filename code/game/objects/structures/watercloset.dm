@@ -12,7 +12,7 @@
 	var/buildstacktype = /obj/item/stack/sheet/iron //they're iron now, shut up
 	var/buildstackamount = 1
 
-/obj/structure/toilet/Initialize()
+/obj/structure/toilet/Initialize(mapload)
 	. = ..()
 	open = round(rand(0, 1))
 	update_appearance()
@@ -24,7 +24,7 @@
 		return
 	if(swirlie)
 		user.changeNext_move(CLICK_CD_MELEE)
-		playsound(src.loc, "swing_hit", 25, TRUE)
+		playsound(src.loc, SFX_SWING_HIT, 25, TRUE)
 		swirlie.visible_message(span_danger("[user] slams the toilet seat onto [swirlie]'s head!"), span_userdanger("[user] slams the toilet seat onto your head!"), span_hear("You hear reverberating porcelain."))
 		log_combat(user, swirlie, "swirlied (brute)")
 		swirlie.adjustBruteLoss(5)
@@ -103,10 +103,12 @@
 			user.visible_message(span_notice("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!"), span_notice("You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!"), span_hear("You hear grinding porcelain."))
 			cistern = !cistern
 			update_appearance()
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 	else if(I.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
 		I.play_tool_sound(src)
 		deconstruct()
-	else if(cistern && !user.istate.harm)
+		return TRUE
+	else if(cistern && !user.combat_mode)
 		if(I.w_class > WEIGHT_CLASS_NORMAL)
 			to_chat(user, span_warning("[I] does not fit!"))
 			return
@@ -119,7 +121,7 @@
 		w_items += I.w_class
 		to_chat(user, span_notice("You carefully place [I] into the cistern."))
 
-	else if(istype(I, /obj/item/reagent_containers) && !user.istate.harm)
+	else if(istype(I, /obj/item/reagent_containers) && !user.combat_mode)
 		if (!open)
 			return
 		if(istype(I, /obj/item/food/monkeycube))
@@ -144,7 +146,7 @@
 		contents += secret
 
 /obj/structure/toilet/greyscale
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	buildstacktype = null
 
 /obj/structure/urinal
@@ -157,23 +159,9 @@
 	var/exposed = 0 // can you currently put an item inside
 	var/obj/item/hiddenitem = null // what's in the urinal
 
-/obj/structure/urinal/directional/north
-	dir = SOUTH
-	pixel_y = 32
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
-/obj/structure/urinal/directional/south
-	dir = NORTH
-	pixel_y = -32
-
-/obj/structure/urinal/directional/east
-	dir = WEST
-	pixel_x = 32
-
-/obj/structure/urinal/directional/west
-	dir = EAST
-	pixel_x = -32
-
-/obj/structure/urinal/Initialize()
+/obj/structure/urinal/Initialize(mapload)
 	. = ..()
 	hiddenitem = new /obj/item/food/urinalcake
 
@@ -288,7 +276,7 @@
 	if(has_water_reclaimer)
 		create_reagents(100, NO_REACT)
 		reagents.add_reagent(dispensedreagent, 100)
-	AddComponent(/datum/component/plumbing/demand/south, bolt)
+	AddComponent(/datum/component/plumbing/simple_demand, bolt)
 
 /obj/structure/sink/examine(mob/user)
 	. = ..()
@@ -328,7 +316,7 @@
 	begin_reclamation()
 	if(washing_face)
 		SEND_SIGNAL(user, COMSIG_COMPONENT_CLEAN_FACE_ACT, CLEAN_WASH)
-		user.drowsyness = max(user.drowsyness - rand(2,3), 0) //Washing your face wakes you up if you're falling asleep
+		user.adjust_drowsyness(rand(-2, -3)) //Washing your face wakes you up if you're falling asleep
 	else if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		if(!human_user.wash_hands(CLEAN_WASH))
@@ -359,16 +347,16 @@
 			to_chat(user, span_notice("\The [RG] is full."))
 			return FALSE
 
-	if(istype(O, /obj/item/melee/baton))
-		var/obj/item/melee/baton/B = O
-		if(B.cell && B.cell.charge && B.turned_on)
+	if(istype(O, /obj/item/melee/baton/security))
+		var/obj/item/melee/baton/security/baton = O
+		if(baton.cell?.charge && baton.active)
 			flick("baton_active", src)
-			user.Paralyze(B.stun_time)
-			user.stuttering = B.stun_time/20
-			B.deductcharge(B.cell_hit_cost)
-			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [B.name]!"), \
-								span_userdanger("You unwisely attempt to wash [B] while it's still on."))
-			playsound(src, B.stun_sound, 50, TRUE)
+			user.Paralyze(baton.knockdown_time)
+			user.set_timed_status_effect(baton.knockdown_time, /datum/status_effect/speech/stutter)
+			baton.cell.use(baton.cell_hit_cost)
+			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [baton.name]!"), \
+								span_userdanger("You unwisely attempt to wash [baton] while it's still on."))
+			playsound(src, baton.on_stun_sound, 50, TRUE)
 			return
 
 	if(istype(O, /obj/item/mop))
@@ -411,7 +399,7 @@
 	if(O.item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
 
-	if(!user.istate.harm)
+	if(!user.combat_mode)
 		to_chat(user, span_notice("You start washing [O]..."))
 		busy = TRUE
 		if(!do_after(user, 40, target = src))
@@ -449,7 +437,7 @@
 /obj/structure/sink/proc/begin_reclamation()
 	if(!reclaiming)
 		reclaiming = TRUE
-		START_PROCESSING(SSfluids, src)
+		START_PROCESSING(SSplumbing, src)
 
 /obj/structure/sink/kitchen
 	name = "kitchen sink"
@@ -457,7 +445,7 @@
 
 /obj/structure/sink/greyscale
 	icon_state = "sink_greyscale"
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	buildstacktype = null
 
 /obj/structure/sinkframe
@@ -466,16 +454,11 @@
 	icon_state = "sink_frame"
 	desc = "A sink frame, that needs a water recycler to finish construction."
 	anchored = FALSE
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 
-/obj/structure/sinkframe/ComponentInitialize()
+/obj/structure/sinkframe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
-
-/obj/structure/sinkframe/proc/can_be_rotated(mob/user, rotation_type)
-	if(anchored)
-		to_chat(user, span_warning("It is fastened to the floor!"))
-	return !anchored
+	AddComponent(/datum/component/simple_rotation)
 
 /obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stock_parts/water_recycler))
@@ -542,7 +525,7 @@
 
 	if(washing_face)
 		SEND_SIGNAL(user, COMSIG_COMPONENT_CLEAN_FACE_ACT, CLEAN_WASH)
-		user.drowsyness = max(user.drowsyness - rand(2,3), 0) //Washing your face wakes you up if you're falling asleep
+		user.adjust_drowsyness(rand(-2, -3)) //Washing your face wakes you up if you're falling asleep
 	else if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		if(!human_user.wash_hands(CLEAN_WASH))
@@ -569,16 +552,16 @@
 			to_chat(user, span_notice("\The [container] is full."))
 			return FALSE
 
-	if(istype(O, /obj/item/melee/baton))
-		var/obj/item/melee/baton/baton = O
-		if(baton.cell && baton.cell.charge && baton.turned_on)
+	if(istype(O, /obj/item/melee/baton/security))
+		var/obj/item/melee/baton/security/baton = O
+		if(baton.cell?.charge && baton.active)
 			flick("baton_active", src)
-			user.Paralyze(baton.stun_time)
-			user.stuttering = baton.stun_time * 0.05
-			baton.deductcharge(baton.cell_hit_cost)
+			user.Paralyze(baton.knockdown_time)
+			user.set_timed_status_effect(baton.knockdown_time, /datum/status_effect/speech/stutter)
+			baton.cell.use(baton.cell_hit_cost)
 			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [baton.name]!"), \
 								span_userdanger("You unwisely attempt to wash [baton] while it's still on."))
-			playsound(src, baton.stun_sound, 50, TRUE)
+			playsound(src, baton.on_stun_sound, 50, TRUE)
 			return
 
 	if(istype(O, /obj/item/mop))
@@ -610,7 +593,7 @@
 	if(O.item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
 
-	if(!user.istate.harm)
+	if(!user.combat_mode)
 		to_chat(user, span_notice("You start washing [O]..."))
 		busy = TRUE
 		if(!do_after(user, 4 SECONDS, target = src))
@@ -633,7 +616,7 @@
 	resistance_flags = UNACIDABLE
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/structure/water_source/puddle/attack_hand(mob/user)
+/obj/structure/water_source/puddle/attack_hand(mob/user, list/modifiers)
 	icon_state = "puddle-splash"
 	. = ..()
 	icon_state = "puddle"
@@ -672,10 +655,12 @@
 	open = !open
 	if(open)
 		layer = SIGN_LAYER
+		plane = GAME_PLANE
 		set_density(FALSE)
 		set_opacity(FALSE)
 	else
 		layer = WALL_OBJ_LAYER
+		plane = GAME_PLANE_UPPER
 		set_density(TRUE)
 		if(opaque_closed)
 			set_opacity(TRUE)
@@ -692,9 +677,9 @@
 	else
 		return ..()
 
-/obj/structure/curtain/wrench_act(mob/living/user, obj/item/I)
-	..()
-	default_unfasten_wrench(user, I, 50)
+/obj/structure/curtain/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool, time = 5 SECONDS)
 	return TRUE
 
 /obj/structure/curtain/wirecutter_act(mob/living/user, obj/item/I)
@@ -704,14 +689,14 @@
 
 	user.visible_message(span_warning("[user] cuts apart [src]."),
 		span_notice("You start to cut apart [src]."), span_hear("You hear cutting."))
-	if(I.use_tool(src, user, volume=100) && !anchored)
+	if(I.use_tool(src, user, 50, volume=100) && !anchored)
 		to_chat(user, span_notice("You cut apart [src]."))
 		deconstruct()
 
 	return TRUE
 
 
-/obj/structure/curtain/attack_hand(mob/user)
+/obj/structure/curtain/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -762,7 +747,7 @@
 	GLOB.curtains -= src
 	return ..()
 
-/obj/structure/curtain/cloth/fancy/mechanical/Initialize()
+/obj/structure/curtain/cloth/fancy/mechanical/Initialize(mapload)
 	. = ..()
 	GLOB.curtains += src
 
@@ -772,6 +757,7 @@
 /obj/structure/curtain/cloth/fancy/mechanical/proc/open()
 	icon_state = "[icon_type]-open"
 	layer = SIGN_LAYER
+	plane = GAME_PLANE
 	set_density(FALSE)
 	open = TRUE
 	set_opacity(FALSE)
@@ -779,10 +765,18 @@
 /obj/structure/curtain/cloth/fancy/mechanical/proc/close()
 	icon_state = "[icon_type]-closed"
 	layer = WALL_OBJ_LAYER
+	plane = GAME_PLANE_UPPER
 	set_density(TRUE)
 	open = FALSE
 	if(opaque_closed)
 		set_opacity(TRUE)
 
-/obj/structure/curtain/cloth/fancy/mechanical/attack_hand(mob/user)
+/obj/structure/curtain/cloth/fancy/mechanical/attack_hand(mob/user, list/modifiers)
 		return
+
+/obj/structure/curtain/cloth/fancy/mechanical/start_closed
+	icon_state = "cur_fancy-closed"
+
+/obj/structure/curtain/cloth/fancy/mechanical/start_closed/Initialize(mapload)
+	. = ..()
+	close()

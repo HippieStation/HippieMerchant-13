@@ -18,6 +18,7 @@
 	description = "Named after the norse goddess Hel, this medicine heals the patient's bruises the closer they are to death. Patients will find the medicine 'aids' their healing if not near death by causing asphyxiation."
 	color = "#9400D3"
 	taste_description = "cold and lifeless"
+	ph = 8
 	overdose_threshold = 35
 	reagent_state = SOLID
 	inverse_chem_val = 0.3
@@ -51,7 +52,7 @@
 			helbent = TRUE
 		to_chat(M, span_hierophant("Malevolent spirits appear before you, bartering your life in a 'friendly' game of rock, paper, scissors. Which do you choose?"))
 		var/timeisticking = world.time
-		var/RPSchoice = input(M, "Janken Time! You have 60 Seconds to Choose!", "Rock Paper Scissors",null) as null|anything in RockPaperScissors
+		var/RPSchoice = tgui_alert(M, "Janken Time! You have 60 Seconds to Choose!", "Rock Paper Scissors", RockPaperScissors, 60)
 		if(QDELETED(M) || (timeisticking+(1.1 MINUTES) < world.time))
 			reaping = FALSE
 			return //good job, you ruined it
@@ -86,15 +87,17 @@
 
 /datum/reagent/medicine/c2/helbital/on_mob_delete(mob/living/L)
 	if(helbent)
-		L.remove_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE)
+		L.remove_status_effect(/datum/status_effect/necropolis_curse)
 	..()
 
 /datum/reagent/medicine/c2/libital //messes with your liber
 	name = "Libital"
 	description = "A bruise reliever. Does minor liver damage."
 	color = "#ECEC8D" // rgb: 236 236 141
+	ph = 8.2
 	taste_description = "bitter with a hint of alcohol"
 	reagent_state = SOLID
+	impure_chem = /datum/reagent/impurity/libitoil
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/medicine/c2/libital/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -108,6 +111,7 @@
 	description = "Originally developed as a prototype-gym supliment for those looking for quick workout turnover, this oral medication quickly repairs broken muscle tissue but causes lactic acid buildup, tiring the patient. Overdosing can cause extreme drowsiness. An Influx of nutrients promotes the muscle repair even further."
 	reagent_state = SOLID
 	color = "#FFFF6B"
+	ph = 5.5
 	overdose_threshold = 20
 	inverse_chem_val = 0.5//Though it's tough to get
 	inverse_chem = /datum/reagent/medicine/metafactor //Seems thematically intact
@@ -131,7 +135,7 @@
 /datum/reagent/medicine/c2/probital/overdose_process(mob/living/M, delta_time, times_fired)
 	M.adjustStaminaLoss(3 * REM * delta_time, 0)
 	if(M.getStaminaLoss() >= 80)
-		M.drowsyness += 1 * REM * delta_time
+		M.adjust_drowsyness(1 * REM * delta_time)
 	if(M.getStaminaLoss() >= 100)
 		to_chat(M,span_warning("You feel more tired than you usually do, perhaps if you rest your eyes for a bit..."))
 		M.adjustStaminaLoss(-100, TRUE)
@@ -140,7 +144,7 @@
 	. = TRUE
 
 /datum/reagent/medicine/c2/probital/on_transfer(atom/A, methods=INGEST, trans_volume)
-	if(!(methods & INGEST) || !iscarbon(A))
+	if(!(methods & INGEST) || (!iscarbon(A) && !istype(A, /obj/item/organ/stomach)) )
 		return
 
 	A.reagents.remove_reagent(/datum/reagent/medicine/c2/probital, trans_volume * 0.05)
@@ -155,6 +159,8 @@
 	description = "Used to treat burns. Makes you move slower while it is in your system. Applies stomach damage when it leaves your system."
 	reagent_state = LIQUID
 	color = "#6171FF"
+	ph = 4.7
+	impure_chem = /datum/reagent/impurity/lentslurri
 	failed_chem = /datum/reagent/inverse/ichiyuri //I do hope cobby won't take this personally
 	var/resetting_probability = 0 //What are these for?? Can I remove them?
 	var/spammer = 0
@@ -171,6 +177,8 @@
 	description = "Used to treat burns. Does minor eye damage."
 	reagent_state = LIQUID
 	color = "#8C93FF"
+	ph = 4
+	impure_chem = /datum/reagent/impurity/aiuri //blurriness
 	var/resetting_probability = 0 //same with this? Old legacy vars that should be removed?
 	var/message_cd = 0
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
@@ -188,6 +196,7 @@
 	color = "#F7FFA5"
 	overdose_threshold = 25
 	reagent_weight = 0.6
+	ph = 8.9
 	inverse_chem = /datum/reagent/inverse/hercuri
 	inverse_chem_val = 0.3
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
@@ -212,7 +221,7 @@
 		return
 
 	exposed_mob.adjust_bodytemperature(-reac_volume * TEMPERATURE_DAMAGE_COEFFICIENT, 50)
-	exposed_mob.adjust_fire_stacks(-reac_volume / 2)
+	exposed_mob.adjust_fire_stacks(reac_volume / -2)
 	if(reac_volume >= metabolization_rate)
 		exposed_mob.extinguish_mob()
 
@@ -234,6 +243,7 @@
 	reagent_state = LIQUID
 	color = "#FF6464"
 	overdose_threshold = 35 // at least 2 full syringes +some, this stuff is nasty if left in for long
+	ph = 5.6
 	inverse_chem_val = 0.5
 	inverse_chem = /datum/reagent/inverse/healing/convermol
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
@@ -260,6 +270,7 @@
 	name = "Tirimol"
 	description = "An oxygen deprivation medication that causes fatigue. Prolonged exposure causes the patient to fall asleep once the medicine metabolizes."
 	color = "#FF6464"
+	ph = 5.6
 	inverse_chem = /datum/reagent/inverse/healing/tirimol
 	inverse_chem_val = 0.4
 	/// A cooldown for spacing bursts of stamina damage
@@ -271,7 +282,7 @@
 	M.adjustOxyLoss(-3 * REM * delta_time * normalise_creation_purity())
 	M.adjustStaminaLoss(2 * REM * delta_time)
 	if(drowsycd && COOLDOWN_FINISHED(src, drowsycd))
-		M.drowsyness += 10
+		M.adjust_drowsyness(10)
 		COOLDOWN_START(src, drowsycd, 45 SECONDS)
 	else if(!drowsycd)
 		COOLDOWN_START(src, drowsycd, 15 SECONDS)
@@ -288,9 +299,10 @@
 
 /datum/reagent/medicine/c2/seiver //a bit of a gray joke
 	name = "Seiver"
-	description = "A medicine that shifts functionality based on temperature. Colder temperatures incurs radiation removal while hotter temperatures promote antitoxicity. Damages the heart." //CHEM HOLDER TEMPS, NOT AIR TEMPS
+	description = "A medicine that shifts functionality based on temperature. Hotter temperatures will remove amounts of toxins, while coder temperatures will heal larger amounts of toxins only while the patient is irradiated. Damages the heart." //CHEM HOLDER TEMPS, NOT AIR TEMPS
 	var/radbonustemp = (T0C - 100) //being below this number gives you 10% off rads.
 	inverse_chem_val = 0.3
+	ph = 3.7
 	inverse_chem = /datum/reagent/inverse/technetium
 	inverse_chem_val = 0.45
 	failed_chem = null
@@ -313,13 +325,13 @@
 
 	//and you're cold
 	var/radcalc = round((T0C-chemtemp) / 6, 0.1) * REM * delta_time //max ~45 rad loss unless you've hit below 0K. if so, wow.
-	if(radcalc > 0)
-		//no cost percent healing if you are SUPER cold (on top of cost healing)
-		if(chemtemp < radbonustemp*0.1) //if you're super chilly, it takes off 25% of your current rads
-			M.radiation = round(M.radiation * (0.75**(REM * delta_time)))
-		else if(chemtemp < radbonustemp)//else if you're under the chill-zone, it takes off 10% of your current rads
-			M.radiation = round(M.radiation * (0.90**(REM * delta_time)))
-		M.radiation -= radcalc * normalise_creation_purity()
+	if(radcalc > 0 && HAS_TRAIT(M, TRAIT_IRRADIATED))
+		radcalc *= normalise_creation_purity()
+		// no cost percent healing if you are SUPER cold (on top of cost healing)
+		if(chemtemp < radbonustemp*0.1)
+			M.adjustToxLoss(-radcalc * (0.9**(REM * delta_time)))
+		else if(chemtemp < radbonustemp)
+			M.adjustToxLoss(-radcalc * (0.75**(REM * delta_time)))
 		healypoints += (radcalc / 5)
 
 	//you're yes and... oh no!
@@ -334,6 +346,7 @@
 	inverse_chem = /datum/reagent/inverse/healing/monover
 	inverse_chem_val = 0.35
 	failed_chem = null //Reaction uses a special method - so we don't want this for now.
+	ph = 9.2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/medicine/c2/multiver/on_mob_life(mob/living/carbon/human/M, delta_time, times_fired)
@@ -360,7 +373,7 @@
 // Antitoxin binds plants pretty well. So the tox goes significantly down
 /datum/reagent/medicine/c2/multiver/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
 	. = ..()
-	mytray.adjustToxic(-(round(chems.get_reagent_amount(type) * 2)*normalise_creation_purity())) //0-2.66, 2 by default (0.75 purity).
+	mytray.adjust_toxic(-(round(chems.get_reagent_amount(type) * 2)*normalise_creation_purity())) //0-2.66, 2 by default (0.75 purity).
 
 #define issyrinormusc(A) (istype(A,/datum/reagent/medicine/c2/syriniver) || istype(A,/datum/reagent/medicine/c2/musiver)) //musc is metab of syrin so let's make sure we're not purging either
 
@@ -371,6 +384,8 @@
 	color = "#8CDF24" // heavy saturation to make the color blend better
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	overdose_threshold = 6
+	impure_chem = /datum/reagent/inverse/healing/syriniver
+	ph = 8.6
 	var/conversion_amount
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -413,6 +428,7 @@
 	color = "#DFD54E"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 25
+	ph = 9.1
 	var/datum/brain_trauma/mild/muscle_weakness/U
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -450,6 +466,7 @@
 	description = "Heals brute and burn damage at the cost of toxicity (66% of damage healed). 100u or more can restore corpses husked by burns. Touch application only."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
+	ph = 7.2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/medicine/c2/synthflesh/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE)
@@ -491,18 +508,19 @@
 	description = "An expensive medicine that aids with pumping blood around the body even without a heart, and prevents the heart from slowing down. Mixing it with epinephrine or atropine will cause an explosion."
 	color = "#F5F5F5"
 	overdose_threshold = 50
+	ph = 12.7
 	inverse_chem = /datum/reagent/inverse/penthrite
 	inverse_chem_val = 0.25
 	failed_chem = null //We don't want to accidentally crash it out (see reaction)
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
-/datum/reagent/medicine/c2/penthrite/on_mob_metabolize(mob/living/M)
+/datum/reagent/medicine/c2/penthrite/on_mob_metabolize(mob/living/user)
 	. = ..()
-	to_chat(M,"<span class='notice'>Your heart begins to beat with great force!")
-	ADD_TRAIT(M, TRAIT_STABLEHEART, type)
-	ADD_TRAIT(M, TRAIT_NOHARDCRIT,type)
-	ADD_TRAIT(M, TRAIT_NOSOFTCRIT,type)
-	ADD_TRAIT(M, TRAIT_NOCRITDAMAGE,type)
+	user.balloon_alert(user, "your heart beats with a great force")
+	ADD_TRAIT(user, TRAIT_STABLEHEART, type)
+	ADD_TRAIT(user, TRAIT_NOHARDCRIT,type)
+	ADD_TRAIT(user, TRAIT_NOSOFTCRIT,type)
+	ADD_TRAIT(user, TRAIT_NOCRITDAMAGE,type)
 
 /datum/reagent/medicine/c2/penthrite/on_mob_life(mob/living/carbon/human/H, delta_time, times_fired)
 	H.adjustOrganLoss(ORGAN_SLOT_STOMACH, 0.25 * REM * delta_time)
@@ -517,8 +535,8 @@
 
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, max(volume/10, 1) * REM * delta_time) // your heart is barely keeping up!
 
-		H.Jitter(rand(0, 2) * REM * delta_time)
-		H.Dizzy(rand(0, 2) * REM * delta_time)
+		H.set_timed_status_effect(rand(0 SECONDS, 4 SECONDS) * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
+		H.set_timed_status_effect(rand(0 SECONDS, 4 SECONDS) * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
 
 		if(DT_PROB(18, delta_time))
 			to_chat(H,span_danger("Your body is trying to give up, but your heart is still beating!"))
@@ -531,11 +549,12 @@
 		volume = 0
 	. = ..()
 
-/datum/reagent/medicine/c2/penthrite/on_mob_end_metabolize(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_STABLEHEART, type)
-	REMOVE_TRAIT(M, TRAIT_NOHARDCRIT,type)
-	REMOVE_TRAIT(M, TRAIT_NOSOFTCRIT,type)
-	REMOVE_TRAIT(M, TRAIT_NOCRITDAMAGE,type)
+/datum/reagent/medicine/c2/penthrite/on_mob_end_metabolize(mob/living/user)
+	user.balloon_alert(user, "your heart relaxes")
+	REMOVE_TRAIT(user, TRAIT_STABLEHEART, type)
+	REMOVE_TRAIT(user, TRAIT_NOHARDCRIT,type)
+	REMOVE_TRAIT(user, TRAIT_NOSOFTCRIT,type)
+	REMOVE_TRAIT(user, TRAIT_NOCRITDAMAGE,type)
 	. = ..()
 
 /datum/reagent/medicine/c2/penthrite/overdose_process(mob/living/carbon/human/H, delta_time, times_fired)

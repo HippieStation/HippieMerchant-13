@@ -88,14 +88,14 @@
 	else
 		chargesa--
 		insistinga = 0
-		var/wish = input("You want...","Wish") as null|anything in sortList(list("Power","Wealth","Immortality","To Kill","Peace"))
+		var/wish = input("You want...","Wish") as null|anything in sort_list(list("Power","Wealth","Immortality","Peace"))
 		switch(wish)
 			if("Power")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.dna.add_mutation(LASEREYES)
-				user.dna.add_mutation(SPACEMUT)
-				user.dna.add_mutation(XRAY)
+				user.dna.add_mutation(/datum/mutation/human/laser_eyes)
+				user.dna.add_mutation(/datum/mutation/human/pressure_adaptation)
+				user.dna.add_mutation(/datum/mutation/human/xray)
 				user.set_species(/datum/species/shadow)
 			if("Wealth")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -106,11 +106,6 @@
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
 				add_verb(user, /mob/living/carbon/proc/immortality)
-				user.set_species(/datum/species/shadow)
-			if("To Kill")
-				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
-				to_chat(user, "The Wish Granter punishes you for your wickedness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.mind.add_antag_datum(/datum/antagonist/wishgranter)
 				user.set_species(/datum/species/shadow)
 			if("Peace")
 				to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
@@ -158,7 +153,7 @@
 		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
-		explosion(src, devastation_range = 1)
+		explosion(src, devastation_range = 1, explosion_cause = src)
 		qdel(src)
 
 /////For the Wishgranter///////////
@@ -171,8 +166,8 @@
 	if(!C.stat)
 		to_chat(C, span_notice("You're not dead yet!"))
 		return
-	if(C.has_status_effect(STATUS_EFFECT_WISH_GRANTERS_GIFT))
+	if(C.has_status_effect(/datum/status_effect/wish_granters_gift))
 		to_chat(C, span_warning("You're already resurrecting!"))
 		return
-	C.apply_status_effect(STATUS_EFFECT_WISH_GRANTERS_GIFT)
+	C.apply_status_effect(/datum/status_effect/wish_granters_gift)
 	return 1

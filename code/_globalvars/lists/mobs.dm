@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(alive_mob_list) //all alive mobs, including clientless. Exclud
 GLOBAL_LIST_EMPTY(suicided_mob_list) //contains a list of all mobs that suicided, including their associated ghosts.
 GLOBAL_LIST_EMPTY(drones_list)
 GLOBAL_LIST_EMPTY(dead_mob_list) //all dead mobs, including clientless. Excludes /mob/dead/new_player
-GLOBAL_LIST_EMPTY(joined_player_list) //all clients that have joined the game at round-start or as a latejoin.
+GLOBAL_LIST_EMPTY(joined_player_list) //all ckeys that have joined the game at round-start or as a latejoin.
 GLOBAL_LIST_EMPTY(new_player_list) //all /mob/dead/new_player, in theory all should have clients and those that don't are in the process of spawning and get deleted when done.
 GLOBAL_LIST_EMPTY(pre_setup_antags) //minds that have been picked as antag by the gamemode. removed as antag datums are set.
 GLOBAL_LIST_EMPTY(silicon_mobs) //all silicon mobs
@@ -39,7 +39,6 @@ GLOBAL_LIST_EMPTY(spidermobs) //all sentient spider mobs
 GLOBAL_LIST_EMPTY(bots_list)
 GLOBAL_LIST_EMPTY(aiEyes)
 GLOBAL_LIST_EMPTY(suit_sensors_list) //all people with suit sensors on
-GLOBAL_LIST_EMPTY(nanite_sensors_list) //app people with nanite monitoring program
 
 /// All alive mobs with clients.
 GLOBAL_LIST_EMPTY(alive_player_list)
@@ -109,7 +108,7 @@ GLOBAL_LIST_INIT(construct_radial_images, list(
 			else
 				.[E.key_third_person] |= E
 
-/proc/get_crewmember_mind()
+/proc/get_crewmember_minds()
 	var/list/minds = list()
 	for(var/data in GLOB.data_core.locked)
 		var/datum/data/record/record = data

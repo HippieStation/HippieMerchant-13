@@ -4,7 +4,7 @@
 
 	if(can_reenter_corpse && mind?.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
-			reenter_corpse() // (cloning scanner, body bag, closet, mech, etc)
+			reenter_corpse() // (body bag, closet, mech, etc)
 			return // seems legit.
 
 	// Things you might plausibly want to follow
@@ -31,7 +31,10 @@
 		ShiftClickOn(A)
 		return
 	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-		MiddleClickOn(A, params)
+		if(LAZYACCESS(modifiers, CTRL_CLICK))
+			CtrlMiddleClickOn(A)
+		else
+			MiddleClickOn(A, params)
 		return
 	if(LAZYACCESS(modifiers, ALT_CLICK))
 		AltClickNoInteract(src, A)
@@ -51,11 +54,11 @@
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(user.client)
-		if(user.gas_scan && atmosanalyzer_scan(user, src))
+		if(user.gas_scan && atmos_scan(user=user, target=src, tool=null, silent=TRUE))
 			return TRUE
 		else if(isAdminGhostAI(user))
 			attack_ai(user)
-		else if(user.client.prefs.inquisitive_ghost)
+		else if(user.client.prefs.read_preference(/datum/preference/toggle/inquisitive_ghost))
 			user.examinate(src)
 	return FALSE
 

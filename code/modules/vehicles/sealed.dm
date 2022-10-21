@@ -3,7 +3,6 @@
 	var/enter_delay = 2 SECONDS
 	var/mouse_pointer
 	var/headlights_toggle = FALSE
-	var/do_explode = TRUE
 
 /obj/vehicle/sealed/generate_actions()
 	. = ..()
@@ -48,15 +47,18 @@
 /obj/vehicle/sealed/proc/mob_try_enter(mob/M)
 	if(!istype(M))
 		return FALSE
-	if(occupant_amount() >= max_occupants)
-		return FALSE
-	if(do_after(M, get_enter_delay(M), src, timed_action_flags = IGNORE_HELD_ITEM))
+	if(do_after(M, get_enter_delay(M), src, timed_action_flags = IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, .proc/enter_checks, M)))
 		mob_enter(M)
 		return TRUE
 	return FALSE
 
+/// returns enter do_after delay for the given mob in ticks
 /obj/vehicle/sealed/proc/get_enter_delay(mob/M)
 	return enter_delay
+
+///Extra checks to perform during the do_after to enter the vehicle
+/obj/vehicle/sealed/proc/enter_checks(mob/M)
+	return occupant_amount() < max_occupants
 
 /obj/vehicle/sealed/proc/mob_enter(mob/M, silent = FALSE)
 	if(!istype(M))
@@ -117,8 +119,6 @@
 
 /obj/vehicle/sealed/Destroy()
 	dump_mobs()
-	if(do_explode) //avoid larger-than-wanted explosions with thanos car
-		explosion(loc, 0, 1, 2, 3, 0)
 	return ..()
 
 /obj/vehicle/sealed/proc/dump_mobs(randomstep = TRUE)

@@ -8,9 +8,9 @@
 	var/use_overlays = TRUE
 	///Whether our tile is covered and we should hide our ducts
 	var/tile_covered = FALSE
-	///directions in which we act as a supplier
+	///directions in wich we act as a supplier
 	var/supply_connects
-	///direction in which we act as a demander
+	///direction in wich we act as a demander
 	var/demand_connects
 	///FALSE to pretty much just not exist in the plumbing world so we can be moved, TRUE to go plumbo mode
 	var/active = FALSE
@@ -50,14 +50,14 @@
 		RegisterSignal(parent, list(COMSIG_COMPONENT_ADDED), .proc/enable)
 
 /datum/component/plumbing/RegisterWithParent()
-	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), .proc/disable)
+	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), .proc/disable)
 	RegisterSignal(parent, list(COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH), .proc/toggle_active)
 	RegisterSignal(parent, list(COMSIG_OBJ_HIDE), .proc/hide)
 	RegisterSignal(parent, list(COMSIG_ATOM_UPDATE_OVERLAYS), .proc/create_overlays) //called by lateinit on startup
 	RegisterSignal(parent, list(COMSIG_MOVABLE_CHANGE_DUCT_LAYER), .proc/change_ducting_layer)
 
 /datum/component/plumbing/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH,COMSIG_OBJ_HIDE, \
+	UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, COMSIG_OBJ_HIDE, \
 	COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_MOVABLE_CHANGE_DUCT_LAYER, COMSIG_COMPONENT_ADDED))
 
 /datum/component/plumbing/Destroy()
@@ -68,7 +68,7 @@
 
 /datum/component/plumbing/process()
 	if(!demand_connects || !reagents)
-		STOP_PROCESSING(SSfluids, src)
+		STOP_PROCESSING(SSplumbing, src)
 		return
 	if(reagents.total_volume < reagents.maximum_volume)
 		for(var/D in GLOB.cardinals)
@@ -199,7 +199,7 @@
 	if(!active)
 		return
 
-	STOP_PROCESSING(SSfluids, src)
+	STOP_PROCESSING(SSplumbing, src)
 
 	for(var/A in ducts)
 		var/datum/ductnet/D = ducts[A]
@@ -231,7 +231,7 @@
 			D.disconnect_duct()
 
 	if(demand_connects)
-		START_PROCESSING(SSfluids, src)
+		START_PROCESSING(SSplumbing, src)
 
 	for(var/D in GLOB.cardinals)
 
@@ -242,12 +242,9 @@
 					var/obj/machinery/duct/duct = A
 					duct.attempt_connect()
 				else
-					for(var/plumber in A.GetComponents(/datum/component/plumbing))
-						if(!plumber) //apparently yes it will be null hahahaasahsdvashufv
-							continue
-						var/datum/component/plumbing/plumb = plumber
-						if(plumb && plumb.ducting_layer == ducting_layer)
-							direct_connect(plumb, D)
+					for(var/datum/component/plumbing/plumber as anything in A.GetComponents(/datum/component/plumbing))
+						if(plumber.ducting_layer == ducting_layer)
+							direct_connect(plumber, D)
 
 /// Toggle our machinery on or off. This is called by a hook from default_unfasten_wrench with anchored as only param, so we dont have to copypaste this on every object that can move
 /datum/component/plumbing/proc/toggle_active(obj/O, new_state)
@@ -297,10 +294,10 @@
 		net.add_plumber(src, dir)
 		net.add_plumber(P, opposite_dir)
 
-/datum/component/plumbing/proc/hide(atom/movable/AM, intact)
+/datum/component/plumbing/proc/hide(atom/movable/AM, should_hide)
 	SIGNAL_HANDLER
 
-	tile_covered = intact
+	tile_covered = should_hide
 	AM.update_appearance()
 
 /datum/component/plumbing/proc/change_ducting_layer(obj/caller, obj/O, new_layer = DUCT_LAYER_DEFAULT)
@@ -335,30 +332,12 @@
 		set_recipient_reagents_holder(null)
 
 ///has one pipe input that only takes, example is manual output pipe
-/datum/component/plumbing/demand/north
-	demand_connects = NORTH
-
-/datum/component/plumbing/demand/south
+/datum/component/plumbing/simple_demand
 	demand_connects = SOUTH
 
-/datum/component/plumbing/demand/east
-	demand_connects = EAST
-
-/datum/component/plumbing/demand/west
-	demand_connects = WEST
-
 ///has one pipe output that only supplies. example is liquid pump and manual input pipe
-/datum/component/plumbing/supply/north
-	supply_connects = NORTH
-
-/datum/component/plumbing/supply/south
+/datum/component/plumbing/simple_supply
 	supply_connects = SOUTH
-
-/datum/component/plumbing/supply/east
-	supply_connects = EAST
-
-/datum/component/plumbing/supply/west
-	supply_connects = WEST
 
 ///input and output, like a holding tank
 /datum/component/plumbing/tank

@@ -7,17 +7,17 @@
  * Diamond floor
  * Uranium floor
  * Shuttle floor (Titanium)
- * DOGSHIT CODE(THANKS, I REALLY APPRECIATE THAT.)
  */
 
 /turf/open/floor/mineral
 	name = "mineral floor"
 	icon_state = ""
+	material_flags = MATERIAL_EFFECTS
 	var/list/icons
 	tiled_dirt = FALSE
 
 
-/turf/open/floor/mineral/Initialize()
+/turf/open/floor/mineral/Initialize(mapload)
 	. = ..()
 	icons = typelist("icons", icons)
 
@@ -37,26 +37,6 @@
 	floor_tile = /obj/item/stack/tile/mineral/plasma
 	icons = list("plasma","plasma_dam")
 	custom_materials = list(/datum/material/plasma = 500)
-
-/turf/open/floor/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature)
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
-
-/turf/open/floor/mineral/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma flooring was ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
-		log_game("Plasma flooring was ignited by [key_name(user)] in [AREACOORD(src)]")
-		ignite(W.get_temperature())
-		return
-	..()
-
-/turf/open/floor/mineral/plasma/proc/PlasmaBurn(temperature)
-	make_plating()
-	atmos_spawn_air("plasma=20;TEMP=[temperature]")
-
-/turf/open/floor/mineral/plasma/proc/ignite(exposed_temperature)
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
 
 //Plasma floor that can't be removed, for disco inferno
 
@@ -190,6 +170,10 @@
 /turf/open/floor/mineral/plastitanium/red/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
+//Used in SnowCabin.dm
+/turf/open/floor/mineral/plastitanium/red/snow_cabin
+	temperature = 180
+
 /turf/open/floor/mineral/plastitanium/red/brig
 	name = "brig floor"
 
@@ -201,6 +185,7 @@
 	floor_tile = /obj/item/stack/tile/mineral/bananium
 	icons = list("bananium","bananium_dam")
 	custom_materials = list(/datum/material/bananium = 500)
+	material_flags = NONE //The slippery comp makes it unpractical for good clown decor. The custom mat one should still slip.
 	var/sound_cooldown = 0
 
 /turf/open/floor/mineral/bananium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -215,7 +200,7 @@
 	if(!.)
 		honk()
 
-/turf/open/floor/mineral/bananium/attack_hand(mob/user)
+/turf/open/floor/mineral/bananium/attack_hand(mob/user, list/modifiers)
 	.=..()
 	if(!.)
 		honk()
@@ -232,7 +217,7 @@
 
 /turf/open/floor/mineral/bananium/proc/squeak()
 	if(sound_cooldown < world.time)
-		playsound(src, "clownstep", 50, TRUE)
+		playsound(src, SFX_CLOWN_STEP, 50, TRUE)
 		sound_cooldown = world.time + 10
 
 /turf/open/floor/mineral/bananium/airless
@@ -271,7 +256,7 @@
 	if(!.)
 		radiate()
 
-/turf/open/floor/mineral/uranium/attack_hand(mob/user)
+/turf/open/floor/mineral/uranium/attack_hand(mob/user, list/modifiers)
 	.=..()
 	if(!.)
 		radiate()
@@ -285,7 +270,13 @@
 	if(!active)
 		if(world.time > last_event+15)
 			active = TRUE
-			radiation_pulse(src, 10)
+			radiation_pulse(
+				src,
+				max_range = 1,
+				threshold = RAD_VERY_LIGHT_INSULATION,
+				chance = (URANIUM_IRRADIATION_CHANCE / 3),
+				minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+			)
 			for(var/turf/open/floor/mineral/uranium/T in orange(1,src))
 				T.radiate()
 			last_event = world.time
@@ -301,7 +292,7 @@
 	baseturfs = /turf/open/floor/plating/abductor2
 	custom_materials = list(/datum/material/alloy/alien = 500)
 
-/turf/open/floor/mineral/abductor/Initialize()
+/turf/open/floor/mineral/abductor/Initialize(mapload)
 	. = ..()
 	icon_state = "alienpod[rand(1,9)]"
 
@@ -310,112 +301,3 @@
 
 /turf/open/floor/mineral/abductor/burn_tile()
 	return //unburnable
-
-/turf/open/floor/mineral/reagent
-	name = "reagent floor"
-	icon_state = "titanium_white"
-	floor_tile = /obj/item/stack/tile/mineral/reagent
-	icons = list("titanium_white","titanium_dam1")
-	var/datum/reagent/reagent_type
-	var/obj/effect/particle_effect/fakeholder
-
-/turf/open/floor/mineral/reagent/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature && !fakeholder)
-		fakeholder = new(get_turf(src))
-		fakeholder.create_reagents(50)
-		fakeholder.reagents.add_reagent(reagent_type.type, 50, reagtemp = exposed_temperature)
-		fakeholder.reagents.handle_reactions()
-		QDEL_IN(fakeholder, 150)
-
-	else if(exposed_temperature && fakeholder && !QDELETED(fakeholder))
-		fakeholder.reagents.chem_temp = exposed_temperature
-		fakeholder.reagents.handle_reactions()
-
-
-
-
-/turf/open/floor/mineral/reagent/proc/reagent_act(atom/A)
-	if(reagent_type)
-		reagent_type.expose_turf(src, TOUCH, 3)
-		if(prob(90))
-			if(isliving(A))
-				reagent_type.expose_mob(A, TOUCH, 3)
-			else if(isturf(A))
-				reagent_type.expose_turf(A, TOUCH, 3)
-			else if(isobj(A))
-				reagent_type.expose_obj(A, TOUCH, 3)
-		else if(reagent_type)
-			for(var/atom/AM in view(1, src))
-				if(isliving(AM))
-					reagent_type.expose_mob(AM, TOUCH, 3)
-				else if(isturf(AM))
-					reagent_type.expose_turf(AM, TOUCH, 3)
-				else if(isobj(AM))
-					reagent_type.expose_obj(AM, TOUCH, 3)
-
-
-/turf/open/floor/mineral/reagent/attack_hand(mob/user)
-	reagent_act(user)
-	..()
-
-/turf/open/floor/mineral/reagent/attack_paw(mob/user)
-	reagent_act(user)
-	..()
-
-/turf/open/floor/mineral/reagent/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	.=..()
-	if(!.)
-		reagent_act(arrived)
-
-/turf/open/floor/mineral/reagent/attackby(obj/item/I, mob/user, params)
-	var/hotness = I.get_temperature()
-	if(hotness)
-		temperature_expose(exposed_temperature = hotness)
-		to_chat(user, "<span class='warning'>You heat [src] with [I]!</span>")
-		message_admins("[src] of [reagent_type] was heated by [ADMIN_LOOKUPFLW(user)] with [I] in [ADMIN_VERBOSEJMP(src)]")
-		log_game("[src] of [reagent_type] was heated by [ADMIN_LOOKUPFLW(user)] with [I] in [AREACOORD(src)]")
-	..()
-
-/turf/open/floor/mineral/reagent/ex_act()
-	if(fakeholder && fakeholder.reagents && !QDELETED(fakeholder))
-		for(var/datum/reagent/R in fakeholder.reagents.reagent_list)
-			R.on_ex_act()
-	else
-		fakeholder = new(get_turf(src))
-		fakeholder.create_reagents(30)
-		fakeholder.reagents.add_reagent(reagent_type.type, 50)
-		for(var/datum/reagent/R in fakeholder.reagents.reagent_list)
-			R.on_ex_act()
-		fakeholder.reagents.handle_reactions()
-		QDEL_IN(fakeholder, 150)
-	..()
-
-/turf/open/floor/mineral/reagent/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
-	if(broken || burnt)
-		broken = FALSE
-		burnt = FALSE
-		if(user && !silent)
-			to_chat(user, "<span class='notice'>You remove the broken plating.</span>")
-	else
-		if(user && !silent)
-			to_chat(user, "<span class='notice'>You remove the floor tile.</span>")
-		if(floor_tile && make_tile)
-			var/obj/item/stack/tile/mineral/reagent/F = new floor_tile(src)
-			var/paths = subtypesof(/datum/reagent)
-			for(var/path in paths)
-				var/datum/reagent/RR = new path
-				if(RR.type == reagent_type.type)
-					F.reagent_type = RR
-					F.name ="[reagent_type] floor tiles"
-					F.singular_name = "[reagent_type] floor tile"
-					F.desc = "floor tiles made of [reagent_type]"
-					F.add_atom_colour(reagent_type.color, FIXED_COLOUR_PRIORITY)
-					break
-				else
-					qdel(RR)
-	return make_plating()
-
-/turf/open/floor/mineral/reagent/Destroy()
-	if(fakeholder)
-		QDEL_NULL(fakeholder)
-	return ..()

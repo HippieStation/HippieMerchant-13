@@ -33,8 +33,8 @@ COMMENDATION_PERCENT_POLL 0.05
 ## To speed things up make the number negative, to slow things down, make the number positive.
 
 ## These modify the run/walk speed of all mobs before the mob-specific modifiers are applied.
-RUN_DELAY 1.2
-WALK_DELAY 3.2
+RUN_DELAY 1.5
+WALK_DELAY 4
 
 ## The variables below affect the movement of specific mob types. THIS AFFECTS ALL SUBTYPES OF THE TYPE YOU CHOOSE!
 ## Entries completely override all subtypes. Later entries have precedence over earlier entries.
@@ -55,7 +55,7 @@ HUMANS_NEED_SURNAMES
 #FORCE_RANDOM_NAMES
 
 ## Unhash this to turn on automatic reopening of a player's job if they suicide at roundstart
-REOPEN_ROUNDSTART_SUICIDE_ROLES
+#REOPEN_ROUNDSTART_SUICIDE_ROLES
 
 ## Unhash to enable reopening of command level positions
 #REOPEN_ROUNDSTART_SUICIDE_ROLES_COMMAND_POSITIONS
@@ -63,7 +63,7 @@ REOPEN_ROUNDSTART_SUICIDE_ROLES
 ## Define the delay for roles to be reopened after the round starts in seconds.
 ## Has a minimum delay of 30 seconds, though it's suggested to keep over 1 min
 ## If undefined, the delay defaults to 4 minutes.
-REOPEN_ROUNDSTART_SUICIDE_ROLES_DELAY 600
+#REOPEN_ROUNDSTART_SUICIDE_ROLES_DELAY 240
 
 ## Unhash to enable a printed command report for reopened roles listing what roles were reopened.
 #REOPEN_ROUNDSTART_SUICIDE_ROLES_COMMAND_REPORT
@@ -77,118 +77,17 @@ ALERT_RED_UPTO There is an immediate serious threat to the station. Security may
 ALERT_RED_DOWNTO The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised.
 ALERT_DELTA Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.
 
-
+## The total weight of station goals possible for a round (allows multiple goals)
+STATION_GOAL_BUDGET 1
 
 ## GAME MODES ###
 
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
 #NO_INTERCEPT_REPORT
 
-## Probablities for game modes chosen in 'secret' and 'random' modes.
-## Default probablity is 1, increase to make that mode more likely to be picked.
-## Set to 0 to disable that mode.
-
-PROBABILITY TRAITOR 5
-PROBABILITY TRAITORBRO 2
-PROBABILITY TRAITORCHAN 4
-PROBABILITY INTERNAL_AFFAIRS 3
-PROBABILITY NUCLEAR 2
-PROBABILITY REVOLUTION 2
-PROBABILITY CULT 2
-PROBABILITY CHANGELING 2
-PROBABILITY WIZARD 4
-PROBABILITY MONKEY 0
-PROBABILITY METEOR 0
-PROBABILITY EXTENDED 0
-PROBABILITY SECRET_EXTENDED 0
-PROBABILITY CLOWNOPS 0
-
-## You probably want to keep sandbox off by default for secret and random.
-PROBABILITY SANDBOX 0
-
 ## Percent weight reductions for three of the most recent modes
 
 REPEATED_MODE_ADJUST 45 30 10
-
-## Toggles for continuous modes.
-## Modes that aren't continuous will end the instant all antagonists are dead.
-
-CONTINUOUS TRAITOR
-CONTINUOUS TRAITORBRO
-CONTINUOUS TRAITORCHAN
-CONTINUOUS INTERNAL_AFFAIRS
-#CONTINUOUS NUCLEAR
-#CONTINUOUS REVOLUTION
-CONTINUOUS CULT
-CONTINUOUS CHANGELING
-CONTINUOUS WIZARD
-#CONTINUOUS MONKEY
-
-##Note: do not toggle continuous off for these modes, as they have no antagonists and would thus end immediately!
-
-CONTINUOUS METEOR
-CONTINUOUS EXTENDED
-CONTINUOUS SECRET_EXTENDED
-
-
-## Toggles for allowing midround antagonists (aka mulligan antagonists).
-## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.
-
-MIDROUND_ANTAG TRAITOR
-#MIDROUND_ANTAG TRAITORBRO
-MIDROUND_ANTAG TRAITORCHAN
-MIDROUND_ANTAG INTERNAL_AFFAIRS
-#MIDROUND_ANTAG  NUCLEAR
-#MIDROUND_ANTAG  REVOLUTION
-MIDROUND_ANTAG CULT
-MIDROUND_ANTAG CHANGELING
-MIDROUND_ANTAG WIZARD
-#MIDROUND_ANTAG  MONKEY
-
-## Uncomment these for overrides of the minimum / maximum number of players in a round type.
-## If you set any of these occasionally check to see if you still need them as the modes
-## will still be actively rebalanced around the SUGGESTED populations, not your overrides.
-## Notes: For maximum number of players a value of -1 means no maximum. Setting minimums to
-## VERY low numbers (< 5) can lead to errors if the roundtypes were not designed for that.
-
-MIN_POP TRAITOR 0
-MAX_POP TRAITOR -1
-
-#MIN_POP TRAITORBRO 0
-#MAX_POP TRAITORBRO -1
-
-MIN_POP TRAITORCHAN 10
-#MAX_POP TRAITORCHAN -1
-
-#MIN_POP DOUBLE_AGENTS 25
-#MAX_POP DOUBLE_AGENTS -1
-
-#MIN_POP NUCLEAR 0
-#MAX_POP NUCLEAR -1
-
-MIN_POP REVOLUTION 15
-#MAX_POP REVOLUTION -1
-
-MIN_POP CULT 15
-#MAX_POP CULT -1
-
-MIN_POP CHANGELING 10
-#MAX_POP CHANGELING -1
-
-MIN_POP WIZARD 20
-#MAX_POP WIZARD -1
-
-#MIN_POP MONKEY 20
-#MAX_POP MONKEY -1
-
-#MIN_POP METEOR 0
-#MAX_POP METEOR -1
-
-## Setting at least one mode to be playable at 0/1 players is required.
-#MIN_POP EXTENDED 0
-#MAX_POP EXTENDED -1
-
-
 
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
@@ -218,16 +117,10 @@ PROTECT_ROLES_FROM_ANTAGONIST
 #PROTECT_ASSISTANT_FROM_ANTAGONIST
 
 ## If non-human species are barred from joining as a head of staff
-ENFORCE_HUMAN_AUTHORITY
+#ENFORCE_HUMAN_AUTHORITY
 
 ## If late-joining players have a chance to become a traitor/changeling
 ALLOW_LATEJOIN_ANTAGONISTS
-
-## The maximum amount of extra tickets a user may use from their ticket bank in addition to the default tickets
-MAX_TICKETS_PER_ROLL 100
-
-## Uncomment to allow players to see the set odds of different rounds in secret/random in the get server revision screen. This will NOT tell the current roundtype.
-#SHOW_GAME_TYPE_ODDS
 
 ## Uncomment to prevent the nuclear operative leader from getting the war declaration item
 #DISABLE_WAROPS
@@ -266,16 +159,15 @@ ALLOW_AI_MULTICAM
 
 ## AWAY MISSIONS ###
 
-## Uncomment to load the virtual reality hub map
-#VIRTUAL_REALITY
-
-## Uncomment to load one of the missions from awaymissionconfig.txt at roundstart.
+## Uncomment to load one of the missions from awaymissionconfig.txt or away_missions/ at roundstart.
 #ROUNDSTART_AWAY
 
 ## How long the delay is before the Away Mission gate opens. Default is half an hour.
 ## 600 is one minute.
 GATEWAY_DELAY 18000
 
+## The probability of the gateway mission being a config one
+CONFIG_GATEWAY_CHANCE 0
 
 ## ACCESS ###
 
@@ -297,10 +189,10 @@ MINIMAL_ACCESS_THRESHOLD 20
 #SECURITY_HAS_MAINT_ACCESS
 
 ## Uncomment to give everyone maint access.
-EVERYONE_HAS_MAINT_ACCESS
+#EVERYONE_HAS_MAINT_ACCESS
 
 ## Comment this out this to make security officers spawn in departmental security posts
-SEC_START_BRIG
+#SEC_START_BRIG
 
 
 ## GHOST INTERACTION ###
@@ -315,13 +207,6 @@ NEAR_DEATH_EXPERIENCE
 ## Uncomment these to stop the AI, or cyborgs, from having vocal communication.
 #SILENT_AI
 #SILENT_BORG
-
-## SANDBOX PANEL AUTOCLOSE ###
-## The sandbox panel's item spawning dialog now stays open even after you click an option.
-## If you find that your players are abusing the sandbox panel, this option may slow them down
-## without preventing people from using it properly.
-## Only functions in sandbox game mode.
-#SANDBOX_AUTOCLOSE
 
 ## ROUNDSTART SILICON LAWS ###
 ## This controls what the AI's laws are at the start of the round.
@@ -351,6 +236,7 @@ RANDOM_LAWS corporate
 #RANDOM_LAWS peacekeeper
 #RANDOM_LAWS reporter
 #RANDOM_LAWS hulkamania
+#RANDOM_LAWS ten_commandments
 
 ## Bad idea laws. Probably shouldn't enable these
 #RANDOM_LAWS syndie
@@ -383,6 +269,7 @@ LAW_WEIGHT liveandletlive,3
 LAW_WEIGHT peacekeeper,3
 LAW_WEIGHT reporter,4
 LAW_WEIGHT hulkamania,4
+LAW_WEIGHT ten_commandments,4
 
 ## Bad idea laws. Probably shouldn't enable these
 LAW_WEIGHT syndie,0
@@ -411,10 +298,13 @@ SILICON_MAX_LAW_AMOUNT 12
 ##-------------------------------------------------------------------------------------------
 ## Uncommenting races will allow them to be choosen at roundstart while join_with_muntant_race is on. You'll need at least one.
 
+## See code/__DEFINES/DNA.dm for more options than the ones below.
+
 ## You probably want humans on your space station, but technically speaking you can turn them off without any ill effect
 ROUNDSTART_RACES human
 
 ## Races that are strictly worse than humans that could probably be turned on without balance concerns
+ROUNDSTART_RACES felinid
 ROUNDSTART_RACES lizard
 #ROUNDSTART_RACES fly
 ROUNDSTART_RACES moth
@@ -422,23 +312,44 @@ ROUNDSTART_RACES plasmaman
 #ROUNDSTART_RACES shadow
 
 ## Races that are better than humans in some ways, but worse in others
-#ROUNDSTART_RACES ethereal
+ROUNDSTART_RACES ethereal
 #ROUNDSTART_RACES jelly
-#ROUNDSTART_RACES golem
-#ROUNDSTART_RACES adamantine
-#ROUNDSTART_RACES plasma
-#ROUNDSTART_RACES diamond
-#ROUNDSTART_RACES gold
-#ROUNDSTART_RACES silver
-#ROUNDSTART_RACES uranium
 #ROUNDSTART_RACES abductor
 #ROUNDSTART_RACES synth
+
+## Including all the various golem subtypes that are better than humans in some ways, but worse in others
+#ROUNDSTART_RACES iron_golem
+#ROUNDSTART_RACES adamantine_golem
+#ROUNDSTART_RACES plasma_golem
+#ROUNDSTART_RACES diamond_golem
+#ROUNDSTART_RACES gold_golem
+#ROUNDSTART_RACES silver_golem
+#ROUNDSTART_RACES uranium_golem
+#ROUNDSTART_RACES plasteel_golem
+#ROUNDSTART_RACES titanium_golem
+#ROUNDSTART_RACES plastitanium_golem
+#ROUNDSTART_RACES alloy_golem
+#ROUNDSTART_RACES wood_golem
+#ROUNDSTART_RACES sand_golem
+#ROUNDSTART_RACES glass_golem
+#ROUNDSTART_RACES bluespace_golem
+#ROUNDSTART_RACES bananium_golem
+#ROUNDSTART_RACES runic_golem
+#ROUNDSTART_RACES cloth_golem
+#ROUNDSTART_RACES plastic_golem
+#ROUNDSTART_RACES bronze_golem
+#ROUNDSTART_RACES cardboard_golem
+#ROUNDSTART_RACES leather_golem
+#ROUNDSTART_RACES durathread_golem
+#ROUNDSTART_RACES bone_golem
+#ROUNDSTART_RACES snow_golem
+#ROUNDSTART_RACES metallic_hydrogen_golem
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
 #ROUNDSTART_RACES skeleton
 #ROUNDSTART_RACES zombie
 #ROUNDSTART_RACES slime
-ROUNDSTART_RACES pod
+#ROUNDSTART_RACES pod
 #ROUNDSTART_RACES military_synth
 #ROUNDSTART_RACES agent
 
@@ -448,9 +359,6 @@ ROUNDSTART_RACES pod
 ## Races defined here will not cause existing characters to be reset to human if they currently have a non-roundstart species defined.
 #ROUNDSTART_NO_HARD_CHECK felinid
 
-## Uncomment to give players the choice of joining as a human with mutant bodyparts before they join the game
-#JOIN_WITH_MUTANT_HUMANS
-
 ##Overflow job. Default is assistant
 OVERFLOW_JOB Assistant
 
@@ -459,18 +367,10 @@ OVERFLOW_CAP -1
 
 ## Starlight for exterior walls and breaches. Uncomment for starlight!
 ## This is disabled by default to make testing quicker, should be enabled on production servers or testing servers messing with lighting
-STARLIGHT
+#STARLIGHT
 
 ## Uncomment to bring back old grey suit assistants instead of the now default rainbow colored assistants.
-GREY_ASSISTANTS
-
-## Midround Antag (aka Mulligan antag) config options ###
-
-## A time, in minutes, after which the midround antag system stops attempting to run and continuous rounds end immediately upon completion.
-MIDROUND_ANTAG_TIME_CHECK 60
-
-## A ratio of living to total crew members, the lower this is, the more people will have to die in order for midround antag to be skipped
-MIDROUND_ANTAG_LIFE_CHECK 0.7
+#GREY_ASSISTANTS
 
 ##Limit Spell Choices##
 ## Uncomment to disallow wizards from using certain spells that may be too chaotic/fun for your playerbase
@@ -522,7 +422,7 @@ ARRIVALS_SHUTTLE_DOCK_WINDOW 55
 
 ## How many wirechewing rodents you want to spawn on exposed maintenane wires at the start of the round. You may wish to set this to 0 if you're testing powernets.
 
-MICE_ROUNDSTART 0
+MICE_ROUNDSTART 10
 
 ## If the percentage of players alive (doesn't count conversions) drops below this threshold the emergency shuttle will be forcefully called (provided it can be)
 #EMERGENCY_SHUTTLE_AUTOCALL_THRESHOLD 0.2
@@ -532,10 +432,10 @@ MICE_ROUNDSTART 0
 ROUNDSTART_TRAITS
 
 ## Uncomment to disable human moods.
-DISABLE_HUMAN_MOOD
+#DISABLE_HUMAN_MOOD
 
 ## Enable night shifts ##
-ENABLE_NIGHT_SHIFTS
+#ENABLE_NIGHT_SHIFTS
 
 ## Enable randomized shift start times##
 #RANDOMIZE_SHIFT_TIME
@@ -551,3 +451,18 @@ RATCAP 64
 
 ## Maximum fine for a citation
 MAXFINE 2000
+
+## Which role is required of playtime to be eligible for Maintenance Drones
+## See code/__DEFINES/preferences.dm for available options, use the string portion without quotes
+#DRONE_REQUIRED_ROLE Silicon
+
+## How many played hours of DRONE_REQUIRED_ROLE required to be a Maintenance Done
+#DRONE_ROLE_PLAYTIME 14
+
+## Uncomment to enable SDQL spells
+## Warning: SDQL is a powerful tool and can break many things or expose security sensitive information.
+## Giving players access to it has major security concerns, be careful and deliberate when using this feature.
+#SDQL_SPELLS
+
+## Whether native FoV is enabled for all people.
+#NATIVE_FOV

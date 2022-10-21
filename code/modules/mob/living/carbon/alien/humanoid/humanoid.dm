@@ -31,9 +31,9 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/legcuffs,
 )))
 
-/mob/living/carbon/alien/humanoid/Initialize()
+/mob/living/carbon/alien/humanoid/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
+	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I)
@@ -46,9 +46,6 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 						span_danger("You break free of [pulledby]'s grip!"))
 	pulledby.stop_pulling()
 	. = 0
-
-/mob/living/carbon/alien/humanoid/get_permeability_protection(list/target_zones)
-	return 0.8
 
 /mob/living/carbon/alien/humanoid/alien_evolve(mob/living/carbon/alien/humanoid/new_xeno)
 	drop_all_held_items()

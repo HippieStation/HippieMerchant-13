@@ -35,7 +35,7 @@
 		if(HG.awakened)
 			graces++
 	if(!graces)
-		owner.apply_status_effect(STATUS_EFFECT_HISWRATH)
+		owner.apply_status_effect(/datum/status_effect/his_wrath)
 		qdel(src)
 		return
 	var/grace_heal = bloodlust * 0.05
@@ -210,22 +210,45 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
 	tick_interval = 25
-	examine_text = "<span class='notice'>They seem to have an aura of healing and helpfulness about them.</span>"
 	alert_type = null
+
+	var/datum/component/aura_healing/aura_healing
 	var/hand
 	var/deathTick = 0
 
 /datum/status_effect/hippocratic_oath/on_apply()
+	var/static/list/organ_healing = list(
+		ORGAN_SLOT_BRAIN = 1.4,
+	)
+
+	aura_healing = owner.AddComponent( \
+		/datum/component/aura_healing, \
+		range = 7, \
+		brute_heal = 1.4, \
+		burn_heal = 1.4, \
+		toxin_heal = 1.4, \
+		suffocation_heal = 1.4, \
+		stamina_heal = 1.4, \
+		clone_heal = 0.4, \
+		simple_heal = 1.4, \
+		organ_healing = organ_healing, \
+		healing_color = "#375637", \
+	)
+
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, HIPPOCRATIC_OATH_TRAIT)
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.add_hud_to(owner)
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.show_to(owner)
 	return ..()
 
 /datum/status_effect/hippocratic_oath/on_remove()
+	QDEL_NULL(aura_healing)
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, HIPPOCRATIC_OATH_TRAIT)
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.remove_hud_from(owner)
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.hide_from(owner)
+
+/datum/status_effect/hippocratic_oath/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] seem[owner.p_s()] to have an aura of healing and helpfulness about [owner.p_them()].")
 
 /datum/status_effect/hippocratic_oath/tick()
 	if(owner.stat == DEAD)
@@ -273,24 +296,6 @@
 			itemUser.adjustStaminaLoss(-1.5)
 			itemUser.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1.5)
 			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
-		//Heal all those around you, unbiased
-		for(var/mob/living/L in view(7, owner))
-			if(L.health < L.maxHealth)
-				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
-			if(iscarbon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
-				L.adjustToxLoss(-3.5, forced = TRUE) //Because Slime People are people too
-				L.adjustOxyLoss(-3.5)
-				L.adjustStaminaLoss(-3.5)
-				L.adjustOrganLoss(ORGAN_SLOT_BRAIN, -3.5)
-				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
-			else if(issilicon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
-			else if(isanimal(L))
-				var/mob/living/simple_animal/SM = L
-				SM.adjustHealth(-3.5, forced = TRUE)
 
 /datum/status_effect/hippocratic_oath/proc/consume_owner()
 	owner.visible_message(span_notice("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty."))
@@ -313,9 +318,9 @@
 
 /datum/status_effect/good_music/tick()
 	if(owner.can_hear())
-		owner.dizziness = max(0, owner.dizziness - 2)
-		owner.jitteriness = max(0, owner.jitteriness - 2)
-		owner.set_confusion(max(0, owner.get_confusion() - 1))
+		owner.adjust_timed_status_effect(-4 SECONDS, /datum/status_effect/dizziness)
+		owner.adjust_timed_status_effect(-4 SECONDS, /datum/status_effect/jitter)
+		owner.adjust_timed_status_effect(-1 SECONDS, /datum/status_effect/confusion)
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "goodmusic", /datum/mood_event/goodmusic)
 
 /atom/movable/screen/alert/status_effect/regenerative_core
@@ -343,21 +348,235 @@
 /datum/status_effect/regenerative_core/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, STATUS_EFFECT_TRAIT)
 
-/datum/status_effect/antimagic
-	id = "antimagic"
-	duration = 10 SECONDS
-	examine_text = "<span class='notice'>They seem to be covered in a dull, grey aura.</span>"
+/datum/status_effect/crucible_soul
+	id = "Blessing of Crucible Soul"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 15 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul
+	var/turf/location
 
-/datum/status_effect/antimagic/on_apply()
-	owner.visible_message(span_notice("[owner] is coated with a dull aura!"))
-	ADD_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
-	//glowing wings overlay
-	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, FALSE)
+/datum/status_effect/crucible_soul/on_apply()
+	to_chat(owner,span_notice("You phase through reality, nothing is out of bounds!"))
+	owner.alpha = 180
+	owner.pass_flags |= PASSCLOSEDTURF | PASSGLASS | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB | PASSDOORS | PASSVEHICLE
+	location = get_turf(owner)
+	return TRUE
+
+/datum/status_effect/crucible_soul/on_remove()
+	to_chat(owner,span_notice("You regain your physicality, returning you to your original location..."))
+	owner.alpha = initial(owner.alpha)
+	owner.pass_flags &= ~(PASSCLOSEDTURF | PASSGLASS | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB | PASSDOORS | PASSVEHICLE)
+	owner.forceMove(location)
+	location = null
+
+/datum/status_effect/crucible_soul/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] [owner.p_do()]n't seem to be all here.")
+
+/datum/status_effect/duskndawn
+	id = "Blessing of Dusk and Dawn"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 60 SECONDS
+	alert_type =/atom/movable/screen/alert/status_effect/duskndawn
+
+/datum/status_effect/duskndawn/on_apply()
+	ADD_TRAIT(owner, TRAIT_XRAY_VISION, STATUS_EFFECT_TRAIT)
+	owner.update_sight()
+	return TRUE
+
+/datum/status_effect/duskndawn/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_XRAY_VISION, STATUS_EFFECT_TRAIT)
+	owner.update_sight()
+
+/datum/status_effect/marshal
+	id = "Blessing of Wounded Soldier"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 60 SECONDS
+	tick_interval = 1 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/marshal
+
+/datum/status_effect/marshal/on_apply()
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, STATUS_EFFECT_TRAIT)
+	return TRUE
+
+/datum/status_effect/marshal/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, STATUS_EFFECT_TRAIT)
+
+/datum/status_effect/marshal/tick()
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/carbie = owner
+
+	for(var/BP in carbie.bodyparts)
+		var/obj/item/bodypart/part = BP
+		for(var/W in part.wounds)
+			var/datum/wound/wound = W
+			var/heal_amt = 0
+
+			switch(wound.severity)
+				if(WOUND_SEVERITY_MODERATE)
+					heal_amt = 1
+				if(WOUND_SEVERITY_SEVERE)
+					heal_amt = 3
+				if(WOUND_SEVERITY_CRITICAL)
+					heal_amt = 6
+			if(wound.wound_type == WOUND_BURN)
+				carbie.adjustFireLoss(-heal_amt)
+			else
+				carbie.adjustBruteLoss(-heal_amt)
+				carbie.blood_volume += carbie.blood_volume >= BLOOD_VOLUME_NORMAL ? 0 : heal_amt*3
+
+
+/atom/movable/screen/alert/status_effect/crucible_soul
+	name = "Blessing of Crucible Soul"
+	desc = "You phased through reality. You are halfway to your final destination..."
+	icon_state = "crucible"
+
+/atom/movable/screen/alert/status_effect/duskndawn
+	name = "Blessing of Dusk and Dawn"
+	desc = "Many things hide beyond the horizon. With Owl's help I managed to slip past Sun's guard and Moon's watch."
+	icon_state = "duskndawn"
+
+/atom/movable/screen/alert/status_effect/marshal
+	name = "Blessing of Wounded Soldier"
+	desc = "Some people seek power through redemption. One thing many people don't know is that battle \
+		is the ultimate redemption, and wounds let you bask in eternal glory."
+	icon_state = "wounded_soldier"
+
+/// Summons multiple foating knives around the owner.
+/// Each knife will block an attack straight up.
+/datum/status_effect/protective_blades
+	id = "Silver Knives"
+	alert_type = null
+	status_type = STATUS_EFFECT_MULTIPLE
+	tick_interval = -1
+	/// The number of blades we summon up to.
+	var/max_num_blades = 4
+	/// The radius of the blade's orbit.
+	var/blade_orbit_radius = 20
+	/// The time between spawning blades.
+	var/time_between_initial_blades = 0.25 SECONDS
+	/// If TRUE, we self-delete our status effect after all the blades are deleted.
+	var/delete_on_blades_gone = TRUE
+	/// A list of blade effects orbiting / protecting our owner
+	var/list/obj/effect/floating_blade/blades = list()
+
+/datum/status_effect/protective_blades/on_creation(
+	mob/living/new_owner,
+	new_duration = -1,
+	max_num_blades = 4,
+	blade_orbit_radius = 20,
+	time_between_initial_blades = 0.25 SECONDS,
+)
+
+	src.duration = new_duration
+	src.max_num_blades = max_num_blades
+	src.blade_orbit_radius = blade_orbit_radius
+	src.time_between_initial_blades = time_between_initial_blades
 	return ..()
 
-/datum/status_effect/antimagic/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
-	owner.visible_message(span_warning("[owner]'s dull aura fades away..."))
+/datum/status_effect/protective_blades/on_apply()
+	RegisterSignal(owner, COMSIG_HUMAN_CHECK_SHIELDS, .proc/on_shield_reaction)
+	for(var/blade_num in 1 to max_num_blades)
+		var/time_until_created = (blade_num - 1) * time_between_initial_blades
+		if(time_until_created <= 0)
+			create_blade()
+		else
+			addtimer(CALLBACK(src, .proc/create_blade), time_until_created)
+
+	return TRUE
+
+/datum/status_effect/protective_blades/on_remove()
+	UnregisterSignal(owner, COMSIG_HUMAN_CHECK_SHIELDS)
+	QDEL_LIST(blades)
+
+	return ..()
+
+/// Creates a floating blade, adds it to our blade list, and makes it orbit our owner.
+/datum/status_effect/protective_blades/proc/create_blade()
+	if(QDELETED(src) || QDELETED(owner))
+		return
+
+	var/obj/effect/floating_blade/blade = new(get_turf(owner))
+	blades += blade
+	blade.orbit(owner, blade_orbit_radius)
+	RegisterSignal(blade, COMSIG_PARENT_QDELETING, .proc/remove_blade)
+	playsound(get_turf(owner), 'sound/items/unsheath.ogg', 33, TRUE)
+
+/// Signal proc for [COMSIG_HUMAN_CHECK_SHIELDS].
+/// If we have a blade in our list, consume it and block the incoming attack (shield it)
+/datum/status_effect/protective_blades/proc/on_shield_reaction(
+	mob/living/carbon/human/source,
+	atom/movable/hitby,
+	damage = 0,
+	attack_text = "the attack",
+	attack_type = MELEE_ATTACK,
+	armour_penetration = 0,
+)
+	SIGNAL_HANDLER
+
+	if(!length(blades))
+		return
+
+	if(HAS_TRAIT(source, TRAIT_BEING_BLADE_SHIELDED))
+		return
+
+	ADD_TRAIT(source, TRAIT_BEING_BLADE_SHIELDED, type)
+
+	var/obj/effect/floating_blade/to_remove = blades[1]
+
+	playsound(get_turf(source), 'sound/weapons/parry.ogg', 100, TRUE)
+	source.visible_message(
+		span_warning("[to_remove] orbiting [source] snaps in front of [attack_text], blocking it before vanishing!"),
+		span_warning("[to_remove] orbiting you snaps in front of [attack_text], blocking it before vanishing!"),
+		span_hear("You hear a clink."),
+	)
+
+	qdel(to_remove)
+
+	addtimer(TRAIT_CALLBACK_REMOVE(source, TRAIT_BEING_BLADE_SHIELDED, type), 1)
+
+	return SHIELD_BLOCK
+
+/// Remove deleted blades from our blades list properly.
+/datum/status_effect/protective_blades/proc/remove_blade(obj/effect/floating_blade/to_remove)
+	SIGNAL_HANDLER
+
+	if(!(to_remove in blades))
+		CRASH("[type] called remove_blade() with a blade that was not in its blades list.")
+
+	to_remove.stop_orbit(owner.orbiters)
+	blades -= to_remove
+
+	if(!length(blades) && !QDELETED(src) && delete_on_blades_gone)
+		qdel(src)
+
+	return TRUE
+
+/// A subtype that doesn't self-delete / disappear when all blades are gone
+/// It instead regenerates over time back to the max after blades are consumed
+/datum/status_effect/protective_blades/recharging
+	delete_on_blades_gone = FALSE
+	/// The amount of time it takes for a blade to recharge
+	var/blade_recharge_time = 1 MINUTES
+
+/datum/status_effect/protective_blades/recharging/on_creation(
+	mob/living/new_owner,
+	new_duration = -1,
+	max_num_blades = 4,
+	blade_orbit_radius = 20,
+	time_between_initial_blades = 0.25 SECONDS,
+	blade_recharge_time = 1 MINUTES,
+)
+
+	src.blade_recharge_time = blade_recharge_time
+	return ..()
+
+/datum/status_effect/protective_blades/recharging/remove_blade(obj/effect/floating_blade/to_remove)
+	. = ..()
+	if(!.)
+		return
+
+	addtimer(CALLBACK(src, .proc/create_blade), blade_recharge_time)
 
 /datum/status_effect/lightningorb
 	id = "Lightning Orb"
@@ -427,126 +646,36 @@
 /datum/movespeed_modifier/status_speed_boost
 	multiplicative_slowdown = -1
 
-/datum/status_effect/miami
-	id = "miami"
-	tick_interval = 1
-	alert_type = /atom/movable/screen/alert/status_effect/miami
-	var/atom/cached_thrown_object
-	var/atom/movable/plane_master_controller/cached_game_plane_master_controller
+///this buff provides a max health buff and a heal.
+/datum/status_effect/limited_buff/health_buff
+	id = "health_buff"
+	alert_type = null
+	///This var stores the mobs max health when the buff was first applied, and determines the size of future buffs.database.database.
+	var/historic_max_health
+	///This var determines how large the health buff will be. health_buff_modifier * historic_max_health * stacks
+	var/health_buff_modifier = 0.1 //translate to a 10% buff over historic health per stack
+	///This modifier multiplies the healing by the effect.
+	var/healing_modifier = 2
+	///If the mob has a low max health, we instead use this flat value to increase max health and calculate any heal.
+	var/fragile_mob_health_buff = 10
 
-	var/elapsed_ticks = 0
-
-/datum/status_effect/miami/on_apply()
+/datum/status_effect/limited_buff/health_buff/on_creation(mob/living/new_owner)
+	historic_max_health = new_owner.maxHealth
 	. = ..()
-	RegisterSignal(owner,COMSIG_LIVING_INTERACTED_WITH_DOOR,.proc/bust_open)
-	RegisterSignal(owner,COMSIG_CARBON_THROW,.proc/throw_relay)
-	RegisterSignal(owner,COMSIG_MOB_ITEM_AFTERATTACK,.proc/basically_curbstomp)
-	RegisterSignal(owner.reagents, COMSIG_REAGENTS_ADD_REAGENT,.proc/react_to_meds)
 
-	cached_game_plane_master_controller = owner.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-
-	cached_game_plane_master_controller.add_filter("miami_blur",2,angular_blur_filter(0,0,0.25))
-
-/datum/status_effect/miami/tick()
+/datum/status_effect/limited_buff/health_buff/on_apply()
 	. = ..()
-	elapsed_ticks++
-	cached_game_plane_master_controller.remove_filter("miami")
-	var/list/color_matrix = list(rgb(max(sin(elapsed_ticks)*220,120),0,0) , rgb(0,max(sin(elapsed_ticks + 120)*220,120),0) , rgb(0,0,max(sin(elapsed_ticks - 120)*220,120)))
-	cached_game_plane_master_controller.add_filter("miami",1,color_matrix_filter(color_matrix))
-	owner.hallucination = min(owner.hallucination + 1 , 12)
+	var/health_increase = round(max(fragile_mob_health_buff, historic_max_health * health_buff_modifier))
+	owner.maxHealth += health_increase
+	owner.balloon_alert_to_viewers("health buffed")
+	to_chat(owner, span_nicegreen("You feel healthy, like if your body is little stronger than it was a moment ago."))
 
-/datum/status_effect/miami/on_remove()
-	cached_game_plane_master_controller.remove_filter("miami_blur")
-	cached_game_plane_master_controller.remove_filter("miami")
-	SEND_SIGNAL(owner,COMSIG_MIAMI_CURED_DISORDER)
-	return ..()
+	if(isanimal(owner))	//dumb animals have their own proc for healing.
+		var/mob/living/simple_animal/healthy_animal = owner
+		healthy_animal.adjustHealth(-(health_increase * healing_modifier))
+	else
+		owner.adjustBruteLoss(-(health_increase * healing_modifier))
 
-/datum/status_effect/miami/proc/bust_open(datum/source,obj/machinery/door/door,destination_state)
-	SIGNAL_HANDLER
-
-	owner.do_attack_animation(door)
-
-	var/direction = get_dir(owner,door)
-
-	var/turf/turf_in_direction = get_step(door,direction)
-
-	for(var/mob/living/carbon/carbie in turf_in_direction)
-		carbie.Knockdown(5 SECONDS)
-
-
-/datum/status_effect/miami/proc/throw_relay(datum/source,atom/target,atom/thrown_thing)
-	SIGNAL_HANDLER
-	cached_thrown_object = thrown_thing
-	if(isliving(thrown_thing))
-		RegisterSignal(thrown_thing,COMSIG_MOVABLE_IMPACT,.proc/mob_throw_knockdown)
-
-	if(isitem(thrown_thing))
-		RegisterSignal(thrown_thing,COMSIG_MOVABLE_IMPACT,.proc/item_throw_knockdown)
-
-/datum/status_effect/miami/proc/item_throw_knockdown(datum/source,atom/hit_atom, datum/thrownthing/throwingdatum)
-	SIGNAL_HANDLER
-	UnregisterSignal(cached_thrown_object,COMSIG_MOVABLE_THROW_LANDED)
-
-	if(!iscarbon(hit_atom))
-		return
-
-	var/obj/item/this_item = source
-
-	if(this_item.w_class < WEIGHT_CLASS_NORMAL)
-		return
-
-	var/mob/living/carbon/carbie_hit = hit_atom
-
-	carbie_hit.Knockdown(3 SECONDS)
-
-/datum/status_effect/miami/proc/mob_throw_knockdown(datum/source,atom/hit_atom, datum/thrownthing/throwingdatum)
-	SIGNAL_HANDLER
-	UnregisterSignal(cached_thrown_object,COMSIG_MOVABLE_THROW_LANDED)
-
-	if(!iscarbon(hit_atom))
-		return
-
-	var/mob/living/this_mob = source
-
-	if(this_mob.mob_size < MOB_SIZE_HUMAN)
-		return
-
-	var/mob/living/carbon/carbie_hit = hit_atom
-
-	carbie_hit.Knockdown(4 SECONDS)
-
-/datum/status_effect/miami/proc/basically_curbstomp(atom/target, obj/item/weapon, proximity_flag, click_parameters)
-	SIGNAL_HANDLER
-	if(!proximity_flag)
-		return
-
-	if(!isliving(target))
-		return
-
-	var/mob/living/living_target = target
-
-	if(!living_target.IsKnockdown())
-		return
-	INVOKE_ASYNC(src,.proc/continue_with_stomping,weapon,target,click_parameters)
-	living_target.AdjustKnockdown(1 SECONDS)
-
-/datum/status_effect/miami/proc/continue_with_stomping(obj/item/weapon,atom/target,click_parameters)
-	weapon.attack(target,owner,click_parameters)
-
-
-/datum/status_effect/miami/proc/react_to_meds(datum/source,datum/reagent/reagent , amount, reagtemp, data, no_react)
-	SIGNAL_HANDLER
-
-	if(!istype(reagent,/datum/reagent/medicine/haloperidol) && !istype(reagent, /datum/reagent/medicine/psicodine))
-		return
-	//15u syringe stuns for 3 seconds, 5u pill drops you for 1 second, BS syringe will drop you for 12 seconds
-	owner.Paralyze((amount / 5) SECONDS)
-
-	owner.remove_status_effect(type)
-
-	owner.drop_all_held_items()
-
-/atom/movable/screen/alert/status_effect/miami
-	name = "THE KILLING NEVER STOPS"
-	desc = "Do you like hurting other people?"
-	icon_state = "miami"
+/datum/status_effect/limited_buff/health_buff/maxed_out()
+	. = ..()
+	to_chat(owner, span_warning("You don't feel any healthier."))

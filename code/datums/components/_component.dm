@@ -72,7 +72,9 @@
  * * silent - deletes the component without sending a [COMSIG_COMPONENT_REMOVING] signal
  */
 /datum/component/Destroy(force=FALSE, silent=FALSE)
-	if(!force && parent)
+	if(!parent)
+		return ..()
+	if(!force)
 		_RemoveFromParent()
 	if(!silent)
 		SEND_SIGNAL(parent, COMSIG_COMPONENT_REMOVING, src)
@@ -121,20 +123,24 @@
  * Internal proc to handle behaviour when being removed from a parent
  */
 /datum/component/proc/_RemoveFromParent()
-	var/datum/P = parent
-	var/list/dc = P.datum_components
+	var/datum/parent = src.parent
+	var/list/parents_components = parent.datum_components
 	for(var/I in _GetInverseTypeList())
-		var/list/components_of_type = dc[I]
+		var/list/components_of_type = parents_components[I]
+
 		if(length(components_of_type)) //
 			var/list/subtracted = components_of_type - src
+
 			if(subtracted.len == 1) //only 1 guy left
-				dc[I] = subtracted[1] //make him special
+				parents_components[I] = subtracted[1] //make him special
 			else
-				dc[I] = subtracted
+				parents_components[I] = subtracted
+
 		else //just us
-			dc -= I
-	if(!dc.len)
-		P.datum_components = null
+			parents_components -= I
+
+	if(!parents_components.len)
+		parent.datum_components = null
 
 	UnregisterFromParent()
 
@@ -214,8 +220,6 @@
  * * sig_typeor_types Signal string key or list of signal keys to stop listening to specifically
  */
 /datum/proc/UnregisterSignal(datum/target, sig_type_or_types)
-	if(!target)
-		return //why was there not a check for this
 	var/list/lookup = target.comp_lookup
 	if(!signal_procs || !signal_procs[target] || !lookup)
 		return
@@ -377,12 +381,10 @@
  * * c_type The component type path
  */
 /datum/proc/GetComponents(c_type)
-	var/list/dc = datum_components
-	if(!dc)
-		return null
-	. = dc[c_type]
-	if(!length(.))
-		return list(.)
+	var/list/components = datum_components?[c_type]
+	if(!components)
+		return list()
+	return islist(components) ? components : list(components)
 
 /**
  * Creates an instance of `new_type` in the datum and attaches to it as parent
@@ -417,7 +419,7 @@
 
 	raw_args[1] = src
 
-	if(dm != COMPONENT_DUPE_ALLOWED)
+	if(dm != COMPONENT_DUPE_ALLOWED && dm != COMPONENT_DUPE_SELECTIVE)
 		if(!dt)
 			old_comp = GetExactComponent(nt)
 		else
@@ -443,19 +445,19 @@
 						old_comp.InheritComponent(arglist(arguments))
 					else
 						old_comp.InheritComponent(new_comp, TRUE)
-				if(COMPONENT_DUPE_SELECTIVE)
-					var/list/arguments = raw_args.Copy()
-					arguments[1] = new_comp
-					var/make_new_component = TRUE
-					for(var/datum/component/existing_component as anything in GetComponents(new_type))
-						if(existing_component.CheckDupeComponent(arglist(arguments)))
-							make_new_component = FALSE
-							QDEL_NULL(new_comp)
-							break
-					if(!new_comp && make_new_component)
-						new_comp = new nt(raw_args)
 		else if(!new_comp)
 			new_comp = new nt(raw_args) // There's a valid dupe mode but there's no old component, act like normal
+	else if(dm == COMPONENT_DUPE_SELECTIVE)
+		var/list/arguments = raw_args.Copy()
+		arguments[1] = new_comp
+		var/make_new_component = TRUE
+		for(var/datum/component/existing_component as anything in GetComponents(new_type))
+			if(existing_component.CheckDupeComponent(arglist(arguments)))
+				make_new_component = FALSE
+				QDEL_NULL(new_comp)
+				break
+		if(!new_comp && make_new_component)
+			new_comp = new nt(raw_args)
 	else if(!new_comp)
 		new_comp = new nt(raw_args) // Dupes are allowed, act like normal
 
@@ -480,8 +482,9 @@
 
 /**
  * Removes the component from parent, ends up with a null parent
+ * Used as a helper proc by the component transfer proc, does not clean up the component like Destroy does
  */
-/datum/component/proc/RemoveComponent()
+/datum/component/proc/ClearFromParent()
 	if(!parent)
 		return
 	var/datum/old_parent = parent
@@ -502,7 +505,7 @@
 	if(!target || target.parent == src)
 		return
 	if(target.parent)
-		target.RemoveComponent()
+		target.ClearFromParent()
 	target.parent = src
 	var/result = target.PostTransfer()
 	switch(result)

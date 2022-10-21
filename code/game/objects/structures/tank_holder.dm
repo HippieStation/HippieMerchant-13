@@ -17,7 +17,7 @@
 	/// The stored tank. If this is a path, it gets created into contents at Initialize.
 	var/obj/item/tank
 
-/obj/structure/tank_holder/Initialize()
+/obj/structure/tank_holder/Initialize(mapload)
 	. = ..()
 	if(tank)
 		var/obj/item/tank_ = new tank(null)
@@ -43,11 +43,11 @@
 	. += span_notice("It is held together by some <b>screws</b>.")
 
 /obj/structure/tank_holder/attackby(obj/item/W, mob/living/user, params)
-	if(user.istate.harm)
+	if(user.combat_mode)
 		return ..()
 	if(W.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You begin to [anchored ? "unwrench" : "wrench"] [src]."))
-		if(W.use_tool(src, user, volume=50))
+		if(W.use_tool(src, user, 20, volume=50))
 			to_chat(user, span_notice("You successfully [anchored ? "unwrench" : "wrench"] [src]."))
 			set_anchored(!anchored)
 	else if(!SEND_SIGNAL(W, COMSIG_CONTAINER_TRY_ATTACH, src, user))
@@ -74,7 +74,7 @@
 /obj/structure/tank_holder/attack_paw(mob/user, list/modifiers)
 	return attack_hand(user, modifiers)
 
-/obj/structure/tank_holder/attack_hand(mob/user)
+/obj/structure/tank_holder/attack_hand(mob/user, list/modifiers)
 	if(!tank)
 		return ..()
 	if(!Adjacent(user) || issilicon(user))

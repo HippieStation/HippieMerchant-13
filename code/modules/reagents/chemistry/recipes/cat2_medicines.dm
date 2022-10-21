@@ -22,6 +22,19 @@
 	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE
 
+/datum/chemical_reaction/medicine/helbital/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
+	explode_fire_vortex(holder, equilibrium, 1, 1, "impure")
+	holder.chem_temp += 2.5
+	var/datum/reagent/helbital = holder.get_reagent(/datum/reagent/medicine/c2/helbital)
+	if(!helbital)
+		return
+	if(helbital.purity <= 0.25)
+		if(prob(25))
+			new /obj/effect/hotspot(holder.my_atom.loc)
+			holder.remove_reagent(/datum/reagent/medicine/c2/helbital, 2)
+			holder.chem_temp += 5
+			holder.my_atom.audible_message(span_notice("[icon2html(holder.my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))] The impurity of the reacting helbital is too great causing [holder.my_atom] to let out a hearty burst of flame, evaporating part of the product!"))
+
 /datum/chemical_reaction/medicine/helbital/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
 	. = ..()//drains product
 	explode_fire_vortex(holder, equilibrium, 2, 2, "overheat", TRUE)
@@ -184,6 +197,14 @@
 	else
 		explode_shockwave(holder, equilibrium, range, damage = 2)
 
+/datum/chemical_reaction/medicine/convermol/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
+	. = ..()
+	overheated(holder, equilibrium, impure = TRUE)
+	if(holder.has_reagent(/datum/reagent/oxygen))
+		clear_reactants(holder, step_volume_added*2)
+	else
+		clear_reactants(holder)
+
 
 /datum/chemical_reaction/medicine/tirimol
 	results = list(/datum/reagent/medicine/c2/tirimol = 5)
@@ -223,6 +244,11 @@
 	else
 		explode_invert_smoke(holder, equilibrium, 3)
 
+/datum/chemical_reaction/medicine/tirimol/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
+	. = ..()
+	overheated(holder, equilibrium, TRUE)
+	clear_reactants(holder, 2)
+
 /*****TOX*****/
 //These all care about purity in their reactions
 
@@ -245,6 +271,7 @@
 	purity_min = 0.2
 	reaction_flags = REACTION_PH_VOL_CONSTANT | REACTION_CLEAR_INVERSE
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN
+
 /datum/chemical_reaction/medicine/multiver
 	results = list(/datum/reagent/medicine/c2/multiver = 2)
 	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/consumable/salt = 1)
@@ -252,16 +279,15 @@
 	required_temp = 380
 	optimal_temp = 400
 	overheat_temp = 410
-	optimal_ph_min = 2.5
-	optimal_ph_max = 7
+	optimal_ph_min = 5
+	optimal_ph_max = 9.5
 	determin_ph_range = 4
-	temp_exponent_factor = 0.5
+	temp_exponent_factor = 0.1
 	ph_exponent_factor = 1
 	thermic_constant = 0
-	H_ion_release = 0
-	rate_up_lim = 25
+	H_ion_release = 0.015
+	rate_up_lim = 10
 	purity_min = 0.1 //Fire is our worry for now
-	reaction_flags = REACTION_REAL_TIME_SPLIT | REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_PLANT | REACTION_TAG_TOXIN
 
 //You get nothing! I'm serious about staying under the heating requirements!
@@ -333,3 +359,7 @@
 		explode_shockwave(holder, equilibrium, 3, 2, implosion = TRUE)
 		playsound(holder.my_atom, 'sound/health/slowbeat.ogg', 50, 1)
 	explode_fire_vortex(holder, equilibrium, 1, 1)
+
+//enabling hardmode
+/datum/chemical_reaction/medicine/penthrite/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
+	holder.chem_temp += 15

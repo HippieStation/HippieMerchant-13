@@ -7,7 +7,7 @@
 	shaded_charge = TRUE
 	can_flashlight = TRUE
 	w_class = WEIGHT_CLASS_HUGE
-	flags_1 =  CONDUCT_1
+	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	flight_x_offset = 17
@@ -22,7 +22,6 @@
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT
-	pin = null
 	flight_x_offset = 18
 	flight_y_offset = 11
 
@@ -31,7 +30,6 @@
 	desc = "A gun that discharges high amounts of controlled radiation to slowly break a target into component elements."
 	icon_state = "decloner"
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
-	pin = null
 	ammo_x_offset = 1
 
 /obj/item/gun/energy/decloner/update_overlays()
@@ -87,40 +85,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
 
-/obj/item/gun/energy/kinetic_accelerator/crossbow
-	name = "mini energy crossbow"
-	desc = "A weapon favored by syndicate stealth specialists."
-	icon_state = "crossbow"
-	inhand_icon_state = "crossbow"
-	w_class = WEIGHT_CLASS_SMALL
-	custom_materials = list(/datum/material/iron=2000)
-	suppressed = TRUE
-	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
-	weapon_weight = WEAPON_LIGHT
-	obj_flags = 0
-	overheat_time = 20
-	holds_charge = TRUE
-	unique_frequency = TRUE
-	can_flashlight = FALSE
-	max_mod_capacity = 0
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/halloween
-	name = "candy corn crossbow"
-	desc = "A weapon favored by Syndicate trick-or-treaters."
-	icon_state = "crossbow_halloween"
-	inhand_icon_state = "crossbow"
-	ammo_type = list(/obj/item/ammo_casing/energy/bolt/halloween)
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/large
-	name = "energy crossbow"
-	desc = "A reverse engineered weapon using syndicate technology."
-	icon_state = "crossbowlarge"
-	w_class = WEIGHT_CLASS_BULKY
-	custom_materials = list(/datum/material/iron=4000)
-	suppressed = null
-	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
-	pin = null
-
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"
 	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off xenos! Or, you know, mine stuff."
@@ -167,6 +131,16 @@
 	else
 		..()
 
+/obj/item/gun/energy/plasmacutter/emp_act(severity)
+	if(!cell.charge)
+		return
+	cell.use(cell.charge/3)
+	if(isliving(loc))
+		var/mob/living/user = loc
+		user.visible_message(span_danger("Concentrated plasma discharges from [src] onto [user], burning them!"), span_userdanger("[src] malfunctions, spewing concentrated plasma onto you! It burns!"))
+		user.adjust_fire_stacks(4)
+		user.ignite_mob()
+
 // Can we weld? Plasma cutter does not use charge continuously.
 // Amount cannot be defaulted to 1: most of the code specifies 0 in the call.
 /obj/item/gun/energy/plasmacutter/tool_use_check(mob/living/user, amount)
@@ -198,10 +172,14 @@
 	force = 15
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 
+#define AMMO_SELECT_BLUE 1
+#define AMMO_SELECT_ORANGE 2
+
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams. Requires a bluespace anomaly core to function. Fits in a bag."
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
+	can_select = FALSE // left-click for blue, right-click for orange.
 	w_class = WEIGHT_CLASS_NORMAL
 	inhand_icon_state = null
 	icon_state = "wormhole_projector"
@@ -209,8 +187,11 @@
 	automatic_charge_overlays = FALSE
 	var/obj/effect/portal/p_blue
 	var/obj/effect/portal/p_orange
-	var/atmos_link = FALSE
 	var/firing_core = FALSE
+
+/obj/item/gun/energy/wormhole_projector/examine(mob/user)
+	. = ..()
+	. += span_notice("<b>Left-click</b> to fire blue wormholes and <b><font color=orange>right-click</font></b> to fire orange wormholes.")
 
 /obj/item/gun/energy/wormhole_projector/attackby(obj/item/C, mob/user)
 	if(istype(C, /obj/item/assembly/signaler/anomaly/bluespace))
@@ -243,9 +224,16 @@
 			if(istype(WH))
 				WH.gun = WEAKREF(src)
 
-/obj/item/gun/energy/wormhole_projector/process_chamber()
-	..()
-	select_fire()
+/obj/item/gun/energy/wormhole_projector/afterattack(atom/target, mob/living/user, flag, params)
+	if(select == AMMO_SELECT_ORANGE) //Last fired in right click mode. Switch to blue wormhole (left click).
+		select_fire()
+	return ..()
+
+/obj/item/gun/energy/wormhole_projector/afterattack_secondary(atom/target, mob/living/user, flag, params)
+	if(select == AMMO_SELECT_BLUE) //Last fired in left click mode. Switch to orange wormhole (right click).
+		select_fire()
+	fire_gun(target, user, flag, params)
+	return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 /obj/item/gun/energy/wormhole_projector/proc/on_portal_destroy(obj/effect/portal/P)
 	SIGNAL_HANDLER
@@ -277,7 +265,7 @@
 	p_blue.link_portal(p_orange)
 
 /obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/projectile/beam/wormhole/W, turf/target)
-	var/obj/effect/portal/P = new /obj/effect/portal(target, 300, null, FALSE, null, atmos_link)
+	var/obj/effect/portal/P = new /obj/effect/portal(target, 300, null, FALSE, null)
 	RegisterSignal(P, COMSIG_PARENT_QDELETING, .proc/on_portal_destroy)
 	if(istype(W, /obj/projectile/beam/wormhole/orange))
 		qdel(p_orange)
@@ -290,6 +278,9 @@
 
 /obj/item/gun/energy/wormhole_projector/core_inserted
 	firing_core = TRUE
+
+#undef AMMO_SELECT_BLUE
+#undef AMMO_SELECT_ORANGE
 
 /* 3d printer 'pseudo guns' for borgs */
 
@@ -356,10 +347,9 @@
 	inhand_icon_state = "tesla"
 	desc = "A gun that shoots balls of \"tesla\", whatever that is."
 	ammo_type = list(/obj/item/ammo_casing/energy/tesla_cannon)
-	pin = null
 	shaded_charge = TRUE
 	weapon_weight = WEAPON_HEAVY
 
-/obj/item/gun/energy/tesla_cannon/Initialize()
+/obj/item/gun/energy/tesla_cannon/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/automatic_fire, 0.1 SECONDS)

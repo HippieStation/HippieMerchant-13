@@ -1,0 +1,1 @@
+[2022-05-30 08:18:50.009] There are 13 active turfs at roundstart caused by a difference of the air between the adjacent turfs. To locate these active turfs, go into the "Debug" tab of your stat-panel. Then hit the verb that says "Mapping Verbs - Enable". Now, you can see all of the associated coordinates using "Mapping -> Show roundstart AT list" verb.

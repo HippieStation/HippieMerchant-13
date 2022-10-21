@@ -32,18 +32,20 @@
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/action/innate/dash/ninja/jaunt
 
-/obj/item/energy_katana/Initialize()
+/obj/item/energy_katana/Initialize(mapload)
 	. = ..()
 	jaunt = new(src)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-/obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 
-	if(user.istate.secondary && !target.density)
-		jaunt.Teleport(user, target)
+	var/list/modifiers = params2list(click_parameters)
+
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !target.density)
+		jaunt.teleport(user, target)
 
 /obj/item/energy_katana/pickup(mob/living/user)
 	. = ..()
@@ -91,7 +93,7 @@
 
 	if(doSpark)
 		spark_system.start()
-		playsound(get_turf(src), "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(get_turf(src), SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	var/msg = ""
 

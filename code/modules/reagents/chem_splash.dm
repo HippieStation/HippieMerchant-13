@@ -4,9 +4,6 @@
 // Threatscale is a multiplier for the 'threat' of the grenade. If you're increasing the affected range drastically, you might want to improve this.
 // Extra heat affects the temperature of the mixture, and may cause it to react in different ways.
 
-
-//can you believe some guy over on tg rewrote all this code just to make BP grenades work again
-
 /**
  * The basic chemical bomb proc.
  * Combines a set of reagent holders into one holder and reacts it.
@@ -25,6 +22,7 @@
 /proc/chem_splash(turf/epicenter, datum/reagents/holder = null, affected_range = 3, list/datum/reagents/reactants = list(), extra_heat = 0, threatscale = 1, adminlog = 1)
 	if(!isturf(epicenter) || !reactants.len || threatscale <= 0)
 		return
+
 	var/total_reagents = holder?.total_volume
 	var/maximum_reagents = holder?.maximum_volume
 	for(var/datum/reagents/reactant in reactants)

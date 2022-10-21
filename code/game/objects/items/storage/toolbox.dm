@@ -1,6 +1,7 @@
 /obj/item/storage/toolbox
 	name = "toolbox"
 	desc = "Danger. Very robust."
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "toolbox_default"
 	inhand_icon_state = "toolbox_default"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
@@ -16,17 +17,30 @@
 	attack_verb_simple = list("robust")
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
-	material_flags = MATERIAL_COLOR
+	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
+	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
+	var/latches = "single_latch"
+	var/has_latches = TRUE
 	wound_bonus = 5
 
-/obj/item/storage/toolbox/Initialize()
+/obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()
+	if(has_latches)
+		if(prob(10))
+			latches = "double_latch"
+			if(prob(1))
+				latches = "triple_latch"
 	update_appearance()
 
 /obj/item/storage/toolbox/update_overlays()
 	. = ..()
+	if(has_latches)
+		. += latches
 
+/obj/item/storage/toolbox/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/toolbox/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] robusts [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -53,7 +67,9 @@
 
 /obj/item/storage/toolbox/emergency/old
 	name = "rusty red toolbox"
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "toolbox_red_old"
+	has_latches = FALSE
 	material_flags = NONE
 
 /obj/item/storage/toolbox/mechanical
@@ -74,33 +90,38 @@
 
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty blue toolbox"
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "toolbox_blue_old"
+	has_latches = FALSE
 	has_soul = TRUE
 
-/obj/item/storage/toolbox/mechanical/old/empty
-	name = "toolbox"
-	icon_state = "oldtoolboxclean"
-
-/obj/item/storage/toolbox/mechanical/old/empty/PopulateContents()
-	return
-
-/obj/item/storage/toolbox/mechanical/old/empty/heirloom
+/obj/item/storage/toolbox/mechanical/old/heirloom
 	name = "toolbox" //this will be named "X family toolbox"
 	desc = "It's seen better days."
 	force = 5
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/storage/toolbox/mechanical/old/heirloom/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/storage/toolbox/mechanical/old/heirloom/PopulateContents()
+	return
+
 /obj/item/storage/toolbox/mechanical/old/clean // the assistant traitor toolbox, damage scales with TC inside
 	name = "toolbox"
 	desc = "An old, blue toolbox, it looks robust."
 	icon_state = "oldtoolboxclean"
+	inhand_icon_state = "toolbox_blue"
+	has_latches = FALSE
 	force = 19
 	throwforce = 22
 
 /obj/item/storage/toolbox/mechanical/old/clean/proc/calc_damage()
 	var/power = 0
-	for (var/obj/item/stack/telecrystal/TC in GetAllContents())
-		power += TC.amount
+	for (var/obj/item/stack/telecrystal/stored_crystals in get_all_contents())
+		power += (stored_crystals.amount / 2)
 	force = 19 + power
 	throwforce = 22 + power
 
@@ -206,11 +227,15 @@
 
 /obj/item/storage/toolbox/ammo
 	name = "ammo box"
+	icon = 'icons/obj/storage.dmi'
 	desc = "It contains a few clips."
 	icon_state = "ammobox"
 	inhand_icon_state = "ammobox"
+	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
+	has_latches = FALSE
 	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
-	pickup_sound =  'sound/items/handling/ammobox_pickup.ogg'
+	pickup_sound = 'sound/items/handling/ammobox_pickup.ogg'
 
 /obj/item/storage/toolbox/ammo/PopulateContents()
 	new /obj/item/ammo_box/a762(src)
@@ -223,9 +248,11 @@
 
 /obj/item/storage/toolbox/maint_kit
 	name = "gun maintenance kit"
+	icon = 'icons/obj/storage.dmi'
 	desc = "It contains some gun maintenance supplies"
 	icon_state = "maint_kit"
 	inhand_icon_state = "ammobox"
+	has_latches = FALSE
 	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
 	pickup_sound = 'sound/items/handling/ammobox_pickup.ogg'
 
@@ -236,12 +263,16 @@
 
 /obj/item/storage/toolbox/infiltrator
 	name = "insidious case"
+	icon = 'icons/obj/storage.dmi'
 	desc = "Bearing the emblem of the Syndicate, this case contains a full infiltrator stealth suit, and has enough room to fit weaponry if necessary."
 	icon_state = "infiltrator_case"
 	inhand_icon_state = "infiltrator_case"
+	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	force = 15
 	throwforce = 18
 	w_class = WEIGHT_CLASS_NORMAL
+	has_latches = FALSE
 
 /obj/item/storage/toolbox/infiltrator/ComponentInitialize()
 	. = ..()

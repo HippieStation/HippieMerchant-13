@@ -10,7 +10,9 @@
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/organ_flags = ORGAN_EDIBLE
 	var/maxHealth = STANDARD_ORGAN_THRESHOLD
-	var/damage = 0 //total damage this organ has sustained
+	/// Total damage this organ has sustained
+	/// Should only ever be modified by applyOrganDamage
+	var/damage = 0
 	///Healing factor and decay factor function on % of maxhealth, and do not work by applying a static number per tick
 	var/healing_factor = 0 //fraction of maxhealth healed per on_life(), set to 0 for generic organs
 	var/decay_factor = 0 //same as above but when without a living owner, set to 0 for generic organs
@@ -33,9 +35,18 @@
 	var/reagent_vol = 10
 
 	var/failure_time = 0
+	///Do we effect the appearance of our mob. Used to save time in preference code
+	var/visual = TRUE
 
-/obj/item/organ/Initialize()
+// Players can look at prefs before atoms SS init, and without this
+// they would not be able to see external organs, such as moth wings.
+// This is also necessary because assets SS is before atoms, and so
+// any nonhumans created in that time would experience the same effect.
+INITIALIZE_IMMEDIATE(/obj/item/organ)
+
+/obj/item/organ/Initialize(mapload)
 	. = ..()
+	START_PROCESSING(SSobj, src)
 	if(organ_flags & ORGAN_EDIBLE)
 		AddComponent(/datum/component/edible,\
 			initial_reagents = food_reagents,\
@@ -65,8 +76,7 @@
 	SEND_SIGNAL(reciever, COMSIG_CARBON_GAIN_ORGAN, src, special)
 
 	owner = reciever
-	reciever.internal_organs |= src
-	reciever.internal_organs_slot[slot] = src
+	reciever.slot_in_organ(src, slot)
 	moveToNullspace()
 	RegisterSignal(owner, COMSIG_PARENT_EXAMINE, .proc/on_owner_examine)
 	for(var/datum/action/action as anything in actions)
@@ -114,6 +124,10 @@
 		return
 	applyOrganDamage(decay_factor * maxHealth * delta_time)
 
+/// Called once every life tick on every organ in a carbon's body
+/// NOTE: THIS IS VERY HOT. Be careful what you put in here
+/// To give you some scale, if there's 100 carbons in the game, they each have maybe 9 organs
+/// So that's 900 calls to this proc every life process. Please don't be dumb
 /obj/item/organ/proc/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
 	if(organ_flags & ORGAN_FAILING)
 		handle_failing_organs(delta_time)
@@ -125,6 +139,10 @@
 	if(organ_flags & ORGAN_SYNTHETIC_EMP) //Synthetic organ has been emped, is now failing.
 		applyOrganDamage(decay_factor * maxHealth * delta_time)
 		return
+
+	if(!damage) // No sense healing if you're not even hurt bro
+		return
+
 	///Damage decrements by a percent of its maxhealth
 	var/healing_amount = healing_factor
 	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
@@ -146,9 +164,13 @@
 	if(damage > high_threshold)
 		. += span_warning("[src] is starting to look discolored.")
 
-/obj/item/organ/Initialize()
-	. = ..()
+///Used as callbacks by object pooling
+/obj/item/organ/proc/exit_wardrobe()
 	START_PROCESSING(SSobj, src)
+
+//See above
+/obj/item/organ/proc/enter_wardrobe()
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/Destroy()
 	if(owner)
@@ -173,6 +195,7 @@
 		return
 	damage = clamp(damage + damage_amount, 0, maximum)
 	var/mess = check_damage_thresholds(owner)
+	check_failing_thresholds()
 	prev_damage = damage
 	if(mess && owner && owner.stat <= SOFT_CRIT)
 		to_chat(owner, mess)
@@ -193,20 +216,25 @@
 	var/delta = damage - prev_damage
 	if(delta > 0)
 		if(damage >= maxHealth)
-			organ_flags |= ORGAN_FAILING
 			return now_failing
 		if(damage > high_threshold && prev_damage <= high_threshold)
 			return high_threshold_passed
 		if(damage > low_threshold && prev_damage <= low_threshold)
 			return low_threshold_passed
 	else
-		organ_flags &= ~ORGAN_FAILING
 		if(prev_damage > low_threshold && damage <= low_threshold)
 			return low_threshold_cleared
 		if(prev_damage > high_threshold && damage <= high_threshold)
 			return high_threshold_cleared
 		if(prev_damage == maxHealth)
 			return now_fixed
+
+///Checks if an organ should/shouldn't be failing and gives the appropriate organ flag
+/obj/item/organ/proc/check_failing_thresholds()
+	if(damage >= maxHealth)
+		organ_flags |= ORGAN_FAILING
+	if(damage < maxHealth)
+		organ_flags &= ~ORGAN_FAILING
 
 //Looking for brains?
 //Try code/modules/mob/living/carbon/brain/brain_item.dm
@@ -249,14 +277,6 @@
 			ears = new()
 			ears.Insert(src)
 		ears.setOrganDamage(0)
-
-		if(!getorganslot(ORGAN_SLOT_BUTT))
-			if(ishuman(src) || ismonkey(src))
-				var/obj/item/organ/butt/B = new()
-				B.Insert(src)
-			if(isalien(src))
-				var/obj/item/organ/butt/xeno/X = new()
-				X.Insert(src)
 
 ///Organs don't die instantly, and neither should you when you get fucked up
 /obj/item/organ/proc/handle_failing_organs(delta_time)

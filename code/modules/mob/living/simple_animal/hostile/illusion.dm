@@ -9,7 +9,7 @@
 	mob_biotypes = NONE
 	melee_damage_lower = 5
 	melee_damage_upper = 5
-	istate = new /datum/interaction_state/harm
+	combat_mode = TRUE
 	attack_verb_continuous = "gores"
 	attack_verb_simple = "gore"
 	maxHealth = 100
@@ -76,3 +76,11 @@
 
 /mob/living/simple_animal/hostile/illusion/escape/AttackingTarget()
 	return FALSE
+
+/mob/living/simple_animal/hostile/illusion/mirage
+	AIStatus = AI_OFF
+	density = FALSE
+
+/mob/living/simple_animal/hostile/illusion/mirage/death(gibbed)
+	do_sparks(rand(3, 6), FALSE, src)
+	return ..()

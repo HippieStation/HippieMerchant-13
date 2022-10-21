@@ -16,7 +16,7 @@
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	actions_types = list(/datum/action/item_action/toggle_paddles)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 
 	var/obj/item/shockpaddles/paddle_type = /obj/item/shockpaddles
 	var/on = FALSE //if the paddles are equipped (1) or on the defib (0)
@@ -24,7 +24,7 @@
 	var/powered = FALSE //if there's a cell in the defib with enough power for a revive, blocks paddles from reviving otherwise
 	var/obj/item/shockpaddles/paddles
 	var/obj/item/stock_parts/cell/high/cell
-	var/combat = FALSE //if true, revive through hardsuits, allow for combat shocking
+	var/combat = FALSE //if true, revive through space suits, allow for combat shocking
 	var/cooldown_duration = 5 SECONDS//how long does it take to recharge
 	/// The icon state for the paddle overlay, not applied if null
 	var/paddle_state = "defibunit-paddles"
@@ -40,13 +40,13 @@
 /obj/item/defibrillator/get_cell()
 	return cell
 
-/obj/item/defibrillator/Initialize() //starts without a cell for rnd
+/obj/item/defibrillator/Initialize(mapload) //starts without a cell for rnd
 	. = ..()
 	paddles = new paddle_type(src)
 	update_power()
 	return
 
-/obj/item/defibrillator/loaded/Initialize() //starts with hicap
+/obj/item/defibrillator/loaded/Initialize(mapload) //starts with hicap
 	. = ..()
 	cell = new(src)
 	update_power()
@@ -106,7 +106,7 @@
 	INVOKE_ASYNC(src, .proc/toggle_paddles)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/defibrillator/attack_hand(mob/user)
+/obj/item/defibrillator/attack_hand(mob/user, list/modifiers)
 	if(loc == user)
 		if(slot_flags == ITEM_SLOT_BACK)
 			if(user.get_item_by_slot(ITEM_SLOT_BACK) == src)
@@ -132,6 +132,15 @@
 			var/atom/movable/screen/inventory/hand/H = over_object
 			M.putItemFromInventoryInHandIfPossible(src, H.held_index)
 
+/obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/tool)
+	if(cell)
+		cell.update_appearance()
+		cell.forceMove(get_turf(src))
+		cell = null
+		tool.play_tool_sound(src, 50)
+		to_chat(user, span_notice("You remove the cell from [src]."))
+		update_power()
+
 /obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
 		toggle_paddles()
@@ -147,13 +156,6 @@
 				return
 			cell = W
 			to_chat(user, span_notice("You install a cell in [src]."))
-			update_power()
-	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		if(cell)
-			cell.update_appearance()
-			cell.forceMove(get_turf(src))
-			cell = null
-			to_chat(user, span_notice("You remove the cell from [src]."))
 			update_power()
 	else
 		return ..()
@@ -275,7 +277,7 @@
 	if(slot == user.getBeltSlot())
 		return TRUE
 
-/obj/item/defibrillator/compact/loaded/Initialize()
+/obj/item/defibrillator/compact/loaded/Initialize(mapload)
 	. = ..()
 	cell = new(src)
 	update_power()
@@ -294,7 +296,7 @@
 	powered_state = null
 	emagged_state = null
 
-/obj/item/defibrillator/compact/combat/loaded/Initialize()
+/obj/item/defibrillator/compact/combat/loaded/Initialize(mapload)
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/infinite(src)
 	update_power()
@@ -306,7 +308,7 @@
 
 /obj/item/defibrillator/compact/combat/loaded/nanotrasen
 	name = "elite Nanotrasen defibrillator"
-	desc = "A belt-equipped state-of-the-art defibrillator. Can revive through thick clothing, has an experimental self-recharging battery, and can be utilized in combat via applying the paddles in a disarming or agressive manner."
+	desc = "A belt-equipped state-of-the-art defibrillator. Can revive through thick clothing, has an experimental self-recharging battery, and can be utilized in combat via applying the paddles in a disarming or aggressive manner."
 	icon_state = "defibnt" //needs defib inhand sprites
 	inhand_icon_state = "defibnt"
 	worn_icon_state = "defibnt"
@@ -337,24 +339,11 @@
 	var/req_defib = TRUE // Whether or not the paddles require a defibrilator object
 	var/recharge_time = 6 SECONDS // Only applies to defibs that do not require a defibrilator. See: .proc/do_success
 	var/combat = FALSE //If it penetrates armor and gives additional functionality
-	var/wielded = FALSE // track wielded status on item
 
 /obj/item/shockpaddles/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
 	AddComponent(/datum/component/two_handed, force_unwielded=8, force_wielded=12)
-
-/// triggered on wield of two handed item
-/obj/item/shockpaddles/proc/on_wield(obj/item/source, mob/user)
-	SIGNAL_HANDLER
-
-	wielded = TRUE
-
-/// triggered on unwield of two handed item
-/obj/item/shockpaddles/proc/on_unwield(obj/item/source, mob/user)
-	SIGNAL_HANDLER
-
-	wielded = FALSE
 
 /obj/item/shockpaddles/Destroy()
 	defib = null
@@ -400,11 +389,9 @@
 	cooldown = FALSE
 	update_appearance()
 
-/obj/item/shockpaddles/Initialize()
+/obj/item/shockpaddles/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_STORAGE_INSERT, GENERIC_ITEM_TRAIT) //stops shockpaddles from being inserted in BoH
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
+	ADD_TRAIT(src, TRAIT_NO_STORAGE_INSERT, TRAIT_GENERIC) //stops shockpaddles from being inserted in BoH
 	if(!req_defib)
 		return //If it doesn't need a defib, just say it exists
 	if (!loc || !istype(loc, /obj/item/defibrillator)) //To avoid weird issues from admin spawns
@@ -421,10 +408,10 @@
 	return (OXYLOSS)
 
 /obj/item/shockpaddles/update_icon_state()
-	icon_state = "[base_icon_state][wielded]"
+	icon_state = "[base_icon_state][HAS_TRAIT(src, TRAIT_WIELDED)]"
 	inhand_icon_state = icon_state
 	if(cooldown)
-		icon_state = "[base_icon_state][wielded]_cooldown"
+		icon_state = "[base_icon_state][HAS_TRAIT(src, TRAIT_WIELDED)]_cooldown"
 	return ..()
 
 /obj/item/shockpaddles/dropped(mob/user)
@@ -443,7 +430,7 @@
 	forceMove(defib)
 	defib.update_power()
 
-/obj/item/shockpaddles/attack(mob/M, mob/living/user)
+/obj/item/shockpaddles/attack(mob/M, mob/living/user, params)
 	if(busy)
 		return
 	defib?.update_power()
@@ -451,7 +438,7 @@
 		user.visible_message(span_warning("[defib] beeps: Not enough charge!"))
 		playsound(src, 'sound/machines/defib_failed.ogg', 50, FALSE)
 		return
-	if(!wielded)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		if(iscyborg(user))
 			to_chat(user, span_warning("You must activate the paddles in your active module before you can use them on someone!"))
 		else
@@ -464,7 +451,8 @@
 			to_chat(user, span_warning("[src] are recharging!"))
 		return
 
-	if(user.istate.secondary)
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		do_disarm(M, user)
 		return
 
@@ -480,7 +468,7 @@
 		to_chat(user, span_warning("You need to target your patient's chest with [src]!"))
 		return
 
-	if(user.istate.harm)
+	if(user.combat_mode)
 		do_harm(H, user)
 		return
 
@@ -525,8 +513,8 @@
 			span_userdanger("[user] touches [M] with [src]!"))
 	M.adjustStaminaLoss(60)
 	M.Knockdown(75)
-	M.Jitter(50)
-	M.apply_status_effect(STATUS_EFFECT_CONVULSING)
+	M.set_timed_status_effect(100 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+	M.apply_status_effect(/datum/status_effect/convulsing)
 	playsound(src,  'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	if(HAS_TRAIT(M,MOB_ORGANIC))
 		M.emote("gasp")
@@ -571,7 +559,7 @@
 			H.apply_damage(50, BURN, BODY_ZONE_CHEST)
 			log_combat(user, H, "overloaded the heart of", defib)
 			H.Paralyze(100)
-			H.Jitter(100)
+			H.set_timed_status_effect(200 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 			do_success()
 			return
 	do_cancel()
@@ -594,7 +582,7 @@
 						return
 			if(H.stat == DEAD)
 				H.visible_message(span_warning("[H]'s body convulses a bit."))
-				playsound(src, "bodyfall", 50, TRUE)
+				playsound(src, SFX_BODYFALL, 50, TRUE)
 				playsound(src, 'sound/machines/defib_zap.ogg', 75, TRUE, -1)
 				shock_pulling(30, H)
 
@@ -618,6 +606,8 @@
 						fail_reason = "No intelligence pattern can be detected in patient's brain. Further attempts futile."
 					if (DEFIB_FAIL_NO_BRAIN)
 						fail_reason = "Patient's brain is missing. Further attempts futile."
+					if (DEFIB_FAIL_BLACKLISTED)
+						fail_reason = "Patient has been blacklisted from revival. Further attempts futile."
 
 				if(fail_reason)
 					user.visible_message(span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - [fail_reason]"))
@@ -640,10 +630,11 @@
 					user.visible_message(span_notice("[req_defib ? "[defib]" : "[src]"] pings: Resuscitation successful."))
 					playsound(src, 'sound/machines/defib_success.ogg', 50, FALSE)
 					H.set_heartattack(FALSE)
-					H.grab_ghost()
+					if(defib_result == DEFIB_POSSIBLE)
+						H.grab_ghost()
 					H.revive(full_heal = FALSE, admin_revive = FALSE)
 					H.emote("gasp")
-					H.Jitter(100)
+					H.set_timed_status_effect(200 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 					SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK)
 					SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "saved_life", /datum/mood_event/saved_life)
 					log_combat(user, H, "revived", defib)

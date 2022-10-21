@@ -53,7 +53,7 @@
 	recent_spin = world.time + spin_delay
 
 	if(do_spin())
-		playsound(usr, "revolver_spin", 30, FALSE)
+		playsound(usr, SFX_REVOLVER_SPIN, 30, FALSE)
 		usr.visible_message(span_notice("[usr] spins [src]'s chamber."), span_notice("You spin [src]'s chamber."))
 	else
 		verbs -= /obj/item/gun/ballistic/revolver/verb/spin
@@ -98,6 +98,7 @@
 	alternative_ammo_misfires = TRUE
 	can_misfire = FALSE
 	misfire_probability = 0
+	misfire_percentage_increment = 25 //about 1 in 4 rounds, which increases rapidly every shot
 	obj_flags = UNIQUE_RENAME
 	unique_reskin = list("Default" = "detective",
 						"Fitz Special" = "detective_fitz",
@@ -141,6 +142,7 @@
 	icon_state = "russianrevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rus357
 	var/spun = FALSE
+	hidden_chambered = TRUE //Cheater.
 
 /obj/item/gun/ballistic/revolver/russian/do_spin()
 	. = ..()
@@ -167,7 +169,7 @@
 
 	if(flag)
 		if(!(target in user.contents) && ismob(target))
-			if(user.istate.harm) // Flogging action
+			if(user.combat_mode) // Flogging action
 				return
 
 	if(isliving(user))
@@ -188,7 +190,7 @@
 
 		if(chambered)
 			var/obj/item/ammo_casing/AC = chambered
-			if(AC.fire_casing(user, user))
+			if(AC.fire_casing(user, user, params, distro = 0, quiet = 0, zone_override = null, spread = 0, fired_from = src))
 				playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
 				var/zone = check_zone(user.zone_selected)
 				var/obj/item/bodypart/affecting = H.get_bodypart(zone)
@@ -216,10 +218,10 @@
 	desc = "To play with this revolver requires wagering your very soul."
 
 /obj/item/gun/ballistic/revolver/russian/soul/shoot_self(mob/living/user)
-	..()
-	var/obj/item/soulstone/anybody/revolver/SS = new /obj/item/soulstone/anybody/revolver(get_turf(src))
-	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
-		qdel(SS)
+	. = ..()
+	var/obj/item/soulstone/anybody/revolver/stone = new /obj/item/soulstone/anybody/revolver(get_turf(src))
+	if(!stone.capture_soul(user, forced = TRUE)) //Something went wrong
+		qdel(stone)
 		return
 	user.visible_message(span_danger("[user.name]'s soul is captured by \the [src]!"), span_userdanger("You've lost the gamble! Your soul is forfeit!"))
 

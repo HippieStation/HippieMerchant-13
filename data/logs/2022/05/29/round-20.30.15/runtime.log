@@ -1,0 +1,82 @@
+[2022-05-29 15:00:15.542] Starting up round ID .
+ - -------------------------
+[2022-05-29 15:00:15.724] Running /tg/ revision: 2022-05-27
+ - origin/master: 01df25ad5cccff9a62b83917120cfaf6a1a6754b
+[2022-05-29 15:00:16.999] Initialized Title Screen subsystem within 0.1 seconds!
+[2022-05-29 15:00:17.003] Initialized Server Tasks subsystem within 0 seconds!
+[2022-05-29 15:00:17.004] Initialized Input subsystem within 0 seconds!
+[2022-05-29 15:00:17.005] Initialized Stat Panels subsystem within 0 seconds!
+[2022-05-29 15:00:17.008] Initialized Profiler subsystem within 0 seconds!
+[2022-05-29 15:00:17.009] Initialized Database subsystem within 0 seconds!
+[2022-05-29 15:00:17.009] Initialized Blackbox subsystem within 0 seconds!
+[2022-05-29 15:00:17.012] Initialized Sounds subsystem within 0 seconds!
+[2022-05-29 15:00:17.024] Initialized Instruments subsystem within 0 seconds!
+[2022-05-29 15:00:23.772] Initialized Greyscale subsystem within 6.7 seconds!
+[2022-05-29 15:00:23.774] Initialized Vis contents overlays subsystem within 0 seconds!
+[2022-05-29 15:00:23.801] Initialized Discord subsystem within 0.1 seconds!
+[2022-05-29 15:00:23.802] Initialized Achievements subsystem within 0 seconds!
+[2022-05-29 15:00:23.805] Initialized Station subsystem within 0 seconds!
+[2022-05-29 15:00:23.810] Initialized Quirks subsystem within 0 seconds!
+[2022-05-29 15:00:23.813] Initialized Reagents subsystem within 0 seconds!
+[2022-05-29 15:00:23.832] Initialized Events subsystem within 0 seconds!
+[2022-05-29 15:00:23.846] Initialized IDs and Access subsystem within 0 seconds!
+[2022-05-29 15:00:23.847] Initialized Jobs subsystem within 0 seconds!
+[2022-05-29 15:00:23.848] Initialized AI movement subsystem within 0 seconds!
+[2022-05-29 15:00:23.978] Initialized Ticker subsystem within 0.1 seconds!
+[2022-05-29 15:00:23.983] Initialized AI Controller Ticker subsystem within 0 seconds!
+[2022-05-29 15:00:23.984] Initialized AI Behavior Ticker subsystem within 0 seconds!
+[2022-05-29 15:00:24.131] Initialized Trading Card Game subsystem within 0.2 seconds!
+[2022-05-29 15:00:24.135] Loading Meta Station...
+[2022-05-29 15:00:26.660] Loaded Station in 2.5s!
+[2022-05-29 15:00:27.728] Loaded Lavaland in 1s!
+[2022-05-29 15:00:36.891] Ruin loader finished with 0 left to spend.
+[2022-05-29 15:00:38.479] Ruin loader finished with 0 left to spend.
+[2022-05-29 15:00:41.114] Cave Generator finished in 2.7s!
+[2022-05-29 15:00:41.188] Cave Generator finished in 0s!
+[2022-05-29 15:00:41.667] Initialized Mapping subsystem within 17.5 seconds!
+[2022-05-29 15:01:09.105] Initialized Early Assets subsystem within 27.5 seconds!
+[2022-05-29 15:01:09.133] Initialized Research subsystem within 0 seconds!
+[2022-05-29 15:01:09.134] Initialized Time Tracking subsystem within 0 seconds!
+[2022-05-29 15:01:09.156] Initialized Networks subsystem within 0 seconds!
+[2022-05-29 15:01:09.156] Initialized Spatial Grid subsystem within 0 seconds!
+[2022-05-29 15:01:09.172] Initialized Economy subsystem within 0 seconds!
+[2022-05-29 15:01:09.173] Initialized Restaurant subsystem within 0 seconds!
+[2022-05-29 15:01:56.892] Initialized Atoms subsystem within 47.7 seconds!
+[2022-05-29 15:01:56.903] Initialized Language subsystem within 0.1 seconds!
+[2022-05-29 15:01:56.969] Initialized Machines subsystem within 0 seconds!
+[2022-05-29 15:01:56.970] Initialized Skills subsystem within 0 seconds!
+[2022-05-29 15:01:56.972] Initialized Addiction subsystem within 0 seconds!
+[2022-05-29 15:01:56.976] Initialized Blackmarket subsystem within 0 seconds!
+[2022-05-29 15:01:56.976] Initialized Circuit Components subsystem within 0 seconds!
+[2022-05-29 15:01:56.978] Initialized Disease subsystem within 0 seconds!
+[2022-05-29 15:01:56.979] Initialized Smoke subsystem within 0 seconds!
+[2022-05-29 15:01:56.980] Initialized Foam subsystem within 0 seconds!
+[2022-05-29 15:01:56.980] Initialized Fluid subsystem within 0 seconds!
+[2022-05-29 15:01:56.981] Initialized Lag Switch subsystem within 0 seconds!
+[2022-05-29 15:01:56.982] Initialized Library Loading subsystem within 0 seconds!
+[2022-05-29 15:01:56.985] Initialized Night Shift subsystem within 0 seconds!
+[2022-05-29 15:01:56.986] Initialized Parallax subsystem within 0 seconds!
+[2022-05-29 15:01:56.987] Initialized Security Level subsystem within 0 seconds!
+[2022-05-29 15:01:56.988] Initialized Sun subsystem within 0 seconds!
+[2022-05-29 15:01:56.989] Initialized Traitor subsystem within 0 seconds!
+[2022-05-29 15:01:56.994] Initialized Vote subsystem within 0 seconds!
+[2022-05-29 15:01:56.995] Initialized Wardrobe subsystem within 0 seconds!
+[2022-05-29 15:01:57.012] Initialized Weather subsystem within 0 seconds!
+[2022-05-29 15:01:57.013] Initialized Wiremod Composite Templates subsystem within 0 seconds!
+[2022-05-29 15:02:00.767] ## WARNING: HEY! LISTEN! right now were wasted processing 3 turf(s) (connected to 47 other turfs) with atmos differences at round start.
+[2022-05-29 15:02:01.597] Initialized Atmospherics subsystem within 4.5 seconds!
+[2022-05-29 15:02:01.603] Initialized Persistence subsystem within 0.1 seconds!
+[2022-05-29 15:02:01.606] Initialized Persistent Paintings subsystem within 0 seconds!
+[2022-05-29 15:02:13.082] Initialized Assets subsystem within 11.4 seconds!
+[2022-05-29 15:02:14.890] Initialized Icon Smoothing subsystem within 1.8 seconds!
+[2022-05-29 15:02:21.286] Initialized Overlay subsystem within 6.4 seconds!
+[2022-05-29 15:02:21.291] Initialized XKeyScore subsystem within 0 seconds!
+[2022-05-29 15:02:21.293] Initialized PRISM subsystem within 0 seconds!
+[2022-05-29 15:02:26.545] Initialized Lighting subsystem within 5.3 seconds!
+[2022-05-29 15:02:33.053] Initialized Shuttle subsystem within 6.5 seconds!
+[2022-05-29 15:02:33.221] Initialized Minor Mapping subsystem within 0.2 seconds!
+[2022-05-29 15:02:33.225] Initialized Pathfinder subsystem within 0 seconds!
+[2022-05-29 15:02:33.226] Initialized Init Profiler subsystem within 0 seconds!
+[2022-05-29 15:02:33.227] Initialized Chat subsystem within 0 seconds!
+[2022-05-29 15:02:33.228] Initializations complete within 136.4 seconds!
+[2022-05-29 15:02:34.056] Game start took 0.6s

@@ -20,19 +20,23 @@
 	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 
 	rcd_memory = RCD_MEMORY_WALL
-
+	///bool on whether this wall can be chiselled into
+	var/can_engrave = TRUE
 	///lower numbers are harder. Used to determine the probability of a hulk smashing through.
 	var/hardness = 40
 	var/slicing_duration = 100  //default time taken to slice the wall
 	var/sheet_type = /obj/item/stack/sheet/iron
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
+	/// A turf that will replace this turf when this turf is destroyed
+	var/decon_type
 
 	var/list/dent_decals
 
-
 /turf/closed/wall/Initialize(mapload)
 	. = ..()
+	if(!can_engrave)
+		ADD_TRAIT(src, TRAIT_NOT_ENGRAVABLE, INNATE_TRAIT)
 	if(is_station_level(z))
 		GLOB.station_turfs += src
 	if(smoothing_flags & SMOOTH_DIAGONAL_CORNERS && fixed_underlay) //Set underlays for the diagonal walls.
@@ -47,6 +51,9 @@
 		fixed_underlay = string_assoc_list(fixed_underlay)
 		underlays += underlay_appearance
 
+/turf/closed/wall/atom_destruction(damage_flag)
+	. = ..()
+	dismantle_wall(TRUE, FALSE)
 
 /turf/closed/wall/Destroy()
 	if(is_station_level(z))
@@ -77,8 +84,11 @@
 		if(istype(O, /obj/structure/sign/poster))
 			var/obj/structure/sign/poster/P = O
 			P.roll_and_drop(src)
-
-	ScrapeAway()
+	if(decon_type)
+		ChangeTurf(decon_type, flags = CHANGETURF_INHERIT_AIR)
+	else
+		ScrapeAway()
+	QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/closed/wall/proc/break_wall()
 	new sheet_type(src, sheet_amount)
@@ -139,6 +149,7 @@
 	if(prob(hardness))
 		playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
+		hulk_recoil(arm, user)
 		dismantle_wall(1)
 
 	else
@@ -149,7 +160,25 @@
 					span_hear("You hear a booming smash!"))
 	return TRUE
 
-/turf/closed/wall/attack_hand(mob/user)
+/**
+ *Deals damage back to the hulk's arm.
+ *
+ *When a hulk manages to break a wall using their hulk smash, this deals back damage to the arm used.
+ *This is in its own proc just to be easily overridden by other wall types. Default allows for three
+ *smashed walls per arm. Also, we use CANT_WOUND here because wounds are random. Wounds are applied
+ *by hulk code based on arm damage and checked when we call break_an_arm().
+ *Arguments:
+ **arg1 is the arm to deal damage to.
+ **arg2 is the hulk
+ */
+/turf/closed/wall/proc/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 20)
+	arm.receive_damage(brute = damage, blocked = 0, wound_bonus = CANT_WOUND)
+	var/datum/mutation/human/hulk/smasher = locate(/datum/mutation/human/hulk) in hulkman.dna.mutations
+	if(!smasher || !damage) //sanity check but also snow and wood walls deal no recoil damage, so no arm breaky
+		return
+	smasher.break_an_arm(arm)
+
+/turf/closed/wall/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -179,7 +208,7 @@
 	return ..()
 
 /turf/closed/wall/proc/try_clean(obj/item/W, mob/living/user, turf/T)
-	if((user.istate.harm) || !LAZYLEN(dent_decals))
+	if((user.combat_mode) || !LAZYLEN(dent_decals))
 		return FALSE
 
 	if(W.tool_behaviour == TOOL_WELDER)
@@ -187,7 +216,7 @@
 			return FALSE
 
 		to_chat(user, span_notice("You begin fixing dents on the wall..."))
-		if(W.use_tool(src, user, volume=100))
+		if(W.use_tool(src, user, 0, volume=100))
 			if(iswallturf(src) && LAZYLEN(dent_decals))
 				to_chat(user, span_notice("You fix some dents on the wall."))
 				cut_overlay(dent_decals)
@@ -242,7 +271,7 @@
 	if(.)
 		ChangeTurf(/turf/closed/wall/mineral/cult)
 
-/turf/closed/wall/get_dumping_location(obj/item/storage/source, mob/user)
+/turf/closed/wall/get_dumping_location()
 	return null
 
 /turf/closed/wall/acid_act(acidpwr, acid_volume)
@@ -289,15 +318,15 @@
 
 	add_overlay(dent_decals)
 
-/turf/closed/wall/rust_heretic_act(override = TRUE)
-	if(!override)
-		return ..()
+/turf/closed/wall/rust_heretic_act()
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		ScrapeAway()
 		return
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
-	ChangeTurf(/turf/closed/wall/rust)
 	return ..()
+
+/turf/closed/wall/metal_foam_base
+	girder_type = /obj/structure/foamedmetal
 
 #undef MAX_DENT_DECALS

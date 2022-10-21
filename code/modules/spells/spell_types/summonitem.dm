@@ -10,14 +10,13 @@
 	level_max = 0 //cannot be improved
 	cooldown_min = 100
 	include_user = TRUE
-
+	action_icon_state = "summons"
+	///The obj marked for recall
 	var/obj/marked_item
 
-	action_icon_state = "summons"
-
-/obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets,mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)
-		var/list/hand_items = list(L.get_active_held_item(),L.get_inactive_held_item())
+		var/list/hand_items = list(L.get_active_held_item(), L.get_inactive_held_item())
 		var/message
 
 		if(!marked_item) //linking item to the spell
@@ -59,7 +58,7 @@
 					var/obj/item/organ/organ = item_to_retrieve
 					if(organ.owner)
 						// If this code ever runs I will be happy
-						log_combat(L, organ.owner, "magically removed [organ.name] from", addition="ISTATE: [L.istate.logging()]")
+						log_combat(L, organ.owner, "magically removed [organ.name] from", addition="COMBAT MODE: [uppertext(L.combat_mode)]")
 						organ.Remove(organ.owner)
 			else
 				while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10) //if it's in something you get the whole thing.
@@ -79,12 +78,15 @@
 						M.dropItemToGround(item_to_retrieve)
 
 					else
-						if(istype(item_to_retrieve.loc, /obj/machinery/portable_atmospherics/)) //Edge cases for moved machinery
-							var/obj/machinery/portable_atmospherics/P = item_to_retrieve.loc
+						var/obj/retrieved_item = item_to_retrieve.loc
+						if(retrieved_item.anchored)
+							return
+						if(istype(retrieved_item, /obj/machinery/portable_atmospherics)) //Edge cases for moved machinery
+							var/obj/machinery/portable_atmospherics/P = retrieved_item
 							P.disconnect()
 							P.update_appearance()
 
-						item_to_retrieve = item_to_retrieve.loc
+						item_to_retrieve = retrieved_item
 
 					infinite_recursion += 1
 

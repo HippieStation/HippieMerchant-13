@@ -7,7 +7,7 @@
 
 /obj/projectile/bullet/gyro/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, devastation_range = -1, light_impact_range = 2)
+	explosion(target, devastation_range = -1, light_impact_range = 2, explosion_cause = src)
 	return BULLET_ACT_HIT
 
 /// PM9 HEDP rocket
@@ -53,9 +53,9 @@
 
 /obj/projectile/bullet/a84mm/he/do_boom(atom/target, blocked=0)
 	if(!isliving(target)) //if the target isn't alive, so is a wall or something
-		explosion(target, heavy_impact_range = 1, light_impact_range = 2, flame_range = 3, flash_range = 4)
+		explosion(target, heavy_impact_range = 1, light_impact_range = 2, flame_range = 3, flash_range = 4, explosion_cause = src)
 	else
-		explosion(target, light_impact_range = 2, flame_range = 3, flash_range = 4)
+		explosion(target, light_impact_range = 2, flame_range = 3, flash_range = 4,  explosion_cause = src)
 
 /// PM9 weak rocket
 /obj/projectile/bullet/a84mm/weak
@@ -66,55 +66,40 @@
 
 /obj/projectile/bullet/a84mm/weak/do_boom(atom/target, blocked=0)
 	if(!isliving(target)) //if the target isn't alive, so is a wall or something
-		explosion(target, heavy_impact_range = 1, light_impact_range = 2, flame_range = 3, flash_range = 4)
+		explosion(target, heavy_impact_range = 1, light_impact_range = 2, flame_range = 3, flash_range = 4, explosion_cause = src)
 	else
-		explosion(target, light_impact_range = 2, flame_range = 3, flash_range = 4)
+		explosion(target, light_impact_range = 2, flame_range = 3, flash_range = 4, explosion_cause = src)
 
-/// PM9 solid fuel canister
-/obj/projectile/bullet/a84mm/solidfuel
-	name ="\improper solid fuel canister"
-	desc = "Flamin' hot!"
-	icon_state = "solidfuel_syndie"
-	damage = 20 //still hurts to get smacked by a flaming canister at high speeds
-	dismemberment = 0
-	var/fire_stacks = 6
-
-/obj/projectile/bullet/a84mm/solidfuel/on_hit(atom/target, blocked = 0)
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.emote("scream")
-		M.adjust_fire_stacks(fire_stacks)
-		M.IgniteMob()
-		explosion(target, heavy_impact_range = 0, light_impact_range = 0, flame_range = 2)
-	else
-		explosion(target, heavy_impact_range = 0, light_impact_range = 1, flame_range = 2)
-
-	return BULLET_ACT_HIT
-
-///SRM-8 rocket
-/obj/projectile/bullet/a84mm/kinetic
-	name ="\improper kinetic missile"
-	desc = "DONK!"
+/// Mech BRM-6 missile
+/obj/projectile/bullet/a84mm_br
+	name ="\improper HE missile"
+	desc = "Boom."
 	icon_state = "missile"
-	damage = 75
-	dismemberment = 0
-	armour_penetration = 40
-	anti_armour_damage = 0
+	damage = 30
+	ricochets_max = 0 //it's a MISSILE
+	embedding = null
+	shrapnel_type = null
+	var/sturdy = list(
+	/turf/closed,
+	/obj/vehicle/sealed/mecha,
+	/obj/machinery/door,
+	/obj/structure/window,
+	/obj/structure/grille
+	)
 
-/obj/projectile/bullet/a84mm/kinetic/on_hit(atom/target, blocked = 0)
-	var/datum/effect_system/smoke_spread/quick/smoke = new
-	if(iscarbon(target))
-		smoke.set_up(0, src)
-		smoke.start()
-		var/mob/living/carbon/M = target
-		M.Paralyze(20)
-		M.Knockdown(120)
-		M.emote("scream") //WEEEE!!
-		M.visible_message("<span class='warning'>[M] flies off in an arc after being hit by the [src]!</span>")
-		var/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, starting)))
-		M.throw_at(throw_target, rand(8,12), 14)
-		explosion(target, heavy_impact_range = 0, light_impact_range = 0, flame_range = 0, flash_range = 2, adminlog = FALSE)
-	else
-		smoke.set_up(1, src)
-		smoke.start()
-		explosion(target, heavy_impact_range = 0, light_impact_range = 2, flame_range = 0, flash_range = 2)
+/obj/item/broken_missile
+	name = "\improper broken missile"
+	desc = "A missile that did not detonate. The tail has snapped and it is in no way fit to be used again."
+	icon = 'icons/obj/guns/projectiles.dmi'
+	icon_state = "missile_broken"
+	w_class = WEIGHT_CLASS_TINY
+
+
+/obj/projectile/bullet/a84mm_br/on_hit(atom/target, blocked=0)
+	..()
+	for(var/i in sturdy)
+		if(istype(target, i))
+			explosion(target, heavy_impact_range = 1, light_impact_range = 1, flash_range = 2, explosion_cause = src)
+			return BULLET_ACT_HIT
+	//if(istype(target, /turf/closed) || ismecha(target))
+	new /obj/item/broken_missile(get_turf(src), 1)

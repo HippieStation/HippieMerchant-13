@@ -17,7 +17,7 @@
 			speak("unstun", TRUE)
 		else if(prob(60) && owner.health <= owner.crit_threshold)
 			speak("heal", TRUE)
-		else if(prob(30) && owner.istate.harm)
+		else if(prob(30) && owner.combat_mode)
 			speak("aggressive")
 		else
 			speak("neutral", prob(25))
@@ -45,7 +45,7 @@
 			message = pick_list_replacements(BRAIN_DAMAGE_FILE, "god_neutral")
 
 	playsound(get_turf(owner), 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 5)
-	voice_of_god(message, owner, list("colossus","yell"), 2.5, include_owner, FALSE)
+	voice_of_god(message, owner, list("colossus","yell"), 2.5, include_owner, name)
 
 /datum/brain_trauma/special/bluespace_prophet
 	name = "Bluespace Prophecy"
@@ -101,15 +101,23 @@
 	image_icon = 'icons/effects/effects.dmi'
 	image_state = "bluestream"
 	image_layer = ABOVE_MOB_LAYER
+	image_plane = GAME_PLANE_UPPER
 	var/obj/effect/hallucination/simple/bluespace_stream/linked_to
 	var/mob/living/carbon/seer
 
-/obj/effect/hallucination/simple/bluespace_stream/Initialize()
+/obj/effect/hallucination/simple/bluespace_stream/Initialize(mapload)
 	. = ..()
 	QDEL_IN(src, 300)
 
+/obj/effect/hallucination/simple/bluespace_stream/Destroy()
+	if(!QDELETED(linked_to))
+		qdel(linked_to)
+	linked_to = null
+	seer = null
+	return ..()
+
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/effect/hallucination/simple/bluespace_stream/attack_hand(mob/user)
+/obj/effect/hallucination/simple/bluespace_stream/attack_hand(mob/user, list/modifiers)
 	if(user != seer || !linked_to)
 		return
 	var/slip_in_message = pick("slides sideways in an odd way, and disappears", "jumps into an unseen dimension",\
@@ -119,11 +127,23 @@
 		"slides out of a fold in spacetime")
 	to_chat(user, span_notice("You try to align with the bluespace stream..."))
 	if(do_after(user, 20, target = src))
-		new /obj/effect/temp_visual/bluespace_fissure(get_turf(src))
-		new /obj/effect/temp_visual/bluespace_fissure(get_turf(linked_to))
-		user.forceMove(get_turf(linked_to))
+		var/turf/source_turf = get_turf(src)
+		var/turf/destination_turf = get_turf(linked_to)
+
+		new /obj/effect/temp_visual/bluespace_fissure(source_turf)
+		new /obj/effect/temp_visual/bluespace_fissure(destination_turf)
+
 		user.visible_message(span_warning("[user] [slip_in_message]."), null, null, null, user)
+
+		if(!do_teleport(user, destination_turf, no_effects = TRUE))
+			user.visible_message(span_warning("[user] [slip_out_message], ending up exactly where they left."), null, null, null, user)
+			return
+
 		user.visible_message(span_warning("[user] [slip_out_message]."), span_notice("...and find your way to the other side."))
+
+/obj/effect/hallucination/simple/bluespace_stream/attack_tk(mob/user)
+	to_chat(user, span_warning("\The [src] actively rejects your mind, and the bluespace energies surrounding it disrupt your telekinesis!"))
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/brain_trauma/special/quantum_alignment
 	name = "Quantum Alignment"
@@ -203,7 +223,7 @@
 		linked = FALSE
 		return
 	to_chat(owner, span_warning("You're pulled through spacetime!"))
-	do_teleport(owner, get_turf(linked_target), null, TRUE, channel = TELEPORT_CHANNEL_QUANTUM)
+	do_teleport(owner, get_turf(linked_target), null, channel = TELEPORT_CHANNEL_QUANTUM)
 	owner.playsound_local(owner, 'sound/magic/repulse.ogg', 100, FALSE)
 	linked_target = null
 	linked = FALSE
@@ -230,7 +250,6 @@
 
 /datum/brain_trauma/special/psychotic_brawling/bath_salts
 	name = "Chemical Violent Psychosis"
-	clonable = FALSE
 
 /datum/brain_trauma/special/tenacity
 	name = "Tenacity"
@@ -333,7 +352,6 @@
 	scan_desc = "criminal mind"
 	gain_text = "<span class='warning'>Justice is coming for you.</span>"
 	lose_text = "<span class='notice'>You were absolved for your crimes.</span>"
-	clonable = FALSE
 	random_gain = FALSE
 	var/obj/effect/hallucination/simple/securitron/beepsky
 
@@ -380,9 +398,9 @@
 	image_state = "secbot-c"
 	var/victim
 
-/obj/effect/hallucination/simple/securitron/Initialize()
+/obj/effect/hallucination/simple/securitron/Initialize(mapload)
 	. = ..()
-	name = pick("officer Beepsky", "officer Johnson", "officer Pingsky")
+	name = pick("Officer Beepsky", "Officer Johnson", "Officer Pingsky")
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/effect/hallucination/simple/securitron/process()

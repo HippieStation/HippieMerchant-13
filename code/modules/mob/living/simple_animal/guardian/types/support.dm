@@ -1,6 +1,6 @@
 //Healer
 /mob/living/simple_animal/hostile/guardian/healer
-	istate = new /datum/interaction_state/harm
+	combat_mode = TRUE
 	friendly_verb_continuous = "heals"
 	friendly_verb_simple = "heal"
 	speed = 0
@@ -17,10 +17,10 @@
 	var/beacon_cooldown = 0
 	var/toggle = FALSE
 
-/mob/living/simple_animal/hostile/guardian/healer/Initialize()
+/mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload)
 	. = ..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
+	medsensor.show_to(src)
 
 /mob/living/simple_animal/hostile/guardian/healer/get_status_tab_items()
 	. = ..()
@@ -46,8 +46,7 @@
 /mob/living/simple_animal/hostile/guardian/healer/ToggleMode()
 	if(src.loc == summoner)
 		if(toggle)
-			// TODO: make sure this is correct, used to be set_combat_mode() call.
-			istate.harm = TRUE
+			set_combat_mode(TRUE)
 			speed = 0
 			damage_coeff = list(BRUTE = 0.7, BURN = 0.7, TOX = 0.7, CLONE = 0.7, STAMINA = 0, OXY = 0.7)
 			melee_damage_lower = 15
@@ -55,8 +54,7 @@
 			to_chat(src, "[span_danger("<B>You switch to combat mode.")]</B>")
 			toggle = FALSE
 		else
-			// TODO: make sure this is correct, used to be set_combat_mode() call.
-			istate.harm = FALSE
+			set_combat_mode(FALSE)
 			speed = 1
 			damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 			melee_damage_lower = 0
@@ -102,7 +100,7 @@
 
 /obj/structure/receiving_pad/New(loc, mob/living/simple_animal/hostile/guardian/healer/G)
 	. = ..()
-	if(G.guardiancolor)
+	if(G?.guardiancolor)
 		add_atom_colour(G.guardiancolor, FIXED_COLOUR_PRIORITY)
 
 /obj/structure/receiving_pad/proc/disappear()

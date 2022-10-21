@@ -11,7 +11,7 @@
 	volume = 30
 	fill_icon_thresholds = list(0, 1, 20, 40, 60, 80, 100)
 
-/obj/item/reagent_containers/glass/bottle/Initialize()
+/obj/item/reagent_containers/glass/bottle/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
 		icon_state = "bottle"
@@ -122,7 +122,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	var/extra_reagent = null
 
-/obj/item/reagent_containers/glass/bottle/traitor/Initialize()
+/obj/item/reagent_containers/glass/bottle/traitor/Initialize(mapload)
 	. = ..()
 	extra_reagent = pick(/datum/reagent/toxin/polonium, /datum/reagent/toxin/histamine, /datum/reagent/toxin/formaldehyde, /datum/reagent/toxin/venom, /datum/reagent/toxin/fentanyl, /datum/reagent/toxin/cyanide)
 	reagents.add_reagent(extra_reagent, 3)
@@ -200,13 +200,37 @@
 /obj/item/reagent_containers/glass/bottle/salglu_solution
 	name = "saline-glucose solution bottle"
 	desc = "A small bottle of saline-glucose solution."
-	icon_state = "bottle1"
 	list_reagents = list(/datum/reagent/medicine/salglu_solution = 30)
 
 /obj/item/reagent_containers/glass/bottle/atropine
 	name = "atropine bottle"
 	desc = "A small bottle of atropine."
 	list_reagents = list(/datum/reagent/medicine/atropine = 30)
+
+/obj/item/reagent_containers/glass/bottle/random_buffer
+	name = "Buffer bottle"
+	desc = "A small bottle of chemical buffer."
+
+/obj/item/reagent_containers/glass/bottle/random_buffer/Initialize(mapload)
+	. = ..()
+	if(prob(50))
+		name = "Acidic buffer bottle"
+		desc = "A small bottle of acidic buffer."
+		reagents.add_reagent(/datum/reagent/reaction_agent/acidic_buffer, 30)
+	else
+		name = "Basic buffer bottle"
+		desc = "A small bottle of basic buffer."
+		reagents.add_reagent(/datum/reagent/reaction_agent/basic_buffer, 30)
+
+/obj/item/reagent_containers/glass/bottle/acidic_buffer
+	name = "Acidic buffer bottle"
+	desc = "A small bottle of acidic buffer."
+	list_reagents = list(/datum/reagent/reaction_agent/acidic_buffer = 30)
+
+/obj/item/reagent_containers/glass/bottle/basic_buffer
+	name = "Basic buffer bottle"
+	desc = "A small bottle of basic buffer."
+	list_reagents = list(/datum/reagent/reaction_agent/basic_buffer = 30)
 
 /obj/item/reagent_containers/glass/bottle/romerol
 	name = "romerol bottle"
@@ -373,7 +397,7 @@
 	list_reagents = list(/datum/reagent/consumable/sugar = 30)
 
 /obj/item/reagent_containers/glass/bottle/sacid
-	name = "sulphuric acid bottle"
+	name = "sulfuric acid bottle"
 	list_reagents = list(/datum/reagent/toxin/acid = 30)
 
 /obj/item/reagent_containers/glass/bottle/welding_fuel
@@ -412,6 +436,11 @@
 	name = "flash powder bottle"
 	desc = "A small bottle. Contains flash powder."
 	list_reagents = list(/datum/reagent/flash_powder = 30)
+
+/obj/item/reagent_containers/glass/bottle/exotic_stabilizer
+	name = "exotic stabilizer bottle"
+	desc = "A small bottle. Contains exotic stabilizer."
+	list_reagents = list(/datum/reagent/exotic_stabilizer = 30)
 
 /obj/item/reagent_containers/glass/bottle/leadacetate
 	name = "lead acetate bottle"

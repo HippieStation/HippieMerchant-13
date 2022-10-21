@@ -1,17 +1,14 @@
-/* In this file:
- *
- * Plating
- * Airless
- * Airless plating
- * Engine floor
- * Foam plating
+/**
+ * PLATINGS
+ * 
+ * Handle interaction with tiles and lets you put stuff on top of it.
  */
-
 /turf/open/floor/plating
 	name = "plating"
 	icon_state = "plating"
 	base_icon_state = "plating"
-	intact = FALSE
+	overfloor_placed = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	baseturfs = /turf/baseturf_bottom
 	footstep = FOOTSTEP_PLATING
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
@@ -19,6 +16,11 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 	var/attachment_holes = TRUE
+
+	/// If true, will allow tiles to replace us if the tile [wants to] [/obj/item/stack/tile/var/replace_plating].
+	/// And if our baseturfs are compatible.
+	/// See [/obj/item/stack/tile/proc/place_tile].
+	var/allow_replacement = TRUE
 
 /turf/open/floor/plating/setup_broken_states()
 	return list("platingdmg1", "platingdmg2", "platingdmg3")
@@ -67,15 +69,14 @@
 					to_chat(user, span_warning("Someone is buckled to \the [O]! Unbuckle [M] to move \him out of the way."))
 					return
 			var/obj/item/stack/tile/tile = C
-			tile.place_tile(src)
-			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			tile.place_tile(src, user)
 		else
 			if(!iscyborg(user))
 				to_chat(user, span_warning("This section is too damaged to support a tile! Use a welding tool to fix the damage."))
 			else
 				to_chat(user, span_warning("This section is too damaged to support a tile! Use a welding tool or a plating repair tool to fix the damage."))
 	else if(istype(C, /obj/item/cautery/prt)) //plating repair tool
-		if((broken || burnt) && C.use_tool(src, user, volume=80))
+		if((broken || burnt) && C.use_tool(src, user, 0, volume=80))
 			to_chat(user, span_danger("You fix some dents on the broken plating."))
 			icon_state = base_icon_state
 			burnt = FALSE
@@ -84,7 +85,7 @@
 
 /turf/open/floor/plating/welder_act(mob/living/user, obj/item/I)
 	..()
-	if((broken || burnt) && I.use_tool(src, user, volume=80))
+	if((broken || burnt) && I.use_tool(src, user, 0, volume=80))
 		to_chat(user, span_danger("You fix some dents on the broken plating."))
 		icon_state = base_icon_state
 		burnt = FALSE
@@ -95,7 +96,6 @@
 /turf/open/floor/plating/rust_heretic_act()
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
-	ChangeTurf(/turf/open/floor/plating/rust)
 	return ..()
 
 /turf/open/floor/plating/make_plating(force = FALSE)

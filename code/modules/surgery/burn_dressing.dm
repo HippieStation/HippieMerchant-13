@@ -32,6 +32,9 @@
 		TOOL_WIRECUTTER = 40)
 	time = 30
 	repeatable = TRUE
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 	/// How much sanitization is added per step
 	var/sanitization_added = 0.5
 	/// How much infestation is removed per step (positive number)
@@ -67,6 +70,7 @@
 		display_results(user, target, span_notice("You begin to excise infected flesh from [target]'s [parse_zone(user.zone_selected)]..."),
 			span_notice("[user] begins to excise infected flesh from [target]'s [parse_zone(user.zone_selected)] with [tool]."),
 			span_notice("[user] begins to excise infected flesh from [target]'s [parse_zone(user.zone_selected)]."))
+		display_pain(target, "The infection in your [parse_zone(user.zone_selected)] stings like hell! It feels like you're being stabbed!")
 	else
 		user.visible_message(span_notice("[user] looks for [target]'s [parse_zone(user.zone_selected)]."), span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
 
@@ -77,7 +81,7 @@
 		display_results(user, target, span_notice("You successfully excise some of the infected flesh from [target]'s [parse_zone(target_zone)][progress_text]."),
 			span_notice("[user] successfully excises some of the infected flesh from [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] successfully excises some of the infected flesh from  [target]'s [parse_zone(target_zone)]!"))
-		log_combat(user, target, "excised infected flesh in", addition="ISTATE: [user.istate.logging()]")
+		log_combat(user, target, "excised infected flesh in", addition="COMBAT MODE: [uppertext(user.combat_mode)]")
 		surgery.operated_bodypart.receive_damage(brute=3, wound_bonus=CANT_WOUND)
 		burn_wound.infestation -= infestation_removed
 		burn_wound.sanitization += sanitization_added
@@ -121,6 +125,7 @@
 		display_results(user, target, span_notice("You begin to dress the burns on [target]'s [parse_zone(user.zone_selected)]..."),
 			span_notice("[user] begins to dress the burns on [target]'s [parse_zone(user.zone_selected)] with [tool]."),
 			span_notice("[user] begins to dress the burns on [target]'s [parse_zone(user.zone_selected)]."))
+		display_pain(target, "The burns on your [parse_zone(user.zone_selected)] sting like hell!")
 	else
 		user.visible_message(span_notice("[user] looks for [target]'s [parse_zone(user.zone_selected)]."), span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
 
@@ -130,7 +135,7 @@
 		display_results(user, target, span_notice("You successfully wrap [target]'s [parse_zone(target_zone)] with [tool]."),
 			span_notice("[user] successfully wraps [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] successfully wraps [target]'s [parse_zone(target_zone)]!"))
-		log_combat(user, target, "dressed burns in", addition="ISTATE: [user.istate.logging()]")
+		log_combat(user, target, "dressed burns in", addition="COMBAT MODE: [uppertext(user.combat_mode)]")
 		burn_wound.sanitization += sanitization_added
 		burn_wound.flesh_healing += flesh_healing_added
 		var/obj/item/bodypart/the_part = target.get_bodypart(target_zone)

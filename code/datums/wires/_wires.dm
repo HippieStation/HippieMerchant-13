@@ -4,7 +4,7 @@
 	if(!I)
 		return
 
-	if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL || istype(I, /obj/item/stack/cable_coil))
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL)
 		return TRUE
 	if(istype(I, /obj/item/assembly))
 		var/obj/item/assembly/A = I
@@ -33,8 +33,6 @@
 	var/list/wires = list()
 	/// List of cut wires.
 	var/list/cut_wires = list() // List of wires that have been cut.
-	/// Dictionary of wire connections.
-	var/list/attached_wires = list()
 	/// Dictionary of colours to wire.
 	var/list/colors = list()
 	/// List of attached assemblies.
@@ -112,7 +110,7 @@
 	randomize()
 
 /datum/wires/proc/repair()
-	cut_wires.Cut()
+	cut_wires.Cut()//a negative times a negative equals a positive
 
 /datum/wires/proc/get_wire(color)
 	return colors[color]
@@ -159,21 +157,6 @@
 /datum/wires/proc/cut_color(color)
 	cut(get_wire(color))
 
-/datum/wires/proc/cut_wire_connection(from_color, to_color)
-	if (!attached_wires[from_color])
-		return
-	if (to_color in attached_wires[from_color])
-		attached_wires[from_color] -= to_color
-
-/datum/wires/proc/connect_wire(from_color, to_color)
-	if (!attached_wires[from_color])
-		attached_wires[from_color] = list(to_color)
-		return FALSE
-	if (to_color in attached_wires[from_color])
-		return FALSE
-	attached_wires[from_color] += to_color
-	return TRUE
-
 /datum/wires/proc/cut_random()
 	cut(wires[rand(1, wires.len)])
 
@@ -181,28 +164,18 @@
 	for(var/wire in wires)
 		cut(wire)
 
-/datum/wires/proc/pulse(wire, user)
-	if(is_cut(wire))
+/datum/wires/proc/pulse(wire, user, force=FALSE)
+	if(!force && is_cut(wire))
 		return
 	on_pulse(wire, user)
 
-/datum/wires/proc/activate_wire(wire)
-	activate_color(get_color_of_wire(wire))
-
-/datum/wires/proc/activate_color(color)
-	var/obj/item/assembly/A = get_attached(color)
-	if (istype(A))
-		A.activate()
-	for (var/C in attached_wires[color])
-		pulse_color(C)
-
-/datum/wires/proc/pulse_color(color, mob/living/user)
-	pulse(get_wire(color), user)
+/datum/wires/proc/pulse_color(color, mob/living/user, force=FALSE)
+	pulse(get_wire(color), user, force)
 
 /datum/wires/proc/pulse_assembly(obj/item/assembly/S)
 	for(var/color in assemblies)
 		if(S == assemblies[color])
-			pulse_color(color)
+			pulse_color(color, force=TRUE)
 			return TRUE
 
 /datum/wires/proc/attach_assembly(color, obj/item/assembly/S)
@@ -319,8 +292,7 @@
 			"color" = color,
 			"wire" = (((reveal_wires || always_reveal_wire(color)) && !is_dud_color(color)) ? get_wire(color) : null),
 			"cut" = is_color_cut(color),
-			"attached" = is_attached(color),
-			"connections" = attached_wires[color]
+			"attached" = is_attached(color)
 		)))
 	data["wires"] = payload
 	data["status"] = get_status()
@@ -371,35 +343,5 @@
 						. = TRUE
 					else
 						to_chat(L, span_warning("You need an attachable assembly!"))
-		if("connect")
-			I = L.is_holding_item_of_type(/obj/item/stack/cable_coil)
-			if (I)
-				if (connect_wire(target_wire, params["dest"]))
-					I.use(1);
-					to_chat(L, "<span class='notice'>You connect [params["wire"]] and [params["dest"]] together.</span>")
-					. = TRUE
-			else
-				to_chat(L, span_warning("You need cable to do this!"))
-		if("cut_connection")
-			I = L.is_holding_tool_quality(TOOL_WIRECUTTER)
-			if(I || isAdminGhostAI(usr))
-				if(I && holder)
-					I.play_tool_sound(holder, 20)
-				cut_wire_connection(target_wire, params["dest"])
-				. = TRUE
-			else
-				to_chat(L, span_warning("You need wirecutters!"))
-
-/datum/wires/proc/npc_tamper(mob/living/L)
-	if(!wires.len)
-		return
-
-	var/wire_to_screw = pick(wires)
-
-	if(is_color_cut(wire_to_screw) || prob(50)) //CutWireColour() proc handles both cutting and mending wires. If the wire is already cut, always mend it back. Otherwise, 50% to cut it and 50% to pulse it
-		cut(wire_to_screw)
-	else
-		pulse(wire_to_screw, L)
-
 
 #undef MAXIMUM_EMP_WIRES
