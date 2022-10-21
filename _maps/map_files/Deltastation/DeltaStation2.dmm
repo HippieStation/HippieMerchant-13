@@ -7936,6 +7936,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/item/multitool,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "biA" = (
@@ -8411,6 +8412,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/clonepod,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "bmf" = (
@@ -56672,6 +56674,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/dna_scannernew,
 /turf/open/floor/iron,
 /area/security/office)
 "jCF" = (
@@ -66945,6 +66948,10 @@
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/computer/cloning{
+	dir = 1
+	},
+/obj/item/paper/guides/jobs/medical/cloning,
 /turf/open/floor/iron,
 /area/security/office)
 "mms" = (

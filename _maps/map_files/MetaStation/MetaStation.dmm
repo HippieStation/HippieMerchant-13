@@ -1852,18 +1852,13 @@
 /turf/open/floor/iron/white,
 /area/security/brig)
 "ang" = (
-/obj/structure/table,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 5
 	},
+/obj/structure/showcase/machinery/cloning_pod,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "anj" = (
@@ -21125,6 +21120,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet/directional/west,
+/obj/machinery/dna_scannernew,
 /turf/open/floor/iron,
 /area/security/brig)
 "eNh" = (
@@ -24159,6 +24155,9 @@
 	dir = 8
 	},
 /obj/structure/cable,
+/obj/machinery/computer/cloning{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/security/brig)
 "fJw" = (
@@ -28670,6 +28669,10 @@
 /obj/machinery/light/directional/south,
 /obj/machinery/firealarm/directional/south,
 /obj/structure/cable,
+/obj/item/paper/crumpled{
+	info = "<i>Hey, assholes. We don't need a couch in the meeting room, I threw it out the airlock. I don't care if it's real leather, go patrol like you're paid to do instead of cycling through cameras all shift!";
+	name = "old, crumpled note"
+	},
 /turf/open/floor/iron,
 /area/security/office)
 "hrc" = (
@@ -37848,6 +37851,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 1
 	},
+/obj/item/multitool,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "kzV" = (
@@ -65035,10 +65039,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/item/paper/crumpled{
-	info = "<i>Hey, assholes. We don't need a couch in the meeting room, I threw it out the airlock. I don't care if it's real leather, go patrol like you're paid to do instead of cycling through cameras all shift!";
-	name = "old, crumpled note"
-	},
+/obj/item/paper/guides/jobs/medical/cloning,
 /turf/open/floor/iron,
 /area/security/office)
 "tpY" = (

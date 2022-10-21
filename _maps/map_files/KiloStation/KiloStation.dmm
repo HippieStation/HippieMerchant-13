@@ -1897,12 +1897,15 @@
 	},
 /area/maintenance/starboard)
 "agd" = (
-/obj/structure/bodycontainer/morgue,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/computer/cloning{
+	dir = 4
+	},
+/obj/item/paper/guides/jobs/medical/cloning,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "age" = (
@@ -41186,8 +41189,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/table,
-/obj/item/flashlight/lamp,
+/obj/machinery/clonepod,
 /turf/open/floor/iron/dark,
 /area/security/office)
 "dcT" = (
@@ -43023,9 +43025,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "dZv" = (
-/obj/item/storage/box/bodybags,
-/obj/item/pen,
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -43034,6 +43033,7 @@
 	dir = 1
 	},
 /obj/item/radio/intercom/directional/west,
+/obj/machinery/dna_scannernew,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "dZN" = (
@@ -77142,10 +77142,6 @@
 	dir = 8
 	},
 /obj/item/radio/intercom/directional/west,
-/obj/item/kirbyplants{
-	icon_state = "plant-02";
-	pixel_y = 3
-	},
 /turf/open/floor/iron,
 /area/security/warden)
 "sQA" = (
@@ -85214,6 +85210,7 @@
 	dir = 1
 	},
 /obj/machinery/vending/wallmed/directional/east,
+/obj/item/multitool,
 /turf/open/floor/iron/showroomfloor,
 /area/security/warden)
 "wjm" = (
@@ -89187,10 +89184,6 @@
 "xRF" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-02";
-	pixel_y = 3
 	},
 /obj/structure/extinguisher_cabinet/directional/west,
 /obj/structure/disposalpipe/segment{
