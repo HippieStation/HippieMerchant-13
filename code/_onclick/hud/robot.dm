@@ -281,8 +281,9 @@
 	return ..()
 
 /atom/movable/screen/robot/lamp/Destroy()
-	robot.lampButton = null
-	robot = null
+	if(robot)
+		robot.lampButton = null
+		robot = null
 	return ..()
 
 /atom/movable/screen/robot/modPC
