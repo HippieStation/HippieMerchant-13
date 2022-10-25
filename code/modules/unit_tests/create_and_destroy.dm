@@ -33,7 +33,6 @@
 	ignore += typesof(/turf/baseturf_skipover)
 	ignore += typesof(/turf/baseturf_bottom)
 	ignore += typesof(/turf/open/space/basic)
-	ignore += typesof(/turf/open/archive)
 	ignore += typesof(/turf/open/floor/plating/asteroid/snow/atmosphere)
 	//This demands a borg, so we'll let if off easy
 	ignore += typesof(/obj/item/modular_computer/tablet/integrated)
