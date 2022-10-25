@@ -62,11 +62,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	return //we use a different hud
 
 /mob/living/simple_animal/hostile/floor_cluwne/Destroy()
-	if(cluwnehole)
-		QDEL_NULL(cluwnehole)
-	if(poi)
-		QDEL_NULL(poi)
-	return ..()
+	return QDEL_HINT_HARDDEL
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/attack_hand(mob/living/carbon/human/M)

@@ -42,6 +42,9 @@
 	if(!start_empty)
 		top_off(starting=TRUE)
 
+/obj/item/ammo_box/Destroy()
+	return QDEL_HINT_HARDDEL
+
 /obj/item/ammo_box/add_weapon_description()
 	AddElement(/datum/element/weapon_description, attached_proc = .proc/add_notes_box)
 

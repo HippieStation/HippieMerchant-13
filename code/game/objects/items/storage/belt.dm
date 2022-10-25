@@ -29,6 +29,9 @@
 	. = ..()
 	update_appearance()
 
+/obj/item/storage/belt/Destroy()
+	return QDEL_HINT_HARDDEL
+
 /obj/item/storage/belt/utility
 	name = "toolbelt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
 	desc = "Holds tools."

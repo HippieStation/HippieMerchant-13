@@ -23,9 +23,7 @@ GLOBAL_LIST_EMPTY(interface_contracts)
 	GLOB.interface_contracts += src
 
 /datum/interface_contract/Destroy(force, ...)
-	contractor = null
-	contracted_type = null
-	return ..()
+	return QDEL_HINT_HARDDEL
 
 /proc/check_implementations()
 	var/failed = FALSE

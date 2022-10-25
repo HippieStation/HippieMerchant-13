@@ -59,6 +59,10 @@
 		active_item = new active_item(src)
 	items_list = contents.Copy()
 
+/obj/item/organ/cyberimp/arm/item_set/Destroy()
+	return QDEL_HINT_HARDDEL
+
+
 /obj/item/organ/cyberimp/arm/item_set/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE)
 	. = ..()
 	var/side = zone == BODY_ZONE_R_ARM? RIGHT_HANDS : LEFT_HANDS

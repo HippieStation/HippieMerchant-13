@@ -54,6 +54,9 @@
 	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
 	STR.max_combined_w_class = 35
 
+/obj/item/storage/backpack/holding/Destroy()
+	return QDEL_HINT_HARDDEL
+
 /obj/item/storage/backpack/holding/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is jumping into [src]! It looks like [user.p_theyre()] trying to commit suicide."))
 	user.dropItemToGround(src, TRUE)
