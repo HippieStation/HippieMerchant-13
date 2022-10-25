@@ -14,7 +14,6 @@
 		//And another
 		/obj/item/slimecross/recurring,
 		/obj/item/gun/magic,
-		/obj/item/radio,
 		/obj/item/analyzer,
 		//This should be obvious
 		/obj/machinery/doomsday_device,
@@ -32,8 +31,6 @@
 	//This turf existing is an error in and of itself
 	ignore += typesof(/turf/baseturf_skipover)
 	ignore += typesof(/turf/baseturf_bottom)
-	ignore += typesof(/turf/open/space/basic)
-	ignore += typesof(/turf/open/floor/plating/asteroid/snow/atmosphere)
 	//This demands a borg, so we'll let if off easy
 	ignore += typesof(/obj/item/modular_computer/tablet/integrated)
 	//This one demands a computer, ditto
