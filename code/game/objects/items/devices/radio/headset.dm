@@ -13,6 +13,12 @@
 	slot_flags = ITEM_SLOT_EARS
 	dog_fashion = null
 
+/obj/item/radio/headset/Initialize()
+	. = ..()
+
+/obj/item/radio/headset/Destroy()
+	return ..()
+
 /obj/item/radio/headset/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins putting \the [src]'s antenna up [user.p_their()] nose! It looks like [user.p_theyre()] trying to give [user.p_them()]self cancer!"))
 	return TOXLOSS
@@ -55,6 +61,9 @@
 	. = ..()
 	make_syndie()
 
+/obj/item/radio/headset/syndicate/Destroy()
+	return ..()
+
 /obj/item/radio/headset/binary
 /obj/item/radio/headset/binary/Initialize()
 	. = ..()
@@ -76,6 +85,9 @@
 /obj/item/radio/headset/headset_sec/alt/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+
+/obj/item/radio/headset/headset_sec/alt/Destroy()
+	return ..()
 
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
