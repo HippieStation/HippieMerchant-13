@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(interface_contracts)
 	GLOB.interface_contracts += src
 
 /datum/interface_contract/Destroy(force, ...)
-	. = ..
+	. = ..()
 	return QDEL_HINT_HARDDEL
 
 /proc/check_implementations()
