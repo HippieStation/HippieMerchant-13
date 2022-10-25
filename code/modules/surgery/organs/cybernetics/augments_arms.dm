@@ -60,6 +60,7 @@
 	items_list = contents.Copy()
 
 /obj/item/organ/cyberimp/arm/item_set/Destroy()
+	..()
 	return QDEL_HINT_HARDDEL
 
 

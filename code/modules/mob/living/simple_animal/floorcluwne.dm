@@ -62,6 +62,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	return //we use a different hud
 
 /mob/living/simple_animal/hostile/floor_cluwne/Destroy()
+	..()
 	return QDEL_HINT_HARDDEL
 
 

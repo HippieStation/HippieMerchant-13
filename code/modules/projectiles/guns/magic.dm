@@ -64,6 +64,7 @@
 /obj/item/gun/magic/Destroy()
 	if(can_charge)
 		STOP_PROCESSING(SSobj, src)
+	..()
 	return QDEL_HINT_HARDDEL
 
 

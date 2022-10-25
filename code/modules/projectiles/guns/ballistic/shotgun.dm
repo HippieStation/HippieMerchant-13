@@ -214,6 +214,7 @@
 	hook = new /obj/item/gun/magic/hook/bounty(src)
 
 /obj/item/gun/ballistic/shotgun/hook/Destroy()
+	..()
 	if(hook)
 		QDEL_NULL(hook)
 	return QDEL_HINT_HARDDEL

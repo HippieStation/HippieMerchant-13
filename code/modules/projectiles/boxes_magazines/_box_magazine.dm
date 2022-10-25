@@ -43,6 +43,7 @@
 		top_off(starting=TRUE)
 
 /obj/item/ammo_box/Destroy()
+	..()
 	return QDEL_HINT_HARDDEL
 
 /obj/item/ammo_box/add_weapon_description()

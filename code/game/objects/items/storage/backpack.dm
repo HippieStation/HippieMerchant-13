@@ -55,6 +55,7 @@
 	STR.max_combined_w_class = 35
 
 /obj/item/storage/backpack/holding/Destroy()
+	..()
 	return QDEL_HINT_HARDDEL
 
 /obj/item/storage/backpack/holding/suicide_act(mob/living/user)
