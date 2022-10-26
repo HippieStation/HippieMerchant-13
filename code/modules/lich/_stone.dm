@@ -38,16 +38,19 @@
 		enter_link="<a href=?src=[REF(src)];orbit=1>(Click to orbit)</a>",
 		source = src, action=NOTIFY_ORBIT, ignore_key = POLL_IGNORE_SPECTRAL_BLADE)
 
+/obj/item/badmin_stone/Destroy()
+	QDEL_LIST(hand_spells)
+	QDEL_LIST(gauntlet_spells)
+	QDEL_LIST(stone_spells)
+	GLOB.poi_list -= src
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 /obj/item/badmin_stone/Topic(href, href_list)
 	if(href_list["orbit"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
 			ghost.ManualFollow(src)
-
-/obj/item/badmin_stone/Destroy()
-	GLOB.poi_list -= src
-	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/item/badmin_stone/examine(mob/user)
 	. = ..()
@@ -238,6 +241,10 @@
 /obj/effect/proc_holder/spell/targeted/infinity/New(linked_stone)
 	. = ..()
 	stone = linked_stone
+
+/obj/effect/proc_holder/spell/targeted/infinity/Del()
+	stone = null
+	return ..()
 
 /obj/effect/proc_holder/spell/targeted/infinity/proc/Finished()
 	charge_counter = 0
