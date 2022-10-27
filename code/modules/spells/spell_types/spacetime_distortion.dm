@@ -61,6 +61,13 @@
 	effects = null
 	ready = TRUE
 
+/obj/effect/proc_holder/spell/spacetime_dist/Initialize()
+	. = ..()
+
+
+/obj/effect/proc_holder/spell/spacetime_dist/Destroy()
+	return ..()
+
 /obj/effect/cross_action
 	name = "cross me"
 	desc = "for crossing"

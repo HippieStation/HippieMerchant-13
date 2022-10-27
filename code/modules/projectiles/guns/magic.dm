@@ -53,6 +53,8 @@
 /obj/item/gun/magic/Initialize()
 	. = ..()
 	charges = max_charges
+	if(ammo_type)
+		chambered = new ammo_type(src)
 	chambered = new ammo_type(src)
 	if(can_charge)
 		START_PROCESSING(SSobj, src)

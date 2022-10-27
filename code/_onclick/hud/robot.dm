@@ -281,8 +281,9 @@
 	return ..()
 
 /atom/movable/screen/robot/lamp/Destroy()
-	robot.lampButton = null
-	robot = null
+	if(robot)
+		robot.lampButton = null
+		robot = null
 	return ..()
 
 /atom/movable/screen/robot/modPC
@@ -297,8 +298,9 @@
 	robot.modularInterface?.interact(robot)
 
 /atom/movable/screen/robot/modPC/Destroy()
-	robot.interfaceButton = null
-	robot = null
+	if(robot)
+		QDEL_NULL(robot.interfaceButton)
+		QDEL_NULL(robot)
 	return ..()
 
 /atom/movable/screen/robot/alerts

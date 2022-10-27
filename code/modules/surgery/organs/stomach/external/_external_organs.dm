@@ -34,11 +34,8 @@
 */
 /obj/item/organ/external/Initialize(mapload, mob_sprite)
 	. = ..()
-
 	if(mob_sprite)
 		set_sprite(mob_sprite)
-
-	cache_key = generate_icon_cache()
 
 /obj/item/organ/external/Insert(mob/living/carbon/reciever, special, drop_if_replaced)
 	var/obj/item/bodypart/limb = reciever.get_bodypart(zone)
@@ -75,7 +72,6 @@
 /obj/item/organ/external/proc/get_overlays(list/overlay_list, image_dir, image_layer, body_type, image_color)
 	if(!sprite_datum)
 		return
-
 	var/gender = (body_type == FEMALE) ? "f" : "m"
 	var/finished_icon_state = (sprite_datum.gender_specific ? gender : "m") + "_" + preference + "_" + sprite_datum.icon_state + mutant_bodyparts_layertext(image_layer)
 	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, finished_icon_state, layer = -image_layer)

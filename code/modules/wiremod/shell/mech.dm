@@ -103,10 +103,12 @@
 	attached_mech.remove_occupant(attacker)
 
 /obj/item/circuit_component/mech_equipment/Destroy()
+	if(attached_mech)
+		attached_mech.remove_occupant(attacker)
+		attached_mech = null
 	attack = null
 	target = null
 	change_equipment = null
-	attached_mech.remove_occupant(attacker)
 	qdel(attacker)
 	return ..()
 
