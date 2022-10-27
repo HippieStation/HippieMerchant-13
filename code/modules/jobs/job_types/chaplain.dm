@@ -133,3 +133,4 @@
 	chameleon_extras = /obj/item/stamp/chap
 
 	id_trim = /datum/id_trim/job/chaplain
+datum/job/rabbi

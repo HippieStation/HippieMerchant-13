@@ -162,6 +162,10 @@
 			damage_text = (body_part.brute_dam >= body_part.burn_dam) ? body_part.heavy_brute_msg : body_part.heavy_burn_msg
 		msg += "<B>[capitalize(t_his)] [body_part.name] is [damage_text]!</B>\n"
 
+
+
+		if(!getorgan(/obj/item/organ/foreskin) && gender == "male" && !(w_uniform || wear_suit))
+				msg += "<span class='deadsay'>[t_He] appears to be circumcised...</span>\n"
 	//stores missing limbs
 	var/l_limbs_missing = 0
 	var/r_limbs_missing = 0

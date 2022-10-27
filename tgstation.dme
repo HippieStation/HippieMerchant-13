@@ -13,6 +13,9 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
+#include "code\modules\judaism\foreskin.dm" //hippie
+#include "code\modules\judaism\rabbi.dm" // hippie
+#include "code\modules\judaism\sacrifice.dm" // Hippie
 #include "_maps\_basemap.dm"
 #include "code\_compile_options.dm"
 #include "code\world.dm"

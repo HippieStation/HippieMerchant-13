@@ -2033,7 +2033,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			custom_names["deity"] = "Allah"
 		if("judaism")
 			custom_names["bible"] = "The Torah"
-			custom_names["deity"] = "Yahweh"
+			custom_names["deity"] = "Jewbacca"
 		if("lampism")
 			custom_names["bible"] = "Fluorescent Incandescence"
 			custom_names["deity"] = "Lamp"

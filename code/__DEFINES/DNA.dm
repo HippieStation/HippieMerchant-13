@@ -153,6 +153,7 @@
 #define NOAUGMENTS 22
 
 //organ slots
+#define ORGAN_SLOT_FORESKIN "foreskin"
 #define ORGAN_SLOT_ADAMANTINE_RESONATOR "adamantine_resonator"
 #define ORGAN_SLOT_APPENDIX "appendix"
 #define ORGAN_SLOT_BRAIN "brain"

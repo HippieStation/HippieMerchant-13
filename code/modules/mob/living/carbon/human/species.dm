@@ -181,6 +181,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/ears/mutantears = /obj/item/organ/ears
 	///Replaces default tongue with a different organ
 	var/obj/item/organ/tongue/mutanttongue = /obj/item/organ/tongue
+	var/obj/item/organ/foreskin/mutantforeskin = /obj/item/organ/foreskin
 	///Replaces default liver with a different organ
 	var/obj/item/organ/liver/mutantliver = /obj/item/organ/liver
 	///Replaces default stomach with a different organ
@@ -297,7 +298,17 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	//what should be put in if there is no mutantorgan (brains handled seperately)
 	var/list/slot_mutantorgans = list(ORGAN_SLOT_BRAIN = mutantbrain, ORGAN_SLOT_HEART = mutantheart, ORGAN_SLOT_LUNGS = mutantlungs, ORGAN_SLOT_APPENDIX = mutantappendix, \
 	ORGAN_SLOT_EYES = mutanteyes, ORGAN_SLOT_EARS = mutantears, ORGAN_SLOT_TONGUE = mutanttongue, ORGAN_SLOT_LIVER = mutantliver, ORGAN_SLOT_STOMACH = mutantstomach)
+	var/should_have_foreskin = FALSE
 
+	if(C.gender == MALE)
+		should_have_foreskin = TRUE
+
+	if(foreskin && (!should_have_foreskin || replace_current))
+		foreskin.Remove(C,1)
+		QDEL_NULL(foreskin)
+	if(should_have_foreskin && !foreskin)
+				foreskin = new()
+				foreskin.Insert(C)
 	for(var/slot in list(ORGAN_SLOT_BRAIN, ORGAN_SLOT_HEART, ORGAN_SLOT_LUNGS, ORGAN_SLOT_APPENDIX, \
 	ORGAN_SLOT_EYES, ORGAN_SLOT_EARS, ORGAN_SLOT_TONGUE, ORGAN_SLOT_LIVER, ORGAN_SLOT_STOMACH))
 
