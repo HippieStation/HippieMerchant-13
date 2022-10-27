@@ -16,9 +16,13 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	id = wordblock_uid + 1
 	wordblock_uid = id
 	mgr = new(id, src)
-
 	GLOB.wordblockers.Add(src)
 	..()
+
+/obj/item/organ/cyberimp/brain/wordblocker/Destroy()
+	GLOB.wordblockers.Remove(src)
+	mgr = null
+	return ..()
 
 /obj/item/organ/cyberimp/brain/wordblocker/Insert(mob/living/carbon/owner, special)
 	..()
@@ -32,11 +36,6 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	. = ..()
 	// We do not want our encode_info scrambled
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
-
-/obj/item/organ/cyberimp/brain/wordblocker/Del()
-	GLOB.wordblockers.Remove(src)
-	UnregisterSignal(owner, COMSIG_MOB_SAY)
-	..()
 
 /obj/item/organ/cyberimp/brain/wordblocker/proc/get_manager()
 	if(!mgr)

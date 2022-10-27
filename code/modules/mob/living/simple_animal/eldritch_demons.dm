@@ -70,12 +70,21 @@
 	/// A weakref to the last target we smacked. Hitting targets consecutively does more damage.
 	var/datum/weakref/last_target
 	var/list/linked_mobs = list()
+	var/datum/action/innate/expand_sight/sight_seer
 
 /mob/living/simple_animal/hostile/eldritch/raw_prophet/Initialize(mapload)
 	. = ..()
 	link_mob(src)
-	var/datum/action/innate/expand_sight/sight_seer = new(src)
+	sight_seer = new(src)
 	sight_seer.Grant(src)
+
+/mob/living/simple_animal/hostile/eldritch/raw_prophet/Destroy()
+	unlink_mob(src)
+	if(sight_seer)
+		sight_seer.Deactivate(src)
+		QDEL_NULL(sight_seer)
+	return ..()
+
 
 /mob/living/simple_animal/hostile/eldritch/raw_prophet/proc/link_mob(mob/living/mob_linked)
 	if(QDELETED(mob_linked) || mob_linked.stat == DEAD)
