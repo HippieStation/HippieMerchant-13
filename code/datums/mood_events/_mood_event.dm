@@ -23,3 +23,8 @@
 
 /datum/mood_event/proc/remove_effects()
 	return
+	
+/datum/mood_event/cbt
+	description = span_boldwarning("MY GROIN!!!\n")
+	mood_change = -3
+	timeout = 10 SECONDS
