@@ -10,22 +10,10 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/structure/closet/crate/necropolis/tendril
-	desc = "It's watching you suspiciously. You need a skeleton key to open it."
-	///prevents bust_open to fire
-	integrity_failure = 0
-	/// var to check if it got opened by a key
-	var/spawned_loot = FALSE
+	desc = "It's watching you suspiciously."
 
-/obj/structure/closet/crate/necropolis/tendril/Initialize()
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, .proc/try_spawn_loot)
-
-/obj/structure/closet/crate/necropolis/tendril/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	SIGNAL_HANDLER
-
-	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
-		return FALSE
-	var/loot = rand(1,20)
+/obj/structure/closet/crate/necropolis/tendril/PopulateContents()
+	var/loot = rand(1,21)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -77,15 +65,6 @@
 			new /obj/item/bedsheet/cult(src)
 		if(20)
 			new /obj/item/clothing/neck/necklace/memento_mori(src)
-	spawned_loot = TRUE
-	qdel(item)
-	to_chat(user, span_notice("You disable the magic lock, revealing the loot."))
-	return TRUE
-
-/obj/structure/closet/crate/necropolis/tendril/can_open(mob/living/user, force = FALSE)
-	if(!spawned_loot)
-		return FALSE
-	return ..()
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disc
@@ -1439,11 +1418,3 @@
 			new /obj/item/wisp_lantern(src)
 		if(3)
 			new /obj/item/prisoncube(src)
-
-/obj/item/skeleton_key
-	name = "skeleton key"
-	desc = "An artifact usually found in the hands of the natives of lavaland, which NT now holds a monopoly on."
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "skeleton_key"
-	w_class = WEIGHT_CLASS_SMALL
-
