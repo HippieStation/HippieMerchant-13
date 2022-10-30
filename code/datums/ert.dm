@@ -145,6 +145,17 @@
 	leader_role = /datum/antagonist/ert/intern/leader/unarmed
 	rename_team = "Unarmed Horde of Interns"
 
+/datum/ert/honk
+	roles = list(/datum/antagonist/ert/clown/honk)
+	leader_role = /datum/antagonist/ert/clown/honk
+	teamsize = 5
+	opendoors = TRUE
+	rename_team = "HONK Squad"
+	mission = "HONK them into submission"
+	polldesc = "an elite Nanotrasen tactical pranking squad"
+	code = "HOOOOOOOOOONK"
+
+
 /datum/ert/erp
 	name = "Code Rainbow ERP"
 	roles = list(/datum/antagonist/ert/security/party, /datum/antagonist/ert/clown/party, /datum/antagonist/ert/engineer/party, /datum/antagonist/ert/janitor/party)
