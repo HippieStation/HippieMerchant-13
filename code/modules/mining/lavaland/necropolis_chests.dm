@@ -10,64 +10,46 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/structure/closet/crate/necropolis/tendril
-	desc = "It's watching you suspiciously. You need a skeleton key to open it."
-	///prevents bust_open to fire
-	integrity_failure = 0
-	/// var to check if it got opened by a key
-	var/spawned_loot = FALSE
+	desc = "It's watching you suspiciously."
 
-/obj/structure/closet/crate/necropolis/tendril/Initialize()
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, .proc/try_spawn_loot)
-
-/obj/structure/closet/crate/necropolis/tendril/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	SIGNAL_HANDLER
-
-	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
-		return FALSE
-	var/loot = rand(1,20)
+/obj/structure/closet/crate/necropolis/tendril/PopulateContents()
+	var/loot = rand(1,28)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
 		if(2)
-			new /obj/item/soulstone/anybody(src)
+			new /obj/item/clothing/suit/space/hardsuit/cult(src)
 		if(3)
-			new /obj/item/katana/cursed(src)
+			new /obj/item/soulstone/anybody(src)
 		if(4)
-			new /obj/item/clothing/glasses/godeye(src)
+			new /obj/item/katana/cursed(src)
 		if(5)
-			new /obj/item/reagent_containers/glass/bottle/potion/flight(src)
+			new /obj/item/clothing/glasses/godeye(src)
 		if(6)
 			new /obj/item/clothing/gloves/gauntlets(src)
 		if(7)
-			var/mod = rand(1,4)
-			switch(mod)
-				if(1)
-					new /obj/item/disk/design_disk/modkit_disc/resonator_blast(src)
-				if(2)
-					new /obj/item/disk/design_disk/modkit_disc/rapid_repeater(src)
-				if(3)
-					new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
-				if(4)
-					new /obj/item/disk/design_disk/modkit_disc/bounty(src)
+			new /obj/item/pickaxe/diamond(src)
 		if(8)
-			new /obj/item/rod_of_asclepius(src)
+			if(prob(50))
+				new /obj/item/disk/design_disk/modkit_disc/resonator_blast(src)
+			else
+				new /obj/item/disk/design_disk/modkit_disc/rapid_repeater(src)
 		if(9)
-			new /obj/item/organ/heart/cursed/wizard(src)
+			new /obj/item/rod_of_asclepius(src)
 		if(10)
-			new /obj/item/ship_in_a_bottle(src)
+			new /obj/item/organ/heart/cursed/wizard(src)
 		if(11)
-			new /obj/item/clothing/suit/space/hardsuit/berserker(src)
+			new /obj/item/ship_in_a_bottle(src)
 		if(12)
-			new /obj/item/jacobs_ladder(src)
+			new /obj/item/clothing/suit/space/hardsuit/berserker(src)
 		if(13)
-			new /obj/item/guardiancreator/miner(src)
+			new /obj/item/jacobs_ladder(src)
 		if(14)
-			new /obj/item/warp_cube/red(src)
+			new /obj/item/nullrod/scythe/talking(src)
 		if(15)
-			new /obj/item/wisp_lantern(src)
+			new /obj/item/nullrod/armblade(src)
 		if(16)
-			new /obj/item/immortality_talisman(src)
+			new /obj/item/guardiancreator/miner(src)
 		if(17)
 			new /obj/item/book/granter/spell/summonitem(src)
 		if(18)
@@ -76,16 +58,34 @@
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 		if(20)
+			if(prob(50))
+				new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
+			else
+				new /obj/item/disk/design_disk/modkit_disc/bounty(src)
+		if(18)
+			new /obj/item/warp_cube/red(src)
+		if(19)
+			new /obj/item/wisp_lantern(src)
+		if(20)
+			new /obj/item/immortality_talisman(src)
+		if(21)
+			new /obj/item/gun/magic/hook(src)
+		if(22)
+			new /obj/item/grenade/clusterbuster/inferno(src)
+		if(23)
+			new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
+			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor(src)
+		if(24)
+			new /obj/item/book/granter/spell/summonitem(src)
+		if(25)
+			new /obj/item/book_of_babel(src)
+		if(26)
+			new /obj/item/borg/upgrade/modkit/lifesteal(src)
+			new /obj/item/bedsheet/cult(src)
+		if(27)
 			new /obj/item/clothing/neck/necklace/memento_mori(src)
-	spawned_loot = TRUE
-	qdel(item)
-	to_chat(user, span_notice("You disable the magic lock, revealing the loot."))
-	return TRUE
-
-/obj/structure/closet/crate/necropolis/tendril/can_open(mob/living/user, force = FALSE)
-	if(!spawned_loot)
-		return FALSE
-	return ..()
+		if(28)
+			new /obj/item/reagent_containers/glass/bottle/potion/flight(src)
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disc
@@ -1439,11 +1439,3 @@
 			new /obj/item/wisp_lantern(src)
 		if(3)
 			new /obj/item/prisoncube(src)
-
-/obj/item/skeleton_key
-	name = "skeleton key"
-	desc = "An artifact usually found in the hands of the natives of lavaland, which NT now holds a monopoly on."
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "skeleton_key"
-	w_class = WEIGHT_CLASS_SMALL
-
