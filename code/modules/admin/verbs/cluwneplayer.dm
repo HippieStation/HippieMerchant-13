@@ -7,11 +7,6 @@
 	var/datum/mind/M = mind
 
 	var/mob/living/simple_animal/cluwne/newmob =  new(get_turf(src))
-
-	if (client)
-		SSmedals.UnlockMedal(MEDAL_GET_CLUWNED,client)
-
-	M.transfer_to(newmob)
 	if(key)  // afk (no mind)
 		newmob.key = key
 

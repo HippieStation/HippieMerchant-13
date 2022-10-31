@@ -1,8 +1,7 @@
 /mob/living/simple_animal/cluwne
     name = "The Cluwne"
     real_name = "The Cluwne"
-    desc = "A cluwne. A barely-human monstrosity that pissed off the gods."
-    friendly = "bops"
+    desc = "A cluwne. A barely-human monstrosity that pissed off the gods. "
     turns_per_move = 10
     icon_state = "cluwne"
     icon_living = "cluwne"
@@ -16,7 +15,6 @@
     maxHealth = 150
     health = 150
     speak = list("HONK! HONK! HONK! HONK!","AAAAAAAAAAAAAAAAAA!!", "KILLMEKILLME!!", "HONK HENK HONK!!", "Honk Honk!", "HEEEEEEEEEEEEENK!!")
-    do_footstep = TRUE
     chat_color = "#F37EF6"
 
 /mob/living/simple_animal/cluwne/Initialize()
