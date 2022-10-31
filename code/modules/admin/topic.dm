@@ -918,6 +918,18 @@
 
 		usr.client.cmd_admin_slimeize(H)
 
+
+	else if(href_list["makecluwne"])
+		if(!check_rights(R_SPAWN))
+			return
+		var/mob/living/carbon/human/H = locate(href_list["makecluwne"])
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
+			return
+		message_admins("[key_name(usr)] cluwned [key_name(H)]")
+		log_admin("[key_name(usr)] cluwned [key_name(H)]")
+		H.cluwne()
+
 	else if(href_list["makeblob"])
 		if(!check_rights(R_SPAWN))
 			return
