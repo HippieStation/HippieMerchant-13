@@ -86,7 +86,25 @@
 	var/extra_speed = 0
 	if(throwingdatum.thrower != src)
 		extra_speed = min(max(0, throwingdatum.speed - initial(throw_speed)), CARBON_MAX_IMPACT_SPEED_BONUS)
-
+	if(iscarbon(hit_atom) && hit_atom != src)
+		var/mob/living/carbon/victim = hit_atom
+		if(!(victim.movement_type & FLYING))
+			if(victim.can_catch_item())
+				visible_message("<span class='danger'>[victim] catches [src]!</span>",\
+					"<span class='userdanger'>[victim] catches you!</span>")
+				grabbedby(victim, TRUE)
+				victim.throw_mode_off()
+				log_combat(victim, src, "caught (thrown mob)")
+				return
+			if(hurt)
+				victim.take_bodypart_damage(10,check_armor = TRUE)
+				take_bodypart_damage(10,check_armor = TRUE)
+				victim.Paralyze(20)
+				Paralyze(20)
+				visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>",\
+					"<span class='userdanger'>You violently crash into [victim]!</span>")
+			playsound(src,'sound/weapons/punch1.ogg',50,1)
+			. = ..()
 	if(istype(throwingdatum))
 		hurt = !throwingdatum.gentle
 	if(hurt && hit_atom.density)
@@ -98,18 +116,7 @@
 			take_bodypart_damage(5 + 5 * extra_speed, check_armor = TRUE, wound_bonus = extra_speed * 5)
 		else if(!iscarbon(hit_atom) && extra_speed)
 			take_bodypart_damage(5 * extra_speed, check_armor = TRUE, wound_bonus = extra_speed * 5)
-	if(iscarbon(hit_atom) && hit_atom != src)
-		var/mob/living/carbon/victim = hit_atom
-		if(victim.movement_type & FLYING)
-			return
-		if(hurt)
-			victim.take_bodypart_damage(10 + 5 * extra_speed, check_armor = TRUE, wound_bonus = extra_speed * 5)
-			take_bodypart_damage(10 + 5 * extra_speed, check_armor = TRUE, wound_bonus = extra_speed * 5)
-			victim.Paralyze(2 SECONDS)
-			Paralyze(2 SECONDS)
-			visible_message(span_danger("[src] crashes into [victim][extra_speed ? " really hard" : ""], knocking them both over!"),\
-				span_userdanger("You violently crash into [victim][extra_speed ? " extra hard" : ""]!"))
-		playsound(src,'sound/weapons/punch1.ogg',50,TRUE)
+
 
 
 //Throwing stuff
