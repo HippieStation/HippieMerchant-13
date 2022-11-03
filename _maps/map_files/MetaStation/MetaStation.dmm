@@ -11494,7 +11494,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/card/id/advanced/gold,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "ciU" = (
@@ -27937,6 +27936,7 @@
 "hdX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/emcloset,
+/obj/item/card/id/advanced/gold,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "heo" = (
@@ -44607,7 +44607,6 @@
 "mLm" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
-/obj/item/card/id/advanced/gold/captains_spare,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "mLr" = (
@@ -58557,9 +58556,6 @@
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 10
-	},
-/obj/machinery/modular_computer/console/preset/id{
-	dir = 8
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
