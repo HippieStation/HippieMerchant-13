@@ -1,0 +1,17 @@
+{
+	"version": 1,
+	"map_name": "Zulustation",
+	"map_path": "map_files/ZuluStation",
+	"map_file": "ZuluStation.dmm",
+	"shuttles": {
+		"cargo": "cargo_box",
+		"ferry": "ferry_fancy",
+		"whiteship": "whiteship_meta",
+		"emergency": "emergency_meta"
+	},
+	"job_changes": {
+		"cook": {
+			"additional_cqc_areas": ["/area/service/bar", "/area/service/kitchen/coldroom"]
+		}
+	}
+}
