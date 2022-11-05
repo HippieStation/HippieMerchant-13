@@ -3467,8 +3467,8 @@
 /area/cargo/office)
 "ajH" = (
 /obj/machinery/vending/cigarette,
-/obj/machinery/airalarm{
-	pixel_y = 22
+/obj/machinery/airalarm/plasma{
+	pixel_y = 23
 	},
 /turf/open/floor/iron{
 	initial_gas_mix = "plasma=100;TEMP=293.15"
@@ -16820,7 +16820,7 @@
 	dir = 5
 	},
 /obj/structure/closet/emcloset{
-	name = "plasmaperson emergency closet"
+	name = "plasmaman emergency closet"
 	},
 /obj/item/tank/internals/plasmaman/belt/full,
 /obj/item/tank/internals/oxygen,
@@ -23614,7 +23614,7 @@
 /area/maintenance/disposal/incinerator)
 "bfM" = (
 /obj/structure/closet/emcloset{
-	name = "plasmaperson emergency closet"
+	name = "plasmaman emergency closet"
 	},
 /obj/item/tank/internals/oxygen,
 /turf/open/floor/iron,
@@ -34647,6 +34647,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"gpK" = (
+/obj/machinery/vending/classicbeats,
+/turf/open/floor/wood,
+/area/service/bar/atrium)
 "gqu" = (
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
@@ -36554,6 +36558,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/security/prison/rec)
+"hwt" = (
+/obj/machinery/vending/classicbeats,
+/turf/open/floor/wood,
+/area/service/theater)
 "hwv" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 30
@@ -38393,10 +38401,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
 	dir = 8
 	},
-/obj/machinery/door/airlock/plasma/glass{
-	name = "Plasmaman Operating Theatre";
-	req_access_txt = "12"
-	},
+/obj/structure/holosign/barrier/atmos/sturdy,
 /turf/open/floor/iron/white,
 /area/commons/plasmalounge)
 "iwT" = (
@@ -51272,6 +51277,10 @@
 "pWS" = (
 /turf/open/floor/iron,
 /area/engineering/secondary_engine)
+"pXh" = (
+/obj/machinery/vending/classicbeats,
+/turf/open/floor/iron,
+/area/hallway/secondary/exit/departure_lounge)
 "pXG" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "maintenance access";
@@ -61559,6 +61568,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/machinery/vending/classicbeats,
 /turf/open/floor/iron,
 /area/commons/fitness/recreation)
 "wgn" = (
@@ -91049,7 +91059,7 @@ pIX
 pIX
 pIX
 eew
-pIX
+pXh
 pIX
 cuh
 fvI
@@ -98029,7 +98039,7 @@ jmt
 xYD
 xYD
 xYD
-sLa
+hwt
 cmF
 akd
 akd
@@ -107062,7 +107072,7 @@ aMT
 aNZ
 aOZ
 aQs
-wBT
+gpK
 jli
 xiG
 alj
