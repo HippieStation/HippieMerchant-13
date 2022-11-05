@@ -144,6 +144,10 @@
 #define ACCESS_MECH_SCIENCE 303
 #define ACCESS_MECH_ENGINE 304
 
+// Station vs Station
+#define ACCESS_SVS_RED 401
+#define ACCESS_SVS_BLUE 402
+
 /// A list of access levels that, when added to an ID card, will warn admins.
 #define ACCESS_ALERT_ADMINS list(ACCESS_CHANGE_IDS)
 

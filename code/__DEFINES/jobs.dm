@@ -72,3 +72,4 @@
 
 #define FACTION_NONE "None"
 #define FACTION_STATION "Station"
+#define FACTION_SVS "SVS"

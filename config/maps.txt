@@ -48,3 +48,8 @@ endmap
 
 map multiz_debug
 endmap
+
+map facingworlds
+#	minplayers 10
+	votable
+endmap
