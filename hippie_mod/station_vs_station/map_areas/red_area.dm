@@ -70,7 +70,7 @@
 
 /area/svs/red/science/lab
 	name = "Red Research and Development"
-	icon_state = "toxlab"
+	icon_state = "research"
 
 /area/svs/red/cargo
 	name = "Red Cargo Bay"

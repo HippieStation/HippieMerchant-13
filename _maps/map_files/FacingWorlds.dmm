@@ -232,14 +232,14 @@
 	},
 /area/svs/blue/security/vault/ore)
 "aT" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /obj/machinery/mineral/bluespace_miner,
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/security/vault/ore)
 "aU" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -248,7 +248,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/security/vault/ore)
 "aV" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -257,7 +257,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -289,20 +289,20 @@
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "bc" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /obj/machinery/mineral/bluespace_miner,
 /turf/open/floor/mineral/plastitanium,
 /area/svs/blue/security/vault/ore)
 "bd" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/svs/blue/security/vault/ore)
 "be" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue{
@@ -310,7 +310,7 @@
 	},
 /area/svs/blue/security/vault/ore)
 "bf" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -338,7 +338,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/svs/blue/security/vault/ore)
 "bi" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/structure/window/reinforced{
@@ -364,7 +364,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -422,7 +422,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "bu" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/structure/window/reinforced{
@@ -435,7 +435,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -458,7 +458,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -478,7 +478,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -507,7 +507,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -534,7 +534,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "bG" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -580,7 +580,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /turf/open/floor/iron,
@@ -589,7 +589,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/door/firedoor/border_only{
@@ -604,21 +604,21 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "bP" = (
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "bQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -630,7 +630,7 @@
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "bR" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -651,7 +651,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/structure/cable{
@@ -681,7 +681,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/science/lab)
 "bY" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -693,7 +693,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "bZ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -705,7 +705,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "ca" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -722,7 +722,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -734,7 +734,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "cc" = (
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer1,
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -742,7 +742,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "cd" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -757,7 +757,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -766,7 +766,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "cf" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -788,7 +788,7 @@
 /area/svs/blue/cargo)
 "ci" = (
 /obj/structure/rack,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/item/clothing/suit/space/syndicate,
@@ -806,7 +806,7 @@
 /turf/open/floor/plating,
 /area/svs/red/break_room)
 "cl" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -825,7 +825,7 @@
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "cn" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -877,7 +877,7 @@
 /turf/open/floor/iron,
 /area/svs/red/science/lab)
 "ct" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -942,7 +942,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/door/airlock/command{
@@ -953,7 +953,7 @@
 /area/svs/blue/break_room)
 "cD" = (
 /obj/structure/rack,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/item/clothing/suit/space/syndicate/blue,
@@ -976,7 +976,7 @@
 /turf/open/floor/iron,
 /area/svs/red/break_room)
 "cH" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1001,7 +1001,7 @@
 /turf/open/floor/iron,
 /area/svs/red/break_room)
 "cJ" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -1013,7 +1013,7 @@
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "cK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1022,7 +1022,7 @@
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "cL" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1037,7 +1037,7 @@
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "cN" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red{
@@ -1063,7 +1063,7 @@
 /turf/open/floor/iron,
 /area/svs/red/science/lab)
 "cQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -1075,7 +1075,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/science/lab)
 "cR" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -1087,7 +1087,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /turf/open/floor/iron,
@@ -1109,7 +1109,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/break_room)
 "cX" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1163,7 +1163,7 @@
 /area/svs/red/cargo)
 "dd" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -1182,7 +1182,7 @@
 /turf/open/floor/iron,
 /area/svs/red/break_room)
 "dg" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1209,7 +1209,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -1227,7 +1227,7 @@
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "dk" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -1236,7 +1236,7 @@
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "dl" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -1245,7 +1245,7 @@
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "dm" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -1257,7 +1257,7 @@
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "dn" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1269,7 +1269,7 @@
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "do" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1285,7 +1285,7 @@
 /turf/open/floor/iron,
 /area/svs/red/science/lab)
 "dp" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1339,7 +1339,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/science/lab)
 "dt" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -1439,7 +1439,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/science/lab)
 "dD" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/structure/cable{
@@ -1451,7 +1451,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -1464,7 +1464,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/science/lab)
 "dF" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1483,7 +1483,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -1506,7 +1506,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/nexus)
 "dI" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1521,7 +1521,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "dJ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
@@ -1537,14 +1537,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/nexus)
 "dL" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -1562,7 +1562,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/break_room)
 "dN" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1586,7 +1586,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/break_room)
 "dP" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -1621,7 +1621,7 @@
 /turf/closed/wall/r_wall,
 /area/svs/red/break_room)
 "dV" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /obj/structure/chair/sofa/left{
@@ -1630,19 +1630,19 @@
 /turf/open/floor/iron,
 /area/svs/red/break_room)
 "dW" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/svs/red/break_room)
 "dX" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 9
 	},
 /turf/open/floor/iron,
 /area/svs/red/break_room)
 "dY" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1654,7 +1654,7 @@
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "dZ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -1705,7 +1705,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/science/lab)
 "ef" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -1721,7 +1721,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -1730,7 +1730,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "ei" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /obj/structure/chair/sofa/left{
@@ -1739,13 +1739,13 @@
 /turf/open/floor/iron,
 /area/svs/blue/break_room)
 "ej" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/svs/blue/break_room)
 "ek" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 9
 	},
 /turf/open/floor/iron,
@@ -1798,7 +1798,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/security/vault)
 "er" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/structure/chair/sofa/corner{
@@ -1825,7 +1825,7 @@
 /turf/open/floor/iron,
 /area/svs/red/break_room)
 "ev" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -1847,7 +1847,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/nexus)
 "ex" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -1932,7 +1932,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -1945,7 +1945,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "eJ" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/structure/chair/sofa/corner{
@@ -2029,19 +2029,19 @@
 /area/space)
 "eT" = (
 /obj/effect/turf_decal/bot_white/right,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/svs/red/security/vault)
 "eU" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/circuit/red,
 /area/svs/red/security/vault)
 "eV" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/structure/cable{
@@ -2076,7 +2076,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -2086,13 +2086,13 @@
 /area/svs/blue/hallway)
 "fe" = (
 /obj/effect/turf_decal/bot_white/right,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/svs/blue/security/vault)
 "ff" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/circuit,
@@ -2101,7 +2101,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /turf/open/floor/circuit,
@@ -2132,7 +2132,7 @@
 	dir = 4
 	},
 /obj/machinery/door/window/brigdoor,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -2175,7 +2175,7 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "fq" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -2260,7 +2260,7 @@
 /area/svs/red/command/bridge)
 "fz" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -2323,7 +2323,7 @@
 /turf/open/floor/wood,
 /area/svs/blue/command/bridge/admiral)
 "fJ" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -2395,7 +2395,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "fR" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -2459,7 +2459,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -2476,7 +2476,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -2508,13 +2508,13 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "gf" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -2523,7 +2523,7 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "gg" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -2538,7 +2538,7 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "gh" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -2547,7 +2547,7 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "gi" = (
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer1,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2573,7 +2573,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2591,7 +2591,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2603,7 +2603,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -2613,7 +2613,7 @@
 /area/svs/red/hallway)
 "gn" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2625,7 +2625,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2639,7 +2639,7 @@
 /area/svs/red/command/bridge)
 "gp" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2652,7 +2652,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2665,7 +2665,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2675,7 +2675,7 @@
 /area/svs/red/command/bridge)
 "gs" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -2691,7 +2691,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "gu" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -2718,14 +2718,14 @@
 /turf/open/floor/wood,
 /area/svs/blue/command/bridge/admiral)
 "gz" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/iron/dark,
 /area/svs/blue/command/bridge)
 "gA" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
@@ -2745,7 +2745,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2758,7 +2758,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2770,7 +2770,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2782,7 +2782,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2798,7 +2798,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -2807,7 +2807,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "gH" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
@@ -2820,7 +2820,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -2829,7 +2829,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "gJ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -2847,7 +2847,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "gK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -2859,7 +2859,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "gL" = (
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer1,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2873,7 +2873,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -2888,14 +2888,14 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "gO" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -2904,7 +2904,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /turf/open/floor/iron,
@@ -2913,7 +2913,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -2954,7 +2954,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -2971,14 +2971,14 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "gY" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "gZ" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -2996,7 +2996,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -3037,7 +3037,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -3047,7 +3047,7 @@
 /area/svs/red/command/bridge)
 "hi" = (
 /obj/structure/chair/stool,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -3091,7 +3091,7 @@
 	color = "#4e73ad";
 	dir = 6
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/machinery/light{
 	bulb_colour = "#1f77db";
 	color = "#1f77db";
@@ -3110,7 +3110,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -3142,7 +3142,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -3155,7 +3155,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "hy" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -3180,13 +3180,13 @@
 /area/svs/blue/hallway)
 "hB" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "hC" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -3217,7 +3217,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -3251,7 +3251,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -3268,7 +3268,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -3277,7 +3277,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "hL" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
@@ -3294,7 +3294,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -3316,7 +3316,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -3338,7 +3338,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/door/firedoor/border_only,
@@ -3463,7 +3463,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -3475,7 +3475,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "id" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -3490,7 +3490,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -3501,7 +3501,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "if" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -3517,7 +3517,7 @@
 /turf/open/floor/iron,
 /area/svs/red/command/bridge/admiral)
 "ig" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -3563,21 +3563,21 @@
 /turf/open/floor/wood,
 /area/svs/red/command/bridge/admiral)
 "il" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /obj/structure/chair/stool,
 /turf/open/floor/wood,
 /area/svs/blue/command/bridge/admiral)
 "im" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/svs/blue/command/bridge/admiral)
 "in" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/chair/stool,
@@ -3587,7 +3587,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -3599,7 +3599,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -3615,7 +3615,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -3633,7 +3633,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -3762,7 +3762,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -3840,7 +3840,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/svs/red/security/armory)
 "iN" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -3858,7 +3858,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "iP" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/wood,
@@ -3871,7 +3871,7 @@
 /turf/open/floor/wood,
 /area/svs/red/command/bridge/admiral)
 "iR" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/wood,
@@ -3892,7 +3892,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -3922,7 +3922,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -3984,7 +3984,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -4056,7 +4056,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "jq" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
@@ -4074,7 +4074,7 @@
 /turf/open/floor/wood,
 /area/svs/red/command/bridge/admiral)
 "jt" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
@@ -4152,7 +4152,7 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "jF" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -4167,7 +4167,7 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "jG" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4187,7 +4187,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /obj/structure/cable{
@@ -4204,7 +4204,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/item/gun/ballistic/shotgun/riot{
@@ -4222,7 +4222,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4236,7 +4236,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/item/gun/energy/disabler{
@@ -4257,7 +4257,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/item/gun/ballistic/shotgun/riot{
@@ -4273,7 +4273,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4288,7 +4288,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4306,7 +4306,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4318,7 +4318,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4330,7 +4330,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4346,7 +4346,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4361,7 +4361,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "jT" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -4376,7 +4376,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "jU" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/chair{
@@ -4400,7 +4400,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge/admiral)
 "jY" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/chair{
@@ -4418,7 +4418,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/command/bridge/admiral)
 "kb" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -4436,7 +4436,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4452,7 +4452,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4468,7 +4468,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4489,7 +4489,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4504,7 +4504,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4516,7 +4516,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/structure/cable{
@@ -4628,7 +4628,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "kp" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -4646,7 +4646,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "kq" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -4668,7 +4668,7 @@
 	color = "#4e73ad";
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -4685,7 +4685,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -4704,7 +4704,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -4719,7 +4719,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "kz" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -4738,7 +4738,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge/admiral)
 "kC" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -4769,7 +4769,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -4789,7 +4789,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/security/vault)
 "kK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/effect/landmark/start/svs/blue,
@@ -4802,7 +4802,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /obj/effect/landmark/start/svs/blue,
 /turf/open/floor/mineral/titanium/blue{
 	color = "#49638c"
@@ -4816,13 +4816,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron,
 /area/svs/red/security/armory)
 "kO" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue{
@@ -4862,7 +4862,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -4897,7 +4897,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -4933,7 +4933,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -4956,7 +4956,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5172,7 +5172,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -5265,7 +5265,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -5327,7 +5327,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5349,7 +5349,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -5361,7 +5361,7 @@
 /area/svs/red/hallway)
 "mb" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -5376,19 +5376,19 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "md" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "me" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "mf" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
 	},
@@ -5401,7 +5401,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "mg" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5417,7 +5417,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "mh" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5433,7 +5433,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/svs/red/security)
 "mi" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5492,7 +5492,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/svs/red/security)
 "mo" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -5500,7 +5500,7 @@
 "mp" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -5508,7 +5508,7 @@
 "mq" = (
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -5516,7 +5516,7 @@
 "mr" = (
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -5527,7 +5527,7 @@
 "ms" = (
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -5536,7 +5536,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/svs/blue/security)
 "mt" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5548,7 +5548,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/svs/blue/security)
 "mu" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5564,7 +5564,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/svs/blue/security)
 "mv" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5576,7 +5576,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/command/bridge)
 "mw" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -5587,7 +5587,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/command/bridge)
 "mx" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5633,19 +5633,19 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/svs/blue/security/vault/server)
 "mE" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/svs/blue/security/vault/server)
 "mF" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -5666,7 +5666,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/structure/cable{
@@ -5675,20 +5675,20 @@
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/security/vault/server)
 "mJ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/security/vault/server)
 "mK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/security/vault/server)
 "mL" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/structure/cable{
@@ -5700,7 +5700,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/door/firedoor/border_only{
@@ -5715,7 +5715,7 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "mN" = (
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer1,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -5738,7 +5738,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -5747,7 +5747,7 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "mP" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5763,7 +5763,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "mQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -5793,7 +5793,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "mT" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red{
@@ -5802,19 +5802,19 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge)
 "mU" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/svs/red/security)
 "mV" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/svs/blue/security)
 "mW" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -5826,7 +5826,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/command/bridge)
 "mY" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5838,7 +5838,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/command/bridge)
 "mZ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5850,7 +5850,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/command/bridge)
 "na" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
@@ -5860,7 +5860,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/command/bridge)
 "nb" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5877,7 +5877,7 @@
 /area/svs/blue/command/bridge)
 "nc" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -5889,7 +5889,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/door/firedoor/border_only{
@@ -5913,13 +5913,13 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "nf" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -5928,13 +5928,13 @@
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "ng" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "nh" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/light{
@@ -5979,7 +5979,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/security/vault/server)
 "no" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -5998,7 +5998,7 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "nr" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red{
@@ -6037,7 +6037,7 @@
 /turf/open/floor/iron,
 /area/svs/red/hallway)
 "nw" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
@@ -6084,7 +6084,7 @@
 "nB" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
@@ -6128,7 +6128,7 @@
 "nI" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue,
@@ -6160,7 +6160,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "nM" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -6203,7 +6203,7 @@
 /turf/open/floor/circuit/red,
 /area/svs/red/nexus)
 "nS" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue,
@@ -6339,7 +6339,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "ok" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -6424,7 +6424,7 @@
 "ox" = (
 /obj/machinery/shieldgen,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -6552,7 +6552,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "oQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -6575,7 +6575,7 @@
 "oS" = (
 /obj/machinery/shieldgen,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -6655,7 +6655,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "pd" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -6679,7 +6679,7 @@
 "pg" = (
 /obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -6763,7 +6763,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "ps" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -6777,7 +6777,7 @@
 "pt" = (
 /obj/machinery/power/shieldwallgen,
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -6835,7 +6835,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "pC" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -6862,7 +6862,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "pG" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "pH" = (
@@ -6916,7 +6916,7 @@
 /turf/open/floor/plating,
 /area/svs/red/engine/engine_room)
 "pP" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -6931,7 +6931,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "pQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -6940,7 +6940,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "pR" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
 	},
@@ -6953,7 +6953,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "pS" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -6967,7 +6967,7 @@
 "pT" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/meson/engine,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -6980,7 +6980,7 @@
 /area/svs/red/engine/engine_room)
 "pU" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -6993,7 +6993,7 @@
 /area/svs/red/engine/engine_room)
 "pV" = (
 /obj/structure/chair/stool,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7005,7 +7005,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "pW" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -7017,7 +7017,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "pX" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
@@ -7031,7 +7031,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -7040,7 +7040,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -7068,7 +7068,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/engine/engine_room)
 "qd" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /obj/machinery/power/terminal{
@@ -7080,7 +7080,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "qe" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -7092,7 +7092,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "qf" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7104,7 +7104,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "qg" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7116,7 +7116,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "qh" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7134,7 +7134,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -7148,7 +7148,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -7161,7 +7161,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -7174,7 +7174,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -7184,7 +7184,7 @@
 /area/svs/blue/engine/engine_room)
 "qm" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -7193,7 +7193,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "qn" = (
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer1,
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -7211,7 +7211,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -7223,7 +7223,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -7238,7 +7238,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/storage)
 "qr" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7274,7 +7274,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "qu" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7311,7 +7311,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -7336,7 +7336,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/storage)
 "qC" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/power/terminal{
 	dir = 8
 	},
@@ -7358,7 +7358,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "qE" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -7381,7 +7381,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -7425,7 +7425,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -7458,13 +7458,13 @@
 /turf/open/floor/plating,
 /area/svs/blue/engine/storage)
 "qU" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "qV" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7544,7 +7544,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/open/floor/engine,
 /area/svs/red/engine/engine_room)
 "rd" = (
@@ -7620,7 +7620,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "rk" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7637,7 +7637,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -7658,7 +7658,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "rp" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "rq" = (
@@ -7752,7 +7752,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/open/floor/engine,
 /area/svs/blue/engine/engine_room)
 "rz" = (
@@ -7805,7 +7805,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -7816,13 +7816,13 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/engine/storage)
 "rF" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "rG" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7837,7 +7837,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7862,7 +7862,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7880,7 +7880,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -7895,7 +7895,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7907,7 +7907,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7919,7 +7919,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
@@ -7932,7 +7932,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /turf/open/floor/engine,
 /area/svs/red/engine/engine_room)
 "rO" = (
@@ -7942,7 +7942,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7954,7 +7954,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7963,7 +7963,7 @@
 /turf/open/floor/engine,
 /area/svs/red/engine/engine_room)
 "rQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -7985,13 +7985,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "rS" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -8015,17 +8015,17 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/engine/engine_room)
 "rU" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "rV" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "rW" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8034,7 +8034,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "rX" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8056,7 +8056,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8068,7 +8068,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -8086,7 +8086,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8098,7 +8098,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8110,7 +8110,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
@@ -8123,7 +8123,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /turf/open/floor/engine,
 /area/svs/blue/engine/engine_room)
 "se" = (
@@ -8133,7 +8133,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8148,7 +8148,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8160,7 +8160,7 @@
 /turf/open/floor/engine,
 /area/svs/blue/engine/engine_room)
 "sg" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8182,7 +8182,7 @@
 /turf/open/floor/engine,
 /area/svs/blue/engine/engine_room)
 "sh" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8209,7 +8209,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /turf/open/floor/engine,
 /area/svs/red/engine/engine_room)
 "sk" = (
@@ -8335,7 +8335,7 @@
 /turf/open/floor/plating,
 /area/svs/red/engine/engine_room)
 "sx" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8356,13 +8356,13 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/iron/dark,
 /area/svs/red/engine/storage)
 "sz" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8378,7 +8378,7 @@
 /area/svs/red/engine/storage)
 "sB" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -8399,7 +8399,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /turf/open/floor/engine,
 /area/svs/blue/engine/engine_room)
 "sE" = (
@@ -8416,7 +8416,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8545,13 +8545,13 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/iron/dark,
 /area/svs/blue/engine/storage)
 "sT" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8578,7 +8578,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/svs/red/engine/engine_room)
 "sX" = (
@@ -8681,7 +8681,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
 "tk" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -8710,7 +8710,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/engine/storage)
 "tn" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -8730,7 +8730,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/svs/blue/engine/engine_room)
 "tq" = (
@@ -8852,7 +8852,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/engine/storage)
 "tF" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -8887,7 +8887,7 @@
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
 	},
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/layer3{
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/on{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -8963,7 +8963,7 @@
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
 	},
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/layer3{
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/on{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -9051,7 +9051,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
@@ -9066,7 +9066,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/engine,
@@ -9158,7 +9158,7 @@
 /turf/closed/wall,
 /area/svs/red/engine/atmos)
 "us" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -9198,7 +9198,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
@@ -9213,7 +9213,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/engine,
@@ -9302,7 +9302,7 @@
 /turf/closed/wall,
 /area/svs/blue/engine/atmos)
 "uK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -9338,7 +9338,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /turf/open/space/basic,
@@ -9351,7 +9351,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/open/space/basic,
@@ -9363,7 +9363,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction/layer3{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 8
 	},
 /turf/closed/wall/r_wall,
@@ -9384,7 +9384,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
 	name = "Gas to Cooling Loop"
@@ -9557,7 +9557,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction/layer3{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 8
 	},
 /turf/closed/wall/r_wall,
@@ -9578,7 +9578,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
 	name = "Gas to Cooling Loop"
@@ -9762,7 +9762,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/open/space/basic,
@@ -9775,7 +9775,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/open/space/basic,
@@ -9788,7 +9788,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /turf/open/space/basic,
@@ -9806,7 +9806,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 4
 	},
@@ -9924,7 +9924,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 4
 	},
@@ -10022,7 +10022,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/open/space/basic,
@@ -10218,7 +10218,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /turf/open/space/basic,
@@ -10230,7 +10230,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
 	name = "Cooling Loop to Gas"
@@ -10302,7 +10302,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
 	name = "Cooling Loop to Gas"
@@ -10371,7 +10371,7 @@
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/space/basic,
 /area/space/nearstation)
 "wS" = (
@@ -10596,7 +10596,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/space/basic,
 /area/space/nearstation)
 "xs" = (
@@ -10607,7 +10607,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/open/space/basic,
@@ -10626,7 +10626,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
@@ -10727,7 +10727,7 @@
 /turf/open/floor/engine,
 /area/svs/red/engine/engine_room)
 "xH" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -10736,7 +10736,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/atmos)
 "xI" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -10746,7 +10746,7 @@
 /area/svs/red/engine/atmos)
 "xJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -10790,7 +10790,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
@@ -10891,7 +10891,7 @@
 /turf/open/floor/engine,
 /area/svs/blue/engine/engine_room)
 "yc" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -10903,14 +10903,14 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/atmos)
 "yd" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/svs/blue/engine/atmos)
 "ye" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /turf/open/floor/iron,
@@ -10930,7 +10930,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer3{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/open/space/basic,
@@ -10939,7 +10939,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -10952,7 +10952,7 @@
 /area/svs/red/engine/engine_room)
 "yj" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -10965,7 +10965,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11048,14 +11048,14 @@
 /turf/closed/wall/r_wall,
 /area/svs/red/engine/atmos)
 "yu" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/svs/red/engine/atmos)
 "yv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -11096,7 +11096,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11107,7 +11107,7 @@
 /area/svs/blue/engine/engine_room)
 "yD" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11120,7 +11120,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11210,14 +11210,14 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/atmos)
 "yP" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/svs/blue/engine/atmos)
 "yQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -11254,7 +11254,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
@@ -11304,20 +11304,20 @@
 /area/svs/red/engine/atmos)
 "zb" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/iron,
 /area/svs/red/engine/atmos)
 "zc" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/svs/red/engine/atmos)
 "zd" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /turf/open/floor/iron,
@@ -11334,7 +11334,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
@@ -11391,7 +11391,7 @@
 /area/svs/blue/engine/atmos)
 "zm" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11400,7 +11400,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/atmos)
 "zn" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11409,7 +11409,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/atmos)
 "zo" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11430,7 +11430,7 @@
 /turf/open/floor/engine/air,
 /area/svs/blue/engine/atmos)
 "zs" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
@@ -11504,7 +11504,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -11535,7 +11535,7 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11563,7 +11563,7 @@
 /turf/open/floor/engine/air,
 /area/svs/blue/engine/atmos)
 "zN" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
 	},
@@ -11648,7 +11648,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/airalarm{
@@ -11677,7 +11677,7 @@
 /area/svs/blue/engine/atmos)
 "Ab" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11686,7 +11686,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/atmos)
 "Ac" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/machinery/airalarm{
@@ -11696,7 +11696,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/engine/engine_room)
 "Ad" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -11708,7 +11708,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/engine/engine_room)
 "Ae" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -11717,7 +11717,7 @@
 /turf/open/floor/plating,
 /area/svs/red/engine/engine_room)
 "Af" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -11726,13 +11726,13 @@
 /obj/structure/reflector/box/anchored{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
 /area/svs/red/engine/engine_room)
 "Ah" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -11741,7 +11741,7 @@
 /turf/open/floor/plating,
 /area/svs/red/engine/engine_room)
 "Ai" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11805,7 +11805,7 @@
 /turf/open/floor/engine/o2,
 /area/svs/red/engine/atmos)
 "Ar" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11817,7 +11817,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -11826,7 +11826,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -11838,13 +11838,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
 /area/svs/blue/engine/engine_room)
 "Av" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -11890,7 +11890,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/engine/engine_room)
 "AC" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -11911,7 +11911,7 @@
 /turf/open/floor/plating,
 /area/svs/red/engine/engine_room)
 "AF" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -11985,13 +11985,13 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/engine/engine_room)
 "AO" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/svs/blue/engine/engine_room)
 "AP" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12043,7 +12043,7 @@
 "AW" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/structure/fans/tiny,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12098,7 +12098,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/door/airlock/command/glass{
@@ -12143,7 +12143,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "Bk" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12186,7 +12186,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -12213,7 +12213,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12228,7 +12228,7 @@
 /obj/machinery/atmospherics/components/trinary/mixer/airmix{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12241,7 +12241,7 @@
 	dir = 1
 	},
 /obj/structure/fans/tiny,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12308,7 +12308,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/door/airlock/command/glass{
@@ -12345,7 +12345,7 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -12390,7 +12390,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/atmos)
 "BP" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12445,7 +12445,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -12471,7 +12471,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/engine/atmos)
 "Cb" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12514,7 +12514,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/atmos)
 "Ci" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
@@ -12558,7 +12558,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/structure/cable{
@@ -12570,7 +12570,7 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 6
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -12604,13 +12604,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/iron,
 /area/svs/blue/engine/atmos)
 "Ct" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
@@ -12622,7 +12622,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12632,7 +12632,7 @@
 /area/svs/blue/engine/atmos)
 "Cv" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/plasma,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12658,7 +12658,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/engine/atmos)
 "Cz" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -12681,7 +12681,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/iron,
@@ -12726,7 +12726,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 9
 	},
 /turf/open/floor/iron,
@@ -12772,7 +12772,7 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12787,7 +12787,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12799,7 +12799,7 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12814,7 +12814,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12826,7 +12826,7 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -12876,7 +12876,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/engine/atmos)
 "CZ" = (
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
@@ -12895,13 +12895,13 @@
 /turf/open/floor/plating,
 /area/svs/blue/engine/atmos)
 "Db" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/iron,
 /area/svs/red/engine/atmos)
 "Dc" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /turf/open/floor/iron,
@@ -12917,7 +12917,7 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/engine/atmos)
 "Df" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/effect/landmark/start/svs/red,
@@ -12948,7 +12948,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/atmos)
 "Dm" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -12982,13 +12982,13 @@
 /turf/open/floor/plating,
 /area/svs/blue/engine/atmos)
 "Dr" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/svs/red/nexus)
 "Ds" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -13025,7 +13025,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer1,
@@ -13048,7 +13048,7 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 5
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -13062,7 +13062,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -13091,7 +13091,7 @@
 /area/svs/red/nexus)
 "DC" = (
 /obj/effect/turf_decal/stripes/red/line,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -13138,7 +13138,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -13164,7 +13164,7 @@
 /area/svs/blue/nexus)
 "DJ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -13183,7 +13183,7 @@
 /turf/open/floor/iron,
 /area/svs/red/engine/atmos)
 "Fe" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -13306,7 +13306,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "Nb" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -13414,7 +13414,7 @@
 /turf/open/space/basic,
 /area/space)
 "Rg" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -13485,7 +13485,7 @@
 /turf/open/space/basic,
 /area/space)
 "Tv" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
