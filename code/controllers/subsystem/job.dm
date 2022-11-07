@@ -81,6 +81,8 @@ SUBSYSTEM_DEF(job)
 		all_occupations += job
 		name_occupations[job.title] = job
 		type_occupations[job_type] = job
+		if(job.faction != SSmapping.config.default_job_faction)
+			continue
 		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE)
 			joinable_occupations += job
 

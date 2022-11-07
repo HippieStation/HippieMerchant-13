@@ -1,5 +1,6 @@
 {
-    "map_name": "FacingWorlds",
+	"version": 1,
+    "map_name": "Facing Worlds",
     "map_path": "map_files/FacingWorlds",
     "map_file": "FacingWorlds.dmm",
 	"default_job_faction": "SVS",

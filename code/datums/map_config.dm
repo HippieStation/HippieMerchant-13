@@ -37,7 +37,7 @@
 	// Oasis edit; this is the faction the jobs that players
 	// can play will be picked from. Lets you do things like, idk, Station Vs Station
 	// config from JSON
-	var/default_job_faction = "Station"
+	var/default_job_faction = FACTION_STATION
 
 /proc/load_map_config(filename = "data/next_map.json", default_to_box, delete_after, error_if_missing = TRUE)
 	var/datum/map_config/config = new

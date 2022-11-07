@@ -25,6 +25,11 @@ map deltastation
 	votable
 endmap
 
+map facingworlds
+	minplayers 20
+	votable
+endmap
+
 map kilostation
 	minplayers 0
 	default
@@ -47,9 +52,4 @@ map runtimestation
 endmap
 
 map multiz_debug
-endmap
-
-map facingworlds
-#	minplayers 10
-	votable
 endmap

@@ -4,7 +4,10 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Head of Security",
 	"Chief Engineer",
 	"Research Director",
-	"Chief Medical Officer"))
+	"Chief Medical Officer",
+	"Red Team Admiral",
+	"Blue Team Admiral"
+	))
 
 
 GLOBAL_LIST_INIT(engineering_positions, list(
@@ -61,7 +64,10 @@ GLOBAL_LIST_INIT(security_positions, list(
 	"Head of Security",
 	"Warden",
 	"Detective",
-	"Security Officer"))
+	"Security Officer",
+	"Red Team Member",
+	"Blue Team Member"
+	))
 
 /// These aren't defacto jobs, but are the special departmental variants for sec officers.
 GLOBAL_LIST_INIT(security_sub_positions, list(

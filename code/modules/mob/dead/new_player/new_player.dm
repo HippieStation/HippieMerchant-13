@@ -400,6 +400,8 @@
 		var/list/dept_dat = list()
 		for(var/job in GLOB.position_categories[category]["jobs"])
 			var/datum/job/job_datum = SSjob.name_occupations[job]
+			if(job_datum.faction != SSmapping.config.default_job_faction)
+				continue
 			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
 				var/command_bold = ""
 				if(job in GLOB.command_positions)

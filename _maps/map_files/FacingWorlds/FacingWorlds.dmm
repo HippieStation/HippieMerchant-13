@@ -468,7 +468,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Red Door";
-	req_access_txt = "401"
+	req_access_txt = "20"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/security/vault/ore)
@@ -3261,7 +3261,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/vault{
-	req_access_txt = "401"
+	req_access_txt = "20"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/security/vault)
@@ -3328,7 +3328,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/vault{
-	req_access_txt = "402"
+	req_access_txt = "20"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/svs/blue/security/vault)
@@ -3513,11 +3513,12 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "4-8";
+	req_access_txt = "20"
 	},
 /obj/machinery/door/airlock/security/glass{
-	name = "Red Door";
-	req_access_txt = "401"
+	name = "Red Team Leader Office";
+	req_access_txt = "20"
 	},
 /turf/open/floor/iron,
 /area/svs/red/command/bridge/admiral)
@@ -3611,8 +3612,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/command/glass{
-	name = "Blue Door";
-	req_access_txt = "402"
+	name = "Blue Team Leader Office";
+	req_access_txt = "20"
 	},
 /turf/open/floor/iron,
 /area/svs/blue/command/bridge/admiral)
@@ -4288,6 +4289,14 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/mob/living/simple_animal/bot/secbot/beepsky{
+	arrest_type = 1;
+	health = 45;
+	icon_state = "secbot1";
+	idcheck = 1;
+	name = "Sergeant-at-Armsky";
+	weaponscheck = 1
+	},
 /turf/open/floor/iron,
 /area/svs/red/security/armory)
 "jO" = (
@@ -4307,7 +4316,8 @@
 /area/svs/red/security/armory)
 "jP" = (
 /obj/machinery/door/window/brigdoor{
-	dir = 4
+	dir = 4;
+	req_access_txt = "20"
 	},
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -4347,7 +4357,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Red Door";
-	req_access_txt = "401"
+	req_access_txt = "20"
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/svs/red/security/armory)
@@ -4469,7 +4479,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Blue Door";
-	req_access_txt = "402"
+	req_access_txt = "20"
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/svs/blue/security/vault)
@@ -4487,7 +4497,8 @@
 /area/svs/blue/security/vault)
 "kf" = (
 /obj/machinery/door/window/brigdoor{
-	dir = 8
+	dir = 8;
+	req_access_txt = "20"
 	},
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -4530,6 +4541,14 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/mob/living/simple_animal/bot/secbot/beepsky{
+	arrest_type = 1;
+	health = 45;
+	icon_state = "secbot1";
+	idcheck = 1;
+	name = "Sergeant-at-Armsky";
+	weaponscheck = 1
 	},
 /turf/open/floor/iron,
 /area/svs/blue/security/vault)
@@ -7247,18 +7266,6 @@
 	},
 /turf/open/floor/iron,
 /area/svs/blue/engine/storage)
-"qr" = (
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron,
-/area/space)
 "qs" = (
 /obj/structure/table,
 /obj/structure/cable{
@@ -13383,9 +13390,6 @@
 	},
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
-"Ni" = (
-/turf/closed/wall,
-/area/space)
 "Nk" = (
 /obj/machinery/light{
 	dir = 4
@@ -13556,9 +13560,6 @@
 	},
 /turf/open/floor/iron,
 /area/svs/red/cargo)
-"SC" = (
-/turf/open/floor/iron,
-/area/space)
 "SG" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /obj/effect/turf_decal/bot,
@@ -25962,7 +25963,7 @@ aI
 aI
 aI
 au
-SC
+fp
 fp
 gh
 fp
@@ -26464,7 +26465,7 @@ cJ
 di
 dY
 ev
-qr
+fq
 fq
 gi
 hb
@@ -26966,7 +26967,7 @@ cK
 dj
 aI
 au
-SC
+fp
 fp
 gk
 fp
@@ -245854,7 +245855,7 @@ hP
 fc
 gG
 nL
-Ni
+oB
 oJ
 po
 po
@@ -246356,7 +246357,7 @@ em
 Og
 nc
 nL
-Ni
+oB
 oK
 po
 po
@@ -246858,7 +246859,7 @@ em
 fc
 gG
 nL
-Ni
+oB
 oK
 po
 po
@@ -247360,7 +247361,7 @@ em
 fc
 gK
 nL
-Ni
+oB
 oL
 po
 pq
@@ -247862,7 +247863,7 @@ em
 fc
 gK
 nL
-Ni
+oB
 oC
 po
 pL
@@ -248364,7 +248365,7 @@ em
 fc
 gK
 nL
-Ni
+oB
 oB
 pq
 oI
@@ -248866,7 +248867,7 @@ em
 mA
 gK
 nL
-Ni
+oB
 oM
 po
 pM
@@ -249368,7 +249369,7 @@ em
 fc
 gK
 nL
-Ni
+oB
 oN
 po
 po
@@ -249870,7 +249871,7 @@ em
 fc
 gI
 nM
-Ni
+oB
 oO
 po
 po
@@ -250372,7 +250373,7 @@ em
 hA
 nd
 nN
-Ni
+oB
 oP
 pr
 pN
@@ -250874,7 +250875,7 @@ em
 Yk
 gG
 nL
-Ni
+oB
 oB
 oB
 po
