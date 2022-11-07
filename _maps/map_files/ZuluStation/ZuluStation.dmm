@@ -427,8 +427,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
-"abA" = (
-/area/space)
 "abB" = (
 /obj/structure/closet{
 	name = "Evidence Closet 3"
@@ -18335,9 +18333,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
-"aPY" = (
-/turf/closed/wall,
-/area/space)
 "aQa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
 	dir = 4
@@ -81774,12 +81769,12 @@ aaa
 aaa
 aaa
 aaa
-aPY
-aPY
-aPY
-aPY
-aPY
-aPY
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -82031,12 +82026,12 @@ aaa
 aaa
 aaa
 aaa
-aPY
 aaa
 aaa
 aaa
 aaa
-aPY
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -82550,7 +82545,7 @@ aaa
 aaa
 aaa
 aaa
-aPY
+aaa
 aaa
 aaa
 aaa
@@ -83059,7 +83054,7 @@ aaa
 aaa
 aaa
 aaa
-aPY
+aaa
 aaa
 aaa
 aaa
@@ -83316,7 +83311,7 @@ aaa
 aaa
 aaa
 aaa
-aPY
+aaa
 aaa
 aaa
 aaa
@@ -138196,7 +138191,7 @@ aaa
 aaa
 "}
 (255,1,1) = {"
-abA
+aaa
 aaa
 aaa
 aaa
