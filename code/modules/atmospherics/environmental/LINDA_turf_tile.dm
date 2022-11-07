@@ -29,11 +29,7 @@
 	var/datum/gas_mixture/turf/air
 
 	var/obj/effect/hotspot/active_hotspot
-	/// air will slowly revert to initial_gas_mix
-	var/planetary_atmos = FALSE
-	/// once our paired turfs are finished with all other shares, do one 100% share
-	/// exists so things like space can ask to take 100% of a tile's gas
-	var/run_later = FALSE
+	var/planetary_atmos = FALSE //air will revert to initial_gas_mix
 
 	var/list/atmos_overlay_types //gas IDs of current active gas overlays
 	var/significant_share_ticker = 0
@@ -137,7 +133,9 @@
 	temperature_archived = temperature
 
 /turf/open/archive()
-	LINDA_CYCLE_ARCHIVE(src)
+	air.archive()
+	archived_cycle = SSair.times_fired
+	temperature_archived = temperature
 
 /////////////////////////GAS OVERLAYS//////////////////////////////
 
@@ -232,7 +230,7 @@
 
 /turf/open/process_cell(fire_count)
 	if(archived_cycle < fire_count) //archive self if not already done
-		LINDA_CYCLE_ARCHIVE(src)
+		archive()
 
 	current_cycle = fire_count
 	var/cached_ticker = significant_share_ticker
@@ -241,25 +239,20 @@
 	//cache for sanic speed
 	var/list/adjacent_turfs = atmos_adjacent_turfs
 	var/datum/excited_group/our_excited_group = excited_group
-	var/our_share_coeff = 1/(LAZYLEN(adjacent_turfs) + 1)
+	var/adjacent_turfs_length = LAZYLEN(adjacent_turfs)
 
 	var/datum/gas_mixture/our_air = air
-
-	var/list/share_end
 
 	#ifdef TRACK_MAX_SHARE
 	max_share = 0 //Gotta reset our tracker
 	#endif
 
-	for(var/turf/open/enemy_tile as anything in adjacent_turfs)
-		// This var is only rarely set, exists so turfs can request to share at the end of our sharing
-		// We need this so we can assume share is communative, which we need to do to avoid a hellish amount of garbage_collect()s
-		if(enemy_tile.run_later)
-			LAZYADD(share_end, enemy_tile)
+	for(var/t in adjacent_turfs)
+		var/turf/open/enemy_tile = t
 
 		if(fire_count <= enemy_tile.current_cycle)
 			continue
-		LINDA_CYCLE_ARCHIVE(enemy_tile)
+		enemy_tile.archive()
 
 	/******************* GROUP HANDLING START *****************************************************************/
 
@@ -291,7 +284,7 @@
 
 		//air sharing
 		if(should_share_air)
-			var/difference = our_air.share(enemy_air, our_share_coeff, 1 / (LAZYLEN(enemy_tile.atmos_adjacent_turfs) + 1))
+			var/difference = our_air.share(enemy_air, adjacent_turfs_length)
 			if(difference)
 				if(difference > 0)
 					consider_pressure_difference(enemy_tile, difference)
@@ -306,31 +299,18 @@
 	if (planetary_atmos) //share our air with the "atmosphere" "above" the turf
 		var/datum/gas_mixture/G = SSair.planetary[initial_gas_mix]
 		// archive ourself again so we don't accidentally share more gas than we currently have
-		LINDA_CYCLE_ARCHIVE(src)
+		archive()
 		if(our_air.compare(G))
 			if(!our_excited_group)
 				var/datum/excited_group/EG = new
 				EG.add_turf(src)
 				our_excited_group = excited_group
 			// shares 4/5 of our difference in moles with the atmosphere
-			our_air.share(G, 0.8, 0.8)
+			our_air.share(G, 0.25)
 			// temperature share with the atmosphere with an inflated heat capacity to simulate faster sharing with a large atmosphere
 			our_air.temperature_share(G, OPEN_HEAT_TRANSFER_COEFFICIENT, G.temperature_archived, G.heat_capacity() * 5)
 			G.garbage_collect()
 			PLANET_SHARE_CHECK
-
-	for(var/turf/open/enemy_tile as anything in share_end)
-		var/datum/gas_mixture/enemy_mix = enemy_tile.air
-		archive()
-		// We share 100% of our mix in this step. Let's jive
-		var/difference = our_air.share(enemy_mix, 1, 1)
-		LAST_SHARE_CHECK
-		if(!difference)
-			continue
-		if(difference > 0)
-			consider_pressure_difference(enemy_tile, difference)
-		else
-			enemy_tile.consider_pressure_difference(src, difference)
 
 	our_air.react(src)
 
