@@ -258,9 +258,9 @@
 
 /////////////////////////////Artificer/////////////////////////
 /mob/living/simple_animal/hostile/construct/artificer
-	name = "Artificer"
+	name = "Bob the builder"
 	real_name = "Artificer"
-	desc = "A bulbous construct dedicated to building and maintaining the Cult of Nar'Sie's armies."
+	desc = "You are bob the builder, you like to build and dont like muslims because they destory your towers"
 	icon_state = "artificer"
 	icon_living = "artificer"
 	maxHealth = 50
@@ -285,7 +285,7 @@
 						/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
 						)
 	runetype = /datum/action/innate/cult/create_rune/revive
-	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
+	playstyle_string = "<b>You are an George floyd follower. You are incredibly weak and fragile, but you are able to construct fortifications, \
 
 						use magic missile, repair allied constructs, shades, and yourself (by clicking on them), \
 						<i>and, most important of all,</i> create new constructs by producing soulstones to capture souls, \
@@ -373,9 +373,9 @@
 
 /////////////////////////////Harvester/////////////////////////
 /mob/living/simple_animal/hostile/construct/harvester
-	name = "Harvester"
-	real_name = "Harvester"
-	desc = "A long, thin construct built to herald Nar'Sie's rise. It'll be all over soon."
+	name = "George floyd ass"
+	real_name = "George floyd ass"
+	desc = "A long, thin construct built to herald George floyd rise. It'll be all over soon."
 	icon_state = "harvester"
 	icon_living = "harvester"
 	maxHealth = 40

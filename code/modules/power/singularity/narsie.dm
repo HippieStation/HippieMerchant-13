@@ -7,9 +7,9 @@
 
 /// Nar'Sie, the God of the blood cultists
 /obj/narsie
-	name = "Nar'Sie"
-	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
-	icon = 'icons/obj/narsie.dmi'
+	name = "George floyd"
+	desc = "You can't breathe, You are unavaliable to work and dodges child support."
+	icon = 'icons/obj/narsie.dmi' //change to flyod
 	icon_state = "narsie"
 	anchored = TRUE
 	appearance_flags = LONG_GLIDE
@@ -52,13 +52,13 @@
 		singularity_size = NARSIE_SINGULARITY_SIZE, \
 	))
 
-	send_to_playing_players(span_narsie("NAR'SIE HAS RISEN"))
+	send_to_playing_players(span_narsie("George flyod HAS RISEN"))
 	sound_to_playing_players('sound/creatures/narsie_rises.ogg')
 
 	var/area/area = get_area(src)
 	if(area)
 		var/mutable_appearance/alert_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "ghostalertsie")
-		notify_ghosts("Nar'Sie has risen in [area]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
+		notify_ghosts("George flyod has risen in [area]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 	narsie_spawn_animation()
 
 	GLOB.cult_narsie = src
@@ -179,12 +179,12 @@
 	if (food == old_target)
 		return
 
-	to_chat(old_target, span_cult("NAR'SIE HAS LOST INTEREST IN YOU."))
+	to_chat(old_target, span_cult("George floyd  HAS LOST INTEREST IN YOU."))
 	singularity_component.target = food
 	if(ishuman(food))
-		to_chat(food, span_cult("NAR'SIE HUNGERS FOR YOUR SOUL."))
+		to_chat(food, span_cult("George floyd HUNGERS FOR YOUR SOUL."))
 	else
-		to_chat(food, span_cult("NAR'SIE HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL."))
+		to_chat(food, span_cult("George floyd  HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL."))
 
 /// Called to make Nar'Sie convert objects to cult stuff, or to eat
 /obj/narsie/proc/consume(atom/target)
