@@ -52275,12 +52275,11 @@
 /turf/open/floor/carpet/green,
 /area/service/lawoffice)
 "nSi" = (
-/obj/machinery/power/emitter{
-	dir = 8;
-	state = 2
-	},
 /obj/structure/cable/emerald{
 	icon_state = "l2-4"
+	},
+/obj/machinery/power/emitter/welded{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/engineering/supermatter/room)
@@ -66974,12 +66973,11 @@
 /turf/open/floor/carpet/black,
 /area/command/heads_quarters/captain)
 "vtk" = (
-/obj/machinery/power/emitter{
-	dir = 4;
-	state = 2
-	},
 /obj/structure/cable/emerald{
 	icon_state = "l2-8"
+	},
+/obj/machinery/power/emitter/welded{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/engineering/supermatter/room)
