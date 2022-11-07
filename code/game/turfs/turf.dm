@@ -86,7 +86,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	flags_1 |= INITIALIZED_1
 
 	// by default, vis_contents is inherited from the turf that was here before
-	vis_contents.Cut()
+	if (length(vis_contents))
+		vis_contents.Cut()
 
 	assemble_baseturfs()
 
@@ -162,7 +163,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	requires_activation = FALSE
 	..()
 
-	vis_contents.Cut()
+	if (length(vis_contents))
+		vis_contents.Cut()
 
 /// WARNING WARNING
 /// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
