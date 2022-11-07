@@ -1,5 +1,5 @@
 <!-- Most valid html will work in here, excluding images. -->
 
-<h1>Welcome to The Merchan/tg/uild!</h1>
+<h1>Welcome to Hippiestation 13, Revived 2.0</h1>
 
-<i>This server is running a /tg/ fork with a lot of additions, ask Mister Bones in the Discord if you have any questions.</i>
+<i>Code is built on TG 2021, July with updated refactors and various ports from servers such as Hippie,merchant,aether and TG. without the shit ofc.</i>
