@@ -790,3 +790,10 @@ GLOBAL_LIST(hub_radial_layer_list)
 // This is a mapping aid. In order for this to be placed on a map and function, all three layers need to have their nodes active
 /obj/structure/cable/multilayer/connected
 		cable_layer = CABLE_LAYER_1 | CABLE_LAYER_2 | CABLE_LAYER_3
+
+//////////////////////////////
+// Misc.
+/////////////////////////////
+
+/obj/item/stack/cable_coil/emerald
+    color = COLOR_EMERALD_GREEN
