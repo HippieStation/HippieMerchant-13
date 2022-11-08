@@ -29,10 +29,6 @@
 	update_layer()
 	return ..()
 
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer1
-	piping_layer = 1
-	icon_state = "pipe11-2"
-
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer2
 	piping_layer = 2
 	icon_state = "pipe11-2"

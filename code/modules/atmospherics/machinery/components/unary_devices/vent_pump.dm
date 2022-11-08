@@ -322,10 +322,6 @@
 	on = TRUE
 	icon_state = "vent_map_on-3"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1
-	piping_layer = 1
-	icon_state = "vent_map_on-2"
-
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2
 	piping_layer = 2
 	icon_state = "vent_map_on-2"
