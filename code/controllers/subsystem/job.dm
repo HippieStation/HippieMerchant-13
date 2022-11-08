@@ -81,6 +81,8 @@ SUBSYSTEM_DEF(job)
 		all_occupations += job
 		name_occupations[job.title] = job
 		type_occupations[job_type] = job
+		if(job.faction != SSmapping.config.default_job_faction)
+			continue
 		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE)
 			joinable_occupations += job
 
@@ -689,9 +691,9 @@ SUBSYSTEM_DEF(job)
 	station_jobs = list("Assistant", "Captain", "Head of Personnel", "Bartender", "Cook", "Botanist", "Quartermaster", "Cargo Technician", \
 		"Shaft Miner", "Clown", "Mime", "Janitor", "Curator", "Lawyer", "Arms Dealer", "Chaplain", "Chief Engineer", "Station Engineer", \
 		"Atmospheric Technician", "Chief Medical Officer", "Medical Doctor", "Paramedic", "Chemist", "Geneticist", "Virologist", "Psychologist", \
-		"Research Director", "Scientist", "Roboticist", "Head of Security", "Warden", "Detective", "Security Officer", "Prisoner")
+		"Research Director", "Scientist", "Roboticist", "Head of Security", "Warden", "Detective", "Security Officer", "Prisoner", "Red Team Member", "Blue Team Member")
 
-	head_of_staff_jobs = list("Head of Personnel", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Captain")
+	head_of_staff_jobs = list("Head of Personnel", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Captain", "Red Team Admiral", "Blue Team Admiral")
 
 	additional_jobs_with_icons = list("Emergency Response Team Commander", "Security Response Officer", "Engineering Response Officer", "Medical Response Officer", \
 		"Entertainment Response Officer", "Religious Response Officer", "Janitorial Response Officer", "Death Commando", "Security Officer (Engineering)", \

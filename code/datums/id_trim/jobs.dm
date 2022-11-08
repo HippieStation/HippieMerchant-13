@@ -132,6 +132,35 @@
 
 	return ..()
 
+// SVS Begin
+/datum/id_trim/job/red_team_member
+	assignment = "Red Team Member"
+	trim_state = "trim_securityofficer"
+	full_access = list(ACCESS_SVS_RED)
+	minimal_access = list(ACCESS_SVS_RED)
+	config_job = "security_officer"
+	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_CHANGE_IDS)
+
+/datum/id_trim/job/blue_team_member
+	assignment = "Blue Team Member"
+	trim_state = "trim_medicaldoctor"
+	full_access = list(ACCESS_SVS_BLUE)
+	minimal_access = list(ACCESS_SVS_BLUE)
+	config_job = "medical_doctor"
+	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_CHANGE_IDS)
+
+/datum/id_trim/job/captain/red_team_admiral
+	assignment = "Red Team Admiral"
+	full_access = list(ACCESS_SVS_RED)
+	minimal_access = list(ACCESS_SVS_RED)
+
+/datum/id_trim/job/captain/blue_team_admiral
+	assignment = "Blue Team Admiral"
+	full_access = list(ACCESS_SVS_BLUE)
+	minimal_access = list(ACCESS_SVS_BLUE)
+
+// SVS End
+
 /datum/id_trim/job/cargo_technician
 	assignment = "Cargo Technician"
 	trim_state = "trim_cargotechnician"

@@ -92,6 +92,20 @@
 	shuttleId = "mining_common"
 	possible_destinations = "commonmining_home;lavaland_common_away;landing_zone_dock;mining_public"
 
+// SvS
+
+/obj/machinery/computer/shuttle/svs/red
+	circuit = /obj/item/circuitboard/computer/red_mining_shuttle
+	name = "red mining shuttle console"
+	shuttleId = "red"
+	possible_destinations = "red_home;red_away"
+
+/obj/machinery/computer/shuttle/svs/blue
+	circuit = /obj/item/circuitboard/computer/blue_mining_shuttle
+	name = "blue mining shuttle console"
+	shuttleId = "blue"
+	possible_destinations = "blue_home;blue_away"
+
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 
 /obj/structure/closet/crate/miningcar

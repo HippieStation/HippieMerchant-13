@@ -132,6 +132,20 @@
 	port_id = "mining"
 	who_can_purchase = null
 
+// SvS
+
+/datum/map_template/shuttle/svs/red
+	suffix = "red"
+	name = "red mining shuttle"
+	who_can_purchase = FALSE
+	port_id = "svs"
+
+/datum/map_template/shuttle/svs/blue
+	suffix = "blue"
+	name = "blue mining shuttle"
+	who_can_purchase = FALSE
+	port_id = "svs"
+
 /datum/map_template/shuttle/mining_common
 	port_id = "mining_common"
 	who_can_purchase = null

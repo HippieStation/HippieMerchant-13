@@ -115,6 +115,8 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		"Security Officer (Science)" = 15,
 		"Security Officer (Cargo)" = 16,
 		"Detective" = 17,
+		"Red Team Member" = 18,
+		"Blue Team Member" = 19,
 		// 20-29: Medbay
 		"Chief Medical Officer" = 20,
 		"Chemist" = 21,
@@ -147,6 +149,8 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		"Lawyer" = 69,
 		"Arms Dealer" = 71,
 		"Psychologist" = 72,
+		"Red Team Admiral" = 80,
+		"Blue Team Admiral" = 90,
 		// ANYTHING ELSE = UNKNOWN_JOB_ID, Unknowns/custom jobs will appear after civilians, and before assistants
 		"Assistant" = 999,
 

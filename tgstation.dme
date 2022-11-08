@@ -3881,4 +3881,11 @@
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
+// here comes the hippie mods
+#include "hippie_mod\station_vs_station\machines.dm"
+#include "hippie_mod\station_vs_station\job\jobspawns.dm"
+#include "hippie_mod\station_vs_station\job\datum\team_member.dm"
+#include "hippie_mod\station_vs_station\job\datum\team_admiral.dm"
+#include "hippie_mod\station_vs_station\map_areas\blue_area.dm"
+#include "hippie_mod\station_vs_station\map_areas\red_area.dm"
 // END_INCLUDE
