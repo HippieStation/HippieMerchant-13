@@ -37,6 +37,10 @@
 #define ACCOUNT_CAR_NAME "Cargo Budget"
 #define ACCOUNT_SEC "SEC"
 #define ACCOUNT_SEC_NAME "Defense Budget"
+#define ACCOUNT_RED "RED"
+#define ACCOUNT_RED_NAME "Team Red Budge"
+#define ACCOUNT_BLUE "BLUE"
+#define ACCOUNT_BLUE_NAME "Team Blue Budge"
 
 #define NO_FREEBIES "commies go home"
 

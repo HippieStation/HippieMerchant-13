@@ -120,6 +120,9 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define NO_ALERTS (1<<12)
 /// If blood cultists can draw runes or build structures on this AREA.
 #define CULT_PERMITTED (1<<13)
+/// Used for SVS
+#define RED_TERRITORY (1<<14)
+#define BLUE_TERRITORY (1<<15)
 
 /*
 	These defines are used specifically with the atom/pass_flags bitmask

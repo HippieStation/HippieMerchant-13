@@ -103,6 +103,7 @@
 	var/canBeacon = beacon && (isturf(beacon.loc) || ismob(beacon.loc))//is the beacon in a valid location?
 	var/list/data = list()
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	D = check_area()
 	if(D)
 		data["points"] = D.account_balance
 	data["locked"] = locked//swipe an ID to unlock
@@ -150,6 +151,7 @@
 				beacon.update_status(SP_READY) //turns on the beacon's ready light
 		if("printBeacon")
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			D = check_area()
 			if(D)
 				if(D.adjust_money(-BEACON_COST))
 					cooldown = 10//a ~ten second cooldown for printing beacons to prevent spam
@@ -183,6 +185,7 @@
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason)
 			var/points_to_check
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			D = check_area()
 			if(D)
 				points_to_check = D.account_balance
 			if(!(obj_flags & EMAGGED))
@@ -235,3 +238,10 @@
 							. = TRUE
 							update_appearance()
 							CHECK_TICK
+
+/obj/machinery/computer/cargo/express/proc/check_area()
+	var/area/svs/current_area = get_area(src)
+	if(current_area.area_flags & RED_TERRITORY)
+		return SSeconomy.get_dep_account(ACCOUNT_RED)
+	else if(current_area.area_flags & BLUE_TERRITORY)
+		return SSeconomy.get_dep_account(ACCOUNT_BLUE)

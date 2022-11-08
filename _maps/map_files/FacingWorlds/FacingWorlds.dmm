@@ -172,6 +172,7 @@
 /area/svs/red/security/vault/ore)
 "aH" = (
 /obj/effect/turf_decal/bot,
+/obj/structure/frame/computer,
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "aI" = (
@@ -397,7 +398,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/turf/open/floor/iron,
+/turf/open/floor/engine,
 /area/svs/blue/cargo)
 "bu" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
@@ -463,6 +464,7 @@
 /area/svs/blue/security/vault/ore)
 "bB" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/machinery/light,
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "bC" = (
@@ -4366,6 +4368,7 @@
 "kB" = (
 /obj/machinery/light,
 /obj/structure/table,
+/obj/item/card/id/departmental_budget/red,
 /turf/open/floor/iron/dark,
 /area/svs/red/command/bridge/admiral)
 "kC" = (
@@ -4378,6 +4381,7 @@
 "kD" = (
 /obj/structure/table,
 /obj/machinery/light,
+/obj/item/card/id/departmental_budget/blue,
 /turf/open/floor/iron/dark,
 /area/svs/blue/command/bridge/admiral)
 "kE" = (
@@ -12225,6 +12229,25 @@
 	},
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
+"EK" = (
+/obj/structure/rack,
+/obj/item/circuitboard/computer/cargo/express,
+/obj/item/circuitboard/machine/selling_pad,
+/obj/item/circuitboard/computer/selling_pad_control,
+/obj/item/stack/cable_coil/five{
+	amount = 30
+	},
+/obj/item/multitool,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/stock_parts/subspace/crystal,
+/obj/item/stock_parts/subspace/amplifier,
+/obj/item/stock_parts/subspace/amplifier,
+/obj/item/stock_parts/subspace/transmitter,
+/obj/item/stock_parts/subspace/transmitter,
+/turf/open/floor/iron,
+/area/svs/blue/cargo)
 "ET" = (
 /obj/docking_port/stationary{
 	dwidth = 3;
@@ -12362,6 +12385,10 @@
 /obj/machinery/light/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/svs/blue/security/vault/server)
+"HD" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/engine,
+/area/svs/blue/cargo)
 "HT" = (
 /obj/machinery/light,
 /obj/structure/closet/crate/freezer/blood,
@@ -12376,6 +12403,7 @@
 	pixel_y = 23
 	},
 /obj/effect/turf_decal/bot,
+/obj/structure/frame/machine,
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "Io" = (
@@ -12383,6 +12411,10 @@
 /obj/machinery/light,
 /turf/open/floor/iron/showroomfloor,
 /area/svs/blue/security)
+"Iv" = (
+/obj/structure/frame/computer,
+/turf/open/floor/iron,
+/area/svs/red/cargo)
 "IA" = (
 /turf/open/space/basic,
 /area/svs/red/security/vault/ore)
@@ -12409,6 +12441,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/svs/blue/cargo)
+"IY" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/engine,
+/area/svs/red/cargo)
 "Jk" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
@@ -12550,6 +12586,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/autolathe,
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "KW" = (
@@ -12579,11 +12616,15 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/engine,
 /area/svs/blue/cargo)
 "Lh" = (
 /obj/structure/closet/crate/freezer/surplus_limbs,
 /turf/open/floor/iron/white,
+/area/svs/blue/cargo)
+"Lk" = (
+/obj/structure/frame/computer,
+/turf/open/floor/iron,
 /area/svs/blue/cargo)
 "Ll" = (
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
@@ -12709,10 +12750,7 @@
 /turf/open/floor/iron,
 /area/svs/blue/hallway)
 "Or" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/iron,
+/turf/open/floor/engine,
 /area/svs/red/cargo)
 "Ou" = (
 /obj/structure/bed/roller,
@@ -12775,6 +12813,11 @@
 /obj/machinery/light,
 /turf/open/floor/iron/dark,
 /area/svs/blue/engine/atmos)
+"Py" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/frame/machine,
+/turf/open/floor/iron,
+/area/svs/blue/cargo)
 "PB" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
@@ -12962,6 +13005,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/autolathe,
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "Ss" = (
@@ -12986,6 +13030,25 @@
 	},
 /turf/open/floor/iron,
 /area/svs/red/engine/engine_room)
+"SM" = (
+/obj/structure/rack,
+/obj/item/stack/cable_coil/five{
+	amount = 30
+	},
+/obj/item/circuitboard/computer/cargo/express,
+/obj/item/circuitboard/machine/selling_pad,
+/obj/item/circuitboard/computer/selling_pad_control,
+/obj/item/multitool,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/stock_parts/subspace/crystal,
+/obj/item/stock_parts/subspace/amplifier,
+/obj/item/stock_parts/subspace/amplifier,
+/obj/item/stock_parts/subspace/transmitter,
+/obj/item/stock_parts/subspace/transmitter,
+/turf/open/floor/iron,
+/area/svs/red/cargo)
 "SO" = (
 /obj/machinery/door/airlock/external{
 	req_access_txt = "401"
@@ -13148,6 +13211,9 @@
 	},
 /turf/open/floor/iron/dark,
 /area/svs/red/engine/storage)
+"Xr" = (
+/turf/open/floor/engine,
+/area/svs/blue/cargo)
 "XC" = (
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/showroomfloor,
@@ -28018,7 +28084,7 @@ zi
 zi
 zi
 au
-aI
+SM
 aI
 aI
 aI
@@ -29524,9 +29590,9 @@ zi
 zi
 zi
 au
-aI
-aI
-aI
+Or
+Or
+Or
 aI
 aI
 au
@@ -30026,10 +30092,10 @@ zi
 zi
 zi
 au
-aI
-aI
-aI
-aI
+Or
+IY
+Or
+Iv
 aI
 au
 aX
@@ -30529,8 +30595,8 @@ zi
 zi
 au
 Or
-aI
-aI
+Or
+Or
 aI
 bB
 eH
@@ -246389,7 +246455,7 @@ zi
 zi
 ax
 Lg
-aO
+Xr
 bt
 aO
 aO
@@ -246890,10 +246956,10 @@ zi
 zi
 zi
 ax
-aO
-aO
-aO
-aO
+Xr
+HD
+Xr
+Lk
 aO
 ax
 Lh
@@ -247392,9 +247458,9 @@ zi
 zi
 zi
 ax
-aO
-aO
-aO
+Xr
+Xr
+Xr
 aO
 aO
 ax
@@ -248396,7 +248462,7 @@ zi
 zi
 zi
 ax
-aO
+EK
 aO
 aO
 aO
@@ -248898,7 +248964,7 @@ zi
 zi
 zi
 ax
-aO
+Lk
 aO
 aO
 aO
@@ -249400,7 +249466,7 @@ zi
 zi
 zi
 ax
-aP
+Py
 aO
 aO
 aO

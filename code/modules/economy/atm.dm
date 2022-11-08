@@ -11,7 +11,9 @@
 		ACCOUNT_MED = 2,
 		ACCOUNT_SRV = 2,
 		ACCOUNT_CAR = 2,
-		ACCOUNT_SEC = 2
+		ACCOUNT_SEC = 2,
+		ACCOUNT_RED = 2,
+		ACCOUNT_BLUE = 2
 	)
 
 /obj/machinery/atm/ui_interact(mob/user, datum/tgui/ui)
