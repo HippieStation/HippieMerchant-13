@@ -9043,7 +9043,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/machinery/power/apc/unlocked{
-	areastring = "/area/medical/genetics/cloning";
+	areastring = "/area/medical/science/genetics";
 	dir = 4;
 	name = "Cloning Lab APC";
 	pixel_x = 24
@@ -41139,7 +41139,6 @@
 /area/command/heads_quarters/captain)
 "iqx" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -45809,11 +45808,6 @@
 	},
 /turf/open/floor/wood,
 /area/service/library)
-"kBn" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/turf/closed/mineral/random/low_chance,
-/area/space/nearstation)
 "kBq" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -58918,11 +58912,6 @@
 /obj/effect/landmark/start/station_engineer,
 /turf/open/floor/iron,
 /area/engineering/break_room)
-"rwE" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "rwO" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -60360,7 +60349,7 @@
 /area/command/heads_quarters/rd)
 "snp" = (
 /obj/machinery/power/apc{
-	areastring = "/area/service/theatre";
+	areastring = "/area/service/theater";
 	dir = 1;
 	name = "Theatre APC";
 	pixel_x = 25
@@ -63968,11 +63957,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/prison/rec)
-"tZP" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space,
-/area/space/nearstation)
 "tZQ" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 2
@@ -70106,7 +70090,7 @@
 "xaJ" = (
 /obj/structure/closet/wardrobe/pjs,
 /obj/machinery/power/apc{
-	areastring = "/area/service/cryo";
+	areastring = "/area/service/cyro";
 	dir = 1;
 	name = "Cryopods APC";
 	pixel_y = 24
@@ -95182,8 +95166,8 @@ dbt
 dbt
 dbt
 dbt
-kBn
-sFs
+dbt
+dbt
 sFs
 dBf
 sFs
@@ -128363,7 +128347,7 @@ hzY
 fqy
 oxB
 kRO
-rwE
+kRO
 kRO
 kRO
 aaa
@@ -130361,7 +130345,7 @@ aaa
 aaa
 aaa
 aaa
-tZP
+eYK
 aaa
 aaa
 aaa
