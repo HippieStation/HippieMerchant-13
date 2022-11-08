@@ -20,7 +20,7 @@ map metastation
 	votable
 endmap
 
-map metastation
+map zulustation
 	minplayers 0
 	votable
 endmap
