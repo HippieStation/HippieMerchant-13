@@ -933,18 +933,6 @@
 /obj/item/stack/tile/noslip/thirty
 	amount = 30
 
-/obj/item/stack/tile/noslip/white
-	name = "high-traction floor tile"
-	singular_name = "high-traction floor tile"
-	desc = "A high-traction floor tile. It feels rubbery in your hand."
-	icon_state = "tile_noslip_white"
-	inhand_icon_state = "tile-noslip-white"
-	turf_type = /turf/open/floor/noslip/white
-	merge_type = /obj/item/stack/tile/noslip/white
-
-/obj/item/stack/tile/noslip/thirty
-	amount = 30
-
 //Circuit
 /obj/item/stack/tile/circuit
 	name = "blue circuit tile"
