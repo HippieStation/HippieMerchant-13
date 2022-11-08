@@ -20,6 +20,11 @@ map metastation
 	votable
 endmap
 
+map zulustation
+	minplayers 0
+	votable
+endmap
+
 map deltastation
 	minplayers 20
 	votable
