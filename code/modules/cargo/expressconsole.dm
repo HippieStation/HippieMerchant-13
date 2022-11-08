@@ -240,7 +240,7 @@
 							CHECK_TICK
 
 /obj/machinery/computer/cargo/express/proc/check_area()
-	var/area/svs/current_area = get_area(src)
+	var/area/current_area = get_area(src)
 	if(current_area.area_flags & RED_TERRITORY)
 		return SSeconomy.get_dep_account(ACCOUNT_RED)
 	else if(current_area.area_flags & BLUE_TERRITORY)

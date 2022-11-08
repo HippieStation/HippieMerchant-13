@@ -27,11 +27,13 @@
 
 /obj/machinery/computer/selling_pad_control/Initialize()
 	..()
-	var/area/svs/current_area = get_area(src)
+	var/area/current_area = get_area(src)
 	if(current_area.area_flags & RED_TERRITORY)
 		sell_account = SSeconomy.get_dep_account(ACCOUNT_RED)
-	else
+	else if(current_area.area_flags & BLUE_TERRITORY)
 		sell_account = SSeconomy.get_dep_account(ACCOUNT_BLUE)
+	else
+		sell_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/selling_pad_control/attackby(obj/item/I, mob/user)
@@ -61,11 +63,13 @@
 		var/obj/machinery/selling_pad/sell_pad = locate() in range(4,src)
 		pad = WEAKREF(sell_pad)
 	if(!sell_account)
-		var/area/svs/current_area = get_area(src)
+		var/area/current_area = get_area(src)
 		if(current_area.area_flags & RED_TERRITORY)
 			sell_account = SSeconomy.get_dep_account(ACCOUNT_RED)
-		else
+		else if(current_area.area_flags & BLUE_TERRITORY)
 			sell_account = SSeconomy.get_dep_account(ACCOUNT_BLUE)
+		else
+			sell_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
 
 /obj/machinery/computer/selling_pad_control/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
