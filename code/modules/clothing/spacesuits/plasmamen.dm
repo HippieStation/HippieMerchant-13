@@ -189,6 +189,7 @@
 	desc = "A special containment helmet designed for the Chief Medical Officer. A gold stripe applied to differentiate them from other medical staff."
 	icon_state = "cmo_envirohelm"
 	inhand_icon_state = "cmo_envirohelm"
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY | SNUG_FIT | SCAN_REAGENTS
 
 /obj/item/clothing/head/helmet/space/plasmaman/science
 	name = "science plasma envirosuit helmet"
@@ -213,6 +214,13 @@
 	desc = "A special containment helmet designed for the Research Director. A light brown design is applied to differentiate them from other scientists."
 	icon_state = "rd_envirohelm"
 	inhand_icon_state = "rd_envirohelm"
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY | SNUG_FIT | SCAN_REAGENTS
+	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman, /datum/action/item_action/toggle_research_scanner)
+
+//Rd bomb scanner
+/obj/item/clothing/head/helmet/space/plasmaman/rd/Initialize()
+	. = ..()
+	bomb_radar = new /obj/machinery/doppler_array/integrated(src)
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering
 	name = "engineering plasma envirosuit helmet"
