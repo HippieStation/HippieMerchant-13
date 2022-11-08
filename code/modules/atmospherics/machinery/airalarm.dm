@@ -117,7 +117,7 @@
 		/datum/gas/nitrogen = new/datum/tlv/no_checks,
 		/datum/gas/carbon_dioxide = new/datum/tlv/no_checks,
 		/datum/gas/miasma = new/datum/tlv/no_checks,
-        /datum/gas/plasma = new/datum/tlv(16, 19, 135, 140),
+		/datum/gas/plasma = new/datum/tlv(16, 19, 135, 140),
 		/datum/gas/nitrous_oxide = new/datum/tlv/no_checks,
 		/datum/gas/bz = new/datum/tlv/no_checks,
 		/datum/gas/hypernoblium = new/datum/tlv/no_checks,

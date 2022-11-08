@@ -41,11 +41,11 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 	icon_state = "l4-1-2-4-8-node"
 
 /obj/structure/cable/emerald
-    color = COLOR_EMERALD_GREEN
-    cable_layer = CABLE_LAYER_2
-    machinery_layer = null
-    layer = WIRE_LAYER + 0.01
-    icon_state = "l4-1-2-4-8-node"
+	color = COLOR_EMERALD_GREEN
+	cable_layer = CABLE_LAYER_2
+	machinery_layer = null
+	layer = WIRE_LAYER + 0.01
+	icon_state = "l4-1-2-4-8-node"
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
