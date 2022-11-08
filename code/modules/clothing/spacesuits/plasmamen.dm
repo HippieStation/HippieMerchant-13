@@ -311,6 +311,7 @@
 	icon_state = "captain_envirohelm"
 	inhand_icon_state = "captain_envirohelm"
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 100, RAD = 0, FIRE = 100, ACID = 75, WOUND = 10)
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT // Caps Hardsuit should be fireproof
 
 /obj/item/clothing/head/helmet/space/plasmaman/centcom_commander
 	name = "CentCom commander plasma envirosuit helmet"
