@@ -292,7 +292,9 @@
 
 	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
 
-	LAZYCLEARLIST(overlays)
+	if (length(overlays))
+		overlays.Cut()
+		
 	LAZYNULL(managed_overlays)
 
 	QDEL_NULL(light)
@@ -2049,22 +2051,17 @@
 
 	return TRUE
 
+//Update the screentip to reflect what we're hoverin over
 /atom/MouseEntered(location, control, params)
-	SSmouse_entered.hovers[usr.client] = src
-
-/// Fired whenever this atom is the most recent to be hovered over in the tick.
-/// Preferred over MouseEntered if you do not need information such as the position of the mouse.
-/// Especially because this is deferred over a tick, do not trust that `client` is not null.
-/atom/proc/on_mouse_enter(client/client)
-	SHOULD_NOT_SLEEP(TRUE)
-
+	. = ..()
+	// Statusbar
+	status_bar_set_text(usr, name)
 	// Screentips
 	if(usr?.hud_used)
 		if(!usr.client?.prefs.screentip_pref || (flags_1 & NO_SCREENTIPS_1))
 			usr.hud_used.screentip_text.maptext = ""
 		else
-			usr.hud_used.screentip_text.maptext = "<span class='maptext' style='text-align: center'><span style='font-size: 32px'><span style='color:[usr.client.prefs.screentip_color]: 32px'>[name]</span>"
-
+			usr.hud_used.screentip_text.maptext = MAPTEXT("<span style='text-align: center'><span style='font-size: 32px'><span style='color:[usr.client.prefs.screentip_color]: 32px'>[name]</span>")
 
 /// Gets a merger datum representing the connected blob of objects in the allowed_types argument
 /atom/proc/GetMergeGroup(id, list/allowed_types)

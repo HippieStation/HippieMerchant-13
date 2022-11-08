@@ -149,7 +149,8 @@
 	//DO it after moveToNullspace so memes can be had
 	LAZYCLEARLIST(important_recursive_contents)
 
-	vis_contents.Cut()
+	if (length(vis_contents))
+		vis_contents.Cut()
 
 /atom/movable/proc/update_emissive_block()
 	if(!blocks_emissive)

@@ -24795,6 +24795,8 @@
 /area/cargo/qm)
 "fVE" = (
 /obj/machinery/computer/cargo,
+/obj/machinery/power/apc/auto_name/north,
+/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "fVK" = (
