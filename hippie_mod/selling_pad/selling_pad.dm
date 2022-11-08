@@ -169,6 +169,7 @@
 
 	sell_pad.visible_message("<span class='notice'>[sell_pad] activates!</span>")
 	flick("lpad-beam", pad)
+	playsound(loc, 'sound/machines/synth_yes.ogg', 30 , TRUE)
 	sell_pad.icon_state = "lpad-idle-o"
 	sending = FALSE
 
