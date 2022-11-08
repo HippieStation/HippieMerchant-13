@@ -214,35 +214,8 @@
 	desc = "A special containment helmet designed for the Research Director. A light brown design is applied to differentiate them from other scientists."
 	icon_state = "rd_envirohelm"
 	inhand_icon_state = "rd_envirohelm"
-	var/explosion_detection_dist = 21
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
-
-/obj/item/clothing/head/helmet/space/plasmaman/research_director/Initialize()
-	. = ..()
-	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, .proc/sense_explosion)
-
-/obj/item/clothing/head/helmet/space/plasmaman/research_director/equipped(mob/living/carbon/human/user, slot)
-	..()
-	if (slot == ITEM_SLOT_HEAD)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.add_hud_to(user)
-
-/obj/item/clothing/head/helmet/space/plasmaman/research_director/dropped(mob/living/carbon/human/user)
-	..()
-	if (user.head == src)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.remove_hud_from(user)
-
-/obj/item/clothing/head/helmet/space/plasmaman/research_director/proc/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range,
-		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
-	SIGNAL_HANDLER
-
-	var/turf/T = get_turf(src)
-	if(T.z != epicenter.z)
-		return
-	if(get_dist(epicenter, T) > explosion_detection_dist)
-		return
-	display_visor_message("Explosion detected! Epicenter: [devastation_range], Outer: [heavy_impact_range], Shock: [light_impact_range]")
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering
 	name = "engineering plasma envirosuit helmet"
