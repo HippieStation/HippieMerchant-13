@@ -38,9 +38,9 @@
 #define ACCOUNT_SEC "SEC"
 #define ACCOUNT_SEC_NAME "Defense Budget"
 #define ACCOUNT_RED "RED"
-#define ACCOUNT_RED_NAME "Team Red Budge"
+#define ACCOUNT_RED_NAME "Team Red Budget"
 #define ACCOUNT_BLUE "BLUE"
-#define ACCOUNT_BLUE_NAME "Team Blue Budge"
+#define ACCOUNT_BLUE_NAME "Team Blue Budget"
 
 #define NO_FREEBIES "commies go home"
 
