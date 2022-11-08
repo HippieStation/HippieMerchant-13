@@ -217,7 +217,7 @@
 	var/explosion_detection_dist = 21
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
 
-/obj/item/clothing/head/helmet/space/plasmaman/research_director/rd/Initialize()
+/obj/item/clothing/head/helmet/space/plasmaman/research_director/Initialize()
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, .proc/sense_explosion)
 
