@@ -795,4 +795,4 @@ GLOBAL_LIST(hub_radial_layer_list)
 /////////////////////////////
 
 /obj/item/stack/cable_coil/emerald
-    color = COLOR_EMERALD_GREEN
+	color = COLOR_EMERALD_GREEN
