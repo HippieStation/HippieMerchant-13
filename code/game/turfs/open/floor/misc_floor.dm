@@ -125,13 +125,13 @@
 	floor_tile = /obj/item/stack/tile/noslip_white
 	slowdown = -0.3
 
-/turf/open/floor/noslip/setup_broken_states()
+/turf/open/floor/noslip/white/setup_broken_states()
 	return list("noslip-damaged1_white","noslip-damaged2_white","noslip-damaged3_white")
 
-/turf/open/floor/noslip/setup_burnt_states()
+/turf/open/floor/noslip/white/setup_burnt_states()
 	return list("noslip-scorched1_white","noslip-scorched2_white")
 
-/turf/open/floor/noslip/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
+/turf/open/floor/noslip/white/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
 
 

@@ -427,6 +427,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"abA" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
+/obj/structure/cable/emerald{
+	icon_state = "l2-1-2"
+	},
+/obj/machinery/button/door/directional/west{
+	id = "arms_dealer";
+	name = "shutter exterior access";
+	req_access_txt = "43"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "abB" = (
 /obj/structure/closet{
 	name = "Evidence Closet 3"
@@ -5779,6 +5792,9 @@
 	pixel_x = -27;
 	pixel_y = 2
 	},
+/obj/structure/cable/emerald{
+	icon_state = "l2-4"
+	},
 /turf/open/floor/iron,
 /area/service/hydroponics/garden)
 "apM" = (
@@ -5946,6 +5962,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/structure/cable/emerald{
+	icon_state = "l2-1-2"
+	},
 /turf/open/floor/iron,
 /area/service/hydroponics/garden)
 "aqk" = (
@@ -9043,7 +9062,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/machinery/power/apc/unlocked{
-	areastring = "/area/medical/science/genetics";
+	areastring = "/area/science/genetics";
 	dir = 4;
 	name = "Cloning Lab APC";
 	pixel_x = 24
@@ -18333,6 +18352,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
+"aPY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/cable/emerald{
+	icon_state = "l2-4-8"
+	},
+/turf/open/floor/iron,
+/area/service/hydroponics/garden)
 "aQa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
 	dir = 4
@@ -31873,6 +31901,9 @@
 	pixel_x = 26;
 	pixel_y = -26
 	},
+/obj/structure/cable/emerald{
+	icon_state = "l2-1-2"
+	},
 /turf/open/floor/iron,
 /area/service/hydroponics/garden)
 "dGK" = (
@@ -42357,6 +42388,9 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/structure/cable/emerald{
+	icon_state = "l2-1-2"
+	},
 /turf/open/floor/iron,
 /area/service/hydroponics/garden)
 "iUD" = (
@@ -45365,6 +45399,9 @@
 	name = "Disposal APC";
 	pixel_y = -24
 	},
+/obj/structure/cable/emerald{
+	icon_state = "l2-4"
+	},
 /turf/open/floor/iron,
 /area/maintenance/disposal)
 "kpU" = (
@@ -45501,6 +45538,9 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
+/obj/structure/cable/emerald{
+	icon_state = "l2-2-8"
+	},
 /turf/open/floor/iron,
 /area/maintenance/disposal)
 "ktF" = (
@@ -45808,6 +45848,14 @@
 	},
 /turf/open/floor/wood,
 /area/service/library)
+"kBn" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/hydroponics/constructable,
+/obj/structure/cable/emerald{
+	icon_state = "l2-4-8"
+	},
+/turf/open/floor/iron,
+/area/service/hydroponics/garden)
 "kBq" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -57512,7 +57560,7 @@
 	dir = 8
 	},
 /obj/structure/cable/emerald{
-	icon_state = "l2-4-8"
+	icon_state = "l2-1-4-8"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
@@ -58912,6 +58960,14 @@
 /obj/effect/landmark/start/station_engineer,
 /turf/open/floor/iron,
 /area/engineering/break_room)
+"rwE" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/structure/cable/emerald{
+	icon_state = "l2-1-2"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "rwO" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -69781,6 +69837,9 @@
 /area/security/detectives_office)
 "wQe" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
+/obj/structure/cable/emerald{
+	icon_state = "l2-2-8"
+	},
 /turf/open/floor/iron,
 /area/service/hydroponics/garden)
 "wQi" = (
@@ -71220,6 +71279,9 @@
 "xza" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/structure/cable/emerald{
+	icon_state = "l2-1-2"
+	},
 /turf/open/floor/iron,
 /area/service/hydroponics/garden)
 "xze" = (
@@ -72274,6 +72336,9 @@
 /area/commons/locker)
 "xWz" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
+/obj/structure/cable/emerald{
+	icon_state = "l2-4-8"
+	},
 /turf/open/floor/iron,
 /area/service/hydroponics/garden)
 "xWB" = (
@@ -89444,7 +89509,7 @@ apf
 aXI
 uXB
 uXB
-uXB
+aPY
 uXB
 uXB
 aqh
@@ -89958,7 +90023,7 @@ apg
 eJG
 apv
 apv
-apv
+kBn
 apv
 apv
 rVP
@@ -90215,7 +90280,7 @@ aph
 eJG
 apv
 apv
-apv
+kBn
 apv
 apv
 bla
@@ -90477,7 +90542,7 @@ iUA
 xza
 dFZ
 aqj
-usa
+rwE
 qDw
 aKQ
 mdF
@@ -111022,7 +111087,7 @@ tyG
 hKs
 hKs
 eLY
-hKs
+abA
 rmA
 uxt
 sEn
@@ -119242,7 +119307,7 @@ edp
 edp
 edp
 edp
-fjE
+bQI
 akX
 akr
 acW
