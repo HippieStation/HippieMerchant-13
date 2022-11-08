@@ -2,16 +2,13 @@ GLOBAL_VAR_INIT(svs_team_red_credits, 5000)
 GLOBAL_VAR_INIT(svs_team_blue_credits, 5000)
 // hacky as fuck but we have a tight deadline
 
-
-
-
-
-
 /obj/item/circuitboard/machine/cargoTeleporter
 	name = "cargo teleporter (Machine Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/svs/cargoTeleporter
 	var/team = ""
+
+/obj/machinery/svs
 
 /obj/machinery/svs/cargoTeleporter
 	name = "cargo teleporter"
@@ -29,10 +26,6 @@ GLOBAL_VAR_INIT(svs_team_blue_credits, 5000)
 	icon_state = "syndbeacon"
 	max_integrity = 600
 	density = TRUE
-
-/obj/machinery/svs/nexus/Destroy()
-	to_chat(world, "<span class='command_headset>The [src] has been destroyed!</span>")
-	return ..()
 
 /obj/machinery/svs/nexus/red
 	name = "Red Nexus"

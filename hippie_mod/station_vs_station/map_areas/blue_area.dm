@@ -79,7 +79,7 @@
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/svs/blue/hallway
-	name = "Primary Hallway"
+	name = "Blue Primary Hallway"
 	icon_state = "hallC"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 

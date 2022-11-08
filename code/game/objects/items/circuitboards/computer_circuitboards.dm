@@ -542,6 +542,16 @@
 	name = "Lavaland Shuttle (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle/mining/common
 
+/obj/item/circuitboard/computer/blue_mining_shuttle
+	name = "blue mining shuttle console (Computer Board)"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	build_path = /obj/machinery/computer/shuttle/svs/blue
+
+/obj/item/circuitboard/computer/red_mining_shuttle
+	name = "red mining shuttle console (Computer Board)"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	build_path = /obj/machinery/computer/shuttle/svs/red
+
 /obj/item/circuitboard/computer/exoscanner_console
 	name = "Scanner Array Control Console (Computer Board)"
 	build_path = /obj/machinery/computer/exoscanner_control

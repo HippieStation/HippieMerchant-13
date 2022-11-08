@@ -137,6 +137,14 @@
 	name = "Mining Shuttle"
 	requires_power = TRUE
 
+/area/shuttle/svs/red		// SvS
+	name = "Red Mining Shuttle"
+	requires_power = TRUE
+
+/area/shuttle/svs/blue		// SvS
+	name = "Blue Mining Shuttle"
+	requires_power = TRUE
+
 /area/shuttle/labor
 	name = "Labor Camp Shuttle"
 	area_flags = NONE //Set this so it doesn't inherit NO_ALERTS
