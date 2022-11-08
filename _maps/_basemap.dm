@@ -12,7 +12,8 @@
 		#include "map_files\KiloStation\KiloStation.dmm"
 		#include "map_files\MetaStation\MetaStation.dmm"
 		#include "map_files\IceBoxStation\IceBoxStation.dmm"
-		#include "map_files\FacingWorlds\FacingWorlds.dmm"
+    #include "map_files\FacingWorlds\FacingWorlds.dmm" // station v staiton/
+		#include "map_files\ZuluStation\ZuluStation.dmm" //crusaders shitty map
 		#ifdef CIBUILDING
 			#include "templates.dm"
 		#endif
