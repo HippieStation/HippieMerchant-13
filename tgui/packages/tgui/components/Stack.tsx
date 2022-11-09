@@ -5,18 +5,17 @@
  */
 
 import { classes } from 'common/react';
-import { computeBoxClassName, computeBoxProps } from './Box';
-import { computeFlexClassName, computeFlexItemClassName, computeFlexItemProps, computeFlexProps, FlexItemProps, FlexProps } from './Flex';
+import { Flex, FlexItemProps, FlexProps } from './Flex';
 
-type StackProps = FlexProps & {
+interface StackProps extends FlexProps {
   vertical?: boolean;
   fill?: boolean;
-};
+}
 
 export const Stack = (props: StackProps) => {
   const { className, vertical, fill, ...rest } = props;
   return (
-    <div
+    <Flex
       className={classes([
         'Stack',
         fill && 'Stack--fill',
@@ -24,52 +23,41 @@ export const Stack = (props: StackProps) => {
           ? 'Stack--vertical'
           : 'Stack--horizontal',
         className,
-        computeFlexClassName(props),
-        computeBoxClassName(props),
       ])}
-      {...computeBoxProps(computeFlexProps({
-        direction: vertical ? 'column' : 'row',
-        ...rest,
-      }))}
-    />
+      direction={vertical ? 'column' : 'row'}
+      {...rest} />
   );
 };
 
 const StackItem = (props: FlexProps) => {
   const { className, ...rest } = props;
   return (
-    <div
+    <Flex.Item
       className={classes([
         'Stack__item',
         className,
-        computeFlexItemClassName(rest),
-        computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(computeFlexItemProps(rest))}
-    />
+      {...rest} />
   );
 };
 
 Stack.Item = StackItem;
 
-type StackDividerProps = FlexItemProps & {
+interface StackDividerProps extends FlexItemProps {
   hidden?: boolean;
-};
+}
 
 const StackDivider = (props: StackDividerProps) => {
   const { className, hidden, ...rest } = props;
   return (
-    <div
+    <Flex.Item
       className={classes([
         'Stack__item',
         'Stack__divider',
         hidden && 'Stack__divider--hidden',
         className,
-        computeFlexItemClassName(rest),
-        computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(computeFlexItemProps(rest))}
-    />
+      {...rest} />
   );
 };
 
