@@ -189,6 +189,7 @@
 	desc = "A special containment helmet designed for the Chief Medical Officer. A gold stripe applied to differentiate them from other medical staff."
 	icon_state = "cmo_envirohelm"
 	inhand_icon_state = "cmo_envirohelm"
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SCAN_REAGENTS | SNUG_FIT
 
 /obj/item/clothing/head/helmet/space/plasmaman/science
 	name = "science plasma envirosuit helmet"
@@ -213,6 +214,8 @@
 	desc = "A special containment helmet designed for the Research Director. A light brown design is applied to differentiate them from other scientists."
 	icon_state = "rd_envirohelm"
 	inhand_icon_state = "rd_envirohelm"
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering
 	name = "engineering plasma envirosuit helmet"
