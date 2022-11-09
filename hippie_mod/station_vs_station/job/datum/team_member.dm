@@ -9,6 +9,8 @@
 	selection_color = "#0000ff"
 	display_order = JOB_DISPLAY_ORDER_BLUE_TEAM_MEMBER
 
+	paycheck = PAYCHECK_ASSISTANT
+	paycheck_department = ACCOUNT_BLUE
 	outfit = /datum/outfit/job/svs/blue
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
@@ -23,6 +25,8 @@
 	selection_color = "#ff0000"
 	display_order = JOB_DISPLAY_ORDER_RED_TEAM_MEMBER
 
+	paycheck = PAYCHECK_ASSISTANT
+	paycheck_department = ACCOUNT_RED
 	outfit = /datum/outfit/job/svs/red
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 

@@ -1,5 +1,5 @@
-/area/svs
-	has_gravity = TRUE
+/area/svs/red
+	area_flags = RED_TERRITORY
 
 /area/svs/red/engine
 	ambience_index = AMBIENCE_ENGI
