@@ -9,7 +9,9 @@
 		ACCOUNT_MED = 0,
 		ACCOUNT_SRV = 0,
 		ACCOUNT_CAR = 0,
-		ACCOUNT_SEC = 0
+		ACCOUNT_SEC = 0,
+		ACCOUNT_RED = 0,
+		ACCOUNT_BLUE = 0
 	)
 	var/payday_modifier
 	var/datum/job/account_job
