@@ -41,11 +41,6 @@ map icebox
 	votable
 endmap
 
-map tramstation
-	minplayers 20
-	votable
-endmap
-
 map zulustation
 	minplayers 20
 	votable
