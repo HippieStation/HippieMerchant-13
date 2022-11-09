@@ -593,6 +593,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "lounge"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
+/area/commons/plasmalounge
+	name = "Plasma Lounge"
+	icon_state = "plasmalounge"
+
 /area/commons/fitness
 	name = "Fitness Room"
 	icon_state = "fitness"
@@ -823,6 +827,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/service/hydroponics/garden/monastery
 	name = "Monastery Garden"
 	icon_state = "hydro"
+
+/area/service/cyro
+	name = "Cyrogenics"
+	icon_state = "cyro"
 
 //Engineering
 
@@ -1419,6 +1427,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/science/nanite
 	name = "Nanite Lab"
 	icon_state = "nanite"
+
+/area/science/shuttledock
+	name = "Science Shuttle Dock"
+	icon_state = "science_shuttle"
 
 // Telecommunications Satellite
 

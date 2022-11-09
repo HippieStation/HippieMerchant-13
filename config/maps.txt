@@ -46,6 +46,11 @@ map tramstation
 	votable
 endmap
 
+map zulustation
+	minplayers 20
+	votable
+endmap
+
 map runtimestation
 	minplayers 0
 	#default
