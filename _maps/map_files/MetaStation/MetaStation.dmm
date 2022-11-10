@@ -7789,15 +7789,9 @@
 /turf/open/floor/iron,
 /area/commons/dorms)
 "bpb" = (
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /obj/structure/cable,
 /obj/machinery/vending/donksofttoyvendor{
 	req_access_txt = "43"
-	},
-/obj/machinery/power/apc/auto_name/north,
-/obj/structure/cable,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
 	},
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
@@ -15330,6 +15324,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 9
 	},
+/obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "cZt" = (
@@ -15475,10 +15470,20 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "dbn" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/table/glass,
 /obj/structure/cable,
+/obj/item/folder/white{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/item/folder/white,
+/obj/item/pen/red,
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
-/turf/open/floor/plating,
+/turf/open/floor/iron/white,
 /area/medical/virology)
 "dbq" = (
 /turf/open/floor/wood{
@@ -25716,6 +25721,16 @@
 	},
 /turf/open/floor/iron,
 /area/engineering/atmos)
+"glR" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/medical/virology)
 "gmm" = (
 /obj/machinery/status_display/evac/directional/west,
 /obj/machinery/camera{
@@ -30309,16 +30324,9 @@
 /turf/open/floor/iron,
 /area/commons/locker)
 "hWt" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/starboard)
+/obj/machinery/vending/snack,
+/turf/open/floor/iron/cafeteria,
+/area/medical/virology)
 "hWx" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -34113,6 +34121,9 @@
 /obj/machinery/door/firedoor/heavy,
 /turf/open/floor/plating,
 /area/science/mixing)
+"jnr" = (
+/turf/open/floor/grass,
+/area/medical/virology)
 "jnv" = (
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
@@ -34928,18 +34939,13 @@
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "jBf" = (
-/obj/structure/table/glass,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 9
-	},
 /obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
+/obj/structure/table/glass,
+/obj/item/hand_labeler,
+/obj/item/radio/headset/headset_med,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "jBh" = (
@@ -41137,6 +41143,8 @@
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/rifle/boltaction,
 /obj/item/ammo_box/a762,
+/obj/machinery/power/apc/auto_name/west,
+/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "lDQ" = (
@@ -52943,12 +52951,7 @@
 /turf/open/floor/wood,
 /area/service/theater)
 "ptc" = (
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
-/obj/structure/cable,
 /obj/structure/sign/departments/arms_dealer,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
 /turf/closed/wall/r_wall,
 /area/service/gunshop)
 "ptd" = (
@@ -57161,6 +57164,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
+/obj/machinery/vending/cigarette,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "qRd" = (
@@ -57661,19 +57665,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "qZB" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
-/obj/structure/cable,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/starboard)
+/obj/structure/chair/stool/bar,
+/turf/open/floor/iron/cafeteria,
+/area/medical/virology)
 "qZG" = (
 /obj/machinery/modular_computer/console/preset/research{
 	dir = 8
@@ -60170,6 +60164,11 @@
 	},
 /turf/open/floor/wood,
 /area/service/bar)
+"rNM" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/donkpockets,
+/turf/open/floor/iron/cafeteria,
+/area/medical/virology)
 "rNQ" = (
 /obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/tile/yellow{
@@ -62057,6 +62056,11 @@
 /obj/machinery/chem_heater/withbuffer,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
+"sqU" = (
+/obj/structure/table/glass,
+/obj/machinery/microwave,
+/turf/open/floor/iron/cafeteria,
+/area/medical/virology)
 "sqV" = (
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
@@ -62276,11 +62280,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "suP" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer2{
-	dir = 1
-	},
-/turf/open/space/basic,
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
+/turf/open/floor/plating,
 /area/medical/virology)
 "svc" = (
 /obj/machinery/light/small/directional/south,
@@ -62407,20 +62410,11 @@
 	},
 /area/maintenance/starboard/fore)
 "sxE" = (
-/obj/structure/table/glass,
-/obj/structure/cable,
-/obj/item/folder/white{
-	pixel_x = 4;
-	pixel_y = -3
+/obj/machinery/door/airlock/virology/glass{
+	name = "Break Room";
+	req_access_txt = "39"
 	},
-/obj/item/folder/white,
-/obj/item/pen/red,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
-/turf/open/floor/iron/white,
+/turf/open/floor/iron/cafeteria,
 /area/medical/virology)
 "sxO" = (
 /obj/structure/cable,
@@ -63909,7 +63903,6 @@
 /area/engineering/atmos)
 "sWv" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
 	},
@@ -64108,15 +64101,11 @@
 /turf/open/floor/plating,
 /area/science/server)
 "taj" = (
-/obj/structure/table/glass,
-/obj/item/hand_labeler,
-/obj/item/radio/headset/headset_med,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/white,
@@ -64841,6 +64830,21 @@
 	icon_state = "platingdmg1"
 	},
 /area/maintenance/aft)
+"tmn" = (
+/obj/structure/table/glass,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 9
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/medical/virology)
 "tmu" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
@@ -77638,6 +77642,13 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"xtF" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer2{
+	dir = 1
+	},
+/turf/open/space/basic,
+/area/medical/virology)
 "xtM" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
@@ -94211,9 +94222,9 @@ hRK
 dBN
 dBN
 cBR
-aaa
-aaa
-aaa
+cBR
+cBR
+cBR
 aaa
 lMJ
 aaa
@@ -94468,9 +94479,9 @@ hRK
 rJm
 xht
 cBR
-aaa
-aaa
-aaa
+hWt
+sqU
+cBR
 aaa
 lMJ
 tia
@@ -94725,9 +94736,9 @@ hRK
 rCj
 jTj
 cBR
-lMJ
-lMJ
-lMJ
+qZB
+rNM
+cBR
 lMJ
 tia
 fEp
@@ -94982,9 +94993,9 @@ hRK
 ivs
 dBN
 cBR
+sxE
 cBR
-aaa
-aaa
+cBR
 aaa
 lMJ
 tia
@@ -95239,8 +95250,8 @@ mzn
 cCr
 oKi
 taj
+glR
 dBN
-aaa
 aaa
 aaa
 lMJ
@@ -95495,10 +95506,10 @@ ocP
 rgT
 kXr
 gqW
-sxE
+xfr
 dbn
 suP
-aaa
+xtF
 aaa
 lMJ
 vsN
@@ -95753,8 +95764,8 @@ unu
 yhM
 qby
 jBf
+tmn
 dBN
-lMJ
 lMJ
 lMJ
 vsN
@@ -96011,7 +96022,7 @@ dBN
 dBN
 cBR
 cBR
-aaa
+cBR
 aaa
 aaa
 lMJ
@@ -96267,8 +96278,8 @@ eUZ
 iTg
 cXS
 ngK
+jnr
 dBN
-aaa
 aaa
 aaa
 lMJ
@@ -96524,8 +96535,8 @@ qAX
 uFb
 tgQ
 adB
+jnr
 dBN
-aaa
 aaa
 aaa
 lMJ
@@ -96781,8 +96792,8 @@ cCK
 jwJ
 uWm
 nHx
+jnr
 dBN
-lMJ
 lMJ
 lMJ
 vsN
@@ -97039,7 +97050,7 @@ dBN
 dBN
 cBR
 cBR
-aaa
+cBR
 aaa
 aaa
 aaa
@@ -117794,8 +117805,8 @@ wwb
 myi
 jmf
 mRI
-hWt
-qZB
+bjp
+lqU
 ptc
 bpb
 qTH
