@@ -1,4 +1,4 @@
-# MerchantStation Codebase
+# Hippiestation Codebase
 
 [![Build Status](https://github.com/the-merchants-guild/merchant-station-13/workflows/CI%20Suite/badge.svg)](https://github.com/the-merchants-guild/merchant-station-13/actions?query=workflow%3A%22CI+Suite%22)
 [![Percentage of issues still open](https://isitmaintained.com/badge/open/the-merchants-guild/merchant-station-13.svg)](https://isitmaintained.com/project/the-merchants-guild/merchant-station-13 "Percentage of issues still open")
