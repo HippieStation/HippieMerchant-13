@@ -4123,14 +4123,14 @@
 /turf/open/floor/iron/cafeteria,
 /area/service/kitchen)
 "aFu" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L3"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP3"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -6255,22 +6255,22 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aZg" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L2"
-	},
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP2"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aZh" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L4"
-	},
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP4"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -6279,34 +6279,34 @@
 	codes_txt = "patrol;next_patrol=2.1-Leaving-Storage";
 	location = "1.5-Fore-Central"
 	},
-/obj/effect/turf_decal/plaque{
-	icon_state = "L6"
-	},
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP6"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aZk" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L10"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP10"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aZl" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L12"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP12"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aZm" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L14"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP14"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aZn" = (
@@ -10285,10 +10285,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bVf" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L3"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP3"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bVg" = (
@@ -10296,17 +10296,17 @@
 	codes_txt = "patrol;next_patrol=10.2-Aft-Port-Corner";
 	location = "10.1-Central-from-Aft"
 	},
-/obj/effect/turf_decal/plaque{
-	icon_state = "L5"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP5"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bVh" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L7"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP7"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bVi" = (
@@ -10314,17 +10314,17 @@
 	codes_txt = "patrol;next_patrol=8.1-Aft-to-Escape";
 	location = "8-Central-to-Aft"
 	},
-/obj/effect/turf_decal/plaque{
-	icon_state = "L9"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP9"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bVj" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L11"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP11"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bVm" = (
@@ -15772,14 +15772,14 @@
 /turf/open/space,
 /area/space/nearstation)
 "dgl" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L1"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP1"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -16082,10 +16082,10 @@
 /area/hallway/secondary/entry)
 "djB" = (
 /obj/effect/landmark/observer_start,
-/obj/effect/turf_decal/plaque{
-	icon_state = "L8"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP8"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "djC" = (
@@ -18060,14 +18060,14 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/command/storage/eva)
 "dOm" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L13"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP13"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -19197,15 +19197,15 @@
 /turf/open/floor/iron,
 /area/engineering/break_room)
 "eiA" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L8"
-	},
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP8"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -26159,9 +26159,6 @@
 /turf/open/floor/iron,
 /area/engineering/atmos)
 "gts" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L5"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
@@ -26170,6 +26167,9 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/hangover,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP5"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "gtT" = (
@@ -33567,11 +33567,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "jbJ" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L1"
-	},
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP1"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "jcl" = (
@@ -33792,11 +33792,11 @@
 /turf/open/floor/iron,
 /area/commons/storage/primary)
 "jia" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L9"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP9"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "jik" = (
@@ -53790,12 +53790,12 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/aisat/exterior)
 "pIT" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L13"
-	},
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP13"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "pJq" = (
@@ -55579,14 +55579,14 @@
 /turf/open/space,
 /area/space/nearstation)
 "qox" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L10"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP10"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -59524,14 +59524,14 @@
 /turf/open/floor/iron/dark,
 /area/service/chapel/main)
 "rAY" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L12"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP12"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -61132,14 +61132,14 @@
 /turf/open/floor/iron/dark,
 /area/command/bridge)
 "scg" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L11"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP11"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -62796,15 +62796,15 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "sFc" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L7"
-	},
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP7"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -72647,12 +72647,12 @@
 /turf/open/floor/iron,
 /area/science/lab)
 "vJX" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L2"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP2"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -73467,14 +73467,14 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "vXu" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L14"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP14"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "vXw" = (
@@ -78084,14 +78084,14 @@
 /turf/open/floor/iron,
 /area/cargo/storage)
 "xAp" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L4"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP4"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -78962,14 +78962,14 @@
 /turf/open/floor/iron/white,
 /area/medical/treatment_center)
 "xNJ" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L6"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 1
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 1
+	},
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP6"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)

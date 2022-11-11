@@ -14384,7 +14384,7 @@
 	req_access_txt = "47"
 	},
 /obj/structure/cable/emerald,
-/turf/closed/wall/r_wall,
+/turf/open/space/basic,
 /area/science/xenobiology)
 "aGw" = (
 /obj/effect/turf_decal/tile/purple{
@@ -17806,7 +17806,7 @@
 /area/hallway/secondary/entry)
 "aPU" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "maint3"
+	id = "maint2"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -21160,6 +21160,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/emerald,
+/obj/machinery/power/terminal,
 /turf/open/floor/iron,
 /area/engineering/gravity_generator)
 "baw" = (
@@ -21179,7 +21180,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/iron,
 /area/engineering/gravity_generator)
 "bax" = (
@@ -21203,7 +21203,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/iron,
 /area/engineering/gravity_generator)
 "bay" = (
@@ -21216,7 +21215,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/iron,
 /area/engineering/gravity_generator)
 "baz" = (
@@ -21225,7 +21223,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/obj/structure/cable/emerald,
 /turf/open/floor/iron,
 /area/engineering/gravity_generator)
 "baA" = (
@@ -21249,7 +21246,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/iron,
 /area/engineering/gravity_generator)
 "baB" = (
@@ -21708,13 +21704,16 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/structure/cable/emerald,
+/obj/machinery/power/apc/highcap/ten_k{
+	areastring = "/area/engineering/main";
+	dir = 8;
+	name = "Engineering APC";
+	pixel_x = -26
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "bbq" = (
@@ -22057,12 +22056,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/structure/cable/emerald,
-/obj/machinery/power/apc/highcap/ten_k{
-	areastring = "/area/engineering/main";
-	dir = 8;
-	name = "Engineering APC";
-	pixel_x = -26
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/engineering/main)
@@ -22346,7 +22341,6 @@
 	dir = 9
 	},
 /obj/structure/cable,
-/obj/structure/cable/emerald,
 /turf/open/floor/iron,
 /area/engineering/main)
 "bcA" = (
@@ -22614,6 +22608,7 @@
 	name = "Incinerator APC";
 	pixel_y = 25
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
 "bcT" = (
@@ -23070,6 +23065,7 @@
 "beb" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start/atmospheric_technician,
+/obj/structure/cable,
 /turf/open/floor/iron/airless,
 /area/maintenance/disposal/incinerator)
 "bed" = (
@@ -23422,7 +23418,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
 "bfe" = (
@@ -23439,7 +23434,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/iron,
 /area/engineering/atmos)
 "bff" = (
@@ -29191,7 +29185,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/iron,
 /area/engineering/gravity_generator)
 "cSI" = (
@@ -29295,7 +29288,7 @@
 /area/hallway/secondary/entry)
 "cVY" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "maint3"
+	id = "maint1"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -32449,6 +32442,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "eFQ" = (
@@ -33718,7 +33712,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 1
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/iron,
 /area/engineering/main)
 "ftd" = (
@@ -38029,6 +38022,11 @@
 /obj/structure/cable/emerald,
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
+"hPK" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/structure/cable/emerald,
+/turf/open/floor/plating,
+/area/engineering/main)
 "hSh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -38747,13 +38745,19 @@
 /turf/open/floor/iron/white,
 /area/security/prison/rec)
 "iiE" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
 	},
-/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
+	dir = 8
+	},
 /obj/structure/cable/emerald,
-/turf/open/floor/iron,
-/area/engineering/main)
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "63"
+	},
+/turf/open/floor/plating,
+/area/maintenance/central)
 "iiI" = (
 /obj/machinery/telecomms/server/presets/supply,
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -40405,7 +40409,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
 /obj/structure/cable/emerald,
-/turf/closed/wall,
+/turf/open/space/basic,
 /area/maintenance/port/fore)
 "jdW" = (
 /turf/closed/wall/r_wall,
@@ -40793,7 +40797,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable,
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
 "joP" = (
@@ -45606,6 +45609,13 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/commons/storage/tools)
+"lRY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/cable/emerald,
+/turf/open/floor/engine,
+/area/engineering/supermatter/room)
 "lSu" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -66683,6 +66693,7 @@
 	},
 /obj/machinery/power/apc{
 	areastring = "/area/engineering/break_room";
+	dir = 4;
 	name = "Engineering Foyer APC";
 	pixel_y = 26
 	},
@@ -67115,6 +67126,11 @@
 "xMg" = (
 /turf/closed/wall/r_wall,
 /area/science/shuttledock)
+"xMl" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/emerald,
+/turf/open/floor/iron,
+/area/engineering/atmos)
 "xMr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -93386,7 +93402,7 @@ iBG
 iBG
 iBG
 fzy
-jPx
+lHW
 jDJ
 uqK
 pbQ
@@ -93643,13 +93659,13 @@ aYp
 aYM
 duJ
 ugY
-jPx
+lHW
 jDJ
 uqK
 lHW
-qSk
+hPK
 eFL
-blg
+lRY
 blg
 bhy
 blg
@@ -93900,7 +93916,7 @@ aXW
 aYN
 iBG
 qZi
-jPx
+lHW
 jDJ
 uqK
 aMQ
@@ -94414,7 +94430,7 @@ xfM
 aYP
 iBG
 vDm
-jPx
+lHW
 jDJ
 uqK
 lHW
@@ -94671,7 +94687,7 @@ aXL
 aYQ
 duJ
 vQS
-jPx
+lHW
 jDJ
 uqK
 ddW
@@ -94928,7 +94944,7 @@ iBG
 iBG
 iBG
 vDb
-jPx
+lHW
 jDJ
 uqK
 byb
@@ -95185,7 +95201,7 @@ aYq
 aYR
 duJ
 vQS
-jPx
+lHW
 eeu
 fnZ
 tuP
@@ -95442,7 +95458,7 @@ jLZ
 rZp
 fRW
 oAR
-iiE
+tuP
 joQ
 lHW
 lHW
@@ -104183,7 +104199,7 @@ cDs
 aYA
 rgk
 rgk
-rgk
+xMl
 bfe
 rgk
 bgp
@@ -106180,7 +106196,7 @@ iKA
 iKA
 iKA
 iKA
-dCj
+iiE
 iKA
 uZy
 aOu
