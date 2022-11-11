@@ -135,17 +135,17 @@
 // SVS Begin
 /datum/id_trim/job/red_team_member
 	assignment = "Red Team Member"
-	trim_state = "trim_securityofficer"
-	full_access = list(ACCESS_SVS_RED)
-	minimal_access = list(ACCESS_SVS_RED)
+	trim_state = "trim_headofsecurity"
+	full_access = list(ACCESS_SVS_RED, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
+	minimal_access = list(ACCESS_SVS_RED, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 	config_job = "security_officer"
 	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_CHANGE_IDS)
 
 /datum/id_trim/job/blue_team_member
 	assignment = "Blue Team Member"
-	trim_state = "trim_medicaldoctor"
-	full_access = list(ACCESS_SVS_BLUE)
-	minimal_access = list(ACCESS_SVS_BLUE)
+	trim_state = "trim_headofpersonnel"
+	full_access = list(ACCESS_SVS_BLUE, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
+	minimal_access = list(ACCESS_SVS_BLUE, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 	config_job = "medical_doctor"
 	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_CHANGE_IDS)
 

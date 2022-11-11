@@ -361,6 +361,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/pod/light,
 /area/shuttle/svs/blue)
 "v" = (
@@ -368,6 +369,7 @@
 /obj/effect/turf_decal/box/white/corners{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/pod/dark,
 /area/shuttle/svs/blue)
 "w" = (
@@ -378,6 +380,7 @@
 	dir = 4
 	},
 /obj/structure/ore_box,
+/obj/structure/cable,
 /turf/open/floor/pod/dark,
 /area/shuttle/svs/blue)
 "x" = (

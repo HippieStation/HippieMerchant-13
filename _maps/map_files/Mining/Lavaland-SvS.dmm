@@ -206,6 +206,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cY" = (
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/base)
 "dd" = (
@@ -242,6 +243,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "dw" = (
@@ -341,6 +343,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/base)
 "eO" = (
@@ -567,10 +570,19 @@
 /obj/machinery/door/firedoor/heavy,
 /turf/open/floor/plating,
 /area/mine/production)
+"hC" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/structure/cable,
+/turf/open/floor/iron/dark,
+/area/mine/production)
 "hG" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "hI" = (
@@ -644,6 +656,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "iA" = (
@@ -848,10 +861,12 @@
 	name = "Red Mining Station";
 	req_access_txt = "401"
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "mR" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "mS" = (
@@ -890,6 +905,7 @@
 	name = "Red Mining Station";
 	req_access_txt = "401"
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "nK" = (
@@ -951,11 +967,11 @@
 /turf/open/floor/iron/dark,
 /area/mine/eva)
 "oB" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
+/obj/structure/cable,
 /turf/open/floor/mineral/titanium/blue{
 	color = "#49638c"
 	},
@@ -965,12 +981,11 @@
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "oV" = (
-/obj/machinery/door/airlock/command{
-	name = "Blue Mining Station";
-	req_access_txt = "402"
+/obj/structure/cable,
+/turf/open/floor/mineral/titanium/blue{
+	color = "#49638c"
 	},
-/turf/open/floor/iron/dark,
-/area/awaymission/snowdin/post)
+/area/awaymission/snowdin/base)
 "oW" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
@@ -1281,6 +1296,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "tw" = (
@@ -1293,6 +1309,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/post)
 "tz" = (
@@ -2099,6 +2116,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/post)
 "Is" = (
@@ -2113,6 +2131,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Ix" = (
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/post)
 "Iy" = (
@@ -2187,6 +2206,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/base)
 "JF" = (
@@ -2207,6 +2227,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/post)
 "JZ" = (
@@ -2249,6 +2270,7 @@
 /area/lavaland/surface/outdoors)
 "Kx" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/base)
 "KM" = (
@@ -2347,6 +2369,7 @@
 	name = "Blue Mining Station";
 	req_access_txt = "402"
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/post)
 "Mk" = (
@@ -2572,6 +2595,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/base)
+"Pb" = (
+/obj/structure/cable,
+/turf/open/floor/mineral/plastitanium/red,
+/area/mine/production)
 "Pl" = (
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/tile/blue,
@@ -2616,6 +2643,7 @@
 /turf/open/floor/iron,
 /area/mine/production)
 "Qk" = (
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "Qm" = (
@@ -2765,6 +2793,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/post)
 "Sq" = (
@@ -2936,6 +2965,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "Vc" = (
@@ -3116,6 +3146,13 @@
 	},
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"Xm" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden,
+/obj/structure/cable,
+/turf/open/floor/mineral/plastitanium/red,
+/area/mine/production)
 "XQ" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -3123,6 +3160,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "Yf" = (
@@ -21344,7 +21382,7 @@ bE
 Hk
 eR
 tG
-To
+Xm
 Wd
 To
 Mm
@@ -21354,7 +21392,7 @@ Fq
 Fq
 Fq
 Oh
-uz
+Pb
 An
 td
 bE
@@ -21650,10 +21688,10 @@ Ci
 zi
 vh
 sX
-Qk
-Qk
-Qk
-Qk
+el
+el
+el
+el
 mR
 ef
 Mf
@@ -21956,7 +21994,7 @@ Wu
 Wu
 ca
 zi
-vh
+hC
 rM
 Ci
 nS
@@ -75207,7 +75245,7 @@ bE
 bE
 wL
 RA
-oV
+ws
 Ff
 wL
 bE
@@ -75816,12 +75854,12 @@ Im
 Ix
 eH
 cE
-YM
-YM
+cY
+cY
 JE
-YM
-YM
-YM
+cY
+cY
+cY
 Lv
 Kb
 bE
@@ -76123,7 +76161,7 @@ wU
 WX
 wU
 Ja
-Ra
+oV
 Fp
 Kb
 bE
@@ -77332,7 +77370,7 @@ pB
 Pp
 Zs
 MD
-cY
+YM
 bm
 bE
 uT
