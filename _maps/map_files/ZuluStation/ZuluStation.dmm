@@ -8736,12 +8736,10 @@
 /turf/open/floor/iron,
 /area/medical/cryo)
 "avC" = (
-/obj/structure/sink/kitchen{
-	dir = 4;
-	name = "sink"
-	},
-/turf/closed/wall,
-/area/science/genetics)
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/structure/cable/emerald,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "avD" = (
 /obj/machinery/door/window/southleft{
 	base_state = "right";
@@ -32442,7 +32440,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "eFQ" = (
@@ -34750,7 +34747,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "gaE" = (
@@ -38023,10 +38019,10 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
 "hPK" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/structure/cable/emerald,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
-/area/engineering/main)
+/area/engineering/secondary_engine)
 "hSh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -38097,7 +38093,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "hTz" = (
@@ -39639,7 +39634,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "iIk" = (
@@ -40387,7 +40381,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
-/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "jdu" = (
@@ -45057,7 +45050,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "lCd" = (
@@ -45610,12 +45602,10 @@
 /turf/open/floor/plating,
 /area/commons/storage/tools)
 "lRY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/structure/cable/emerald,
-/turf/open/floor/engine,
-/area/engineering/supermatter/room)
+/turf/open/floor/plating,
+/area/engineering/secondary_engine)
 "lSu" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -53753,7 +53743,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "qxN" = (
@@ -56543,7 +56532,6 @@
 	dir = 4;
 	name = "Cooling Loop to Gas"
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "sod" = (
@@ -61542,7 +61530,6 @@
 	dir = 8;
 	name = "Gas to Cooling Loop"
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "uVN" = (
@@ -61979,7 +61966,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
 	dir = 6
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "vgx" = (
@@ -63429,12 +63415,18 @@
 /turf/open/floor/iron/dark,
 /area/command/heads_quarters/hos)
 "vQD" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
-/turf/open/floor/iron,
-/area/maintenance/port/aft)
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/structure/cable,
+/turf/open/floor/engine,
+/area/engineering/supermatter/room)
 "vQS" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -66324,7 +66316,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/structure/cable/emerald,
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "xwj" = (
@@ -88771,8 +88762,8 @@ axd
 dbt
 dbt
 dbt
-dbt
-lbJ
+evg
+hPK
 voi
 voi
 voi
@@ -89028,7 +89019,7 @@ axd
 dbt
 dbt
 dbt
-dbt
+evg
 lbJ
 ruh
 ruh
@@ -89285,7 +89276,7 @@ mgx
 dbt
 dbt
 dbt
-dbt
+evg
 lbJ
 stq
 lTq
@@ -89542,7 +89533,7 @@ mgx
 dbt
 dbt
 dbt
-dbt
+evg
 lbJ
 caO
 caO
@@ -89794,13 +89785,13 @@ vRv
 dKB
 bHr
 wSH
-vQD
-mgx
-dbt
-dbt
-dbt
-dbt
-lbJ
+iCu
+avC
+evg
+evg
+evg
+evg
+lRY
 voi
 voi
 voi
@@ -91067,7 +91058,7 @@ pVO
 pVO
 pVO
 pVO
-avC
+pVO
 pVO
 pVO
 nBw
@@ -93663,9 +93654,9 @@ lHW
 jDJ
 uqK
 lHW
-hPK
+qSk
 eFL
-lRY
+blg
 blg
 bhy
 blg
@@ -94179,7 +94170,7 @@ uqK
 lHW
 qSk
 yaP
-usQ
+vQD
 bkE
 uIO
 msJ
