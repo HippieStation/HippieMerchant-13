@@ -23528,11 +23528,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"fxT" = (
-/obj/structure/lattice,
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "fxY" = (
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
@@ -97567,8 +97562,8 @@ aaa
 aaa
 aaa
 aaa
-lAu
-dPw
+aaa
+lMJ
 aaa
 aaa
 aaa
@@ -97823,9 +97818,9 @@ lMJ
 lMJ
 cCM
 cDD
-fxT
+aox
 lMJ
-dPw
+lMJ
 aaa
 aaa
 aaa
@@ -98081,8 +98076,8 @@ aaa
 aaa
 aaa
 aaa
-lAu
-dPw
+aaa
+lMJ
 aaa
 aaa
 aaa
