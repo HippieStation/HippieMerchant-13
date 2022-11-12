@@ -41,7 +41,7 @@
 	SIGNAL_HANDLER
 
 	if(!gun)
-		ammo_shelf = source
+		ammo_shelf = WEAKREF(source)
 		return
 
 	for(var/each_gun in gun)
@@ -52,6 +52,8 @@
 		spawned_item = match_ammo(current_gun)
 		source.stored += new spawned_item
 		source.stored += new spawned_item
+
+	source.update_icon_state()
 
 /datum/element/shelf/proc/get_armor(obj/structure/shelf/source, amount)
 	SIGNAL_HANDLER
@@ -71,7 +73,7 @@
 	SIGNAL_HANDLER
 
 	if(!armor)
-		helmet_shelf = source
+		helmet_shelf = WEAKREF(source)
 		return
 
 	for(var/each_armor in armor)
@@ -79,6 +81,8 @@
 
 		spawned_item = match_helmet(current_armor)
 		source.stored += new spawned_item
+
+	source.update_icon_state()
 
 /datum/element/shelf/proc/match_helmet(obj/item/clothing/suit/armor/vest/current_armor)
 	if(istype(current_armor, /obj/item/clothing/suit/armor/vest/alt))
