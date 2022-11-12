@@ -7386,38 +7386,38 @@
 /area/hallway/primary/central)
 "aLZ" = (
 /obj/effect/turf_decal/plaque{
-	icon_state = "L3"
+	icon_state = "HP3"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aMa" = (
 /obj/effect/turf_decal/plaque{
-	icon_state = "L1"
+	icon_state = "HP1"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aMc" = (
 /obj/effect/turf_decal/plaque{
-	icon_state = "L5"
+	icon_state = "HP5"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aMd" = (
 /obj/effect/turf_decal/plaque{
-	icon_state = "L11"
+	icon_state = "HP11"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aMe" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L9"
-	},
 /obj/effect/landmark/start/hangover,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP9"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aMf" = (
 /obj/effect/turf_decal/plaque{
-	icon_state = "L13"
+	icon_state = "HP13"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -14995,12 +14995,11 @@
 /area/icemoon/surface/outdoors)
 "bIv" = (
 /obj/structure/railing{
-	dir = 4
+	dir = 1
 	},
-/obj/machinery/shower{
-	pixel_y = 16
+/turf/open/floor/iron/white/side{
+	dir = 10
 	},
-/turf/open/floor/iron,
 /area/science/xenobiology)
 "bIw" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
@@ -15048,12 +15047,6 @@
 /area/science/xenobiology)
 "bIQ" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/science/xenobiology)
-"bIR" = (
-/obj/structure/railing/corner{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
@@ -21819,9 +21812,9 @@
 /area/cargo/storage)
 "dCE" = (
 /obj/machinery/button/door/directional/south{
+	id = "arms_dealer";
 	name = "interior shutter access";
-	req_access_txt = "43";
-	id = "arms_dealer"
+	req_access_txt = "43"
 	},
 /obj/structure/cable,
 /turf/open/floor/wood/tile,
@@ -22302,7 +22295,9 @@
 /area/engineering/atmos)
 "dQs" = (
 /obj/machinery/firealarm/directional/north,
-/turf/open/openspace,
+/turf/open/floor/iron/white/side{
+	dir = 4
+	},
 /area/science/xenobiology)
 "dQC" = (
 /obj/effect/turf_decal/tile/green{
@@ -22356,10 +22351,10 @@
 /turf/open/floor/wood,
 /area/service/library)
 "dSx" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L4"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP4"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "dSH" = (
@@ -26137,10 +26132,10 @@
 	codes_txt = "patrol;next_patrol=Lockers";
 	location = "EVA"
 	},
-/obj/effect/turf_decal/plaque{
-	icon_state = "L6"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP6"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "gfS" = (
@@ -27403,11 +27398,11 @@
 /turf/open/floor/wood,
 /area/service/library)
 "gRd" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L12"
-	},
 /obj/structure/cable,
 /obj/effect/landmark/start/hangover,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP12"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "gRQ" = (
@@ -30227,9 +30222,7 @@
 /area/maintenance/port/fore)
 "iEb" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
-/turf/open/floor/iron/white/side{
-	dir = 6
-	},
+/turf/open/floor/iron/white,
 /area/science/xenobiology)
 "iEH" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
@@ -30580,8 +30573,11 @@
 /turf/open/floor/iron,
 /area/science/storage)
 "iLK" = (
-/obj/structure/sink{
-	pixel_y = 20
+/obj/machinery/shower{
+	pixel_y = 16
+	},
+/obj/structure/railing{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/science/xenobiology)
@@ -31842,8 +31838,8 @@
 	},
 /obj/item/pen,
 /obj/machinery/door/window/brigdoor/southleft{
-	req_access_txt = "43";
-	name = "Arms Dealer's Desk"
+	name = "Arms Dealer's Desk";
+	req_access_txt = "43"
 	},
 /obj/machinery/door/window/northright,
 /obj/structure/cable,
@@ -37161,9 +37157,7 @@
 /area/engineering/atmos)
 "mxo" = (
 /obj/machinery/light_switch/directional/east,
-/turf/open/floor/iron/white/side{
-	dir = 4
-	},
+/turf/open/floor/iron/white,
 /area/science/xenobiology)
 "mxZ" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
@@ -44651,10 +44645,10 @@
 /turf/open/floor/iron/freezer,
 /area/commons/toilet)
 "qEJ" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L2"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP2"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "qEX" = (
@@ -45222,10 +45216,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "qWq" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L7"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP7"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "qWs" = (
@@ -45338,10 +45332,10 @@
 	codes_txt = "patrol;next_patrol=Security";
 	location = "EVA2"
 	},
-/obj/effect/turf_decal/plaque{
-	icon_state = "L10"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP10"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "qYZ" = (
@@ -46194,6 +46188,9 @@
 "rzA" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 10
+	},
+/obj/structure/railing/corner{
+	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
@@ -48305,10 +48302,10 @@
 /area/engineering/atmos)
 "sGk" = (
 /obj/effect/landmark/observer_start,
-/obj/effect/turf_decal/plaque{
-	icon_state = "L8"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP8"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "sGF" = (
@@ -52332,11 +52329,8 @@
 /turf/open/floor/carpet,
 /area/command/meeting_room)
 "uOW" = (
-/obj/structure/railing{
-	dir = 1
-	},
 /turf/open/floor/iron/white/side{
-	dir = 10
+	dir = 6
 	},
 /area/science/xenobiology)
 "uPx" = (
@@ -53634,10 +53628,10 @@
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "vEF" = (
-/obj/effect/turf_decal/plaque{
-	icon_state = "L14"
-	},
 /obj/structure/cable,
+/obj/effect/turf_decal/plaque{
+	icon_state = "HP14"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "vFm" = (
@@ -102744,8 +102738,8 @@ gQQ
 fbm
 rND
 jpF
-bIv
-bIR
+nka
+mGc
 vua
 bLe
 bRY
@@ -103259,7 +103253,7 @@ qQW
 dKs
 jpF
 nLm
-mGc
+bIv
 vua
 pcf
 nka
