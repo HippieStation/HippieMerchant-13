@@ -103,13 +103,13 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	var/obj/item/organ/our_living_heart = user.getorganslot(our_heretic.living_heart_organ_slot)
 	// Obviously you need a heart in your chest to do a ritual on your... heart
 	if(!our_living_heart)
-		loc.balloon_alert(user, "ritual failed, you have no [our_heretic.living_heart_organ_slot]!") // "you have no heart!"
+		to_chat(user, span_hierophant_warning("ritual failed, you have no [our_heretic.living_heart_organ_slot]!")) // "you have no heart!"
 		return FALSE
 	// For sanity's sake, check if they've got a heart -
 	// even though it's not invokable if you already have one,
 	// they may have gained one unexpectantly in between now and then
 	if(HAS_TRAIT(our_living_heart, TRAIT_LIVING_HEART))
-		loc.balloon_alert(user, "ritual failed, already have a living heart!")
+		to_chat(user, span_hierophant_warning("ritual failed, already have a living heart!"))
 		return FALSE
 
 	// By this point they are making a new heart
@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	// If their current heart is not organic / is synthetic, they need an organic replacement
 	// ...But if our organ-to-be-replaced is unremovable, we're screwed
 	if(our_living_heart.organ_flags & ORGAN_UNREMOVABLE)
-		loc.balloon_alert(user, "ritual failed, [our_heretic.living_heart_organ_slot] unremovable!") // "heart unremovable!"
+		to_chat(user, span_hierophant_warning("ritual failed, [our_heretic.living_heart_organ_slot] unremovable!")) // "heart unremovable!"
 		return FALSE
 
 	// Otherwise, seek out a replacement in our atoms
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		selected_atoms += nearby_organ
 		return TRUE
 
-	loc.balloon_alert(user, "ritual failed, need a replacement [our_heretic.living_heart_organ_slot]!") // "need a replacement heart!"
+	to_chat(user, span_hierophant_warning("ritual failed, need a replacement [our_heretic.living_heart_organ_slot]!")) // "need a replacement heart!"
 	return FALSE
 
 /datum/eldritch_knowledge/living_heart/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)

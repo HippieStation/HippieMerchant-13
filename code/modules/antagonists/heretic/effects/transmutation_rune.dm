@@ -30,6 +30,7 @@
 
 	. += span_notice("Allows you to transmute objects by invoking the rune after collecting the prerequisites overhead.")
 	. += span_notice("You can use your <i>Codex Cicatrix</i> on the rune to remove it.")
+	. += span_notice("You can use your <i>Mansus Grasp</i> on the rune to remove it.")
 
 /obj/effect/eldritch_rune/can_interact(mob/living/user)
 	. = ..()
@@ -56,7 +57,7 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/list/rituals = heretic_datum.get_rituals()
 	if(!length(rituals))
-		loc.balloon_alert(user, "no rituals available!")
+		balloon_alert(user, "no rituals available!")
 		is_in_use = FALSE
 		return
 
@@ -143,7 +144,7 @@
 
 	if(length(what_are_we_missing))
 		// Let them know it screwed up
-		loc.balloon_alert(user, "ritual failed, missing components!")
+		balloon_alert(user, "ritual failed, missing components!")
 		// Then let them know what they're missing
 		to_chat(user, span_hierophant_warning("You are missing [english_list(what_are_we_missing)] in order to complete the ritual \"[ritual.name]\"."))
 		return FALSE
@@ -180,7 +181,7 @@
 	// No feedback is given on failure here -
 	// the ritual itself should handle it (providing specifics as to why it failed)
 	if(ritual_result)
-		loc.balloon_alert(user, "ritual complete")
+		balloon_alert(user, "ritual complete")
 
 	return ritual_result
 

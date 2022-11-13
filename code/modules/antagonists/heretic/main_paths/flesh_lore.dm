@@ -152,7 +152,7 @@
 			atoms -= body
 
 	if(!(locate(/mob/living/carbon/human) in atoms))
-		loc.balloon_alert(user, "ritual failed, no valid body!")
+		to_chat(user, span_hierophant_warning("ritual failed, no valid body!"))
 		return FALSE
 
 	return TRUE
@@ -161,7 +161,7 @@
 	var/mob/living/carbon/human/soon_to_be_ghoul = locate() in selected_atoms
 	if(QDELETED(soon_to_be_ghoul)) // No body? No ritual
 		stack_trace("[type] reached on_finished_recipe without a human in selected_atoms to make a ghoul out of.")
-		loc.balloon_alert(user, "ritual failed, no valid body!")
+		to_chat(user, span_hierophant_warning("ritual failed, no valid body!"))
 		return FALSE
 
 	soon_to_be_ghoul.grab_ghost()
@@ -170,7 +170,7 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
 		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, ROLE_HERETIC, 5 SECONDS, soon_to_be_ghoul)
 		if(!LAZYLEN(candidates))
-			loc.balloon_alert(user, "ritual failed, no ghosts!")
+			to_chat(user, span_hierophant_warning("ritual failed, no ghosts!"))
 			return FALSE
 
 		var/mob/dead/observer/chosen_candidate = pick(candidates)

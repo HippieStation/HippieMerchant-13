@@ -52,7 +52,7 @@
 	// You may wonder why we don't straight up prevent them from invoking the ritual if they don't have one -
 	// Hunt and sacrifice should always be invokable for clarity's sake, even if it'll fail immediately.
 	if(heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
-		loc.balloon_alert(user, "ritual failed, no living heart!")
+		to_chat(user, span_hierophant_warning("ritual failed, no living heart!"))
 		return FALSE
 
 	// We've got no targets set, let's try to set some.
@@ -73,7 +73,7 @@
 		return TRUE
 
 	// or FALSE if we don't
-	loc.balloon_alert(user, "ritual failed, no sacrifice found!")
+	to_chat(user, span_hierophant_warning("ritual failed, no sacrifice found!"))
 	return FALSE
 
 /datum/eldritch_knowledge/hunt_and_sacrifice/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
@@ -82,7 +82,7 @@
 		if(obtain_targets(user))
 			return TRUE
 		else
-			loc.balloon_alert(user, "ritual failed, no targets found!")
+			to_chat(user, span_hierophant_warning("ritual failed, no targets found!"))
 			return FALSE
 
 	sacrifice_process(user, selected_atoms, loc)
@@ -98,7 +98,7 @@
 
 	// First construct a list of minds that are valid objective targets.
 	var/list/datum/mind/valid_targets = list()
-	for(var/datum/mind/possible_target as anything in get_crewmember_mind())
+	for(var/datum/mind/possible_target in get_crewmember_mind())
 		if(possible_target == user.mind)
 			continue
 		if(possible_target in target_blacklist)

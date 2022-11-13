@@ -33,7 +33,7 @@
 	// Aimed spells snowflake and activate without checking cast_check, very cool
 	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(living_user)
 	if(our_heretic && !our_heretic.ascended && !HAS_TRAIT(living_user, TRAIT_ALLOW_HERETIC_CASTING))
-		loc.balloon_alert(living_user, "you need a focus!")
+		balloon_alert(living_user, "you need a focus!")
 		return
 	// Delete existing
 	if(blade_effect)
