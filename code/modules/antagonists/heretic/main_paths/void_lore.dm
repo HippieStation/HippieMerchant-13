@@ -225,20 +225,19 @@
 		close_carbon.silent += 1
 		close_carbon.adjust_bodytemperature(-20)
 
-	var/turf/open/source_turf = get_turf(source)
-	if(!isopenturf(source_turf))
-		return
-	source_turf.TakeTemperature(-20)
-
-	var/area/source_area = get_area(source)
-
+	// Telegraph the storm in every area on the station.
+	var/list/station_levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
 	if(!storm)
-		storm = new /datum/weather/void_storm(list(source_turf.z))
+		storm = new /datum/weather/void_storm(station_levels)
 		storm.telegraph()
 
-	storm.area_type = source_area.type
-	storm.impacted_areas = list(source_area)
-	storm.update_areas()
+	// When the heretic enters a new area, intensify the storm in the new area,
+	// and lessen the intensity in the former area.
+	var/area/source_area = get_area(source)
+	if(!storm.impacted_areas[source_area])
+		storm.former_impacted_areas |= storm.impacted_areas
+		storm.impacted_areas = list(source_area)
+		storm.update_areas()
 
 /**
  * Signal proc for [COMSIG_LIVING_DEATH].
