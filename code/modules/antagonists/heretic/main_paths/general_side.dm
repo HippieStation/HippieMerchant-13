@@ -20,7 +20,7 @@
 	// throw a fail to show the heretic that there's no point in rerolling
 	// if you don't have a heart to track the targets in the first place.
 	if(heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
-		loc.balloon_alert(user, "ritual failed, no living heart!")
+		to_chat(user, span_hierophant_warning("ritual failed, no living heart!"))
 		return FALSE
 
 	return TRUE
@@ -35,7 +35,7 @@
 		CRASH("Heretic datum didn't have a hunt_and_sacrifice knowledge learned, what?")
 
 	if(!target_finder.obtain_targets(user))
-		loc.balloon_alert(user, "ritual failed, no targets found!")
+		to_chat(user, span_hierophant_warning("ritual failed, no targets found!"))
 		return FALSE
 
 	return TRUE

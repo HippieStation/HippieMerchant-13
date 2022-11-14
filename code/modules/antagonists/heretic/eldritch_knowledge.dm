@@ -208,7 +208,7 @@
 			LAZYREMOVE(created_items, ref)
 
 	if(LAZYLEN(created_items) >= limit)
-		loc.balloon_alert(user, "ritual failed, at limit!")
+		to_chat(user, span_hierophant_warning("ritual failed, at limit!"))
 		return FALSE
 
 	return TRUE
@@ -377,7 +377,7 @@
 
 	// No fingerprints? No ritual
 	if(!length(fingerprints))
-		loc.balloon_alert(user, "ritual failed, no fingerprints!")
+		to_chat(user, span_hierophant_warning("ritual failed, no fingerprints!"))
 		return FALSE
 
 	return TRUE
@@ -392,7 +392,7 @@
 			compiled_list[human_to_check.real_name] = human_to_check
 
 	if(!length(compiled_list))
-		loc.balloon_alert(user, "ritual failed, no fingerprints!")
+		to_chat(user, span_hierophant_warning("ritual failed, no fingerprints!"))
 		return FALSE
 
 	var/chosen_mob = tgui_input_list(user, "Select the person you wish to curse", "Eldritch Curse", sortList(compiled_list, /proc/cmp_mob_realname_dsc))
@@ -401,7 +401,7 @@
 
 	var/mob/living/carbon/human/to_curse = compiled_list[chosen_mob]
 	if(QDELETED(to_curse))
-		loc.balloon_alert(user, "ritual failed, invalid choice!")
+		to_chat(user, span_hierophant_warning("ritual failed, invalid choice!"))
 		return FALSE
 
 	log_combat(user, to_curse, "cursed via heretic ritual", addition = "([name])")
@@ -443,7 +443,7 @@
 	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [summoned.real_name]?", ROLE_HERETIC, FALSE, 10 SECONDS, summoned)
 	if(!LAZYLEN(candidates))
-		loc.balloon_alert(user, "ritual failed, no ghosts!")
+		to_chat(user, span_hierophant_warning("ritual failed, no ghosts!"))
 		animate(summoned, 0.5 SECONDS, alpha = 0)
 		QDEL_IN(summoned, 0.6 SECONDS)
 		return FALSE

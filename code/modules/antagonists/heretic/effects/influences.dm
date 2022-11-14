@@ -85,6 +85,7 @@
 			continue
 
 		new /obj/effect/eldritch_influence(chosen_location)
+		message_admins("A eldritch influence has been spawned in [chosen_location.loc]")
 
 	rework_network()
 
@@ -97,7 +98,7 @@
 	tracked_heretics |= heretic
 
 	// If our heretic's on station, generate some new influences
-	if(ishuman(heretic.current) && is_centcom_level(heretic.current.z))
+	if(ishuman(heretic.current) && !is_centcom_level(heretic.current.z))
 		generate_new_influences()
 
 	add_to_smashes(heretic)
@@ -178,7 +179,6 @@
 		qdel(head)
 	else
 		human_user.gib()
-
 	var/datum/effect_system/reagents_explosion/explosion = new()
 	explosion.set_up(1, get_turf(human_user), TRUE, 0)
 	explosion.start(src)
@@ -197,7 +197,6 @@
 	name = "reality smash"
 	icon = 'icons/effects/eldritch.dmi'
 	anchored = TRUE
-	interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_OBSERVER
 	/// Whether we're currently being drained or not.
@@ -214,6 +213,8 @@
 	GLOB.reality_smash_track.smashes += src
 	heretic_image = image(icon, src, real_icon_state, OBJ_LAYER)
 	generate_name()
+	if(!mapload)
+		GLOB.reality_smash_track.rework_network()
 
 /obj/effect/eldritch_influence/Destroy()
 	GLOB.reality_smash_track.smashes -= src
