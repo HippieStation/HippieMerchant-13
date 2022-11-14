@@ -2951,8 +2951,9 @@
 /turf/open/floor/circuit,
 /area/mine/maintenance)
 "tK" = (
-/obj/structure/stairs/east,
-/turf/open/floor/iron/white,
+/turf/open/floor/iron/white/side{
+	dir = 8
+	},
 /area/science/xenobiology)
 "tL" = (
 /obj/effect/turf_decal/tile/blue{
@@ -3561,9 +3562,8 @@
 /turf/open/floor/iron,
 /area/mine/production)
 "zv" = (
-/turf/open/floor/iron/white/side{
-	dir = 8
-	},
+/obj/structure/stairs/east,
+/turf/open/floor/iron/white,
 /area/science/xenobiology)
 "zA" = (
 /obj/machinery/door/window/northleft{
@@ -4147,6 +4147,9 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"EX" = (
+/turf/open/floor/plating,
+/area/science/xenobiology)
 "Fa" = (
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -51284,7 +51287,7 @@ rS
 NR
 JT
 ZY
-ZY
+tK
 oj
 yx
 Qv
@@ -51798,7 +51801,7 @@ Qv
 iN
 Qv
 Qv
-tK
+Qv
 Qv
 Sd
 Qv
@@ -52055,7 +52058,7 @@ Ls
 Vg
 pG
 Qv
-Qv
+EX
 Qv
 hM
 Qv
