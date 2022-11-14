@@ -27,9 +27,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/security/vault/ore)
-"ag" = (
-/turf/open/floor/mineral/plastitanium,
-/area/svs/red/security/vault/ore)
 "ah" = (
 /obj/machinery/airalarm{
 	pixel_y = 23
@@ -168,6 +165,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/security/vault/ore)
 "aH" = (
@@ -208,11 +206,21 @@
 /area/svs/blue/cargo)
 "aP" = (
 /obj/effect/turf_decal/bot,
+/obj/structure/closet/crate,
+/obj/item/stock_parts/subspace/crystal,
+/obj/item/stock_parts/subspace/amplifier,
+/obj/item/stock_parts/subspace/amplifier,
+/obj/item/stock_parts/subspace/transmitter,
+/obj/item/stock_parts/subspace/transmitter,
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "aQ" = (
-/turf/open/floor/mineral/plastitanium,
-/area/svs/blue/security/vault/ore)
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
+	dir = 8
+	},
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/svs/red/cargo)
 "aR" = (
 /obj/machinery/mineral/ore_redemption,
 /obj/structure/cable,
@@ -260,6 +268,7 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
+/obj/structure/cable,
 /turf/open/floor/mineral/plastitanium,
 /area/svs/red/security/vault/ore)
 "aX" = (
@@ -297,26 +306,11 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/svs/blue/security/vault/ore)
-"bd" = (
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
-	dir = 8
-	},
-/obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
-/turf/open/floor/mineral/plastitanium/red,
-/area/svs/blue/security/vault/ore)
 "bf" = (
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/structure/cable,
-/turf/open/floor/mineral/plastitanium/red,
-/area/svs/blue/security/vault/ore)
-"bg" = (
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
-	dir = 8
-	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/svs/blue/security/vault/ore)
 "bh" = (
@@ -409,14 +403,12 @@
 /turf/open/floor/mineral/plastitanium,
 /area/svs/blue/security/vault/ore)
 "bv" = (
-/obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/open/floor/mineral/plastitanium,
 /area/svs/blue/security/vault/ore)
@@ -1366,7 +1358,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
@@ -7006,6 +6997,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
+/obj/machinery/power/port_gen/pacman,
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
 "rp" = (
@@ -11413,7 +11405,9 @@
 /turf/open/floor/iron/dark,
 /area/svs/red/engine/atmos)
 "BR" = (
-/obj/structure/closet/secure_closet/atmospherics,
+/obj/structure/closet/secure_closet/atmospherics{
+	req_access = null
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -11462,7 +11456,9 @@
 /turf/open/floor/iron/dark,
 /area/svs/blue/engine/atmos)
 "BZ" = (
-/obj/structure/closet/secure_closet/atmospherics,
+/obj/structure/closet/secure_closet/atmospherics{
+	req_access = null
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -12241,11 +12237,6 @@
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/storage/toolbox/mechanical,
-/obj/item/stock_parts/subspace/crystal,
-/obj/item/stock_parts/subspace/amplifier,
-/obj/item/stock_parts/subspace/amplifier,
-/obj/item/stock_parts/subspace/transmitter,
-/obj/item/stock_parts/subspace/transmitter,
 /turf/open/floor/iron,
 /area/svs/blue/cargo)
 "ET" = (
@@ -12321,6 +12312,13 @@
 	},
 /turf/open/floor/iron,
 /area/svs/blue/engine/engine_room)
+"Gc" = (
+/obj/structure/cable,
+/obj/structure/closet/secure_closet/medical3{
+	req_access = null
+	},
+/turf/open/floor/iron/white,
+/area/svs/red/cargo)
 "Gd" = (
 /turf/open/floor/engine,
 /area/svs/red/engine/engineering)
@@ -12465,6 +12463,9 @@
 /area/svs/blue/cargo)
 "Jy" = (
 /obj/structure/cable,
+/obj/structure/closet/secure_closet/medical3{
+	req_access = null
+	},
 /turf/open/floor/iron/white,
 /area/svs/blue/cargo)
 "JA" = (
@@ -12520,6 +12521,7 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "Kg" = (
@@ -12846,6 +12848,10 @@
 	},
 /turf/open/space/basic,
 /area/space)
+"Qq" = (
+/obj/machinery/power/port_gen/pacman,
+/turf/open/floor/iron,
+/area/svs/red/engine/engine_room)
 "Qr" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -13006,6 +13012,7 @@
 	dir = 1
 	},
 /obj/machinery/autolathe,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "Ss" = (
@@ -13042,11 +13049,6 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/storage/toolbox/mechanical,
-/obj/item/stock_parts/subspace/crystal,
-/obj/item/stock_parts/subspace/amplifier,
-/obj/item/stock_parts/subspace/amplifier,
-/obj/item/stock_parts/subspace/transmitter,
-/obj/item/stock_parts/subspace/transmitter,
 /turf/open/floor/iron,
 /area/svs/red/cargo)
 "SO" = (
@@ -13096,6 +13098,15 @@
 	},
 /turf/open/floor/iron,
 /area/svs/red/engine/atmos)
+"TU" = (
+/obj/structure/closet/crate,
+/obj/item/stock_parts/subspace/crystal,
+/obj/item/stock_parts/subspace/amplifier,
+/obj/item/stock_parts/subspace/amplifier,
+/obj/item/stock_parts/subspace/transmitter,
+/obj/item/stock_parts/subspace/transmitter,
+/turf/open/floor/iron,
+/area/svs/red/cargo)
 "Uu" = (
 /obj/machinery/iv_drip,
 /obj/structure/bed/roller,
@@ -13291,6 +13302,7 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden{
 	dir = 10
 	},
+/obj/structure/cable,
 /turf/open/floor/mineral/plastitanium,
 /area/svs/blue/security/vault/ore)
 
@@ -22561,7 +22573,7 @@ SO
 SQ
 SO
 bk
-ar
+aq
 aE
 aV
 bk
@@ -23062,9 +23074,9 @@ zi
 bx
 UA
 bx
-ag
-ar
-ar
+bk
+aq
+aq
 aV
 bk
 aa
@@ -23098,7 +23110,7 @@ px
 os
 qt
 qJ
-oZ
+Qq
 oZ
 SI
 nY
@@ -23566,8 +23578,8 @@ IA
 aa
 UG
 ar
-ar
-aV
+aq
+aU
 bk
 bx
 aI
@@ -25582,7 +25594,7 @@ EG
 bQ
 Ky
 EG
-EG
+aQ
 Ke
 au
 fp
@@ -26578,7 +26590,7 @@ zi
 zi
 zi
 av
-aI
+TU
 aI
 aI
 aI
@@ -30102,7 +30114,7 @@ aX
 dl
 bn
 EU
-bn
+Gc
 au
 fr
 gk
@@ -251983,7 +251995,7 @@ ab
 aO
 bZ
 aO
-aO
+JY
 JY
 Nd
 ax
@@ -252981,7 +252993,7 @@ Ps
 al
 az
 az
-bd
+bf
 VW
 ab
 Vj
@@ -253481,9 +253493,9 @@ bz
 Ra
 bz
 am
-aC
-aC
-bg
+aB
+aB
+bf
 JA
 bz
 aO
@@ -254484,10 +254496,10 @@ zi
 bz
 aS
 bz
-aQ
-aC
-aC
-bg
+am
+aB
+aB
+bf
 Wn
 ab
 aO
@@ -254989,7 +255001,7 @@ ab
 ZJ
 aC
 aC
-bg
+bf
 Wn
 ab
 bH

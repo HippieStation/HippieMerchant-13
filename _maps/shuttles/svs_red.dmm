@@ -345,6 +345,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/pod/dark,
 /area/shuttle/svs/red)
 "u" = (
@@ -361,6 +362,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/pod/light,
 /area/shuttle/svs/red)
 "v" = (
@@ -368,6 +370,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/structure/cable,
 /turf/open/floor/pod/dark,
 /area/shuttle/svs/red)
 "w" = (
@@ -379,6 +382,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/pod/dark,
 /area/shuttle/svs/red)
 "x" = (
@@ -397,6 +401,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/pod/dark,
 /area/shuttle/svs/red)
 "z" = (

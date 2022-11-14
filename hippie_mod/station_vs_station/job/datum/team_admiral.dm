@@ -10,6 +10,7 @@
 	paycheck = PAYCHECK_COMMAND
 	paycheck_department = ACCOUNT_BLUE
 	outfit = /datum/outfit/job/svs/blue/admiral
+	plasmaman_outfit = /datum/outfit/plasmaman
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
 /datum/job/svsred_admiral
@@ -24,6 +25,7 @@
 	paycheck = PAYCHECK_COMMAND
 	paycheck_department = ACCOUNT_RED
 	outfit = /datum/outfit/job/svs/red/admiral
+	plasmaman_outfit = /datum/outfit/plasmaman
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
 /datum/outfit/job/svs/blue/admiral
