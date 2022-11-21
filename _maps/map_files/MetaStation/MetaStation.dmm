@@ -26461,6 +26461,7 @@
 	dir = 4;
 	id = "Cloning"
 	},
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron/dark,
 /area/science/genetics)
 "gyM" = (
@@ -27202,7 +27203,7 @@
 "gLF" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Genetics Maintenance";
-	req_access_txt = "9"
+	req_one_access_txt = "5; 9"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 9
@@ -27453,7 +27454,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "CloningDoor";
 	name = "Cloning Lab";
-	req_access_txt = "5; 68"
+	req_one_access_txt = "5; 9"
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -39429,6 +39430,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron/dark,
 /area/science/genetics)
 "kZE" = (
@@ -57716,6 +57718,7 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 9
 	},
+/obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/dark,
 /area/science/genetics)
 "qVY" = (
