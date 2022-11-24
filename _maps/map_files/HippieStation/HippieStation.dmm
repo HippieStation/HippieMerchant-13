@@ -10431,9 +10431,7 @@
 	id = "arrivalleft"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "aFm" = (
 /obj/structure/sign/departments/medbay/alt,
 /turf/closed/wall,
@@ -46778,9 +46776,7 @@
 	pixel_y = -29
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "dxg" = (
 /obj/structure/chair/stool,
 /turf/open/floor/plating,
@@ -47053,15 +47049,13 @@
 	pixel_y = 4
 	},
 /obj/machinery/power/apc{
-	areastring = "/area/security/checkpoint/auxiliary";
-	name = "Security Checkpoint APC";
+	areastring = "/area/security/checkpoint/customs/auxiliary";
+	name = "Security Checkpoint Arrivals APC";
 	pixel_x = 1;
 	pixel_y = -24
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "dQX" = (
 /obj/item/seeds/watermelon,
 /turf/open/floor/plating,
@@ -47364,9 +47358,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "enl" = (
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -48439,9 +48431,7 @@
 	id = "arrivalright"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "fJk" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -48943,9 +48933,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "gpt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -48997,9 +48985,7 @@
 /area/science/mixing)
 "gtz" = (
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "gtA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -49807,9 +49793,7 @@
 /area/space/nearstation)
 "hGp" = (
 /turf/closed/wall,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "hGU" = (
 /obj/structure/cable,
 /obj/effect/turf_decal/tile/red{
@@ -49954,9 +49938,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "hPx" = (
 /obj/machinery/camera{
 	c_tag = "Toxins Lab - South";
@@ -51345,9 +51327,7 @@
 "jDC" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "jEw" = (
 /obj/machinery/atmospherics/pipe/manifold4w/scrubbers,
 /obj/effect/turf_decal/stripes/line{
@@ -51436,9 +51416,7 @@
 	id = "arrivalleft"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "jNH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -51671,9 +51649,7 @@
 	c_tag = "Arrivals Checkpoint - South"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "khk" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop/maintenance{
@@ -51854,9 +51830,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "kuy" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -52032,9 +52006,7 @@
 	req_access_txt = "63"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "kJK" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
@@ -52116,9 +52088,7 @@
 	id = "arrivalleft"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "kPf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -52184,9 +52154,7 @@
 	pixel_x = 27
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "kUL" = (
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -52685,9 +52653,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "lEK" = (
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
@@ -52852,9 +52818,7 @@
 	pixel_x = -30
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "lNZ" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -52879,9 +52843,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "lPs" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -53297,9 +53259,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "mpy" = (
 /turf/closed/wall,
 /area/hallway/secondary/service)
@@ -53405,9 +53365,7 @@
 	id = "arrivalright"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "mBf" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -53797,9 +53755,7 @@
 "naU" = (
 /obj/machinery/holopad,
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "nbG" = (
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -55098,9 +55054,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "oTS" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -55444,9 +55398,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "pmn" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -56082,9 +56034,7 @@
 	verted = -1
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "qlP" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 1
@@ -56102,9 +56052,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "qmd" = (
 /turf/open/floor/iron,
 /area/ai_monitored/command/storage/eva)
@@ -56410,9 +56358,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "qHX" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
@@ -56703,9 +56649,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "rjl" = (
 /obj/machinery/light{
 	dir = 4
@@ -57152,9 +57096,7 @@
 	pixel_x = 32
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "rSk" = (
 /obj/structure/cable,
 /turf/open/floor/engine,
@@ -57347,9 +57289,7 @@
 	id = "arrivalright"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "sjO" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 1
@@ -57421,9 +57361,7 @@
 	id = "arrivalright"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "soj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
@@ -58374,9 +58312,7 @@
 /obj/structure/cable,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "tCS" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -59248,9 +59184,7 @@
 	pixel_y = 6
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "uKA" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
@@ -59834,9 +59768,7 @@
 	id = "arrivalleft"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "vyA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -60074,9 +60006,7 @@
 	id = "arrivalleft"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "vWN" = (
 /turf/open/floor/iron/dark,
 /area/ai_monitored/aisat/exterior)
@@ -60149,9 +60079,7 @@
 	id = "arrivalleft"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "wgs" = (
 /obj/machinery/computer/shuttle/mining,
 /obj/effect/turf_decal/tile/yellow{
@@ -60392,9 +60320,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "wtV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/iron,
@@ -60601,9 +60527,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "wGn" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
@@ -61082,9 +61006,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "xit" = (
 /obj/structure/tank_dispenser,
 /obj/effect/turf_decal/bot,
@@ -61213,9 +61135,7 @@
 	pixel_y = 6
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "xqs" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/iron,
@@ -61367,9 +61287,7 @@
 	id = "arrivalright"
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "xBc" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 8
@@ -61892,9 +61810,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/security/checkpoint/auxiliary{
-	name = "Security Checkpoint - Arrivals"
-	})
+/area/security/checkpoint/customs/auxiliary)
 "ymg" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
