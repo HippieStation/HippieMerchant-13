@@ -13,6 +13,11 @@ Format:
 	votable (is this map votable)
 endmap
 
+map hippiestation
+	minplayers 0
+	votable
+endmap
+
 map metastation
 	#default
 	minplayers 0
@@ -27,7 +32,6 @@ endmap
 
 map facingworlds
 	minplayers 20
-	votable
 endmap
 
 map kilostation

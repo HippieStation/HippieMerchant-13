@@ -109,6 +109,12 @@
 	icon_state = "clown_envirosuit"
 	inhand_icon_state = "clown_envirosuit"
 
+/obj/item/clothing/under/plasmaman/disc_jockey
+	name = "disc jockey envirosuit"
+	desc = "A swingin' white envirosuit with rhinestones for buttons."
+	icon_state = "dj_envirosuit"
+	inhand_icon_state = "dj_envirosuit"
+
 /obj/item/clothing/under/plasmaman/prisoner
 	name = "prisoner envirosuit"
 	desc = "An orange envirosuit identifying and protecting a criminal plasmaman. Its suit sensors are stuck in the \"Fully On\" position."

@@ -47,3 +47,12 @@
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	can_adjust = FALSE
 	resistance_flags = NONE
+
+/obj/item/clothing/under/rank/civilian/disc_jockey/telvis
+	name = "snazzy jumpsuit"
+	desc = "A swingin' white jumpsuit studded with rhinestones. The name 'Telvis' is stitched on the inside of the collar."
+	icon = 'icons/obj/clothing/under/civilian.dmi'
+	icon_state = "telvis"
+	inhand_icon_state = "telvis"
+	worn_icon = 'icons/mob/clothing/under/civilian.dmi'
+	can_adjust = FALSE

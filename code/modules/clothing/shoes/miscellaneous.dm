@@ -196,6 +196,13 @@
 	icon_state = "explorer"
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/shoes/funk
+	name = "funky shoes"
+	desc = "Funky in a cool way."
+	icon = 'icons/obj/clothing/shoes.dmi'
+	icon_state = "funk"
+	inhand_icon_state = "funk"
+
 /obj/item/clothing/shoes/cult
 	name = "\improper Nar'Sien invoker boots"
 	desc = "A pair of boots worn by the followers of Nar'Sie."

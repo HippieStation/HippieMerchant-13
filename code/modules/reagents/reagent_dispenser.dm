@@ -298,3 +298,9 @@
 	icon_state = "fuel_stationary"
 	desc = "A stationary, plumbed, fuel tank."
 	reagent_id = /datum/reagent/fuel
+
+/obj/structure/reagent_dispensers/water_cooler/honk
+	name = "honk-cooler"
+	desc = "A machine that dispenses the clown's thick juice. HONK!"
+	icon_state = "honk_cooler"
+	reagent_id = /datum/reagent/consumable/banana
