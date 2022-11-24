@@ -42433,6 +42433,9 @@
 	dir = 1;
 	sortType = 27
 	},
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "lZi" = (
@@ -44179,6 +44182,7 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 5
 	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "mBC" = (
@@ -57390,7 +57394,6 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 10
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /obj/machinery/vending/cigarette,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
