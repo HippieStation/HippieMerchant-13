@@ -15,7 +15,6 @@
 #define CART_HYDROPONICS (1<<13)
 #define CART_DRONEPHONE (1<<14)
 #define CART_DRONEACCESS (1<<15)
-#define CART_DISCO (1<<16)
 
 // Used by PDA and cartridge code to reduce repetitiveness of spritesheets
 #define PDAIMG(what) {"<span class="pda16x16 [#what]"></span>"}

@@ -262,7 +262,6 @@
 
 /obj/item/pda/disc_jockey
 	name = "disc jockey PDA"
-	default_cartridge = /obj/item/cartridge/discjockey
 	icon_state = "pda-dj"
 	greyscale_config = null
 	greyscale_config = null

@@ -1026,18 +1026,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 // access to status display signals
 /obj/item/pda/attackby(obj/item/C, mob/user, params)
-	if(istype(C, /obj/item/record_disk))
-		if(R)
-			to_chat(user, "<span class='danger'>A record disk is already inserted!</span>")
-			return
-		else
-			R = C
-			update_icon()
-			C.forceMove(src)
-			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
-			playMusic(user)
-
-/obj/item/pda/attackby(obj/item/C, mob/user, params)
 	if(istype(C, /obj/item/cartridge))
 		if(!user.transferItemToLoc(C, src))
 			return
@@ -1283,41 +1271,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/proc/pda_no_detonate()
 	SIGNAL_HANDLER
 	return COMPONENT_PDA_NO_DETONATE
-
-/obj/item/pda/proc/DiscoFever() //Hippie. Shamelessly ripped from the disco ball. For the DISCO FEVER cartridge.
-	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
-	fcolor = random_color()
-	set_light(5, fpower, fcolor) //5 is the range of the light... I think.
-	add_atom_colour("#[fcolor]", FIXED_COLOUR_PRIORITY)
-	update_icon()
-	TimerID = addtimer(CALLBACK(src, .proc/DiscoFever), 5, TIMER_STOPPABLE)  //Call ourselves every 0.5 seconds to change colors
-
-/obj/item/pda/proc/playMusic(mob/living/user)
-	if(istype(src.loc, /mob/living))
-		user = src.loc
-		if(item_flags & IN_INVENTORY)
-			user << sound(R.stored_music, 0, 0, music_channel, 100) //plays the music to the user
-			to_chat(user, "<span class='notice'>You play the [R] on your PDA.</span>")
-		else
-			to_chat(user, "<span class='warning'>The [src] must be in your inventory to play music!</span>")
-
-/obj/item/pda/proc/stopMusic(mob/user)
-	user << sound('sound/effects/hitmarker.ogg', 0, 0, music_channel, 50)
-	user << sound(null, channel = music_channel)
-
-/obj/item/pda/dropped(mob/user)
-	..()
-	addtimer(CALLBACK(src, .proc/droppedStopMusic, user), 3)
-
-/obj/item/pda/proc/droppedStopMusic(mob/user)
-	for(var/i = 1, i <= user.contents.len, i++)
-		if(user.contents[i] == src)
-			return
-	if(item_flags & IN_INVENTORY)
-		return
-	if(loc == user)
-		return
-	stopMusic(user)
 
 #undef PDA_SCANNER_NONE
 #undef PDA_SCANNER_MEDICAL

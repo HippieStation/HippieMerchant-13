@@ -357,7 +357,6 @@
 	req_access = list(ACCESS_DISC_JOCKEY)
 
 /obj/structure/closet/secure_closet/disc_jockey/PopulateContents()
-	new /obj/item/cartridge/discjockey(src)
 	new /obj/item/clothing/shoes/funk(src)
 	new /obj/item/clothing/under/rank/civilian/disc_jockey/telvis(src)
 	new /obj/item/clothing/head/helmet/daftpunk1(src)

@@ -60,14 +60,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	var/list/obj/item/encryptionkey/keyslots = list()
 	var/list/secure_radio_connections
 
-	//Hippie
-	var/music_channel = null //The sound channel the music is playing on.
-	var/radio_music_file = "" //The file path to the music's audio file
-	var/music_toggle = 1 //Toggles whether music will play or not.
-	var/music_name = "" //Used to display the name of currently playing music.
-	var/music_playing = FALSE
-	var/mob/living/radio_holder //stopmusic() will apply to this person
-
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
@@ -438,80 +430,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	emped = FALSE
 	on = TRUE
 	return TRUE
-
-	//Hippie start
-
-/obj/item/radio/proc/avoiding_a_sleep(mob/living/user, music_filepath, name_of_music, music_volume)
-		music_name = name_of_music
-		user << sound(music_filepath, 0, 0, music_channel, music_volume) //plays the music to the user
-		music_playing = TRUE
-		to_chat(user, "<span class='robot'><b>[src]</b> beeps into your ears, 'Now playing: <i>[music_name]</i>.' </span>")
-		update_icon()
-
-/obj/item/radio/proc/playmusic(music_filepath, name_of_music, music_volume) //Plays music at src using the filepath to the audio file. This proc is directly working with the bluespace radio station at radio_station.dm
-	radio_music_file = music_filepath
-
-	var/atom/loc_layer = loc
-	while(istype(loc_layer, /atom/movable))
-		if(!istype(loc_layer, /mob/living))
-			loc_layer = loc_layer.loc
-		else
-			radio_holder = loc_layer
-			break
-	if(!loc_layer) //if loc is null then this proc doesn't need to continue
-		return
-	if(!istype(loc_layer, /mob/living)) //doesn't need to continue if not on a mob
-		return
-
-	if(music_toggle == 1) //Music player is on
-		if(istype(src, /obj/item/radio/headset))
-			if(!(radio_holder.get_item_by_slot(ITEM_SLOT_EARS) == src)) //only want headsets to play music if they're equipped
-				return
-		stopmusic(radio_holder) //stop the previously playing song to make way for the new one
-		addtimer(CALLBACK(src, .proc/avoiding_a_sleep, radio_holder, music_filepath, name_of_music, music_volume), 10)
-
-/obj/item/radio/proc/stopmusic(mob/living/user, music_turnoff_message_type)
-	if(music_playing)
-		music_playing = FALSE
-		update_icon()
-		user << sound(null, channel = music_channel)
-		user << sound('sound/effects/hitmarker.ogg', 0, 0, music_channel, 50)
-		music_name = ""
-		switch(music_turnoff_message_type)
-			if(1)
-				src.audible_message("<span class='robot'><b>[src]</b> beeps, '[src] removed, turning off music.' </span>")
-			if(2)
-				src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Music toggled off.' </span>") //Unused message
-			if(3)
-				src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Signal interrupted.' </span>")
-		music_playing = FALSE
-
-
-/obj/item/radio/update_icon()
-	. = ..()
-	cut_overlays()
-	if(music_playing)
-		add_overlay("sound_fx")
-
-/obj/item/radio/doStrip(mob/user)
-	..()
-	stopmusic(user, 1)
-
-/obj/item/radio/dropped(mob/user)
-	..()
-	addtimer(CALLBACK(src, .proc/droppedStopMusic, user), 3)
-
-/obj/item/radio/proc/droppedStopMusic(mob/user)
-	for(var/i = 1, i <= user.contents.len, i++)
-		if(user.contents[i] == src)
-			return
-	if(item_flags & IN_INVENTORY)
-		return
-	if(loc == user)
-		return
-	stopmusic(user, 1)
-
-//Hippie end
 
 ///////////////////////////////
 //////////Borg Radios//////////

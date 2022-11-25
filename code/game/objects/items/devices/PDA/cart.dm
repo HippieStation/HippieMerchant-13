@@ -92,12 +92,6 @@
 	icon_state = "cart-s"
 	access = CART_NEWSCASTER
 
-/obj/item/cartridge/discjockey
-	name = "\improper DISCO FEVER Inc. cartridge"
-	desc = "An on-the-go flashlight-modification cartridge for anyone who wants a DANCE PARTY."
-	icon_state = "cart-dj"
-	access = CART_DISCO
-
 /obj/item/cartridge/roboticist
 	name = "\improper B.O.O.P. Remote Control cartridge"
 	desc = "Packed with heavy duty quad-bot interlink!"
