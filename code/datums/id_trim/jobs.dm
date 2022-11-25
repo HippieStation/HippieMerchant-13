@@ -337,6 +337,14 @@
 	config_job = "arms_dealer"
 	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_CHANGE_IDS)
 
+/datum/id_trim/job/disc_jockey
+	assignment = "Disc Jockey"
+	trim_state = "trim_disc_jockey"
+	full_access = list(ACCESS_MAINT_TUNNELS, ACCESS_DISC_JOCKEY)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_DISC_JOCKEY)
+	config_job = "disc_jockey"
+	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_CHANGE_IDS)
+
 /datum/id_trim/job/medical_doctor
 	assignment = "Medical Doctor"
 	trim_state = "trim_medicaldoctor"

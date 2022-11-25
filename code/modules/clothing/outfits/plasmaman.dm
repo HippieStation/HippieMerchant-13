@@ -133,6 +133,13 @@
 	gloves = /obj/item/clothing/gloves/color/plasmaman/black
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 
+/datum/outfit/plasmaman/disc_jockey
+	name = "Disc Jockey Plasmaman"
+
+	uniform = /obj/item/clothing/under/plasmaman/disc_jockey
+	gloves = /obj/item/clothing/gloves/color/white
+	head = /obj/item/clothing/head/helmet/space/plasmaman/enviropunk
+
 /datum/outfit/plasmaman/chef
 	name = "Chef Plasmaman"
 

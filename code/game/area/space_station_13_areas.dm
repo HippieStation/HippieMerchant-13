@@ -324,6 +324,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Incinerator"
 	icon_state = "incinerator"
 
+/area/maintenance/strange_room
+	name = "Strange Room"
+	icon_state = "strange_maint"
+
+/area/maintenance/longface_lair
+	name = "Longface Lair"
+	icon_state = "longface_lair"
+
 /area/maintenance/space_hut
 	name = "Space Hut"
 	icon_state = "spacehut"
@@ -636,6 +644,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Vacant Commissary"
 	icon_state = "vacant_commissary"
 
+/area/commons/vacant_room/bar
+	name = "Vacant Bar"
+	icon_state = "vacant_bar"
+
 //Commons - Storage
 /area/commons/storage
 	sound_environment = SOUND_AREA_STANDARD_STATION
@@ -831,6 +843,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/service/cyro
 	name = "Cyrogenics"
 	icon_state = "cyro"
+
+/area/service/dj
+	name = "DJ's Office"
+	icon_state = "dj"
+
+/area/service/clown
+	name = "Clown's Office"
+	icon_state = "clown"
+
+/area/service/mime
+	name = "Mime's Office"
+	icon_state = "mime"
 
 //Engineering
 

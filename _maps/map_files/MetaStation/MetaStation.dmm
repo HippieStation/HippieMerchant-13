@@ -7788,9 +7788,11 @@
 /turf/open/floor/iron,
 /area/commons/dorms)
 "bpb" = (
-/obj/structure/cable,
 /obj/machinery/vending/donksofttoyvendor{
 	req_access_txt = "43"
+	},
+/obj/structure/sign/departments/arms_dealer{
+	pixel_y = 32
 	},
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
@@ -35636,10 +35638,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
-"jLA" = (
-/obj/structure/sign/departments/arms_dealer,
-/turf/closed/wall/r_wall,
-/area/service/theater)
 "jLD" = (
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
@@ -46565,6 +46563,9 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 10
 	},
+/obj/structure/sign/departments/arms_dealer{
+	pixel_y = 32
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "nnN" = (
@@ -46635,10 +46636,6 @@
 /turf/open/floor/iron,
 /area/commons/dorms)
 "noK" = (
-/obj/machinery/door/airlock/gold{
-	name = "gunshop airlock";
-	req_access_txt = "43"
-	},
 /obj/machinery/door/poddoor/shutters/window{
 	id = "arms_dealer";
 	name = "gunshop shutters"
@@ -46646,6 +46643,10 @@
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/door/airlock{
+	name = "Gun Shop";
+	req_access_txt = "43"
 	},
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
@@ -53147,10 +53148,6 @@
 	},
 /turf/open/floor/wood,
 /area/service/theater)
-"ptc" = (
-/obj/structure/sign/departments/arms_dealer,
-/turf/closed/wall/r_wall,
-/area/service/gunshop)
 "ptd" = (
 /obj/machinery/portable_atmospherics/canister,
 /obj/machinery/airalarm/directional/west,
@@ -118067,7 +118064,7 @@ jmf
 mRI
 bjp
 lqU
-ptc
+avs
 bpb
 qTH
 sWv
@@ -118842,7 +118839,7 @@ avs
 ptG
 noK
 avs
-jLA
+lfI
 nnD
 eLr
 eLr
