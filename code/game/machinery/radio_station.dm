@@ -286,7 +286,6 @@
 		stopRadioMusic()
 		return
 
-
 /obj/machinery/radio_station/proc/stopRadioMusic()
 	var/i
 	for(i = 1; i <= GLOB.radio_list.len; i++) //This time it will stop the music for every radio listening to this radio station.

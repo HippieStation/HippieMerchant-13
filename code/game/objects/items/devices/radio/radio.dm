@@ -439,7 +439,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	on = TRUE
 	return TRUE
 
-
 	//Hippie start
 
 /obj/item/radio/proc/avoiding_a_sleep(mob/living/user, music_filepath, name_of_music, music_volume)
@@ -487,7 +486,9 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 				src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Signal interrupted.' </span>")
 		music_playing = FALSE
 
+
 /obj/item/radio/update_icon()
+	. = ..()
 	cut_overlays()
 	if(music_playing)
 		add_overlay("sound_fx")
