@@ -35,11 +35,14 @@
 	var/max = 15
 	var/signal
 	var/amount = 12
+	var/locked = FALSE
 
 /obj/structure/shelf/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		return
+	resistance_flags = INDESTRUCTIBLE
+	locked = TRUE
 	AddElement(/datum/element/shelf)
 	set_anchored(TRUE)
 	SEND_SIGNAL(src, signal, amount)
@@ -50,7 +53,7 @@
 	if(isnull(.))
 		return
 	state = anchorvalue
-	if(!anchorvalue) //in case we were vareditted or uprooted by a hostile mob, ensure we drop all our items instead of having them disappear till we're rebuild.
+	if(!anchorvalue && !locked) //in case we were vareditted or uprooted by a hostile mob, ensure we drop all our items instead of having them disappear till we're rebuild.
 		var/atom/Tsec = drop_location()
 		for(var/obj/item/I in stored)
 			I.invisibility = 0
@@ -64,17 +67,29 @@
 		. += span_notice("The <i>bolts</i> on the bottom are unsecured.")
 	else
 		. += span_notice("It's secured in place with <b>bolts</b>.")
-	switch(state)
-		if(SHELF_UNANCHORED)
-			. += span_notice("There's a <b>small crack</b> visible on the back panel.")
-		if(SHELF_ANCHORED)
-			. += span_notice("There's space inside for a <i>wooden</i> shelf.")
-	if(LAZYLEN(stored))
-		. += span_notice("In the [name] you can see.")
-		for(var/obj/item/I in stored)
-			. += span_notice("[I.name]")
+	if(!locked)
+		switch(state)
+			if(SHELF_UNANCHORED)
+				. += span_notice("There's a <b>small crack</b> visible on the back panel.")
+			if(SHELF_ANCHORED)
+				. += span_notice("There's space inside for a <i>wooden</i> shelf.")
+		if(LAZYLEN(stored))
+			. += span_notice("In the [name] you can see.")
+			for(var/obj/item/I in stored)
+				. += span_notice("[I.name]")
+	else
+		. += span_notice("The shelf is shut tight with physical locks. Maybe you should ask the arms dealer for the key?")
 
 /obj/structure/shelf/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/key/shelf))
+		if(locked)
+			locked = FALSE
+		else
+			locked = TRUE
+		to_chat(user, span_notice("You [!locked ? "un" : ""]lock the shelf."))
+		update_appearance()
+		return
+
 	switch(state)
 		if(SHELF_UNANCHORED)
 			if(I.tool_behaviour == TOOL_WRENCH)
@@ -112,6 +127,9 @@
 /obj/structure/shelf/attack_hand(mob/living/user, list/modifiers)
 	if(!istype(user))
 		return
+	if(locked)
+		to_chat(user, span_notice("You cant reach for an item the shelf is locked!"))
+		return
 	if(LAZYLEN(stored))
 		var/obj/item/choice = input(user, "Which [item] would you like to remove from the shelf?") as null|obj in sortNames(stored.Copy())
 		if(choice)
@@ -143,6 +161,8 @@
 
 /obj/structure/shelf/update_icon_state()
 	icon_state = LAZYLEN(stored) ? "[base_icon_state]-[item]" : "[base_icon_state]"
+	if(locked)
+		icon_state = "[base_icon_state]-locked";
 	return ..()
 
 /obj/structure/shelf/gun

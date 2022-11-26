@@ -374,6 +374,11 @@
 	name = "display case key"
 	desc = "The key to the curator's display cases."
 
+/obj/item/key/shelf
+	name = "shelf case key"
+	desc = "The key to the arms dealers shelf"
+	icon_state = "keyshelf"
+
 /obj/item/showpiece_dummy
 	name = "Cheap replica"
 
