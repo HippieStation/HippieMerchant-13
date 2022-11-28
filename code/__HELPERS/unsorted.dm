@@ -1406,6 +1406,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		/obj/item/gun/ballistic/rifle/enchanted/arcane_barrage/blood,
 		/obj/item/gun/ballistic/automatic/m90,
 		/obj/item/gun/ballistic/automatic/m90/unrestricted,
+		/obj/item/gun/ballistic/revolver/grenadelauncher,
+		/obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted,
 		/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate,
 		/obj/item/gun/ballistic/automatic/gyropistol,
 		/obj/item/gun/ballistic/automatic/c20r,

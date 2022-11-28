@@ -86,6 +86,7 @@
 			locked = FALSE
 		else
 			locked = TRUE
+		playsound(src, 'sound/machines/locktoggle.ogg', 50, TRUE)
 		to_chat(user, span_notice("You [!locked ? "un" : ""]lock the shelf."))
 		update_appearance()
 		return

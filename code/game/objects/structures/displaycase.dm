@@ -376,7 +376,7 @@
 
 /obj/item/key/shelf
 	name = "shelf case key"
-	desc = "The key to the arms dealers shelf"
+	desc = "The key to the arms dealers shelves"
 	icon_state = "keyshelf"
 
 /obj/item/showpiece_dummy
