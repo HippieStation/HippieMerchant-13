@@ -1404,8 +1404,14 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		/obj/item/gun/ballistic/rifle/enchanted,
 		/obj/item/gun/ballistic/rifle/enchanted/arcane_barrage,
 		/obj/item/gun/ballistic/rifle/enchanted/arcane_barrage/blood,
+		/obj/item/gun/ballistic/automatic/m90,
+		/obj/item/gun/ballistic/automatic/m90/unrestricted,
+		/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate,
+		/obj/item/gun/ballistic/automatic/gyropistol,
+		/obj/item/gun/ballistic/automatic/c20r,
 		/obj/item/gun/ballistic/automatic/c20r/unrestricted,
 		/obj/item/gun/ballistic/automatic/c20r/sc_c20r,
+		/obj/item/gun/ballistic/automatic/l6_saw,
 		/obj/item/gun/ballistic/automatic/l6_saw/unrestricted,
 		)
 	return pick(subtypesof(/obj/item/gun/ballistic) - blocked)
