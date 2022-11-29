@@ -996,7 +996,7 @@
 /obj/structure/table/wood/fancy,
 /obj/item/clothing/head/helmet/deadmau5,
 /turf/open/floor/mineral/gold,
-/area/maintenance/fore)
+/area/service/dj)
 "ahh" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Cryogenics Bay";
@@ -1143,7 +1143,7 @@
 /obj/structure/table/wood,
 /obj/item/instrument/harmonica,
 /turf/open/floor/iron/vaporwave,
-/area/maintenance/fore)
+/area/service/dj)
 "aif" = (
 /obj/machinery/door/poddoor/massdriver_trash,
 /obj/structure/fans/tiny,
@@ -1303,7 +1303,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/vaporwave,
-/area/maintenance/fore)
+/area/service/dj)
 "aiT" = (
 /obj/effect/landmark/start/atmospheric_technician,
 /obj/effect/decal/cleanable/dirt,
@@ -1416,13 +1416,13 @@
 /obj/structure/table/wood,
 /obj/item/instrument/eguitar,
 /turf/open/floor/carpet,
-/area/maintenance/fore)
+/area/service/dj)
 "ajP" = (
 /obj/structure/table/wood,
 /obj/item/instrument/piano_synth,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /turf/open/floor/carpet,
-/area/maintenance/fore)
+/area/service/dj)
 "ajW" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/simple_pipes/cyan/visible,
@@ -1572,7 +1572,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/carpet,
-/area/maintenance/fore)
+/area/service/dj)
 "alc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
@@ -1582,7 +1582,7 @@
 	},
 /obj/effect/landmark/start/disc_jockey,
 /turf/open/floor/light/colour_cycle,
-/area/maintenance/fore)
+/area/service/dj)
 "alk" = (
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 6
@@ -1759,7 +1759,7 @@
 "amt" = (
 /obj/structure/closet/secure_closet/disc_jockey,
 /turf/open/floor/iron/vaporwave,
-/area/maintenance/fore)
+/area/service/dj)
 "amu" = (
 /obj/machinery/meter,
 /obj/effect/mapping_helpers/simple_pipes/dark/visible{
@@ -4441,7 +4441,7 @@
 	req_one_access_txt = "44"
 	},
 /turf/open/floor/plating,
-/area/commons/fitness/recreation)
+/area/service/dj)
 "aIh" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
@@ -15889,7 +15889,7 @@
 "dhn" = (
 /obj/machinery/vending/classicbeats,
 /turf/open/floor/iron/vaporwave,
-/area/maintenance/fore)
+/area/service/dj)
 "dhu" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/structure/sign/poster/contraband/random{
@@ -19193,7 +19193,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/carpet,
-/area/maintenance/fore)
+/area/service/dj)
 "eha" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/yellow{
@@ -24106,7 +24106,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/maintenance/fore)
+/area/service/dj)
 "fGw" = (
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
@@ -26478,7 +26478,7 @@
 	pixel_y = 2
 	},
 /turf/open/floor/iron/vaporwave,
-/area/maintenance/fore)
+/area/service/dj)
 "gyH" = (
 /obj/machinery/holopad,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
@@ -34424,7 +34424,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/item/instrument/accordion,
 /turf/open/floor/carpet,
-/area/maintenance/fore)
+/area/service/dj)
 "jpF" = (
 /obj/machinery/airalarm/directional/west,
 /obj/structure/closet/secure_closet/security/med,
@@ -34654,7 +34654,7 @@
 "jsG" = (
 /obj/machinery/light_switch/directional/south,
 /turf/open/floor/iron/vaporwave,
-/area/maintenance/fore)
+/area/service/dj)
 "jsJ" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -36527,7 +36527,7 @@
 	pixel_x = -30
 	},
 /turf/open/floor/iron/vaporwave,
-/area/maintenance/fore)
+/area/service/dj)
 "jZt" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable,
@@ -46088,7 +46088,7 @@
 /area/ai_monitored/aisat/exterior)
 "neT" = (
 /turf/open/floor/iron/vaporwave,
-/area/maintenance/fore)
+/area/service/dj)
 "nfc" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
@@ -48166,7 +48166,7 @@
 	req_access_txt = "44"
 	},
 /turf/open/floor/plating,
-/area/commons/fitness/recreation)
+/area/service/dj)
 "nKN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/gross_decal_spawner,
@@ -49122,19 +49122,8 @@
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "nYO" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/machinery/vending/wardrobe/plasmate,
-/turf/open/floor/iron/dark,
-/area/commons/locker)
+/turf/closed/wall,
+/area/service/dj)
 "nZb" = (
 /obj/machinery/computer/slot_machine{
 	pixel_y = 2
@@ -49400,7 +49389,7 @@
 "odB" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /turf/open/floor/iron/vaporwave,
-/area/maintenance/fore)
+/area/service/dj)
 "odI" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
@@ -53260,6 +53249,20 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/science/lab)
+"ptG" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/vending/wardrobe/plasmate,
+/turf/open/floor/iron/dark,
+/area/commons/locker)
 "ptL" = (
 /obj/structure/chair/stool/directional/north,
 /obj/item/radio/intercom/directional/north{
@@ -55109,7 +55112,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/carpet,
-/area/maintenance/fore)
+/area/service/dj)
 "qcp" = (
 /obj/structure/window/reinforced,
 /obj/machinery/computer/cargo/request{
@@ -62729,7 +62732,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/carpet,
-/area/maintenance/fore)
+/area/service/dj)
 "sxz" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable,
@@ -64283,7 +64286,7 @@
 	pixel_x = -32
 	},
 /turf/open/floor/iron/dark,
-/area/commons/fitness/recreation)
+/area/service/dj)
 "sXF" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -64696,7 +64699,7 @@
 /obj/item/clothing/glasses/sunglasses/big,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /turf/open/floor/carpet,
-/area/maintenance/fore)
+/area/service/dj)
 "tev" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -114011,7 +114014,7 @@ jVV
 jVV
 neT
 amt
-agq
+nYO
 aOQ
 tZK
 tZK
@@ -114518,14 +114521,14 @@ aaa
 aaa
 lMJ
 aaa
-agq
+nYO
 gyB
 neT
 jYY
 jpB
 alc
 sxe
-agq
+nYO
 itq
 agq
 agq
@@ -114775,14 +114778,14 @@ aaa
 aaa
 lMJ
 aaa
-agq
+nYO
 ahe
 neT
 odB
 ajP
 tes
 qcb
-agq
+nYO
 gYt
 agq
 ary
@@ -115032,14 +115035,14 @@ lMJ
 lMJ
 ebG
 ebG
-ebG
-ebG
+nYO
+nYO
 dhn
 neT
 neT
 neT
 jsG
-agq
+nYO
 cAv
 agq
 arz
@@ -115290,13 +115293,13 @@ aaa
 tdI
 uQJ
 bHz
-ebG
+nYO
 ahU
 aiP
-ebG
-ebG
+nYO
+nYO
 nKA
-ebG
+nYO
 woC
 agq
 arA
@@ -115547,13 +115550,13 @@ mKd
 sLD
 sLD
 iai
-ebG
-ebG
+nYO
+nYO
 aIf
-ebG
+nYO
 sXi
 dUA
-ebG
+nYO
 pqJ
 ebG
 dqy
@@ -116350,7 +116353,7 @@ dUF
 bwV
 fwn
 vgw
-nYO
+ptG
 lgz
 oJd
 dnh
