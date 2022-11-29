@@ -1365,6 +1365,25 @@
 		var/item = pick(contains)
 		new item(C)
 
+/datum/supply_pack/medical/irgans_ethereal
+	name = "Ethereal Organs"
+	desc = "All you could need to repair a Ethereal"
+	cost = CARGO_CRATE_VALUE * 6
+	contains = list(/obj/item/organ/stomach/ethereal,
+					/obj/item/organ/tongue/ethereal,
+					/obj/item/organ/heart/ethereal)
+	crate_name = "ethereal organs"
+
+/datum/supply_pack/medical/organs_plasmaman
+	name = "Plasmaman Organs"
+	desc = "All you could need to repair a Plasmaman"
+	cost = CARGO_CRATE_VALUE * 6
+	contains = list(/obj/item/organ/lungs/plasmaman,
+					/obj/item/organ/tongue/bone/plasmaman,
+					/obj/item/organ/liver/plasmaman,
+					/obj/item/organ/stomach/bone/plasmaman)
+	crate_name = "plasmaman organs"
+
 /datum/supply_pack/medical/surgery
 	name = "Surgical Supplies Crate"
 	desc = "Do you want to perform surgery, but don't have one of those fancy shmancy degrees? Just get started with this crate containing a medical duffelbag, Sterilizine spray and collapsible roller bed."

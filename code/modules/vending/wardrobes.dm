@@ -503,3 +503,102 @@
 
 /obj/item/vending_refill/wardrobe/det_wardrobe
 	machine_name = "DetDrobe"
+
+/obj/machinery/vending/wardrobe/plasmate
+	name = "PlasMate"
+	desc = "A vending machine for plasma envirosuits."
+	icon_state = "plasmate"
+	icon_deny = "engi-deny"
+	product_slogans = "Dress for success!;Prepare to look swagalicious!;Look at all this swag!;Why leave style up to fate? Use the PlasMate!"
+	vend_reply = "Thank you for using the PlasMate!"
+	products = list(/obj/item/clothing/under/plasmaman = 3,
+					/obj/item/clothing/gloves/color/plasmaman = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman = 3,
+					/obj/item/clothing/gloves/color/plasmaman/black = 5,
+					/obj/item/clothing/gloves/color/plasmaman/white = 7,
+					/obj/item/clothing/under/plasmaman/security = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/security = 2,
+					/obj/item/clothing/under/plasmaman/enviroslacks = 1,
+					/obj/item/clothing/under/plasmaman/security/warden = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/security/warden = 1,
+					/obj/item/clothing/under/plasmaman/medical = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/prisoner = 3,
+					/obj/item/clothing/under/plasmaman/medical = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/medical = 3,
+					/obj/item/clothing/under/plasmaman/paramedic = 1,
+					/obj/item/clothing/gloves/color/plasmaman/plasmanitrile = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/paramedic = 1,
+					/obj/item/clothing/under/plasmaman/viro = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/viro = 2,
+					/obj/item/clothing/under/plasmaman/chemist = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/chemist = 2,
+					/obj/item/clothing/under/plasmaman/science = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/science = 3,
+					/obj/item/clothing/under/plasmaman/robotics = 2,
+					/obj/item/clothing/gloves/color/plasmaman/robot = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/robotics = 2,
+					/obj/item/clothing/under/plasmaman/genetics = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/genetics = 2,
+					/obj/item/clothing/under/plasmaman/engineering = 3,
+					/obj/item/clothing/gloves/color/plasmaman/engineer = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/engineering = 3,
+					/obj/item/clothing/under/plasmaman/atmospherics = 3,
+					/obj/item/clothing/gloves/color/plasmaman/atmos = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/atmospherics = 3,
+					/obj/item/clothing/under/plasmaman/cargo = 3,
+					/obj/item/clothing/gloves/color/plasmaman/cargo = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/cargo = 3,
+					/obj/item/clothing/under/plasmaman/mining = 2,
+					/obj/item/clothing/gloves/color/plasmaman/explorer = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/mining = 2,
+					/obj/item/clothing/under/plasmaman/chaplain = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/chaplain = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/white = 1,
+					/obj/item/clothing/under/plasmaman/chef = 2,
+					/obj/item/clothing/under/plasmaman/curator = 1,
+					/obj/item/clothing/gloves/color/plasmaman/prototype = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/curator = 1,
+					/obj/item/clothing/under/plasmaman/botany = 2,
+					/obj/item/clothing/gloves/botanic_leather/plasmaman = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/botany = 2,
+					/obj/item/clothing/under/plasmaman/janitor = 2,
+					/obj/item/clothing/gloves/color/plasmaman/janny = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/janitor = 2,
+					/obj/item/clothing/under/plasmaman/mime = 2,
+					/obj/item/clothing/mask/gas/mime = 2,
+					/obj/item/clothing/under/plasmaman/clown = 2,
+					/obj/item/clothing/gloves/color/plasmaman/clown = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/clown = 2,
+					/obj/item/clothing/mask/gas/clown_hat = 2)
+	premium = list(/obj/item/clothing/under/plasmaman/captain = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/captain = 1,
+					/obj/item/clothing/under/plasmaman/head_of_personnel = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/head_of_personnel = 1,
+					/obj/item/clothing/under/plasmaman/chief_engineer = 1,
+					/obj/item/clothing/gloves/color/plasmaman/chief_engineer = 1,
+					/obj/item/clothing/gloves/color/plasmaman/chief_engineer = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/chief_engineer = 1,
+					/obj/item/clothing/under/plasmaman/chief_medical_officer = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/chief_medical_officer = 1,
+					/obj/item/clothing/under/plasmaman/research_director = 1,
+					/obj/item/clothing/gloves/color/plasmaman/research_director = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/research_director = 1)
+	contraband = list(/obj/item/clothing/under/plasmaman/centcom_commander = 1,
+					/obj/item/clothing/gloves/color/plasmaman/centcom_commander = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/centcom_commander = 1,
+					/obj/item/clothing/under/plasmaman/centcom_official = 1,
+					/obj/item/clothing/gloves/color/plasmaman/centcom_official = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/centcom_official = 1,
+					/obj/item/clothing/mask/gas/sechailer = 1)
+	refill_canister = /obj/item/vending_refill/plasmate
+	default_price = PAYCHECK_ASSISTANT * 0.7
+	extra_price = PAYCHECK_COMMAND * 1.75
+	payment_department = NO_FREEBIES
+	light_mask = "wardrobe-light-mask"
+	light_color = LIGHT_COLOR_PURPLE
+
+/obj/machinery/vending/clothing/canLoadItem(obj/item/I,mob/user)
+	return (I.type in products)
+
+/obj/item/vending_refill/plasmate
+	machine_name = "PlasMate"
