@@ -147,6 +147,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		"Mime" = 67,
 		"Janitor" = 68,
 		"Lawyer" = 69,
+		"Disc Jockey" = 70,
 		"Arms Dealer" = 71,
 		"Psychologist" = 72,
 		"Red Team Admiral" = 80,

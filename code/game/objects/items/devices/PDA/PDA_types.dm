@@ -258,3 +258,23 @@
 	default_cartridge = /obj/item/cartridge/medical
 	greyscale_config = /datum/greyscale_config/pda/stripe_split
 	greyscale_colors = "#e2e2e2#000099#0097ca"
+
+
+/obj/item/pda/disc_jockey
+	name = "disc jockey PDA"
+	icon_state = "pda-dj"
+	greyscale_config = null
+	greyscale_config = null
+
+
+/obj/item/pda/discjockey/Initialize()
+	. = ..()
+	bounce()
+
+/obj/item/pda/discjockey/proc/bounce()
+	pixel_y += 1
+	addtimer(CALLBACK(src, .proc/reset_pixel_y), 2)
+	addtimer(CALLBACK(src, .proc/bounce), 11)
+
+/obj/item/pda/discjockey/proc/reset_pixel_y()
+	pixel_y = 0

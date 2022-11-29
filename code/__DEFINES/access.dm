@@ -50,7 +50,9 @@
 #define ACCESS_CMO 40
 #define ACCESS_QM 41
 #define ACCESS_COURT 42
+/// Only Arms Dealer has access to it
 #define ACCESS_GUNSHOP 43
+#define ACCESS_DISC_JOCKEY 44
 #define ACCESS_SURGERY 45
 #define ACCESS_THEATRE 46
 #define ACCESS_RESEARCH 47
@@ -255,7 +257,6 @@
 	ACCESS_QM, \
 	ACCESS_VIROLOGY, \
 	ACCESS_LAWYER, \
-	ACCESS_GUNSHOP, \
 	ACCESS_LIBRARY, \
 	ACCESS_HYDROPONICS, \
 	ACCESS_CHEMISTRY, \
@@ -373,6 +374,7 @@
 	ACCESS_THEATRE, \
 	ACCESS_LAWYER, \
 	ACCESS_GUNSHOP, \
+	ACCESS_DISC_JOCKEY, \
 )
 /// Name for the Security region.
 #define REGION_SECURITY "Security"
@@ -504,6 +506,7 @@
 	/obj/item/pda/curator = list(REGION_GENERAL), \
 	/obj/item/pda/cook = list(REGION_GENERAL), \
 	/obj/item/pda/bar = list(REGION_GENERAL), \
+	/obj/item/pda/disc_jockey = list(REGION_GENERAL), \
 	/obj/item/pda/atmos = list(REGION_ENGINEERING), \
 	/obj/item/pda/chemist = list(REGION_MEDBAY), \
 	/obj/item/pda/geneticist = list(REGION_RESEARCH), \
