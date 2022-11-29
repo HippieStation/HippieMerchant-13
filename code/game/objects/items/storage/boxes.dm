@@ -123,7 +123,10 @@
 	var/internal_type = /obj/item/tank/internals/emergency_oxygen
 	var/medipen_type = /obj/item/reagent_containers/hypospray/medipen
 
+
 /obj/item/storage/box/survival/PopulateContents()
+	new/obj/item/crowbar/red(src)
+
 	new mask_type(src)
 	if(!isnull(medipen_type))
 		new medipen_type(src)
@@ -144,10 +147,6 @@
 // Mining survival box
 /obj/item/storage/box/survival/mining
 	mask_type = /obj/item/clothing/mask/gas/explorer
-
-/obj/item/storage/box/survival/mining/PopulateContents()
-	..()
-	new /obj/item/crowbar/red(src)
 
 // Engineer survival box
 /obj/item/storage/box/survival/engineer
