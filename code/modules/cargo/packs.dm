@@ -1380,7 +1380,7 @@
 	cost = CARGO_CRATE_VALUE * 6
 	contains = list(/obj/item/organ/lungs/plasmaman,
 					/obj/item/organ/tongue/bone/plasmaman,
-				 	/obj/item/organ/liver/plasmaman,
+					/obj/item/organ/liver/plasmaman,
 					/obj/item/organ/stomach/bone/plasmaman)
 	crate_name = "plasmaman organs"
 
