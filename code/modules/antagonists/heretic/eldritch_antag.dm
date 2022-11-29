@@ -253,15 +253,15 @@
 /datum/antagonist/heretic/proc/try_draw_rune(mob/living/user, turf/target_turf, drawing_time = 30 SECONDS, additional_checks)
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, target_turf))
 		if(!isopenturf(nearby_turf) || is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
-			target_turf.balloon_alert(user, "invalid placement for rune!")
+			user.balloon_alert(user, "invalid placement for rune!")
 			return
 
 	if(locate(/obj/effect/eldritch_rune) in range(3, target_turf))
-		target_turf.balloon_alert(user, "to close to another rune!")
+		user.balloon_alert(user, "to close to another rune!")
 		return
 
 	if(drawing_rune)
-		target_turf.balloon_alert(user, "already drawing a rune!")
+		user.balloon_alert(user, "already drawing a rune!")
 		return
 
 	INVOKE_ASYNC(src, .proc/draw_rune, user, target_turf, drawing_time, additional_checks)
@@ -278,13 +278,13 @@
 /datum/antagonist/heretic/proc/draw_rune(mob/living/user, turf/target_turf, drawing_time = 30 SECONDS, additional_checks)
 	drawing_rune = TRUE
 
-	target_turf.balloon_alert(user, "drawing rune...")
+	user.balloon_alert(user, "drawing rune...")
 	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks))
-		target_turf.balloon_alert(user, "interrupted!")
+		user.balloon_alert(user, "interrupted!")
 		drawing_rune = FALSE
 		return
 
-	target_turf.balloon_alert(user, "rune created")
+	user.balloon_alert(user, "rune created")
 	new /obj/effect/eldritch_rune/big(target_turf)
 	drawing_rune = FALSE
 

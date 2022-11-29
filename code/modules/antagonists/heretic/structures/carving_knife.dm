@@ -66,11 +66,11 @@
  */
 /obj/item/melee/rune_carver/proc/try_carve_rune(turf/open/target_turf, mob/user)
 	if(drawing)
-		target_turf.balloon_alert(user, "already carving!")
+		user.balloon_alert(user, "already carving!")
 		return
 
 	if(locate(/obj/structure/trap/eldritch) in range(1, target_turf))
-		target_turf.balloon_alert(user, "to close to another carving!")
+		user.balloon_alert(user, "to close to another carving!")
 		return
 
 	for(var/datum/weakref/rune_ref as anything in current_runes)
@@ -78,7 +78,7 @@
 			current_runes -= rune_ref
 
 	if(length(current_runes) >= max_rune_amt)
-		target_turf.balloon_alert(user, "too many carvings!")
+		user.balloon_alert(user, "too many carvings!")
 		return
 
 	drawing = TRUE
@@ -113,13 +113,13 @@
 	if(!ispath(to_make, /obj/structure/trap/eldritch))
 		CRASH("[type] attempted to create a rune of incorrect type! (got: [to_make])")
 
-	target_turf.balloon_alert(user, "carving [picked_choice]...")
+	user.balloon_alert(user, "carving [picked_choice]...")
 	user.playsound_local(target_turf, 'sound/items/sheath.ogg', 50, TRUE)
 	if(!do_after(user, 5 SECONDS, target = target_turf))
-		target_turf.balloon_alert(user, "interrupted!")
+		user.balloon_alert(user, "interrupted!")
 		return
 
-	target_turf.balloon_alert(user, "[picked_choice] carved")
+	user.balloon_alert(user, "[picked_choice] carved")
 	var/obj/structure/trap/eldritch/new_rune = new to_make(target_turf, user)
 	current_runes += WEAKREF(new_rune)
 
