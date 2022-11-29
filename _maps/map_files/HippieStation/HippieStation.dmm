@@ -9168,6 +9168,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/power/apc{
+	areastring = "/area/service/gunshop";
+	dir = 8;
+	name = "Gun Shop APC";
+	pixel_x = -26
+	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aAt" = (
@@ -49021,7 +49028,6 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "gvp" = (
@@ -49959,7 +49965,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 1
 	},
-/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "hPk" = (
@@ -50500,9 +50505,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"iBL" = (
-/turf/closed/wall,
-/area/service/gunshop)
 "iBZ" = (
 /obj/structure/closet/secure_closet/detective{
 	anchored = 1;
@@ -53818,17 +53820,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/detectives_office)
-"mXt" = (
-/obj/machinery/power/apc{
-	areastring = "/area/service/gunshop";
-	dir = 4;
-	name = "Gun Shop APC";
-	pixel_x = 27;
-	pixel_y = 2
-	},
-/obj/structure/cable,
-/turf/open/floor/wood/tile,
-/area/service/gunshop)
 "mXB" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -54434,7 +54425,6 @@
 /area/engineering/engine_smes)
 "nMq" = (
 /obj/structure/chair/office,
-/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "nMr" = (
@@ -74978,8 +74968,8 @@ wtm
 tBX
 tVs
 tVs
-iBL
-aAd
+tVs
+ayG
 aAd
 aAd
 aAd
@@ -75236,7 +75226,7 @@ hcm
 oqf
 rcB
 aEe
-aAd
+ayG
 aGB
 aHW
 aJc
@@ -75493,7 +75483,7 @@ gug
 hPc
 nMq
 kAw
-aAd
+ayG
 aGC
 aGE
 aGE
@@ -75748,9 +75738,9 @@ axR
 vMY
 aAo
 aBH
-mXt
+oqf
 kRE
-aAd
+ayG
 aGD
 aHY
 aGE
@@ -76007,7 +75997,7 @@ tVs
 tVs
 tVs
 tVs
-aAd
+ayG
 fdf
 aHZ
 aJf
