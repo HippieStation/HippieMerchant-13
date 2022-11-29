@@ -131,21 +131,16 @@
 		return /obj/item/clothing/head/ushanka
 
 	return /obj/item/clothing/head/helmet
-	
+
 /datum/element/shelf/proc/match_ammo(obj/item/gun/ballistic/current_gun)
 	if(istype(current_gun, /obj/item/gun/ballistic/bow))
 		return /obj/item/ammo_casing/caseless/arrow
 
-	if(istype(current_gun, /obj/item/gun/ballistic/revolver))
-		if(istype(current_gun, /obj/item/gun/ballistic/revolver/grenadelauncher))
-			return /obj/item/ammo_box/a40mm
+	if(istype(current_gun, /obj/item/gun/ballistic/revolver/nagant))
+		return /obj/item/ammo_box/n762
 
-		if(istype(current_gun, /obj/item/gun/ballistic/revolver/nagant))
-			return /obj/item/ammo_box/n762
-
-		if(istype(current_gun, /obj/item/gun/ballistic/revolver/detective))
-			return /obj/item/ammo_box/c38
-		return /obj/item/ammo_box/a357
+	if(istype(current_gun, /obj/item/gun/ballistic/revolver/detective))
+		return /obj/item/ammo_box/c38
 
 	if(istype(current_gun, /obj/item/gun/ballistic/rifle))
 		return /obj/item/ammo_box/a762

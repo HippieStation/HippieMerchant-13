@@ -53,7 +53,7 @@
 	name = "Syndicate Infiltrator"
 	antag_datum = /datum/antagonist/traitor
 	antag_flag = ROLE_TRAITOR
-	protected_roles = list("Security Officer", "Warden", "Head of Personnel", "Detective", "Head of Security", "Captain")
+	protected_roles = list("Arms Dealer", "Security Officer", "Warden", "Head of Personnel", "Detective", "Head of Security", "Captain")
 	restricted_roles = list("AI","Cyborg")
 	required_candidates = 1
 	weight = 7
@@ -149,7 +149,7 @@
 	name = "Heretic Smuggler"
 	antag_datum = /datum/antagonist/heretic
 	antag_flag = ROLE_HERETIC
-	protected_roles = list("Security Officer", "Warden", "Head of Personnel", "Detective", "Head of Security", "Captain","Prisoner")
+	protected_roles = list("Arms Dealer", "Security Officer", "Warden", "Head of Personnel", "Detective", "Head of Security", "Captain","Prisoner")
 	restricted_roles = list("AI","Cyborg")
 	required_candidates = 1
 	weight = 4

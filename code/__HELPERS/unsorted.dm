@@ -1398,7 +1398,26 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return pick(subtypesof(/obj/item/reagent_containers/food/drinks) - blocked)
 
 /proc/get_random_gun()
-	return pick(subtypesof(/obj/item/gun/ballistic))
+	var/list/blocked = list(
+		/obj/item/gun/ballistic/revolver,
+		/obj/item/gun/ballistic/rifle/lionhunter,
+		/obj/item/gun/ballistic/rifle/enchanted,
+		/obj/item/gun/ballistic/rifle/enchanted/arcane_barrage,
+		/obj/item/gun/ballistic/rifle/enchanted/arcane_barrage/blood,
+		/obj/item/gun/ballistic/automatic/m90,
+		/obj/item/gun/ballistic/automatic/m90/unrestricted,
+		/obj/item/gun/ballistic/automatic/tommygun,
+		/obj/item/gun/ballistic/revolver/grenadelauncher,
+		/obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted,
+		/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate,
+		/obj/item/gun/ballistic/automatic/gyropistol,
+		/obj/item/gun/ballistic/automatic/c20r,
+		/obj/item/gun/ballistic/automatic/c20r/unrestricted,
+		/obj/item/gun/ballistic/automatic/c20r/sc_c20r,
+		/obj/item/gun/ballistic/automatic/l6_saw,
+		/obj/item/gun/ballistic/automatic/l6_saw/unrestricted,
+		)
+	return pick(subtypesof(/obj/item/gun/ballistic) - blocked)
 
 /proc/get_random_vest()
 	return pick(subtypesof(/obj/item/clothing/suit/armor/vest))

@@ -35,6 +35,7 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	gloves = /obj/item/clothing/gloves/color/black
 	belt = /obj/item/pda/arms
+	r_pocket = /obj/item/key/shelf
 	ears = /obj/item/radio/headset/headset_srv
 	mask = /obj/item/clothing/mask/gas
 	uniform = /obj/item/clothing/under/costume/soviet
