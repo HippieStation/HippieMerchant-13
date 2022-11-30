@@ -275,6 +275,13 @@
 	smile_state = "prototype_smile"
 	visor_icon = "prototype_envisor"
 
+/obj/item/clothing/head/helmet/space/plasmaman/enviropunk
+	name = "white plasma envirosuit helmet"
+	desc = "Is this the return of disco?"
+	icon_state = "enviropunk"
+	inhand_icon_state = "enviropunk"
+
+
 /obj/item/clothing/head/helmet/space/plasmaman/botany
 	name = "botany plasma envirosuit helmet"
 	desc = "A green and blue envirohelmet designating its wearer as a botanist. While not specifically designed for it, it would protect against minor plant-related injuries."

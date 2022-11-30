@@ -598,3 +598,25 @@
 		update_appearance()
 
 	update_action_buttons()
+
+/obj/item/clothing/head/helmet/deadmau5
+	name = "Deadmau5's helmet"
+	desc = "The only surviving original helmet."
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	icon = 'icons/obj/clothing/hats.dmi'
+	icon_state = "deadmau5"
+	alternate_screams = list('sound/voice/deadmau5scream1.ogg','sound/voice/deadmau5scream2.ogg')
+
+/obj/item/clothing/head/helmet/daftpunk1
+	name = "daft punk helmet"
+	desc = "Is this the return of disco?"
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	icon = 'icons/obj/clothing/hats.dmi'
+	icon_state = "daftpunk1"
+
+/obj/item/clothing/head/helmet/daftpunk2
+	name = "daft punk helmet"
+	desc = "Perhaps this really is the return of disco!"
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	icon = 'icons/obj/clothing/hats.dmi'
+	icon_state = "daftpunk2"
