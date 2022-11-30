@@ -514,6 +514,7 @@
 	products = list(/obj/item/clothing/under/plasmaman = 3,
 					/obj/item/clothing/gloves/color/plasmaman = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman = 3,
+					/obj/item/clothing/mask/breath = 6,
 					/obj/item/clothing/gloves/color/plasmaman/black = 5,
 					/obj/item/clothing/gloves/color/plasmaman/white = 7,
 					/obj/item/clothing/under/plasmaman/security = 2,
@@ -570,7 +571,8 @@
 					/obj/item/clothing/gloves/color/plasmaman/clown = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/clown = 2,
 					/obj/item/clothing/mask/gas/clown_hat = 2)
-	premium = list(/obj/item/clothing/under/plasmaman/captain = 1,
+	premium = list(/obj/item/tank/internals/plasmaman = 6,
+					/obj/item/clothing/under/plasmaman/captain = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/captain = 1,
 					/obj/item/clothing/under/plasmaman/head_of_personnel = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/head_of_personnel = 1,

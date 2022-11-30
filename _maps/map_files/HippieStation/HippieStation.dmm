@@ -60232,6 +60232,12 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/customs/auxiliary)
+"wfP" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/commons/fitness/recreation)
 "wgs" = (
 /obj/machinery/computer/shuttle/mining,
 /obj/effect/turf_decal/tile/yellow{
@@ -97063,7 +97069,7 @@ are
 asb
 ata
 jEA
-cjZ
+wfP
 bIA
 cjZ
 cjZ
