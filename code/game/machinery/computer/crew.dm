@@ -147,9 +147,9 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		"Mime" = 67,
 		"Janitor" = 68,
 		"Lawyer" = 69,
-		"Disc Jockey" = 70,
 		"Arms Dealer" = 71,
-		"Psychologist" = 72,
+		"Disc Jockey" = 72,
+		"Psychologist" = 73,
 		"Red Team Admiral" = 80,
 		"Blue Team Admiral" = 90,
 		// ANYTHING ELSE = UNKNOWN_JOB_ID, Unknowns/custom jobs will appear after civilians, and before assistants
