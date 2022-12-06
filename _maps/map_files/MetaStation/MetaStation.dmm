@@ -4603,12 +4603,12 @@
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "aJG" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/supply)
 "aJK" = (
-/turf/closed/wall,
+/turf/closed/wall/r_wall,
 /area/security/checkpoint/supply)
 "aJN" = (
 /obj/effect/turf_decal/stripes/line{
@@ -6096,7 +6096,7 @@
 /turf/open/floor/iron,
 /area/engineering/atmos)
 "aYu" = (
-/turf/closed/wall,
+/turf/closed/wall/r_wall,
 /area/security/checkpoint/engineering)
 "aYx" = (
 /obj/structure/lattice,
@@ -6533,7 +6533,7 @@
 /turf/open/floor/iron/white/corner,
 /area/hallway/secondary/entry)
 "bbK" = (
-/turf/closed/wall,
+/turf/closed/wall/r_wall,
 /area/security/checkpoint/customs)
 "bbL" = (
 /obj/structure/cable,
@@ -6824,8 +6824,8 @@
 /turf/open/floor/engine/n2o,
 /area/engineering/atmos)
 "beK" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/customs)
 "beL" = (
@@ -6944,8 +6944,8 @@
 /turf/closed/wall,
 /area/hallway/primary/starboard)
 "bfX" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/engineering)
 "bgn" = (
@@ -7138,7 +7138,7 @@
 /area/hallway/secondary/entry)
 "biw" = (
 /obj/structure/sign/warning/pods,
-/turf/closed/wall,
+/turf/closed/wall/r_wall,
 /area/security/checkpoint/customs)
 "biy" = (
 /obj/machinery/door/airlock/security{
@@ -10585,7 +10585,7 @@
 /turf/closed/wall,
 /area/medical/storage)
 "bXL" = (
-/turf/closed/wall,
+/turf/closed/wall/r_wall,
 /area/security/checkpoint/medical)
 "bXN" = (
 /obj/effect/turf_decal/tile/blue{
@@ -14217,8 +14217,8 @@
 /turf/open/floor/grass,
 /area/hallway/secondary/exit/departure_lounge)
 "cNP" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
 "cNQ" = (
@@ -15929,7 +15929,7 @@
 /area/maintenance/starboard/fore)
 "dhC" = (
 /obj/structure/disposalpipe/segment,
-/turf/closed/wall,
+/turf/closed/wall/r_wall,
 /area/security/checkpoint/supply)
 "dhD" = (
 /obj/structure/table/reinforced,
@@ -17592,9 +17592,6 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "dGr" = (
@@ -18229,7 +18226,7 @@
 	},
 /area/maintenance/aft/secondary)
 "dQd" = (
-/turf/closed/wall,
+/turf/closed/wall/r_wall,
 /area/security/checkpoint/science)
 "dQo" = (
 /obj/effect/decal/cleanable/dirt,
@@ -22247,9 +22244,6 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /obj/structure/disposalpipe/segment{
 	dir = 9
-	},
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -27902,9 +27896,6 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "haG" = (
@@ -31205,8 +31196,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "ihQ" = (
-/turf/closed/wall,
-/area/command/heads_quarters/rd)
+/turf/closed/wall/r_wall,
+/area/hallway/secondary/exit/departure_lounge)
 "ihY" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -33834,8 +33825,8 @@
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "jeM" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/science/research)
 "jeT" = (
@@ -36348,9 +36339,6 @@
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
-	},
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -39818,12 +39806,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/treatment_center)
-"lee" = (
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
-/turf/closed/wall,
-/area/medical/cryo)
 "lew" = (
 /obj/machinery/door/window{
 	dir = 1;
@@ -43480,9 +43462,6 @@
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 1
-	},
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -52342,9 +52321,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "pcc" = (
@@ -54931,7 +54907,6 @@
 /turf/open/floor/iron/dark,
 /area/command/bridge)
 "pYm" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/science/lab)
@@ -55196,9 +55171,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "qdX" = (
@@ -55723,19 +55695,6 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"qlq" = (
-/obj/structure/cable,
-/obj/structure/disposalpipe/junction{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "qlA" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 6
@@ -56527,9 +56486,6 @@
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
-	},
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -59134,9 +59090,6 @@
 	},
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "rrX" = (
@@ -59782,9 +59735,6 @@
 	},
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "rAU" = (
@@ -62333,12 +62283,12 @@
 /turf/open/floor/iron/dark,
 /area/engineering/gravity_generator)
 "sqr" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id = "medsecprivacy";
 	name = "privacy shutter"
 	},
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/medical)
 "sqI" = (
@@ -64365,9 +64315,6 @@
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
-	},
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -67806,8 +67753,8 @@
 /turf/open/floor/iron,
 /area/engineering/atmos)
 "ufS" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/science)
 "ufU" = (
@@ -71967,9 +71914,6 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "vsS" = (
@@ -73860,7 +73804,7 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/visible{
 	dir = 4
 	},
-/turf/closed/wall,
+/turf/closed/wall/r_wall,
 /area/security/checkpoint/engineering)
 "vYR" = (
 /obj/item/assembly/prox_sensor{
@@ -79502,15 +79446,6 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
-"xRJ" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable,
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "xRK" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -100713,8 +100648,8 @@ mnJ
 qdR
 rAP
 rrV
-qlq
-xRJ
+scQ
+stQ
 pca
 fcj
 mRw
@@ -100973,7 +100908,7 @@ css
 css
 akM
 css
-lee
+css
 mRw
 jqO
 nCO
@@ -108719,11 +108654,11 @@ sjZ
 cmP
 cmP
 lnA
-cPb
+ihQ
 cMZ
 cNP
 fCY
-cPb
+ihQ
 cPv
 cPb
 cPv
@@ -108976,11 +108911,11 @@ dSR
 vBx
 cmP
 xlq
-cPb
+ihQ
 cNa
 cNQ
 fyC
-cPb
+ihQ
 lMJ
 lMJ
 aaa
@@ -109233,7 +109168,7 @@ fNV
 gyL
 cmP
 apB
-cPb
+ihQ
 sSO
 ttu
 rfV
@@ -109490,7 +109425,7 @@ fNV
 iXe
 cmP
 hCW
-cPb
+ihQ
 cNc
 cNR
 cOy
@@ -109747,11 +109682,11 @@ fNV
 pQY
 cmP
 qgg
-cPb
+ihQ
 oEn
 wuy
 xKc
-cPb
+ihQ
 lMJ
 lMJ
 aaa
@@ -110004,11 +109939,11 @@ eLZ
 qyc
 cmP
 hCW
-cPb
-cPb
-cPb
-cPb
-cPb
+ihQ
+ihQ
+ihQ
+ihQ
+ihQ
 anS
 anS
 lMJ
@@ -112287,13 +112222,13 @@ fxM
 hyu
 tQZ
 rPm
-eWd
+cgd
 dQd
 jOF
 ufS
 ufS
 dQd
-bZn
+cgo
 bZn
 aMo
 jvx
@@ -113064,7 +112999,7 @@ wAZ
 joX
 vCF
 aua
-bZn
+cgo
 bZn
 gDx
 xFj
@@ -113315,7 +113250,7 @@ tOC
 wbm
 wbm
 wbm
-eWd
+cgd
 snl
 ecA
 mkK
@@ -113572,12 +113507,12 @@ hCb
 awD
 cXm
 tbP
-ihQ
-ihQ
-ihQ
-ihQ
-ihQ
-ihQ
+uDv
+uDv
+uDv
+uDv
+uDv
+uDv
 uDv
 uDv
 jYA
@@ -114012,8 +113947,8 @@ kMr
 oTE
 jVV
 jVV
-neT
 amt
+neT
 nYO
 aOQ
 tZK
