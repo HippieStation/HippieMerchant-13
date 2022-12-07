@@ -298,6 +298,7 @@
 		"plasmarefiller",
 		"smoke_machine",
 		"rapidsyringe",
+		"autodoc",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	discount_experiments = list(/datum/experiment/scanning/random/material/meat = 4000) //Big discount to reinforce doing it.
@@ -552,6 +553,8 @@
 		"tele_hub",
 		"tele_station",
 		"teleconsole",
+		"selling_console",
+		"selling_pad",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 
