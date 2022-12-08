@@ -166,7 +166,7 @@
 	name = "nanite heart"
 	desc = "A cybernetic heart, containing nanites programed to rebuild human beings into droids."
 	icon = 'icons/obj/surgery.dmi'
-	icon_state = "nanite-heart"
+	icon_state = "heart-nanites"
 	status = ORGAN_ROBOTIC
 	organ_flags = NONE
 	beating = TRUE
