@@ -1,7 +1,7 @@
 //Pad & Pad Terminal
 /obj/machinery/selling_pad
 	name = "cargo hold pad"
-	icon = 'hippie_mod/icons/obj/telescience.dmi'
+	icon = 'hippie_mod/icons/telescience.dmi'
 	icon_state = "lpad-idle-o"
 	circuit = /obj/item/circuitboard/machine/selling_pad
 

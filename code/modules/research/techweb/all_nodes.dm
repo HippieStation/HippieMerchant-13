@@ -298,6 +298,7 @@
 		"plasmarefiller",
 		"smoke_machine",
 		"rapidsyringe",
+		"autodoc",
 		"nanite_heart",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
@@ -553,6 +554,8 @@
 		"tele_hub",
 		"tele_station",
 		"teleconsole",
+		"selling_console",
+		"selling_pad",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 
