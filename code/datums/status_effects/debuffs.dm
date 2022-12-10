@@ -163,31 +163,66 @@
 	ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
 	tick_interval = initial(tick_interval)
 
+#define HEALING_SLEEP_DEFAULT 0.2
+
 /datum/status_effect/incapacitating/sleeping/tick()
 	if(owner.maxHealth)
 		var/health_ratio = owner.health / owner.maxHealth
-		var/healing = -0.2
+		var/healing = HEALING_SLEEP_DEFAULT
+
+		var/turf/rest_turf = get_turf(owner)
+		var/is_sleeping_in_darkness = rest_turf.get_lumcount() <= SHADOW_SPECIES_LIGHT_THRESHOLD
+
+		// sleeping with a blindfold or in the dark helps us rest
+		if(HAS_TRAIT_FROM(owner, TRAIT_BLIND, BLINDFOLD_TRAIT) || is_sleeping_in_darkness)
+			healing += 0.1
+
+		// sleeping in silence is always better
+		if(HAS_TRAIT(owner, TRAIT_DEAF))
+			healing += 0.1
+
+		// check for beds
 		if((locate(/obj/structure/bed) in owner.loc))
-			healing -= 0.3
+			healing += 0.2
+
 		else if((locate(/obj/structure/table) in owner.loc))
-			healing -= 0.1
+			healing += 0.1
+
+		// don't forget the bedsheet
 		for(var/obj/item/bedsheet/bedsheet in range(owner.loc,0))
 			if(bedsheet.loc != owner.loc) //bedsheets in your backpack/neck don't give you comfort
 				continue
-			healing -= 0.1
+			healing += 0.1
 			break //Only count the first bedsheet
-		if(health_ratio > 0.8)
-			owner.adjustBruteLoss(healing)
-			owner.adjustFireLoss(healing)
-			owner.adjustToxLoss(healing * 0.5, TRUE, TRUE)
-		owner.adjustStaminaLoss(healing)
+
+		// check if we are well fed
+		if(owner.nutrition >= NUTRITION_LEVEL_WELL_FED)
+			healing += 0.1
+
+		// cut healing threshold in half if we have over 80% health
+		if(healing > 0 && health_ratio > 0.8)
+			healing *= 0.5
+
+		// cut healing threshold in third if we have over 40% health
+		else if(healing > 0 && health_ratio > 0.4)
+			healing *= 0.7
+
+		owner.adjustBruteLoss(-1 * healing)
+		owner.adjustFireLoss(-1 * healing)
+		owner.adjustToxLoss(-1 * healing * 0.5, TRUE, TRUE)
+		owner.adjustStaminaLoss(min(-1 * healing, -1 * HEALING_SLEEP_DEFAULT))
+
 	if(human_owner?.drunkenness)
 		human_owner.drunkenness *= 0.997 //reduce drunkenness by 0.3% per tick, 6% per 2 seconds
 	if(prob(20))
-		if(carbon_owner)
+		if(iscarbon(owner))
+			var/mob/living/carbon/carbon_owner = owner
 			carbon_owner.handle_dreams()
-		if(prob(10) && owner.health > owner.crit_threshold)
-			owner.emote("snore")
+
+	if(prob(10) && owner.health > owner.crit_threshold)
+		owner.emote("snore")
+
+#undef HEALING_SLEEP_DEFAULT
 
 /atom/movable/screen/alert/status_effect/asleep
 	name = "Asleep"
