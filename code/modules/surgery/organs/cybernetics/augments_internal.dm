@@ -166,7 +166,7 @@
 	name = "nanite heart"
 	desc = "A cybernetic heart, containing nanites programed to rebuild human beings into droids."
 	icon = 'icons/obj/surgery.dmi'
-	icon_state = "nanite-heart"
+	icon_state = "heart-nanites"
 	status = ORGAN_ROBOTIC
 	organ_flags = NONE
 	beating = TRUE
@@ -207,8 +207,7 @@
 	if(start_time + rebuild_duration < world.time)
 		to_chat(owner, span_userdanger("You feel your limbs and organs twist, as you turn into an android!"))
 		owner.emote("scream")
-		owner.Unconscious(2 SECONDS)
-		sleep(1 SECONDS)
 		owner.set_species(/datum/species/android)
+		owner.Unconscious(2 SECONDS)
 		active = FALSE
 		used = TRUE

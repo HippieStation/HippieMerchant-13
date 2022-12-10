@@ -189,7 +189,6 @@
 	ADD_TRAIT(H, TRAIT_MUTE, CLONING_POD_TRAIT)
 	ADD_TRAIT(H, TRAIT_NOBREATH, CLONING_POD_TRAIT)
 	ADD_TRAIT(H, TRAIT_NOCRITDAMAGE, CLONING_POD_TRAIT)
-	H.Unconscious(80)
 
 	if(!empty)
 		clonemind.transfer_to(H)
@@ -219,6 +218,7 @@
 
 		H.set_suicide(FALSE)
 	attempting = FALSE
+	H.Unconscious(80)
 	return CLONING_SUCCESS
 
 //Grow clones to maturity then kick them out.  FREELOADERS
@@ -259,7 +259,6 @@
 			log_cloning("[key_name(mob_occupant)] ejected from [src] at [AREACOORD(src)] after suiciding.")
 
 		else if(mob_occupant && mob_occupant.cloneloss > (100 - heal_level))
-			mob_occupant.Unconscious(80)
 			var/dmg_mult = CONFIG_GET(number/damage_multiplier)
 			// Slowly get that clone healed and finished.
 			mob_occupant.adjustCloneLoss(-((speed_coeff / 2) * dmg_mult))
@@ -281,6 +280,7 @@
 					BP.attach_limb(mob_occupant)
 
 			use_power(7500) //This might need tweaking.
+			mob_occupant.Unconscious(80)
 
 		else if(mob_occupant && (mob_occupant.cloneloss <= (100 - heal_level)))
 			connected_message("Cloning Process Complete.")
