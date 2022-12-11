@@ -54908,6 +54908,7 @@
 /area/command/bridge)
 "pYm" = (
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/science/lab)
 "pYs" = (
