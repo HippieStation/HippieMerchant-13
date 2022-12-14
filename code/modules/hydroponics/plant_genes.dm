@@ -32,7 +32,7 @@
 /datum/plant_gene/proc/apply_vars(obj/item/seeds/S) // I weep
 	return
 
-/// Core plant genes. Stores the main variables: lifespan, endurance, production, yield, potency, instability, weed rate/chance
+/// Core plant genes. Stores the main variables: lifespan, endurance, production, yield, potency, weed rate/chance
 /datum/plant_gene/core
 	/// The number value of our core gene.
 	var/value = 0
@@ -95,13 +95,6 @@
 
 /datum/plant_gene/core/potency/apply_stat(obj/item/seeds/our_seed)
 	our_seed.potency = value
-
-/datum/plant_gene/core/instability
-	name = "Stability"
-	value = 10
-
-/datum/plant_gene/core/instability/apply_stat(obj/item/seeds/our_seed)
-	our_seed.instability = value
 
 /datum/plant_gene/core/weed_rate
 	name = "Weed Growth Rate"
@@ -665,8 +658,8 @@
 
 	// The secret of potato supercells!
 	var/datum/plant_gene/trait/cell_charge/electrical_gene = our_seed.get_gene(/datum/plant_gene/trait/cell_charge)
-	if(electrical_gene) // Cell charge max is now 40MJ or otherwise known as 400KJ (Same as bluespace power cells)
-		pocell.maxcharge *= (electrical_gene.rate * 100)
+	if(electrical_gene) // Like the good old days
+		pocell.maxcharge *= (electrical_gene.rate * 1000)
 	pocell.charge = pocell.maxcharge
 	pocell.name = "[our_plant.name] battery"
 	pocell.desc = "A rechargeable plant-based power cell. This one has a rating of [DisplayEnergy(pocell.maxcharge)], and you should not swallow it."

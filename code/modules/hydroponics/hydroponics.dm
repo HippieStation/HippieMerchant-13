@@ -7,13 +7,12 @@
 	pixel_z = 8
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	circuit = /obj/item/circuitboard/machine/hydroponics
-	idle_power_usage = 0
 	///The amount of water in the tray (max 100)
 	var/waterlevel = 100
 	///The maximum amount of water in the tray
 	var/maxwater = 100
 	///How many units of nutrients will be drained in the tray.
-	var/nutridrain = 1
+	var/nutrilevel = 10
 	///The maximum nutrient of water in the tray
 	var/maxnutri = 10
 	///The amount of pests in the tray (max 10)
@@ -52,12 +51,14 @@
 	var/datum/weakref/lastuser
 	///If the tray generates nutrients and water on its own
 	var/self_sustaining = FALSE
+	///Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood.
+	var/self_sufficiency_req = 20
+	///Progress of earthsblood in the hydro tray.
+	var/self_sufficiency_progress = 0
 	///The icon state for the overlay used to represent that this tray is self-sustaining.
 	var/self_sustaining_overlay_icon_state = "gaia_blessing"
 
 /obj/machinery/hydroponics/Initialize()
-	//ALRIGHT YOU DEGENERATES. YOU HAD REAGENT HOLDERS FOR AT LEAST 4 YEARS AND NONE OF YOU MADE HYDROPONICS TRAYS HOLD NUTRIENT CHEMS INSTEAD OF USING "Points".
-	//SO HERE LIES THE "nutrilevel" VAR. IT'S DEAD AND I PUT IT OUT OF IT'S MISERY. USE "reagents" INSTEAD. ~ArcaneMusic, accept no substitutes.
 	create_reagents(20)
 	reagents.add_reagent(/datum/reagent/plantnutriment/eznutriment, 10) //Half filled nutrient trays for dirt trays to have more to grow with in prison/lavaland.
 	. = ..()
@@ -85,11 +86,9 @@
 	maxwater = tmp_capacity * 50 // Up to 300
 	maxnutri = (tmp_capacity * 5) + STATIC_NUTRIENT_CAPACITY // Up to 50 Maximum
 	reagents.maximum_volume = maxnutri
-	nutridrain = 1/rating
 
 /obj/machinery/hydroponics/constructable/examine(mob/user)
 	. = ..()
-	. += span_notice("Use <b>Ctrl-Click</b> to activate autogrow. <b>Alt-Click</b> to empty the tray's nutrients.")
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Tray efficiency at <b>[rating*100]%</b>.")
 
@@ -110,7 +109,8 @@
 
 	return ..()
 
-/obj/machinery/hydroponics/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
+//Works with the Somatoray to modify plant variables.
+/obj/machinery/hydroponics/bullet_act(obj/projectile/Proj)
 	if(!myseed)
 		return ..()
 	if(istype(Proj , /obj/projectile/energy/floramut))
@@ -118,9 +118,6 @@
 	else if(istype(Proj , /obj/projectile/energy/florayield))
 		return myseed.bullet_act(Proj)
 	else if(istype(Proj , /obj/projectile/energy/florarevolution))
-		if(myseed)
-			if(myseed.mutatelist.len > 0)
-				myseed.set_instability(myseed.instability/2)
 		mutatespecie()
 	else
 		return ..()
@@ -131,16 +128,12 @@
 	if(myseed && (myseed.loc != src))
 		myseed.forceMove(src)
 
-	if(!powered() && self_sustaining)
-		visible_message(span_warning("[name]'s auto-grow functionality shuts off!"))
-		idle_power_usage = 0
-		self_sustaining = FALSE
-		update_appearance()
-
-	else if(self_sustaining)
+	if(self_sustaining)
+		adjustNutri(rand(1,2) * delta_time * 0.5)
 		adjustWater(rand(1,2) * delta_time * 0.5)
 		adjustWeeds(-0.5 * delta_time)
 		adjustPests(-0.5 * delta_time)
+		adjustToxic(-0.5 * delta_time)
 
 	if(world.time > (lastcycle + cycledelay))
 		lastcycle = world.time
@@ -153,19 +146,20 @@
 			needs_update = 1
 
 
-//Nutrients//////////////////////////////////////////////////////////////
-			// Nutrients deplete at a constant rate, since new nutrients can boost stats far easier.
-			apply_chemicals(lastuser?.resolve())
-			if(self_sustaining)
-				reagents.remove_any(min(0.5, nutridrain))
-			else
-				reagents.remove_any(nutridrain)
+/**
+ * Nutrients
+ */
+			// Nutrients deplete slowly
+			if(prob(50))
+				adjustNutri(-1 / rating)
 
 			// Lack of nutrients hurts non-weeds
-			if(reagents.total_volume <= 0 && !myseed.get_gene(/datum/plant_gene/trait/plant_type/weed_hardy))
+			if(nutrilevel <= 0 && !myseed.get_gene(/datum/plant_gene/trait/plant_type/weed_hardy))
 				adjustHealth(-rand(1,3))
 
-//Photosynthesis/////////////////////////////////////////////////////////
+/**
+ * Photosynthesis
+ */
 			// Lack of light hurts non-mushrooms
 			if(isturf(loc))
 				var/turf/currentTurf = loc
@@ -173,11 +167,14 @@
 				if(myseed.get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 					if(lightAmt < 0.2)
 						adjustHealth(-1 / rating)
-				else // Non-mushroom
+				// Non-mushroom
+				else
 					if(lightAmt < 0.4)
 						adjustHealth(-2 / rating)
 
-//Water//////////////////////////////////////////////////////////////////
+/**
+ * Water
+ */
 			// Drink random amount of water
 			adjustWater(-rand(1,6) / rating)
 
@@ -188,15 +185,16 @@
 					adjustHealth(-rand(0,2) / rating)
 
 			// Sufficient water level and nutrient level = plant healthy but also spawns weeds
-			else if(waterlevel > 10 && reagents.total_volume > 0)
+			else if(waterlevel > 10 && nutrilevel > 0)
 				adjustHealth(rand(1,2) / rating)
 				if(myseed && prob(myseed.weed_chance))
 					adjustWeeds(myseed.weed_rate)
 				else if(prob(5))  //5 percent chance the weed population will increase
 					adjustWeeds(1 / rating)
 
-//Toxins/////////////////////////////////////////////////////////////////
-
+/**
+ * Toxins
+ */
 			// Too much toxins cause harm, but when the plant drinks the contaiminated water, the toxins disappear slowly
 			if(toxic >= 40 && toxic < 80)
 				adjustHealth(-1 / rating)
@@ -205,10 +203,13 @@
 				adjustHealth(-3)
 				adjustToxic(-rating *3)
 
-//Pests & Weeds//////////////////////////////////////////////////////////
+/**
+ * Pests & Weeds
+ */
 
 			if(pestlevel >= 8)
 				if(!myseed.get_gene(/datum/plant_gene/trait/carnivory))
+					adjustHealth(-2 / rating)
 					if(myseed.potency >=30)
 						myseed.adjust_potency(-rand(2,6)) //Pests eat leaves and nibble on fruit, lowering potency.
 						myseed.set_potency(min((myseed.potency), CARNIVORY_POTENCY_MIN, MAX_PLANT_POTENCY))
@@ -218,6 +219,7 @@
 
 			else if(pestlevel >= 4)
 				if(!myseed.get_gene(/datum/plant_gene/trait/carnivory))
+					adjustHealth(-1 / rating)
 					if(myseed.potency >=30)
 						myseed.adjust_potency(-rand(1,4))
 						myseed.set_potency(min((myseed.potency), CARNIVORY_POTENCY_MIN, MAX_PLANT_POTENCY))
@@ -228,36 +230,20 @@
 						adjustPests(-1 / rating)
 
 			else if(pestlevel < 4 && myseed.get_gene(/datum/plant_gene/trait/carnivory))
+				adjustHealth(-2 / rating)
 				if(prob(5))
 					adjustPests(-1 / rating)
 
 			// If it's a weed, it doesn't stunt the growth
 			if(weedlevel >= 5 && !myseed.get_gene(/datum/plant_gene/trait/plant_type/weed_hardy))
+				adjustHealth(-1 / rating)
 				if(myseed.yield >=3)
 					myseed.adjust_yield(-rand(1,2)) //Weeds choke out the plant's ability to bear more fruit.
 					myseed.set_yield(min((myseed.yield), WEED_HARDY_YIELD_MIN, MAX_PLANT_YIELD))
 
-
-//This is the part with pollination
-			pollinate()
-
-//This is where stability mutations exist now.
-			if(myseed.instability >= 80)
-				var/mutation_chance = myseed.instability - 75
-				mutate(0, 0, 0, 0, 0, 0, 0, mutation_chance, 0) //Scaling odds of a random trait or chemical
-			if(myseed.instability >= 60)
-				if(prob((myseed.instability)/2) && !self_sustaining && length(myseed.mutatelist)) //Minimum 30%, Maximum 50% chance of mutating every age tick when not on autogrow.
-					mutatespecie()
-					myseed.set_instability(myseed.instability/2)
-			if(myseed.instability >= 40)
-				if(prob(myseed.instability))
-					hardmutate()
-			if(myseed.instability >= 20 )
-				if(prob(myseed.instability))
-					mutate()
-
-//Health & Age///////////////////////////////////////////////////////////
-
+/**
+ * Health & Age
+ */
 			// Plant dies if plant_health <= 0
 			if(plant_health <= 0)
 				plantdies()
@@ -269,6 +255,7 @@
 
 			// Harvest code
 			if(age > myseed.production && (age - lastproduce) > myseed.production && (!harvest && !dead))
+				nutrimentMutation()
 				if(myseed && myseed.yield != -1) // Unharvestable shouldn't be harvested
 					harvest = TRUE
 				else
@@ -276,7 +263,7 @@
 			if(prob(5))  // On each tick, there's a 5 percent chance the pest population will increase
 				adjustPests(1 / rating)
 		else
-			if(waterlevel > 10 && reagents.total_volume > 0 && prob(10))  // If there's no plant, the percentage chance is 10%
+			if(waterlevel > 10 && nutrilevel > 0 && prob(10))  // If there's no plant, the percentage chance is 10%
 				adjustWeeds(1 / rating)
 
 		// Weeeeeeeeeeeeeeedddssss
@@ -284,8 +271,11 @@
 			if(myseed && myseed.yield >= 3)
 				myseed.adjust_yield(-rand(1,2)) //Loses even more yield per tick, quickly dropping to 3 minimum.
 				myseed.set_yield(min((myseed.yield), WEED_HARDY_YIELD_MIN, MAX_PLANT_YIELD))
-			if(!myseed)
-				weedinvasion()
+			if(myseed)
+				if(!myseed.get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !myseed.get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism)) // If a normal plant
+					weedinvasion()
+			else
+				weedinvasion() // Weed invasion into empty tray
 			needs_update = 1
 		if (needs_update)
 			update_appearance()
@@ -293,6 +283,25 @@
 		if(myseed)
 			SEND_SIGNAL(myseed, COMSIG_PLANT_ON_GROW, src)
 
+	return
+
+/obj/machinery/hydroponics/proc/nutrimentMutation()
+	if(mutmod == 0)
+		return
+	if(mutmod == 1)
+		if(prob(80))		//80%
+			mutate()
+		else if(prob(75))	//15%
+			hardmutate()
+		return
+	if(mutmod == 2)
+		if(prob(50))		//50%
+			mutate()
+		else if(prob(50))	//25%
+			hardmutate()
+		else if(prob(50))	//12.5%
+			mutatespecie()
+		return
 	return
 
 /obj/machinery/hydroponics/update_appearance(updates)
@@ -333,7 +342,7 @@
 	. = list()
 	if(waterlevel <= 10)
 		. += mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_lowwater3")
-	if(reagents.total_volume <= 2)
+	if(nutrilevel <= 2)
 		. += mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_lownutri3")
 	if(plant_health <= (myseed.endurance / 2))
 		. += mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_lowhealth3")
@@ -357,9 +366,9 @@
 		. += span_info("It's empty.")
 
 	. += span_info("Water: [waterlevel]/[maxwater].")
-	. += span_info("Nutrient: [reagents.total_volume]/[maxnutri].")
+	. += span_info("Nutrient: [nutrilevel]/[maxnutri].")
 	if(self_sustaining)
-		. += span_info("The tray's autogrow is active, protecting it from species mutations, weeds, and pests.")
+		. += span_info("The tray's self-sustenance is active, protecting it from species mutations, weeds, and pests.")
 
 	if(weedlevel >= 5)
 		. += span_warning("It's filled with weeds!")
@@ -406,13 +415,13 @@
 	visible_message(span_warning("The [oldPlantName] is overtaken by some [myseed.plantname]!"))
 	TRAY_NAME_UPDATE
 
-/obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0, stabmut = 3) // Mutates the current seed
+/obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
 	if(!myseed)
 		return
-	myseed.mutate(lifemut, endmut, productmut, yieldmut, potmut, wrmut, wcmut, traitmut, stabmut)
+	myseed.mutate(lifemut, endmut, productmut, yieldmut, potmut, wrmut, wcmut, traitmut)
 
-/obj/machinery/hydroponics/proc/hardmutate()
-	mutate(4, 10, 2, 4, 50, 4, 10, 0, 4)
+/obj/machinery/hydroponics/proc/hardmutate(lifemut = 4, endmut = 10, productmut = 2, yieldmut = 4, potmut = 50, wrmut = 4, wcmut = 10, traitmut = 3)
+	mutate(lifemut, endmut, productmut, yieldmut, potmut, wrmut, wcmut, traitmut)
 
 
 /obj/machinery/hydroponics/proc/mutatespecie() // Mutagent produced a new plant!
@@ -477,31 +486,6 @@
 		update_appearance()
 		dead = TRUE
 
-/**
- * Plant Cross-Pollination.
- * Checks all plants in the tray's oview range, then averages out the seed's potency, instability, and yield values.
- * If the seed's instability is >= 20, the seed donates one of it's reagents to that nearby plant.
- * * Range - The Oview range of trays to which to look for plants to donate reagents.
- */
-/obj/machinery/hydroponics/proc/pollinate(range = 1)
-	for(var/obj/machinery/hydroponics/T in oview(src, range))
-		//Here is where we check for window blocking.
-		if(!Adjacent(T) && range <= 1)
-			continue
-		if(T.myseed && !T.dead)
-			T.myseed.set_potency(round((T.myseed.potency+(1/10)*(myseed.potency-T.myseed.potency))))
-			T.myseed.set_instability(round((T.myseed.instability+(1/10)*(myseed.instability-T.myseed.instability))))
-			T.myseed.set_yield(round((T.myseed.yield+(1/2)*(myseed.yield-T.myseed.yield))))
-			if(myseed.instability >= 20 && prob(70) && length(T.myseed.reagents_add))
-				var/list/datum/plant_gene/reagent/possible_reagents = list()
-				for(var/datum/plant_gene/reagent/reag in T.myseed.genes)
-					possible_reagents += reag
-				var/datum/plant_gene/reagent/reagent_gene = pick(possible_reagents) //Let this serve as a lession to delete your WIP comments before merge.
-				if(reagent_gene.can_add(myseed))
-					if(!reagent_gene.try_upgrade_gene(myseed))
-						myseed.genes += reagent_gene.Copy()
-					myseed.reagents_from_genes()
-					continue
 
 
 /**
@@ -526,10 +510,6 @@
 		if(!reagent_source.reagents.total_volume)
 			to_chat(user, span_warning("[reagent_source] is empty!"))
 			return 1
-
-		if(reagents.total_volume >= reagents.maximum_volume && !reagent_source.reagents.has_reagent(/datum/reagent/water, 1))
-			to_chat(user, span_notice("[src] is full."))
-			return
 
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
 		var/target = myseed ? myseed.plantname : src
@@ -564,10 +544,12 @@
 			if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/pill))
 				qdel(reagent_source)
 				H.update_appearance()
+				apply_chemicals(user)
 				return 1
 			H.update_appearance()
 		if(reagent_source) // If the source wasn't composted and destroyed
 			reagent_source.update_appearance()
+		apply_chemicals(user)
 		return 1
 
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
@@ -763,30 +745,6 @@
 		if(user)
 			user.examinate(src)
 
-/obj/machinery/hydroponics/CtrlClick(mob/user)
-	. = ..()
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		return
-	if(!powered())
-		to_chat(user, span_warning("[name] has no power."))
-		return
-	if(!anchored)
-		return
-	self_sustaining = !self_sustaining
-	idle_power_usage = self_sustaining ? 5000 : 0
-	to_chat(user, "<span class='notice'>You [self_sustaining ? "activate" : "deactivated"] [src]'s autogrow function[self_sustaining ? ", maintaining the tray's health while using high amounts of power" : ""].")
-	update_appearance()
-
-/obj/machinery/hydroponics/AltClick(mob/user)
-	. = ..()
-	if(!anchored)
-		update_appearance()
-		return FALSE
-	var/warning = tgui_alert(user, "Are you sure you wish to empty the tray's nutrient beaker?","Empty Tray Nutrients?", list("Yes", "No"))
-	if(warning == "Yes" && user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		reagents.clear_reagents()
-		to_chat(user, span_warning("You empty [src]'s nutrient tank."))
-
 /**
  * Update Tray Proc
  * Handles plant harvesting on the tray side, by clearing the sead, names, description, and dead stat.
@@ -810,9 +768,6 @@
 		name = initial(name)
 		desc = initial(desc)
 		TRAY_NAME_UPDATE
-		if(self_sustaining) //No reason to pay for an empty tray.
-			idle_power_usage = 0
-			self_sustaining = FALSE
 	update_appearance()
 
 /// Tray Setters - The following procs adjust the tray or plants variables, and make sure that the stat doesn't go out of bounds.
@@ -826,6 +781,10 @@
 
 	if(adjustamt>0)
 		adjustToxic(-round(adjustamt/4))//Toxicity dilutation code. The more water you put in, the lesser the toxin concentration.
+
+// The same as adjustWater
+/obj/machinery/hydroponics/proc/adjustNutri(adjustamt)
+	nutrilevel = clamp(nutrilevel + adjustamt, 0, maxnutri)
 
 /**
  * Adjust Health.
@@ -870,6 +829,11 @@
 	var/mob/living/simple_animal/hostile/C = new chosen
 	C.faction = list("plants")
 
+/obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
+	visible_message("<span class='boldnotice'>[src] begins to glow with a beautiful light!</span>")
+	self_sustaining = TRUE
+	update_overlays()
+
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!
 	name = "soil"
@@ -898,9 +862,6 @@
 		qdel(src)
 	else
 		return ..()
-
-/obj/machinery/hydroponics/soil/CtrlClick(mob/user)
-	return //Soil has no electricity.
 
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil/pot

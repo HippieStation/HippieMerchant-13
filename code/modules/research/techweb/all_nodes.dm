@@ -1228,6 +1228,7 @@
 	description = "Botanical tools"
 	prereq_ids = list("adv_engi", "biotech")
 	design_ids = list(
+		"diskplantgene",
 		"biogenerator",
 		"flora_gun",
 		"hydro_tray",
