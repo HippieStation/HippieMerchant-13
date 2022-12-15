@@ -25208,6 +25208,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/surgery)
+"gbA" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate,
+/obj/item/toy/plush/floyd,
+/turf/open/floor/iron,
+/area/maintenance/port/aft)
 "gbM" = (
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/turf_decal/tile/red{
@@ -96802,7 +96808,7 @@ egR
 cCk
 bXE
 bXE
-hLm
+gbA
 bXE
 slf
 bXE
