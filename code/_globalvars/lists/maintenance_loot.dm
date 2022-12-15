@@ -338,6 +338,7 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 	list(//misc
 		/obj/item/disk/nuclear/fake = 1,
 		/obj/item/book/granter/crafting_recipe/pipegun_prime = 1,
+		/obj/item/toy/plush/floyd = 1,
 		) = 1,
 
 ))
