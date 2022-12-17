@@ -409,6 +409,7 @@
 		mob_occupant.grab_ghost()
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
 		mob_occupant.flash_act()
+		mob_occupant.do_remove_colorblindness()
 
 	occupant.forceMove(T)
 	icon_state = "pod_0"

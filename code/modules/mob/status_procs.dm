@@ -69,6 +69,9 @@
 		clear_fullscreen("blind")
 		remove_client_colour(/datum/client_colour/monochrome/blind)
 
+/mob/proc/do_remove_colorblindness()
+	remove_client_colour(/datum/client_colour/monochrome/blind)
+
 
 /**
  * Make the mobs vision blurry
