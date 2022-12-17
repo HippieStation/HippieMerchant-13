@@ -689,3 +689,18 @@
 	attack_verb_continuous = list("slashes", "bites", "charges")
 	attack_verb_simple = list("slash", "bite", "charge")
 	squeak_override = list('sound/items/intents/Help.ogg' = 1)
+
+/obj/item/toy/plush/floyd
+	name = "george floyd plushie"
+	desc = "A plushie depicting george floyd."
+	icon_state = "floydplush"
+	inhand_icon_state = "floydplush"
+	attack_verb_continuous = list("kneels on")
+	attack_verb_simple = list("riot", "loot")
+	squeak_override = list('hippie_mod/sound/puff.ogg' = 1)
+
+/obj/item/toy/plush/floyd/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("The george floyd plushie comes alive and steals [user.p_theyre()]'s air!"))
+	playsound(src, 'hippie_mod/sound/boom.ogg', 50, TRUE, -1)
+	user.dust(just_ash = TRUE, drop_items = TRUE)
+	return MANUAL_SUICIDE
