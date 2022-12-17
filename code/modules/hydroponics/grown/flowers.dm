@@ -10,7 +10,6 @@
 	maturation = 8
 	yield = 6
 	potency = 20
-	instability = 1 //Flowers have 1 instability, if you want to breed out instability, crossbreed with flowers.
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_grow = "poppy-grow"
@@ -134,7 +133,6 @@
 	production = 1
 	yield = 2
 	potency = 30
-	instability = 1
 	growthstages = 4
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
@@ -162,7 +160,6 @@
 	endurance = 20
 	production = 2
 	yield = 2
-	instability = 1
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_grow = "sunflower-grow"
@@ -255,7 +252,6 @@
 	endurance = 12
 	yield = 6
 	potency = 15
-	instability = 20 //Roses crossbreed easily, and there's many many species of them.
 	growthstages = 3
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/backfire/rose_thorns)
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
@@ -298,7 +294,6 @@
 	endurance = 12
 	yield = 6
 	potency = 15
-	instability = 3
 	growthstages = 3
 	genes = list(/datum/plant_gene/reagent/carbon)
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'

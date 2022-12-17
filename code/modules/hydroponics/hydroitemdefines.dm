@@ -254,7 +254,6 @@
 		text += "- Production speed: [span_notice("[scanned.production]")]\n"
 	text += "- Endurance: [span_notice("[scanned.endurance]")]\n"
 	text += "- Lifespan: [span_notice("[scanned.lifespan]")]\n"
-	text += "- Instability: [span_notice("[scanned.instability]")]\n"
 	text += "- Weed Growth Rate: [span_notice("[scanned.weed_rate]")]\n"
 	text += "- Weed Vulnerability: [span_notice("[scanned.weed_chance]")]\n"
 	if(scanned.rarity)

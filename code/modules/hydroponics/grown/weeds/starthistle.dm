@@ -11,7 +11,6 @@
 	production = 1
 	yield = 2
 	potency = 10
-	instability = 35
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
@@ -57,7 +56,6 @@
 	production = 2
 	yield = 2
 	potency = 25
-	instability = 35
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy, /datum/plant_gene/trait/invasive)

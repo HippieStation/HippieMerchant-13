@@ -1,4 +1,3 @@
-//BOIL YOURSELF
 /obj/machinery/plantgenes
 	name = "plant DNA manipulator"
 	desc = "An advanced device designed to manipulate plant genetic makeup."
@@ -23,7 +22,6 @@
 	var/max_endurance = 10 // IMPT: ALSO AFFECTS LIFESPAN
 	var/min_wchance = 67
 	var/min_wrate = 10
-	var/min_instability = 0
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
@@ -69,22 +67,22 @@
 		return
 
 	if(istype(I, /obj/item/seeds))
-		if(seed)
-			to_chat(user, "<span class='warning'>A sample is already loaded into the machine!</span>")
-		else
-			if(!user.temporarilyRemoveItemFromInventory(I))
-				return
-			insert_seed(I)
-			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
-			interact(user)
-		return
+		if (operation)
+			to_chat(user, "<span class='notice'>Please complete current operation.</span>")
+			return
+		if(!user.transferItemToLoc(I, src))
+			return
+		eject_seed()
+		insert_seed(I)
+		to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
+		interact(user)
 	else if(istype(I, /obj/item/disk/plantgene))
 		if (operation)
 			to_chat(user, "<span class='notice'>Please complete current operation.</span>")
 			return
-		eject_disk()
 		if(!user.transferItemToLoc(I, src))
 			return
+		eject_disk()
 		disk = I
 		to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 		interact(user)
@@ -150,10 +148,6 @@
 							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[min_wrate]</span> weed rate. "
 							dat += "Target gene will be degraded to <span class='highlight'>[min_wrate]</span> weed rate on extraction."
 					else if(istype(target, /datum/plant_gene/core/weed_chance))
-						if(gene.value < min_wchance)
-							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[min_wchance]</span> weed chance. "
-							dat += "Target gene will be degraded to <span class='highlight'>[min_wchance]</span> weed chance on extraction."
-					else if(istype(target, /datum/plant_gene/core/instability))
 						if(gene.value < min_wchance)
 							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[min_wchance]</span> weed chance. "
 							dat += "Target gene will be degraded to <span class='highlight'>[min_wchance]</span> weed chance on extraction."
@@ -250,28 +244,25 @@
 	usr.set_machine(src)
 
 	if(href_list["eject_seed"] && !operation)
-		if (seed)
-			seed.forceMove(drop_location())
-			seed.verb_pickup()
-			seed = null
-			update_genes()
-			update_icon()
+		var/obj/item/I = usr.get_active_held_item()
+		if(istype(I, /obj/item/seeds))
+			if(!usr.transferItemToLoc(I, src))
+				return
+			eject_seed()
+			insert_seed(I)
+			to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
 		else
-			var/obj/item/I = usr.get_active_held_item()
-			if (istype(I, /obj/item/seeds))
-				if(!usr.temporarilyRemoveItemFromInventory(I))
-					return
-				insert_seed(I)
-				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
-		update_icon()
+			eject_seed()
 	else if(href_list["eject_disk"] && !operation)
 		var/obj/item/I = usr.get_active_held_item()
-		eject_disk()
 		if(istype(I, /obj/item/disk/plantgene))
 			if(!usr.transferItemToLoc(I, src))
 				return
+			eject_disk()
 			disk = I
 			to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
+		else
+			eject_disk()
 	else if(href_list["op"] == "insert" && disk && disk.gene && seed)
 		if(!operation) // Wait for confirmation
 			operation = "insert"
@@ -322,8 +313,6 @@
 								gene.value = max(gene.value, min_wrate)
 							else if(istype(G, /datum/plant_gene/core/weed_chance))
 								gene.value = max(gene.value, min_wchance)
-							else if(istype(G, /datum/plant_gene/core/instability))
-								gene.value = max(gene.value, min_wchance)
 						disk.update_disk_name()
 						qdel(seed)
 						seed = null
@@ -371,6 +360,16 @@
 		disk = null
 		update_genes()
 
+/obj/machinery/plantgenes/proc/eject_seed()
+	if (seed && !operation)
+		if(Adjacent(usr) && !issilicon(usr))
+			if (!usr.put_in_hands(seed))
+				seed.forceMove(drop_location())
+		else
+			seed.forceMove(drop_location())
+		seed = null
+		update_genes()
+
 /obj/machinery/plantgenes/proc/update_genes()
 	core_genes = list()
 	reagent_genes = list()
@@ -385,7 +384,6 @@
 			/datum/plant_gene/core/lifespan,
 			/datum/plant_gene/core/weed_rate,
 			/datum/plant_gene/core/weed_chance,
-			/datum/plant_gene/core/instability
 			)
 		for(var/a in gene_paths)
 			core_genes += seed.get_gene(a)

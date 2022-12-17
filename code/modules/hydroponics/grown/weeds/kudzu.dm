@@ -11,7 +11,6 @@
 	lifespan = 20
 	endurance = 10
 	yield = 4
-	instability = 55
 	growthstages = 4
 	rarity = 30
 	var/list/mutations = list()

@@ -47,13 +47,14 @@
 // The best stuff there is. For testing/debugging.
 /datum/reagent/medicine/adminordrazine/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
 	. = ..()
-	if(chems.has_reagent(type, 1))
-		mytray.adjustWater(round(chems.get_reagent_amount(type) * 1))
-		mytray.adjustHealth(round(chems.get_reagent_amount(type) * 1))
+	if(chems.has_reagent(src.type, 1))
+		mytray.adjustWater(round(chems.get_reagent_amount(src.type) * 1))
+		mytray.adjustHealth(round(chems.get_reagent_amount(src.type) * 1))
+		mytray.adjustNutri(round(chems.get_reagent_amount(src.type) * 1))
 		mytray.adjustPests(-rand(1,5))
 		mytray.adjustWeeds(-rand(1,5))
-	if(chems.has_reagent(type, 3))
-		switch(rand(100))
+	if(chems.has_reagent(src.type, 3))
+		switch(rand(0, 100))
 			if(66  to 100)
 				mytray.mutatespecie()
 			if(33 to 65)
@@ -177,8 +178,9 @@
 // Healing
 /datum/reagent/medicine/cryoxadone/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
 	. = ..()
-	mytray.adjustHealth(round(chems.get_reagent_amount(type) * 3))
-	mytray.adjustToxic(-round(chems.get_reagent_amount(type) * 3))
+	if(chems.has_reagent(src.type, 1))
+		mytray.adjustHealth(round(chems.get_reagent_amount(src.type) * 3))
+		mytray.adjustToxic(-round(chems.get_reagent_amount(src.type) * 3))
 
 /datum/reagent/medicine/clonexadone
 	name = "Clonexadone"
@@ -803,7 +805,7 @@
 // FEED ME SEYMOUR
 /datum/reagent/medicine/strange_reagent/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
 	. = ..()
-	if(chems.has_reagent(type, 1))
+	if(chems.has_reagent(src.type, 1))
 		mytray.spawnplant()
 
 /datum/reagent/medicine/strange_reagent/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
@@ -1123,6 +1125,15 @@
 		hippie.gain_trauma(/datum/brain_trauma/severe/pacifism)
 	..()
 	. = TRUE
+
+/datum/reagent/medicine/earthsblood/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
+	. = ..()
+	if(chems.has_reagent(src.type, 1))
+		mytray.self_sufficiency_progress += chems.get_reagent_amount(src.type)
+		if(mytray.self_sufficiency_progress >= mytray.self_sufficiency_req)
+			mytray.become_self_sufficient()
+		else if(!mytray.self_sustaining)
+			to_chat(user, "<span class='notice'>[src] warms as it might on a spring day under a genuine Sun.</span>")
 
 /datum/reagent/medicine/haloperidol
 	name = "Haloperidol"
