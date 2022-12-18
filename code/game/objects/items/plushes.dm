@@ -700,7 +700,7 @@
 	squeak_override = list('hippie_mod/sound/puff.ogg' = 1)
 
 /obj/item/toy/plush/floyd/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("The george floyd plushie comes alive and steals [user.p_theyre()]'s air!"))
+	user.visible_message(span_suicide("The george floyd plushie comes alive and steals [user.p_theyre()] air!"))
 	playsound(src, 'hippie_mod/sound/boom.ogg', 50, TRUE, -1)
 	user.dust(just_ash = TRUE, drop_items = TRUE)
 	return MANUAL_SUICIDE

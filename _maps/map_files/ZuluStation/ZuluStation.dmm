@@ -44872,11 +44872,11 @@
 /turf/open/floor/plating,
 /area/commons/fitness/recreation)
 "lxM" = (
-/obj/machinery/chem_dispenser,
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
+/obj/machinery/chem_dispenser/botany,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "lyr" = (

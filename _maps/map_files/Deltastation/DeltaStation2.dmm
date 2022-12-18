@@ -16153,6 +16153,7 @@
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/chem_dispenser/botany,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "cgm" = (

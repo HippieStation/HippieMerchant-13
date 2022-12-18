@@ -79142,6 +79142,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/cargo/storage)
+"tHT" = (
+/obj/machinery/chem_dispenser/botany,
+/turf/open/floor/iron,
+/area/service/hydroponics)
 "tIc" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall/rust,
@@ -124698,7 +124702,7 @@ eeN
 dht
 fEv
 jOT
-jOT
+tHT
 llp
 ljH
 vrF

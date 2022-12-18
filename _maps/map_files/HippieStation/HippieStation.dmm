@@ -14886,6 +14886,7 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
+/obj/machinery/chem_dispenser/botany,
 /turf/open/floor/iron/dark,
 /area/service/hydroponics)
 "aTo" = (
@@ -33340,6 +33341,7 @@
 "bXI" = (
 /obj/structure/closet/crate,
 /obj/item/storage/box/donkpockets,
+/obj/item/toy/plush/floyd,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bXJ" = (

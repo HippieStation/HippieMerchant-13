@@ -74409,6 +74409,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
+/obj/machinery/chem_dispenser/botany,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "wjQ" = (
