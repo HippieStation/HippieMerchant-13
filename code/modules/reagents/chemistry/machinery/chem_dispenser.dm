@@ -623,6 +623,25 @@
 		/datum/reagent/diethylamine)
 	upgrade_reagents = null
 
+/obj/machinery/chem_dispenser/botany
+	name = "minor botanical chemical dispenser"
+	desc = "A botanical chemical dispenser on a budget."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "botanydispenser"
+	base_icon_state = "botanydispenser"
+	working_state = "botanydispenser_working"
+	nopower_state = "botanydispenser_nopower"
+	circuit = /obj/item/circuitboard/machine/chem_dispenser/botany
+	dispensable_reagents = list(
+		/datum/reagent/toxin/mutagen,
+		/datum/reagent/saltpetre,
+		/datum/reagent/water)
+	upgrade_reagents = list(
+		/datum/reagent/toxin/plantbgone,
+		/datum/reagent/toxin/plantbgone/weedkiller,
+		/datum/reagent/toxin/pestkiller,
+		/datum/reagent/diethylamine)
+
 /obj/machinery/chem_dispenser/fullupgrade //fully ugpraded stock parts, emagged
 	desc = "Creates and dispenses chemicals. This model has had its safeties shorted out."
 	obj_flags = CAN_BE_HIT | EMAGGED

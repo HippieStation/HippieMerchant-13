@@ -85,7 +85,7 @@
 		rating = M.rating
 	maxwater = tmp_capacity * 50 // Up to 300
 	maxnutri = (tmp_capacity * 5) + STATIC_NUTRIENT_CAPACITY // Up to 50 Maximum
-	reagents.maximum_volume = maxnutri
+	reagents.maximum_volume = tmp_capacity * 100 // Important so we can add up to 100u reagents on the tray in a row
 
 /obj/machinery/hydroponics/constructable/examine(mob/user)
 	. = ..()

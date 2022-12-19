@@ -257,6 +257,7 @@
 		"beer_dispenser",
 		"biopsy_tool",
 		"blood_pack",
+		"botany_dispenser",
 		"chem_dispenser",
 		"chem_heater",
 		"chem_master",

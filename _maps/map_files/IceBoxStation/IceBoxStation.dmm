@@ -25941,6 +25941,10 @@
 	},
 /turf/open/floor/iron/grimy,
 /area/commons/vacant_room/office)
+"fYM" = (
+/obj/machinery/chem_dispenser/botany,
+/turf/open/floor/iron/dark,
+/area/service/hydroponics)
 "fZt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
@@ -100136,7 +100140,7 @@ eUQ
 imA
 vAp
 dmX
-dXh
+fYM
 vzh
 iBJ
 aYV
