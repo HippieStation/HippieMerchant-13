@@ -1,6 +1,6 @@
 /obj/machinery/plantgenes
 	name = "plant DNA manipulator"
-	desc = "An advanced device designed to manipulate plant genetic makeup."
+	desc = "An advanced device designed to manipulate the genetic makeup of a plant."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "dnamod"
 	density = TRUE
@@ -16,29 +16,31 @@
 
 	var/datum/plant_gene/target
 	var/operation = ""
-	var/max_potency = 50 // See RefreshParts() for how these work
-	var/max_yield = 2
-	var/min_production = 12
-	var/max_endurance = 10 // IMPT: ALSO AFFECTS LIFESPAN
+	// hippie stats
+	var/max_potency = 35 // See RefreshParts() for how these work
+	var/max_yield = 10
+	var/min_production = 1
+	var/max_endurance = 40 //IMPT: ALSO AFFECTS LIFESPAN
+	// hippie stats end
 	var/min_wchance = 67
 	var/min_wrate = 10
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
-			max_potency = 95
+			max_potency = 100
 		else
-			max_potency = initial(max_potency) + (M.rating**3) // 53,59,77,95 	 Clamps at 100
+			max_potency = initial(max_potency) + (M.rating * 15) // old version: 53,59,77,95 	 Clamps at 100, new version: 50, 65, 80, 100
 
-		max_yield = initial(max_yield) + (M.rating*2) // 4,6,8,10 	Clamps at 10
+		max_yield = initial(max_yield) // old version: 4,6,8,10 	Clamps at 10, new version: 10 at all levels
 
 	for(var/obj/item/stock_parts/scanning_module/SM in component_parts)
 		if(SM.rating > 3) //If you create t5 parts I'm a step ahead mwahahaha!
 			min_production = 1
 		else
-			min_production = 12 - (SM.rating * 3) //9,6,3,1. Requires if to avoid going below clamp [1]
+			min_production = 1 // old version: min_production = 12 - (SM.rating * 3)
 
-		max_endurance = initial(max_endurance) + (SM.rating * 25) // 35,60,85,100	Clamps at 10min 100max
+		max_endurance = initial(max_endurance) + (SM.rating * 15) // old version: 35,60,85,100	Clamps at 10min 100max, new version: 55, 70, 85, 100
 
 	for(var/obj/item/stock_parts/micro_laser/ML in component_parts)
 		var/wratemod = ML.rating * 2.5
