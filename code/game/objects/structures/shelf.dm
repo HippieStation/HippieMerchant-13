@@ -91,6 +91,10 @@
 		update_appearance()
 		return
 
+	if(locked)
+		to_chat(user, span_notice("You cant manipulate the shelf while its locked tight!"))
+		return
+
 	switch(state)
 		if(SHELF_UNANCHORED)
 			if(I.tool_behaviour == TOOL_WRENCH)
