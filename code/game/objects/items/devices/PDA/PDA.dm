@@ -55,6 +55,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	#define MODE_VT 3
 
 	//Secondary variables
+	var/TimerID
 	var/scanmode = PDA_SCANNER_NONE
 	var/silent = FALSE //To beep or not to beep, that is the question
 	var/toff = FALSE //If TRUE, messenger disabled
@@ -114,13 +115,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/Initialize()
 	. = ..()
-	GLOB.all_radios += src //Hippie. Adds the PDA to the global radio list
-	var/TimerID
-	var/range = 7
-	var/power = 3
+	GLOB.radiochannels += src //Hippie. Adds the PDA to the global radio list
 	var/i
-	for(i = 1; i <= GLOB.all_radios.len; i++)
-		if(GLOB.all_radios[i] == src)
+	for(i = 1; i <= GLOB.radiochannels.len; i++)
+		if(GLOB.radiochannels[i] == src)
 			music_channel = i
 	if(light_on)
 		if(istype(cartridge, /obj/item/cartridge/discjockey))
@@ -434,7 +432,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 				if(R)
 					stopMusic(user)
 					R.forceMove(get_turf(src))
-					playsound(src, 'hippiestation/sound/effects/plastic_click.ogg', 100, 0)
+					playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
 					R = null
 					update_icon()
 				else
@@ -562,8 +560,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 						remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
 						color = null
 						update_icon()
-						if(TimerID)
-							deltimer(TimerID)//Hippie end
+					if(TimerID)
+						deltimer(TimerID)//Hippie end
 
 //MENU FUNCTIONS===================================
 
@@ -1081,7 +1079,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			R = C
 			update_icon()
 			C.forceMove(src)
-			playsound(src, 'hippiestation/sound/effects/plastic_click.ogg', 100, 0)
+			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
 			playMusic(user)
 	if(istype(C, /obj/item/cartridge))
 		if(!user.transferItemToLoc(C, src))
@@ -1216,7 +1214,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/Destroy()
 	GLOB.PDAs -= src
-	GLOB.all_radios -= src //Hippie. Removes from global radio list
+	GLOB.radiochannels -= src //Hippie. Removes from global radio list
 	stopMusic()
 	if(istype(id))
 		QDEL_NULL(id)
@@ -1349,7 +1347,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			to_chat(user, "<span class='warning'>The [src] must be in your inventory to play music!</span>")
 
 /obj/item/pda/proc/stopMusic(mob/user)
-	user << sound('hippiestation/sound/effects/hitmarker.ogg', 0, 0, music_channel, 50)
+	user << sound('sound/effects/hitmarker.ogg', 0, 0, music_channel, 50)
 	user << sound(null, channel = music_channel)
 
 /obj/item/pda/dropped(mob/user)

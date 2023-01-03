@@ -119,10 +119,10 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/Initialize()
 	if(!istype(src, /obj/item/radio/intercom)) //Intercoms playing music is useless
-		GLOB.all_radios += src //Hippie. Adds the radio to the global radio list for usage in radio_station.dm
+		GLOB.radiochannels += src //Hippie. Adds the radio to the global radio list for usage in radio_station.dm
 	var/i
-	for(i = 1; i <= GLOB.all_radios.len; i++)
-		if(GLOB.all_radios[i] == src)
+	for(i = 1; i <= GLOB.radiochannels.len; i++)
+		if(GLOB.radiochannels[i] == src)
 			music_channel = i //I hope that over 1,000 radios are never initialized.
 								/*  Allow me to explain why. There are 1,024 usable channels. The top ~10
 									are preserved for ambience, admin music, etc. The other 1,000 are unused (to my knowledge)
@@ -432,7 +432,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	else
 		return ..()
 
-/obj/item/radio/emp_act(severity)
+/obj/item/radio/emp_act(severity, mob/user)
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
@@ -459,7 +459,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	..()
 	if(!istype(user) || !Adjacent(user) || user.incapacitated())
 		return
-	if(user.intent == INTENT_HARM)
+	if(user.istate.harm)
 		if(music_toggle)
 			music_toggle = 0
 			stopmusic(user)
@@ -505,7 +505,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 		music_playing = FALSE
 		update_icon()
 		user << sound(null, channel = music_channel)
-		user << sound('hippiestation/sound/effects/hitmarker.ogg', 0, 0, music_channel, 50)
+		user << sound('sound/effects/hitmarker.ogg', 0, 0, music_channel, 50)
 		music_name = ""
 		switch(music_turnoff_message_type)
 			if(1)

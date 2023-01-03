@@ -6,7 +6,7 @@
 /obj/machinery/radio_station
 	name = "bluespace radio station"
 	desc = "A specially equipped radio station to broadcast music to every radio in a 6 light-year radius. Comes pre-coded with over 30 songs!"
-	icon = 'hippiestation/icons/obj/machines/radio_station.dmi'
+	icon = 'icons/obj/machines/radio_station.dmi'
 	icon_state = "radio_station"
 	max_integrity = 150
 	anchored = TRUE
@@ -137,7 +137,7 @@
 	if(R)
 		if(can_eject_disk)
 			update_icon()
-			playsound(src, 'hippiestation/sound/effects/plastic_click.ogg', 100, 0)
+			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
 			R.forceMove(get_turf(src))
 			R = null
 			stopRadioMusic()
@@ -146,7 +146,7 @@
 			to_chat(user, "<span class ='warning'>You must wait to eject the record disk!</span>")
 			return
 
-	if(stat & NOPOWER || stat & BROKEN)
+	if(machine_stat & NOPOWER || machine_stat & BROKEN)
 		update_icon()
 		return
 	if(cooldowntime > world.time)
@@ -162,73 +162,73 @@
 		if(null)
 			return
 		if("Amish Paradise - Weird Al")
-			music_file = 'hippiestation/sound/radio_songs/AmishParadise.ogg'
+			music_file = 'sound/radio_songs/AmishParadise.ogg'
 		if("Fabulous Secret Powers - SLACKCiRCUS")
-			music_file = 'hippiestation/sound/radio_songs/AndISayHey.ogg'
+			music_file = 'sound/radio_songs/AndISayHey.ogg'
 		if("Divine Power - Army of Ages")
-			music_file = 'hippiestation/sound/radio_songs/AoADivinePower.ogg'
+			music_file = 'sound/radio_songs/AoADivinePower.ogg'
 		if("Asian People Song - Z-FLO")
-			music_file = 'hippiestation/sound/radio_songs/AsianPeopleSong.ogg'
+			music_file = 'sound/radio_songs/AsianPeopleSong.ogg'
 		if("Ayy lmao - NegusOfBrazil")
-			music_file = 'hippiestation/sound/radio_songs/AyyLmao.ogg'
+			music_file = 'sound/radio_songs/AyyLmao.ogg'
 		if("Brass Monkey - Bestie Boys")
-			music_file = 'hippiestation/sound/radio_songs/BrassMonkey.ogg'
+			music_file = 'sound/radio_songs/BrassMonkey.ogg'
 		if("Clown")
-			music_file = 'hippiestation/sound/radio_songs/Clown.ogg'
+			music_file = 'sound/radio_songs/Clown.ogg'
 		if("Crank That - Soulja Boy")
-			music_file = 'hippiestation/sound/radio_songs/CrankThat.ogg'
+			music_file = 'sound/radio_songs/CrankThat.ogg'
 		if("Dark Skies - Castle Crashers")
-			music_file = 'hippiestation/sound/radio_songs/DarkSkies.ogg'
+			music_file = 'sound/radio_songs/DarkSkies.ogg'
 		if("Doom Theme - DOOM")
-			music_file = 'hippiestation/sound/radio_songs/DoomTheme.ogg'
+			music_file = 'sound/radio_songs/DoomTheme.ogg'
 		if("Ice Ice Baby - Vanilla Ice")
-			music_file = 'hippiestation/sound/radio_songs/IceIceBaby.ogg'
+			music_file = 'sound/radio_songs/IceIceBaby.ogg'
 		if("Jelly Fish Jam - Spongebob Squarepants")
-			music_file = 'hippiestation/sound/radio_songs/JellyfishJam.ogg'
+			music_file = 'sound/radio_songs/JellyfishJam.ogg'
 		if("MACHO MADNESS FOREVER - Mike Diva")
-			music_file = 'hippiestation/sound/radio_songs/MACHOMADNESS.ogg'
+			music_file = 'sound/radio_songs/MACHOMADNESS.ogg'
 		if("Chow Mein - Mafia 2")
-			music_file = 'hippiestation/sound/radio_songs/Mafia2ChowMein.ogg'
+			music_file = 'sound/radio_songs/Mafia2ChowMein.ogg'
 		if("Mr. Snortobeat - STBlackST")
-			music_file = 'hippiestation/sound/radio_songs/MrSnortobeat.ogg'
+			music_file = 'sound/radio_songs/MrSnortobeat.ogg'
 		if("Muffin Song - asdfmovie")
-			music_file = 'hippiestation/sound/radio_songs/MuffinSong.ogg'
+			music_file = 'sound/radio_songs/MuffinSong.ogg'
 		if("El Muslimeen - Muslims")
-			music_file = 'hippiestation/sound/radio_songs/Muslimeen.ogg'
+			music_file = 'sound/radio_songs/Muslimeen.ogg'
 		if("Nations of the World Song - Animaniacs")
-			music_file = 'hippiestation/sound/radio_songs/NationsOfTheWorld.ogg'
+			music_file = 'sound/radio_songs/NationsOfTheWorld.ogg'
 		if("Carribean Queen - Billy Ocean")
-			music_file = 'hippiestation/sound/radio_songs/NoMoreLoveOnTheRun.ogg'
+			music_file = 'sound/radio_songs/NoMoreLoveOnTheRun.ogg'
 		if("Pickle Rick - Yuri Wong")
-			music_file = 'hippiestation/sound/radio_songs/PickleRick.ogg'
+			music_file = 'sound/radio_songs/PickleRick.ogg'
 		if("Poopsy Slime Surprise")
-			music_file = 'hippiestation/sound/radio_songs/PoopsySlimeSurprise.ogg'
+			music_file = 'sound/radio_songs/PoopsySlimeSurprise.ogg'
 		if("Aftermath 2 (Siegius) - Waterflame")
-			music_file = 'hippiestation/sound/radio_songs/SiegiusAftermath2.ogg'
+			music_file = 'sound/radio_songs/SiegiusAftermath2.ogg'
 		if("Silverfish Swing - Slamacow")
-			music_file = 'hippiestation/sound/radio_songs/SlamacowSilverfishSwing.ogg'
+			music_file = 'sound/radio_songs/SlamacowSilverfishSwing.ogg'
 		if("Space Station 13")
-			music_file = 'hippiestation/sound/radio_songs/TrueSS13Theme.ogg'
+			music_file = 'sound/radio_songs/TrueSS13Theme.ogg'
 		if("Listy Colon - Scribblenauts Unlimited")
-			music_file = 'hippiestation/sound/radio_songs/ListyColon.ogg'
+			music_file = 'sound/radio_songs/ListyColon.ogg'
 		if("Ace of La Boots - Streets of Rogue")
-			music_file = 'hippiestation/sound/radio_songs/AceOfLaBoots.ogg'
+			music_file = 'sound/radio_songs/AceOfLaBoots.ogg'
 		if("Dschinghis Khan - Moskau")
-			music_file = 'hippiestation/sound/radio_songs/Moskau.ogg'
+			music_file = 'sound/radio_songs/Moskau.ogg'
 		if("Gangnam Style")
-			music_file = 'hippiestation/sound/radio_songs/GangnamStyle.ogg'
+			music_file = 'sound/radio_songs/GangnamStyle.ogg'
 		if("Ghost Whip - LEGO Ninjago: Masters of Spinjitzu")
-			music_file = 'hippiestation/sound/radio_songs/GhostWhip.ogg'
+			music_file = 'sound/radio_songs/GhostWhip.ogg'
 		if("You Are a Pirate - Lazytown")
-			music_file = 'hippiestation/sound/radio_songs/YouAreAPirate.ogg'
+			music_file = 'sound/radio_songs/YouAreAPirate.ogg'
 		if("Eye of the Spider - Itsoo1")
-			music_file = 'hippiestation/sound/radio_songs/EyeOfTheSpider.ogg'
+			music_file = 'sound/radio_songs/EyeOfTheSpider.ogg'
 		if("Slipsand Galaxy - Super Mario Galaxy 2")
-			music_file = 'hippiestation/sound/radio_songs/SlipsandGalaxy.ogg'
+			music_file = 'sound/radio_songs/SlipsandGalaxy.ogg'
 		if("X Gon Give It to Ya - DMX")
-			music_file = 'hippiestation/sound/radio_songs/XGonGiveItToYa.ogg'
+			music_file = 'sound/radio_songs/XGonGiveItToYa.ogg'
 		if("Great Grey Wolf Sif - Dark Souls")
-			music_file = 'hippiestation/sound/radio_songs/GreatGreyWolfSif.ogg'
+			music_file = 'sound/radio_songs/GreatGreyWolfSif.ogg'
 
 
 	playMusicToRadios(user)
@@ -242,7 +242,7 @@
 			R = I
 			I.forceMove(src)
 			add_overlay("radio_station_disk")
-			playsound(src, 'hippiestation/sound/effects/plastic_click.ogg', 100, 0)
+			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
 			music_file = R.stored_music
 			music_name = "CUSTOM"
 			playMusicToRadios(user)
@@ -252,7 +252,7 @@
 	..()
 
 /obj/machinery/radio_station/proc/playMusicToRadios(mob/living/user)
-	if(stat & NOPOWER || stat & BROKEN)
+	if(machine_stat & NOPOWER || machine_stat & BROKEN)
 		update_icon()
 		return
 	if(cooldowntime > world.time)
@@ -265,15 +265,15 @@
 	can_eject_disk = 0
 	cooldowntime = world.time + 1000
 	var/i
-	for(i = 1; i <= GLOB.all_radios.len; i++) //Calls the playmusic() proc for every radio in the game.
-		if(!istype(GLOB.all_radios[i], /obj/item/pda)) //Don't want PDAs playing music. They're in this list for other reasons. See PDA.dm
-			GLOB.all_radios[i].playmusic(user, music_file, music_name, 100, src)
+	for(i = 1; i <= GLOB.radiochannels.len; i++) //Calls the playmusic() proc for every radio in the game.
+		if(!istype(GLOB.radiochannels[i], /obj/item/pda)) //Don't want PDAs playing music. They're in this list for other reasons. See PDA.dm
+			GLOB.radiochannels[i].playmusic(user, music_file, music_name, 100, src)
 	audible_message("<span class='robot'><b>[src]</b> beeps, 'Now broadcasting: <i>[music_name]</i>' </span>")
 
 	resistance_flags = store_resistance_flags
 
 	can_eject_disk = 1
-	if(stat & NOPOWER || stat & BROKEN) //Need to check again in case the radio station is destroyed while this proc is in progress
+	if(machine_stat & NOPOWER || machine_stat & BROKEN) //Need to check again in case the radio station is destroyed while this proc is in progress
 		update_icon()
 		stopRadioMusic()
 		return
@@ -281,10 +281,10 @@
 
 /obj/machinery/radio_station/proc/stopRadioMusic()
 	var/i
-	for(i = 1; i <= GLOB.all_radios.len; i++) //This time it will stop the music for every radio listening to this radio station.
-		if(!istype(GLOB.all_radios[i], /obj/item/pda))
-			if(GLOB.all_radios[i].linked_RS == src)
-				GLOB.all_radios[i].stopmusic(GLOB.all_radios[i].radio_holder, 3)
+	for(i = 1; i <= GLOB.radiochannels.len; i++) //This time it will stop the music for every radio listening to this radio station.
+		if(!istype(GLOB.radiochannels[i], /obj/item/pda))
+			if(GLOB.radiochannels[i].linked_RS == src)
+				GLOB.radiochannels[i].stopmusic(GLOB.radiochannels[i].radio_holder, 3)
 
 /obj/machinery/radio_station/Destroy()
 	stopRadioMusic()
@@ -293,7 +293,7 @@
 /obj/machinery/radio_station/update_icon()
 	..()
 	cut_overlays()
-	if(!(stat & NOPOWER))
+	if(!(machine_stat & NOPOWER))
 		add_overlay("radio_station_on")
 		luminosity = 1
 		set_light(brightness_on)
@@ -303,7 +303,7 @@
 
 /obj/machinery/radio_station/power_change()
 	. = ..()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		set_light(0)
 	else
 		set_light(brightness_on)
@@ -315,18 +315,18 @@ One can only imagine the chaos this will bring when I get this merged.*/
 /obj/item/record_disk
 	name = "record disk"
 	desc = "A disk for storing music. Dear god."
-	icon = 'hippiestation/icons/obj/machines/radio_station.dmi'
+	icon = 'icons/obj/machines/radio_station.dmi'
 	icon_state = "record_disk"
-	item_state = "record_disk"
-	lefthand_file = 'hippiestation/icons/mob/inhands/lefthand.dmi'
-	righthand_file = 'hippiestation/icons/mob/inhands/righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 5
 	throwforce = 16
 	throw_speed = 2
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("sliced", "DISKED", "played music to")
+	attack_verb_simple = list("sliced", "DISKED", "played music to")
+	attack_verb_continuous = list("slices", "DISKES", "plays music to")
 	siemens_coefficient = 0 //Means it's insulated
-	sharpness = IS_SHARP
+	sharpness = SHARP_EDGED
 	resistance_flags = NONE
 	max_integrity = 45
 	var/stored_music = "blank" //The music file it will play
@@ -343,7 +343,7 @@ One can only imagine the chaos this will bring when I get this merged.*/
 	Destroy()
 
 /obj/item/record_disk/Destroy()
-	playsound(src, 'hippiestation/sound/effects/record_shatter.ogg', 100, 0)
+	playsound(src, 'sound/effects/record_shatter.ogg', 100, 0)
 	new /obj/item/record_shard(get_turf(src))
 	new /obj/item/record_shard(get_turf(src))
 	new /obj/item/record_shard(get_turf(src))
@@ -354,17 +354,18 @@ One can only imagine the chaos this will bring when I get this merged.*/
 /obj/item/record_shard
 	name = "record disk shard"
 	desc = "A broken shard of a record disk. Who knew record disks were so fragile."
-	icon = 'hippiestation/icons/obj/machines/radio_station.dmi'
+	icon = 'icons/obj/machines/radio_station.dmi'
 	icon_state = "record_shard1"
 	w_class = WEIGHT_CLASS_TINY
 	force = 5
 	throwforce = 8
-	attack_verb = list("stabbed", "slashed", "sliced", "cut")
+	attack_verb_continuous = list("stabs", "slashes", "slices", "cuts")
+	attack_verb_simple = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
 	max_integrity = 40
-	sharpness = IS_SHARP
+	sharpness = SHARP_EDGED
 
 /obj/item/record_shard/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the record disk shard! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -372,7 +373,7 @@ One can only imagine the chaos this will bring when I get this merged.*/
 
 /obj/item/record_shard/Initialize()
 	. = ..()
-	AddComponent(/datum/component/caltrop, force)
+	AddElement(/datum/element/caltrop, min_damage = force, soundfile = 'sound/effects/glass_step.ogg')
 	AddComponent(/datum/component/butchering, 150, 65)
 	icon_state = "record_shard[rand(1, 5)]"
 	pixel_x = rand(-8, 8)
@@ -390,26 +391,13 @@ One can only imagine the chaos this will bring when I get this merged.*/
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE)) // golems, etc
-			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
+			to_chat(H, span_warning("[src] cuts into your hand!"))
 			H.apply_damage(force*0.5, BRUTE, hit_hand)
-	else if(ismonkey(user))
-		var/mob/living/carbon/monkey/M = user
-		if(!HAS_TRAIT(M, TRAIT_PIERCEIMMUNE))
-			to_chat(M, "<span class='warning'>[src] cuts into your hand!</span>")
-			M.apply_damage(force*0.5, BRUTE, hit_hand)
-
-/obj/item/record_shard/Crossed(mob/living/L)
-	if(istype(L) && has_gravity(loc))
-		if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
-			playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
-		else
-			playsound(loc, 'sound/effects/glass_step.ogg', 50, 1)
-	return ..()
 
 /obj/machinery/recordburner
 	name = "record disk burner"
 	desc = "Used to burn music onto blank record discs."
-	icon = 'hippiestation/icons/obj/machines/radio_station.dmi'
+	icon = 'icons/obj/machines/radio_station.dmi'
 	icon_state = "disk_burner"
 	max_integrity = 100
 	anchored = TRUE
@@ -433,7 +421,7 @@ One can only imagine the chaos this will bring when I get this merged.*/
 	update_icon()
 
 /obj/machinery/recordburner/attack_hand(mob/living/user)
-	if(stat & NOPOWER || stat & BROKEN)
+	if(machine_stat & NOPOWER || machine_stat & BROKEN)
 		update_icon()
 		return
 	if(!R)
@@ -450,7 +438,7 @@ One can only imagine the chaos this will bring when I get this merged.*/
 		if(null)
 			return
 		if("EJECT")
-			playsound(src, 'hippiestation/sound/effects/disk_tray.ogg', 100, 0)
+			playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
 			visible_message(src, "<span class ='notice'>[user] ejects the [R] from the [src]!</span>")
 			R.forceMove(get_turf(src))
 			R = null
@@ -463,73 +451,73 @@ One can only imagine the chaos this will bring when I get this merged.*/
 				if(null)
 					return
 				if("Amish Paradise - Weird Al")
-					music_file = 'hippiestation/sound/radio_songs/AmishParadise.ogg'
+					music_file = 'sound/radio_songs/AmishParadise.ogg'
 				if("Fabulous Secret Powers - SLACKCiRCUS")
-					music_file = 'hippiestation/sound/radio_songs/AndISayHey.ogg'
+					music_file = 'sound/radio_songs/AndISayHey.ogg'
 				if("Divine Power - Army of Ages")
-					music_file = 'hippiestation/sound/radio_songs/AoADivinePower.ogg'
+					music_file = 'sound/radio_songs/AoADivinePower.ogg'
 				if("Asian People Song - Z-FLO")
-					music_file = 'hippiestation/sound/radio_songs/AsianPeopleSong.ogg'
+					music_file = 'sound/radio_songs/AsianPeopleSong.ogg'
 				if("Ayy lmao - NegusOfBrazil")
-					music_file = 'hippiestation/sound/radio_songs/AyyLmao.ogg'
+					music_file = 'sound/radio_songs/AyyLmao.ogg'
 				if("Brass Monkey - Bestie Boys")
-					music_file = 'hippiestation/sound/radio_songs/BrassMonkey.ogg'
+					music_file = 'sound/radio_songs/BrassMonkey.ogg'
 				if("Clown")
-					music_file = 'hippiestation/sound/radio_songs/Clown.ogg'
+					music_file = 'sound/radio_songs/Clown.ogg'
 				if("Crank That - Soulja Boy")
-					music_file = 'hippiestation/sound/radio_songs/CrankThat.ogg'
+					music_file = 'sound/radio_songs/CrankThat.ogg'
 				if("Dark Skies - Castle Crashers")
-					music_file = 'hippiestation/sound/radio_songs/DarkSkies.ogg'
+					music_file = 'sound/radio_songs/DarkSkies.ogg'
 				if("Doom Theme - DOOM")
-					music_file = 'hippiestation/sound/radio_songs/DoomTheme.ogg'
+					music_file = 'sound/radio_songs/DoomTheme.ogg'
 				if("Ice Ice Baby - Vanilla Ice")
-					music_file = 'hippiestation/sound/radio_songs/IceIceBaby.ogg'
+					music_file = 'sound/radio_songs/IceIceBaby.ogg'
 				if("Jelly Fish Jam - Spongebob Squarepants")
-					music_file = 'hippiestation/sound/radio_songs/JellyfishJam.ogg'
+					music_file = 'sound/radio_songs/JellyfishJam.ogg'
 				if("MACHO MADNESS FOREVER - Mike Diva")
-					music_file = 'hippiestation/sound/radio_songs/MACHOMADNESS.ogg'
+					music_file = 'sound/radio_songs/MACHOMADNESS.ogg'
 				if("Chow Mein - Mafia 2")
-					music_file = 'hippiestation/sound/radio_songs/Mafia2ChowMein.ogg'
+					music_file = 'sound/radio_songs/Mafia2ChowMein.ogg'
 				if("Mr. Snortobeat - STBlackST")
-					music_file = 'hippiestation/sound/radio_songs/MrSnortobeat.ogg'
+					music_file = 'sound/radio_songs/MrSnortobeat.ogg'
 				if("Muffin Song - asdfmovie")
-					music_file = 'hippiestation/sound/radio_songs/MuffinSong.ogg'
+					music_file = 'sound/radio_songs/MuffinSong.ogg'
 				if("El Muslimeen - Muslims")
-					music_file = 'hippiestation/sound/radio_songs/Muslimeen.ogg'
+					music_file = 'sound/radio_songs/Muslimeen.ogg'
 				if("Nations of the World Song - Animaniacs")
-					music_file = 'hippiestation/sound/radio_songs/NationsOfTheWorld.ogg'
+					music_file = 'sound/radio_songs/NationsOfTheWorld.ogg'
 				if("Carribean Queen - Billy Ocean")
-					music_file = 'hippiestation/sound/radio_songs/NoMoreLoveOnTheRun.ogg'
+					music_file = 'sound/radio_songs/NoMoreLoveOnTheRun.ogg'
 				if("Pickle Rick - Yuri Wong")
-					music_file = 'hippiestation/sound/radio_songs/PickleRick.ogg'
+					music_file = 'sound/radio_songs/PickleRick.ogg'
 				if("Poopsy Slime Surprise")
-					music_file = 'hippiestation/sound/radio_songs/PoopsySlimeSurprise.ogg'
+					music_file = 'sound/radio_songs/PoopsySlimeSurprise.ogg'
 				if("Aftermath 2 (Siegius) - Waterflame")
-					music_file = 'hippiestation/sound/radio_songs/SiegiusAftermath2.ogg'
+					music_file = 'sound/radio_songs/SiegiusAftermath2.ogg'
 				if("Silverfish Swing - Slamacow")
-					music_file = 'hippiestation/sound/radio_songs/SlamacowSilverfishSwing.ogg'
+					music_file = 'sound/radio_songs/SlamacowSilverfishSwing.ogg'
 				if("Space Station 13")
-					music_file = 'hippiestation/sound/radio_songs/TrueSS13Theme.ogg'
+					music_file = 'sound/radio_songs/TrueSS13Theme.ogg'
 				if("Listy Colon - Scribblenauts Unlimited")
-					music_file = 'hippiestation/sound/radio_songs/ListyColon.ogg'
+					music_file = 'sound/radio_songs/ListyColon.ogg'
 				if("Ace of La Boots - Streets of Rogue")
-					music_file = 'hippiestation/sound/radio_songs/AceOfLaBoots.ogg'
+					music_file = 'sound/radio_songs/AceOfLaBoots.ogg'
 				if("Dschinghis Khan - Moskau")
-					music_file = 'hippiestation/sound/radio_songs/Moskau.ogg'
+					music_file = 'sound/radio_songs/Moskau.ogg'
 				if("Gangnam Style")
-					music_file = 'hippiestation/sound/radio_songs/GangnamStyle.ogg'
+					music_file = 'sound/radio_songs/GangnamStyle.ogg'
 				if("Ghost Whip - LEGO Ninjago: Masters of Spinjitzu")
-					music_file = 'hippiestation/sound/radio_songs/GhostWhip.ogg'
+					music_file = 'sound/radio_songs/GhostWhip.ogg'
 				if("You Are a Pirate - Lazytown")
-					music_file = 'hippiestation/sound/radio_songs/YouAreAPirate.ogg'
+					music_file = 'sound/radio_songs/YouAreAPirate.ogg'
 				if("Eye of the Spider - Itsoo1")
-					music_file = 'hippiestation/sound/radio_songs/EyeOfTheSpider.ogg'
+					music_file = 'sound/radio_songs/EyeOfTheSpider.ogg'
 				if("Slipsand Galaxy - Super Mario Galaxy 2")
-					music_file = 'hippiestation/sound/radio_songs/SlipsandGalaxy.ogg'
+					music_file = 'sound/radio_songs/SlipsandGalaxy.ogg'
 				if("X Gon Give It to Ya - DMX")
-					music_file = 'hippiestation/sound/radio_songs/XGonGiveItToYa.ogg'
+					music_file = 'sound/radio_songs/XGonGiveItToYa.ogg'
 				if("Great Grey Wolf Sif - Dark Souls")
-					music_file = 'hippiestation/sound/radio_songs/GreatGreyWolfSif.ogg'
+					music_file = 'sound/radio_songs/GreatGreyWolfSif.ogg'
 
 			diskProcess()
 		if("Burn custom music")
@@ -542,14 +530,14 @@ One can only imagine the chaos this will bring when I get this merged.*/
 			diskProcess()
 
 /obj/machinery/recordburner/attackby(obj/item/I, mob/user)
-	if(stat & NOPOWER || stat & BROKEN)
+	if(machine_stat & NOPOWER || machine_stat & BROKEN)
 		update_icon()
 		return
 	if(istype(I, /obj/item/record_disk))
 		if(!R)
 			R = I
 			I.forceMove(src)
-			playsound(src, 'hippiestation/sound/effects/disk_tray.ogg', 100, 0)
+			playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
 			visible_message(src, "<span class='notice'>[user] loads the [R] into the [src].</span>")
 			return
 		else
@@ -560,7 +548,7 @@ One can only imagine the chaos this will bring when I get this merged.*/
 /obj/machinery/recordburner/update_icon()
 	..()
 	cut_overlays()
-	if(!(stat & NOPOWER))
+	if(!(machine_stat & NOPOWER))
 		add_overlay("disk_burner_on")
 		luminosity = 1
 		set_light(brightness_on)
@@ -570,7 +558,7 @@ One can only imagine the chaos this will bring when I get this merged.*/
 
 /obj/machinery/radio_station/power_change()
 	. = ..()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		set_light(0)
 	else
 		set_light(brightness_on)

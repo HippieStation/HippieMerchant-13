@@ -231,7 +231,7 @@
 	default = "https://wiki.merchantstation.net/wiki/Rules"
 
 /datum/config_entry/string/githuburl
-	default = "https://github.com/HippieStation/HippieMerchant-13"
+	default = "https://github.com/HippieMerchant-13"
 
 /datum/config_entry/string/discordbotcommandprefix
 	default = "?"

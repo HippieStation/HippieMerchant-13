@@ -63,28 +63,27 @@
 /* the radio controller is a confusing piece of shit and didnt work
 	so i made radios not use the radio controller.
 */
-GLOBAL_LIST_EMPTY(all_radios)
 /proc/add_radio(obj/item/radio, freq)
 	if(!freq || !radio)
 		return
-	if(!GLOB.all_radios["[freq]"])
-		GLOB.all_radios["[freq]"] = list(radio)
+	if(!GLOB.radiochannels["[freq]"])
+		GLOB.radiochannels["[freq]"] = list(radio)
 		return freq
 
-	GLOB.all_radios["[freq]"] |= radio
+	GLOB.radiochannels["[freq]"] |= radio
 	return freq
 
 /proc/remove_radio(obj/item/radio, freq)
 	if(!freq || !radio)
 		return
-	if(!GLOB.all_radios["[freq]"])
+	if(!GLOB.radiochannels["[freq]"])
 		return
 
-	GLOB.all_radios["[freq]"] -= radio
+	GLOB.radiochannels["[freq]"] -= radio
 
 /proc/remove_radio_all(obj/item/radio)
-	for(var/freq in GLOB.all_radios)
-		GLOB.all_radios["[freq]"] -= radio
+	for(var/freq in GLOB.radiochannels)
+		GLOB.radiochannels["[freq]"] -= radio
 
 // For information on what objects or departments use what frequencies,
 // see __DEFINES/radio.dm. Mappers may also select additional frequencies for
