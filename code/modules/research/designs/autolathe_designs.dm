@@ -1251,6 +1251,6 @@
 	name = "Record Disk"
 	id = "record_disk"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 10, MAT_GLASS = 80)
+	materials = list(/datum/material/iron = 10, /datum/material/glass = 80)
 	build_path = /obj/item/record_disk
 	category = list("initial", "Misc")

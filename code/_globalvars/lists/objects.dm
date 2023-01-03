@@ -35,6 +35,9 @@ GLOBAL_LIST_EMPTY(pinpointer_list) //list of all pinpointers. Used to change stu
 GLOBAL_LIST_EMPTY(zombie_infection_list) // A list of all zombie_infection organs, for any mass "animation"
 GLOBAL_LIST_EMPTY(meteor_list) // List of all meteors.
 GLOBAL_LIST_EMPTY(active_jammers)  // List of active radio jammers
+GLOBAL_LIST_EMPTY(ic_jammers)
+GLOBAL_LIST_EMPTY(ic_speakers)
+GLOBAL_LIST_EMPTY(radiochannels) //For the radio station. See radio_station.dm
 GLOBAL_LIST_INIT(global_music_list, list("Ace of La Boots - Streets of Rogue",
 							"Aftermath 2 (Siegius) - Waterflame",
 							"Amish Paradise - Weird Al",

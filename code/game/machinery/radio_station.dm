@@ -25,6 +25,7 @@
 	var/can_eject_disk = 1
 	var/ready_to_delete = 0 //For Destroy()
 	var/brightness_on = 1
+	var/volume = 35 //the volume that music plays at
 
 /obj/machinery/radio_station/Initialize()
 	..()
@@ -153,6 +154,10 @@
 		to_chat(user, "<span class ='warning'>The broadcasting antenna needs time to recharge! It will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
 	var/cooming = input(user, "Last played music: [music_name]", "Available Music") as null|anything in music_list
+	if(!user.Adjacent(src))
+		to_chat(user, "<span class='warning'>You are too far away!")
+		return
+
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class ='warning'>The broadcasting antenna needs time to recharge! It will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
@@ -246,6 +251,7 @@
 			music_file = R.stored_music
 			music_name = "CUSTOM"
 			playMusicToRadios(user)
+			return
 		else
 			to_chat(user, "<span class='warning'>There is already a record disk in the [src]!</span>")
 			return
@@ -264,11 +270,10 @@
 
 	can_eject_disk = 0
 	cooldowntime = world.time + 1000
-	var/i
-	for(i = 1; i <= GLOB.radiochannels.len; i++) //Calls the playmusic() proc for every radio in the game.
-		if(!istype(GLOB.radiochannels[i], /obj/item/pda)) //Don't want PDAs playing music. They're in this list for other reasons. See PDA.dm
-			GLOB.radiochannels[i].playmusic(user, music_file, music_name, 100, src)
-	audible_message("<span class='robot'><b>[src]</b> beeps, 'Now broadcasting: <i>[music_name]</i>' </span>")
+	for(var/obj/item/radio/R in GLOB.radiochannels) //Calls the playmusic() proc for every radio in radio_list (everyone)
+		R.playmusic(music_file, music_name, volume)
+
+	src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Now broadcasting: <i>[music_name]</i>' </span>")
 
 	resistance_flags = store_resistance_flags
 
@@ -283,8 +288,7 @@
 	var/i
 	for(i = 1; i <= GLOB.radiochannels.len; i++) //This time it will stop the music for every radio listening to this radio station.
 		if(!istype(GLOB.radiochannels[i], /obj/item/pda))
-			if(GLOB.radiochannels[i].linked_RS == src)
-				GLOB.radiochannels[i].stopmusic(GLOB.radiochannels[i].radio_holder, 3)
+			GLOB.radiochannels[i].stopmusic(GLOB.radiochannels[i].radio_holder, 3)
 
 /obj/machinery/radio_station/Destroy()
 	stopRadioMusic()
@@ -308,10 +312,9 @@
 	else
 		set_light(brightness_on)
 
-//tshirt cannon
+//tshirt cannon <-- reminder
 
-/*One of the staple powers of an admin is now in the hands of a player.
-One can only imagine the chaos this will bring when I get this merged.*/
+/*One of the staple powers of an admin is now in the hands of a player.*/
 /obj/item/record_disk
 	name = "record disk"
 	desc = "A disk for storing music. Dear god."
@@ -411,9 +414,10 @@ One can only imagine the chaos this will bring when I get this merged.*/
 	var/list/music_to_burn
 	var/obj/item/record_disk/R //Our stored record disk
 	var/inuse = FALSE
-	var/list/menu_options = list("EJECT", "Burn pre-coded music", "Burn custom music")
+	var/list/menu_options = list("EJECT", "Burn pre-coded music", "Burn custom music", "Rename disk")
 	var/music_file
 	var/brightness_on = 1
+	var/custom_name = null
 
 /obj/machinery/recordburner/Initialize()
 	..()
@@ -430,7 +434,10 @@ One can only imagine the chaos this will bring when I get this merged.*/
 	if(inuse)
 		to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
 		return
-	var/choice = input(user, "Choose an option", "[src] menu") as null|anything in menu_options
+	var/choice = input(user, "Disk: [R.name] \nChoose an option", "[src] menu") as null|anything in menu_options
+	if(!user.Adjacent(src))
+		to_chat(user, "<span class='warning'>You are too far away!")
+		return
 	if(inuse)
 		to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
 		return
@@ -439,9 +446,10 @@ One can only imagine the chaos this will bring when I get this merged.*/
 			return
 		if("EJECT")
 			playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
-			visible_message(src, "<span class ='notice'>[user] ejects the [R] from the [src]!</span>")
+			src.visible_message(src, "<span class ='notice'>[user] ejects the [R] from the [src]!</span>")
 			R.forceMove(get_turf(src))
 			R = null
+			return
 		if("Burn pre-coded music")
 			music_file = input(user, "Choose a pre-coded song", "[src] menu") as null|anything in music_to_burn
 			if(inuse)
@@ -528,6 +536,15 @@ One can only imagine the chaos this will bring when I get this merged.*/
 				to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
 				return
 			diskProcess()
+		if("Rename disk")
+			custom_name = input(user, "Enter new disk name") as null|text
+			if(custom_name)
+				R.name = custom_name
+				src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Record disk renamed to: [R.name]' </span>")
+				custom_name = null
+			else
+				to_chat(user, "<span class='warning'>Name selection invalid.</span>")
+
 
 /obj/machinery/recordburner/attackby(obj/item/I, mob/user)
 	if(machine_stat & NOPOWER || machine_stat & BROKEN)
