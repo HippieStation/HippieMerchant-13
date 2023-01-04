@@ -109,6 +109,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	recalculateChannels()
 
 /obj/item/radio/Destroy()
+	remove_radio_all(src) //Just to be sure
 	QDEL_NULL(wires)
 	QDEL_LIST(keyslots)
 	GLOB.radio_list -= src
@@ -429,7 +430,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	else
 		return ..()
 
-/obj/item/radio/emp_act(severity, mob/user)
+/obj/item/radio/emp_act(severity)
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
