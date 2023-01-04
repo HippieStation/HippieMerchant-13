@@ -1478,7 +1478,7 @@
 	dir = 8
 	},
 /obj/machinery/door/window/brigdoor/security/holding/southleft{
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 100);
+	armor = list("melee"=30,"bullet"=50,"laser"=50,"energy"=50,"bomb"=30,"bio"=100,"rad"=100,"fire"=90,"acid"=100);
 	name = "Armory";
 	req_access_txt = "3";
 	req_one_access = null
@@ -1502,7 +1502,7 @@
 	layer = 2.9
 	},
 /obj/machinery/door/window/brigdoor/security/holding/southright{
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 100);
+	armor = list("melee"=30,"bullet"=50,"laser"=50,"energy"=50,"bomb"=30,"bio"=100,"rad"=100,"fire"=90,"acid"=100);
 	name = "Armory";
 	req_access_txt = "3";
 	req_one_access = null
@@ -1526,7 +1526,7 @@
 	layer = 2.9
 	},
 /obj/machinery/door/window/brigdoor/security/holding/southleft{
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 100);
+	armor = list("melee"=30,"bullet"=50,"laser"=50,"energy"=50,"bomb"=30,"bio"=100,"rad"=100,"fire"=90,"acid"=100);
 	name = "Armory";
 	req_access_txt = "3";
 	req_one_access = null
@@ -1553,7 +1553,7 @@
 	dir = 4
 	},
 /obj/machinery/door/window/brigdoor/security/holding/southright{
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 100);
+	armor = list("melee"=30,"bullet"=50,"laser"=50,"energy"=50,"bomb"=30,"bio"=100,"rad"=100,"fire"=90,"acid"=100);
 	name = "Armory";
 	req_access_txt = "3";
 	req_one_access = null
@@ -6050,10 +6050,10 @@
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
 "apy" = (
-/obj/structure/table/wood/poker,
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
+/obj/machinery/autolathe/hacked,
 /turf/open/floor/iron/vaporwave,
 /area/service/dj)
 "apz" = (
@@ -18486,6 +18486,8 @@
 /obj/item/lighter/greyscale{
 	pixel_y = -14
 	},
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty,
 /turf/open/floor/iron/vaporwave,
 /area/service/dj)
 "bfm" = (
@@ -50299,6 +50301,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"ioj" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/radio_station,
+/turf/open/floor/iron/vaporwave,
+/area/service/dj)
 "ioX" = (
 /obj/structure/table,
 /obj/item/hatchet,
@@ -50613,6 +50622,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
 /turf/open/floor/carpet,
 /area/service/dj)
 "iHR" = (
@@ -53779,7 +53793,7 @@
 	pixel_x = -27
 	},
 /obj/machinery/vending/plasmaresearch{
-	contraband = list(/obj/item/assembly/health = 3, /obj/item/assembly/voice = 3)
+	contraband = list(/obj/item/assembly/health=3,/obj/item/assembly/voice=3)
 	},
 /turf/open/floor/iron/white,
 /area/science/mixing)
@@ -57594,6 +57608,13 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/science)
+"svy" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/recordburner,
+/turf/open/floor/iron/vaporwave,
+/area/service/dj)
 "swz" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/rxglasses,
@@ -85025,7 +85046,7 @@ aXj
 aYT
 bas
 wPi
-bdF
+svy
 gVx
 vwe
 bhD
@@ -85539,7 +85560,7 @@ vWd
 vWd
 bau
 wPi
-bdF
+ioj
 gVx
 tjJ
 bhF

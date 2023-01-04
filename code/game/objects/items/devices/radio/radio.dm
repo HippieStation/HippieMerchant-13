@@ -109,18 +109,17 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	recalculateChannels()
 
 /obj/item/radio/Destroy()
-	remove_radio_all(src) //Just to be sure
 	QDEL_NULL(wires)
 	QDEL_LIST(keyslots)
-
+	GLOB.radio_list -= src
 	return ..()
 
 /obj/item/radio/Initialize()
 	if(!istype(src, /obj/item/radio/intercom)) //Intercoms playing music is useless
-		GLOB.radiochannels += src //Hippie. Adds the radio to the global radio list for usage in radio_station.dm
+		GLOB.radio_list += src //Hippie. Adds the radio to the global radio list for usage in radio_station.dm
 	var/i
-	for(i = 1; i <= GLOB.radiochannels.len; i++)
-		if(GLOB.radiochannels[i] == src)
+	for(i = 1; i <= GLOB.radio_list.len; i++)
+		if(GLOB.radio_list[i] == src)
 			music_channel = i //I hope that over 1,000 radios are never initialized.
 								/*  Allow me to explain why. There are 1,024 usable channels. The top ~10
 									are preserved for ambience, admin music, etc. The other 1,000 are unused (to my knowledge)

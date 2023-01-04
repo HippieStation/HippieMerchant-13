@@ -115,17 +115,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/Initialize()
 	. = ..()
-	GLOB.radiochannels += src //Hippie. Adds the PDA to the global radio list
+	GLOB.radio_list += src //Hippie. Adds the PDA to the global radio list
 	var/i
-	for(i = 1; i <= GLOB.radiochannels.len; i++)
-		if(GLOB.radiochannels[i] == src)
+	for(i = 1; i <= GLOB.radio_list.len; i++)
+		if(GLOB.radio_list[i] == src)
 			music_channel = i
 	if(light_on)
 		if(istype(cartridge, /obj/item/cartridge/discjockey))
 			DiscoFever()
-		else
-			set_light(light_color)
-
 	GLOB.PDAs += src
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
@@ -215,9 +212,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(R)
 		if(istype(src, /obj/item/pda/curator))
 			overlay.icon_state = "record_disk_overlay_library"
+			. += new /mutable_appearance(overlay)
 		else
 			overlay.icon_state = "record_disk_overlay"
-		add_overlay(new /mutable_appearance(overlay))
+			. += new /mutable_appearance(overlay)
 
 /obj/item/pda/MouseDrop(mob/over, src_location, over_location)
 	var/mob/M = usr
@@ -434,7 +432,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 					R.forceMove(get_turf(src))
 					playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
 					R = null
-					update_icon()
+					update_appearance()
 				else
 					to_chat(src.loc, "<span class='danger'>No record disk inserted!</span>")
 				mode = 0
@@ -563,7 +561,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 						set_light(0)
 						remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
 						color = null
-						update_icon()
+						update_appearance()
 					if(TimerID)
 						deltimer(TimerID)//Hippie end
 
@@ -966,8 +964,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return
 	if(light_on)
 		set_light_on(FALSE)
+		remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
+		color = null
+		update_icon()
+		if(TimerID)
+			deltimer(TimerID)
 	else if(light_range)
 		set_light_on(TRUE)
+		if(istype(cartridge, /obj/item/cartridge/discjockey))
+			DiscoFever()
 	update_appearance()
 	update_action_buttons(force = TRUE)
 
@@ -1002,7 +1007,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			set_light(0)
 			remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
 			color = null
-			update_icon()
+			update_appearance()
 			if(TimerID)
 				deltimer(TimerID)//END DJ SHT
 		user.put_in_hands(cartridge)
@@ -1081,7 +1086,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			return
 		else
 			R = C
-			update_icon()
+			update_appearance()
 			C.forceMove(src)
 			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
 			playMusic(user)
@@ -1218,7 +1223,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/Destroy()
 	GLOB.PDAs -= src
-	GLOB.radiochannels -= src //Hippie. Removes from global radio list
+	GLOB.radio_list -= src //Hippie. Removes from global radio list
 	stopMusic()
 	if(istype(id))
 		QDEL_NULL(id)
@@ -1335,10 +1340,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/proc/DiscoFever() //Hippie. Shamelessly ripped from the disco ball. For the DISCO FEVER cartridge.
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
-	light_color = random_color()
-	set_light(5, light_power, light_color) //5 is the range of the light... I think.
-	add_atom_colour("#[light_color]", FIXED_COLOUR_PRIORITY)
-	update_icon()
+	set_light_color(("#[random_color()]"))
+	set_light_range(5) //5 is the range of the light... I think.
+	add_atom_colour("[light_color]", FIXED_COLOUR_PRIORITY)
+	update_appearance()
 	TimerID = addtimer(CALLBACK(src, .proc/DiscoFever), 5, TIMER_STOPPABLE)  //Call ourselves every 0.5 seconds to change colors
 
 /obj/item/pda/proc/playMusic(mob/living/user)

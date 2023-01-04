@@ -234,11 +234,9 @@
 			music_file = 'sound/radio_songs/XGonGiveItToYa.ogg'
 		if("Great Grey Wolf Sif - Dark Souls")
 			music_file = 'sound/radio_songs/GreatGreyWolfSif.ogg'
-
-
 	playMusicToRadios(user)
 
-/obj/machinery/radio_station/attackby(obj/item/I, mob/user)
+/obj/machinery/radio_station/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/record_disk))
 		if(cooldowntime > world.time)
 			to_chat(user, "<span class ='warning'>The broadcasting antenna needs time to recharge! It will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
@@ -249,7 +247,10 @@
 			add_overlay("radio_station_disk")
 			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
 			music_file = R.stored_music
-			music_name = "CUSTOM"
+			if(R.custom_music_name != "CUSTOM")
+				music_name = R.custom_music_name
+			else
+				music_name = music_file
 			playMusicToRadios(user)
 			return
 		else
@@ -270,7 +271,7 @@
 
 	can_eject_disk = 0
 	cooldowntime = world.time + 1000
-	for(var/obj/item/radio/R in GLOB.radiochannels) //Calls the playmusic() proc for every radio in radio_list (everyone)
+	for(var/obj/item/radio/R in GLOB.radio_list) //Calls the playmusic() proc for every radio in radio_list (everyone)
 		R.playmusic(music_file, music_name, volume)
 
 	src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Now broadcasting: <i>[music_name]</i>' </span>")
@@ -286,9 +287,9 @@
 
 /obj/machinery/radio_station/proc/stopRadioMusic()
 	var/i
-	for(i = 1; i <= GLOB.radiochannels.len; i++) //This time it will stop the music for every radio listening to this radio station.
-		if(!istype(GLOB.radiochannels[i], /obj/item/pda))
-			GLOB.radiochannels[i].stopmusic(GLOB.radiochannels[i].radio_holder, 3)
+	for(i = 1; i <= GLOB.radio_list.len; i++) //This time it will stop the music for every radio listening to this radio station.
+		if(!istype(GLOB.radio_list[i], /obj/item/pda))
+			GLOB.radio_list[i].stopmusic(GLOB.radio_list[i].radio_holder, 3)
 
 /obj/machinery/radio_station/Destroy()
 	stopRadioMusic()
@@ -332,11 +333,13 @@
 	sharpness = SHARP_EDGED
 	resistance_flags = NONE
 	max_integrity = 45
-	var/stored_music = "blank" //The music file it will play
+	var/stored_music = "blank" //The music file it will play}
+	var/custom_music_name = "CUSTOM"
+	var/obj/item/record_disk/R
 
 /obj/item/record_disk/Initialize()
 	..()
-	name = "\improper[stored_music] record disk"
+	name = "[stored_music] record disk"
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3)
 
@@ -418,6 +421,7 @@
 	var/music_file
 	var/brightness_on = 1
 	var/custom_name = null
+	var/song_name = "CUSTOM"
 
 /obj/machinery/recordburner/Initialize()
 	..()
@@ -434,7 +438,7 @@
 	if(inuse)
 		to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
 		return
-	var/choice = input(user, "Disk: [R.name] \nChoose an option", "[src] menu") as null|anything in menu_options
+	var/choice = input(user, "Disk: [R] \nChoose an option", "[src] menu") as null|anything in menu_options
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You are too far away!")
 		return
@@ -446,12 +450,13 @@
 			return
 		if("EJECT")
 			playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
-			src.visible_message(src, "<span class ='notice'>[user] ejects the [R] from the [src]!</span>")
+			src.visible_message("<span class ='notice'>[user] ejects the [R] from the [src]!</span>")
 			R.forceMove(get_turf(src))
 			R = null
 			return
 		if("Burn pre-coded music")
 			music_file = input(user, "Choose a pre-coded song", "[src] menu") as null|anything in music_to_burn
+			song_name = music_file
 			if(inuse)
 				to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
 				return
@@ -530,8 +535,11 @@
 			diskProcess()
 		if("Burn custom music")
 			music_file = input(user, "Choose a custom file!") as null|sound
+			song_name = input(user, "Enter the song's name") as null|text
 			if(music_file == null)
 				return
+			if(song_name == null)
+				song_name = "CUSTOM"
 			if(inuse)
 				to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
 				return
@@ -555,7 +563,7 @@
 			R = I
 			I.forceMove(src)
 			playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
-			visible_message(src, "<span class='notice'>[user] loads the [R] into the [src].</span>")
+			usr.visible_message("<span class='notice'>[user] loads the [R] into the [src].</span>")
 			return
 		else
 			to_chat(user, "<span class ='warning'>There is already a record disk loaded into the [src]!</span>")
@@ -590,6 +598,10 @@
 
 /obj/machinery/recordburner/proc/burnDisk()
 	R.stored_music = music_file
-	R.name = "\improper[R.stored_music] record disk"
+	if(song_name != "CUSTOM")
+		R.name = "[song_name] record disk"
+		R.custom_music_name = "[song_name]"
+	else
+		R.name = "[music_file] record disk"
 	playsound(src, 'sound/machines/ping.ogg', 50, 1)
 	inuse = FALSE
