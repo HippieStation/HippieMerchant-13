@@ -19198,6 +19198,9 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
 /obj/item/taperecorder{
 	pixel_x = -3;
 	pixel_y = 3
@@ -48132,7 +48135,7 @@
 /area/engineering/supermatter/room)
 "fnx" = (
 /obj/structure/table/wood,
-/obj/item/instrument/harmonica,
+/obj/machinery/unce_machine,
 /turf/open/floor/carpet,
 /area/service/dj)
 "foS" = (
@@ -50622,11 +50625,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/item/record_disk,
-/obj/item/record_disk,
-/obj/item/record_disk,
-/obj/item/record_disk,
-/obj/item/record_disk,
 /turf/open/floor/carpet,
 /area/service/dj)
 "iHR" = (
@@ -58219,6 +58217,7 @@
 "tjJ" = (
 /obj/structure/table/wood,
 /obj/item/instrument/piano_synth,
+/obj/item/instrument/harmonica,
 /turf/open/floor/carpet,
 /area/service/dj)
 "tjL" = (

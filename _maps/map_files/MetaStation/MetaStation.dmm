@@ -30944,6 +30944,10 @@
 /obj/structure/cable,
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"idz" = (
+/obj/machinery/unce_machine,
+/turf/open/floor/iron/vaporwave,
+/area/service/dj)
 "idB" = (
 /turf/open/floor/carpet,
 /area/command/heads_quarters/hop)
@@ -113985,7 +113989,7 @@ oTE
 jVV
 jVV
 amt
-neT
+idz
 nYO
 aOQ
 tZK

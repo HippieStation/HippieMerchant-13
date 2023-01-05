@@ -288,6 +288,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 				dat += "<li><a href='byond://?src=[REF(src)];choice=1'>[PDAIMG(notes)]Notekeeper</a></li>"
 				dat += "<li><a href='byond://?src=[REF(src)];choice=2'>[PDAIMG(mail)]Messenger</a></li>"
 				dat += "<li><a href='byond://?src=[REF(src)];choice=6'>[PDAIMG(skills)]Skill Tracker</a></li>"
+				if(R)
+					dat += "<li><a href='byond://?src=[REF(src)];choice=9'>Eject record disk</a></li>" //Hippie
+					dat += "<li><a href='byond://?src=[REF(src)];choice=10'>Play record disk</a></li>"
+					dat += "<li><a href='byond://?src=[REF(src)];choice=11'>Stop record disk</a></li>
 
 				if (cartridge)
 					if (cartridge.access & CART_CLOWN)
