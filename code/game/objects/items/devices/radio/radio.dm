@@ -443,7 +443,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	for (var/ch_name in channels)
 		channels[ch_name] = 0
 	on = FALSE
-	stopmusic(user) //Hippie
+	stopmusic(radio_holder) //Hippie
 	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 200)
 
 /obj/item/radio/proc/end_emp_effect(curremp)
@@ -460,7 +460,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	if(user.istate.harm)
 		if(music_toggle)
 			music_toggle = 0
-			stopmusic(user)
+			stopmusic(radio_holder)
 			to_chat(user, "<span class ='notice'>[src]'s music player is now <b>OFF</b>. </span>")
 		else
 			music_toggle = 1
