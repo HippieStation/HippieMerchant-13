@@ -28,112 +28,111 @@
 	var/volume = 35 //the volume that music plays at
 
 /obj/machinery/radio_station/Initialize()
-	..()
+	. = ..()
 	music_list = GLOB.global_music_list
 	update_icon()
 
 /obj/machinery/radio_station/attack_hand(mob/living/user)
 	..()
 	var/piano_sound = pick(
-							'sound/instruments/piano/Ab2.ogg',
-							'sound/instruments/piano/Ab3.ogg',
-							'sound/instruments/piano/Ab4.ogg',
-							'sound/instruments/piano/Ab5.ogg',
-							'sound/instruments/piano/Ab6.ogg',
-							'sound/instruments/piano/Ab7.ogg',
-							'sound/instruments/piano/Ab8.ogg',
+		'sound/instruments/piano/Ab2.ogg',
+		'sound/instruments/piano/Ab3.ogg',
+		'sound/instruments/piano/Ab4.ogg',
+		'sound/instruments/piano/Ab5.ogg',
+		'sound/instruments/piano/Ab6.ogg',
+		'sound/instruments/piano/Ab7.ogg',
+		'sound/instruments/piano/Ab8.ogg',
+		'sound/instruments/piano/An1.ogg',
+		'sound/instruments/piano/An2.ogg',
+		'sound/instruments/piano/An3.ogg',
+		'sound/instruments/piano/An4.ogg',
+		'sound/instruments/piano/An5.ogg',
+		'sound/instruments/piano/An6.ogg',
+		'sound/instruments/piano/An7.ogg',
+		'sound/instruments/piano/An8.ogg',
 
-							'sound/instruments/piano/An1.ogg',
-							'sound/instruments/piano/An2.ogg',
-							'sound/instruments/piano/An3.ogg',
-							'sound/instruments/piano/An4.ogg',
-							'sound/instruments/piano/An5.ogg',
-							'sound/instruments/piano/An6.ogg',
-							'sound/instruments/piano/An7.ogg',
-							'sound/instruments/piano/An8.ogg',
+		'sound/instruments/piano/Bb1.ogg',
+		'sound/instruments/piano/Bb2.ogg',
+		'sound/instruments/piano/Bb3.ogg',
+		'sound/instruments/piano/Bb4.ogg',
+		'sound/instruments/piano/Bb5.ogg',
+		'sound/instruments/piano/Bb6.ogg',
+		'sound/instruments/piano/Bb7.ogg',
+		'sound/instruments/piano/Bb8.ogg',
 
-							'sound/instruments/piano/Bb1.ogg',
-							'sound/instruments/piano/Bb2.ogg',
-							'sound/instruments/piano/Bb3.ogg',
-							'sound/instruments/piano/Bb4.ogg',
-							'sound/instruments/piano/Bb5.ogg',
-							'sound/instruments/piano/Bb6.ogg',
-							'sound/instruments/piano/Bb7.ogg',
-							'sound/instruments/piano/Bb8.ogg',
+		'sound/instruments/piano/Bn1.ogg',
+		'sound/instruments/piano/Bn2.ogg',
+		'sound/instruments/piano/Bn3.ogg',
+		'sound/instruments/piano/Bn4.ogg',
+		'sound/instruments/piano/Bn5.ogg',
+		'sound/instruments/piano/Bn6.ogg',
+		'sound/instruments/piano/Bn7.ogg',
+		'sound/instruments/piano/Bn8.ogg',
 
-							'sound/instruments/piano/Bn1.ogg',
-							'sound/instruments/piano/Bn2.ogg',
-							'sound/instruments/piano/Bn3.ogg',
-							'sound/instruments/piano/Bn4.ogg',
-							'sound/instruments/piano/Bn5.ogg',
-							'sound/instruments/piano/Bn6.ogg',
-							'sound/instruments/piano/Bn7.ogg',
-							'sound/instruments/piano/Bn8.ogg',
+		'sound/instruments/piano/Cn2.ogg',
+		'sound/instruments/piano/Cn3.ogg',
+		'sound/instruments/piano/Cn4.ogg',
+		'sound/instruments/piano/Cn5.ogg',
+		'sound/instruments/piano/Cn6.ogg',
+		'sound/instruments/piano/Cn7.ogg',
+		'sound/instruments/piano/Cn8.ogg',
+		'sound/instruments/piano/Cn9.ogg',
 
-							'sound/instruments/piano/Cn2.ogg',
-							'sound/instruments/piano/Cn3.ogg',
-							'sound/instruments/piano/Cn4.ogg',
-							'sound/instruments/piano/Cn5.ogg',
-							'sound/instruments/piano/Cn6.ogg',
-							'sound/instruments/piano/Cn7.ogg',
-							'sound/instruments/piano/Cn8.ogg',
-							'sound/instruments/piano/Cn9.ogg',
+		'sound/instruments/piano/Db2.ogg',
+		'sound/instruments/piano/Db3.ogg',
+		'sound/instruments/piano/Db4.ogg',
+		'sound/instruments/piano/Db5.ogg',
+		'sound/instruments/piano/Db6.ogg',
+		'sound/instruments/piano/Db7.ogg',
+		'sound/instruments/piano/Db8.ogg',
 
-							'sound/instruments/piano/Db2.ogg',
-							'sound/instruments/piano/Db3.ogg',
-							'sound/instruments/piano/Db4.ogg',
-							'sound/instruments/piano/Db5.ogg',
-							'sound/instruments/piano/Db6.ogg',
-							'sound/instruments/piano/Db7.ogg',
-							'sound/instruments/piano/Db8.ogg',
+		'sound/instruments/piano/Dn2.ogg',
+		'sound/instruments/piano/Dn3.ogg',
+		'sound/instruments/piano/Dn4.ogg',
+		'sound/instruments/piano/Dn5.ogg',
+		'sound/instruments/piano/Dn6.ogg',
+		'sound/instruments/piano/Dn7.ogg',
+		'sound/instruments/piano/Dn8.ogg',
 
-							'sound/instruments/piano/Dn2.ogg',
-							'sound/instruments/piano/Dn3.ogg',
-							'sound/instruments/piano/Dn4.ogg',
-							'sound/instruments/piano/Dn5.ogg',
-							'sound/instruments/piano/Dn6.ogg',
-							'sound/instruments/piano/Dn7.ogg',
-							'sound/instruments/piano/Dn8.ogg',
+		'sound/instruments/piano/Eb2.ogg',
+		'sound/instruments/piano/Eb3.ogg',
+		'sound/instruments/piano/Eb4.ogg',
+		'sound/instruments/piano/Eb5.ogg',
+		'sound/instruments/piano/Eb6.ogg',
+		'sound/instruments/piano/Eb7.ogg',
+		'sound/instruments/piano/Eb8.ogg',
 
-							'sound/instruments/piano/Eb2.ogg',
-							'sound/instruments/piano/Eb3.ogg',
-							'sound/instruments/piano/Eb4.ogg',
-							'sound/instruments/piano/Eb5.ogg',
-							'sound/instruments/piano/Eb6.ogg',
-							'sound/instruments/piano/Eb7.ogg',
-							'sound/instruments/piano/Eb8.ogg',
+		'sound/instruments/piano/En2.ogg',
+		'sound/instruments/piano/En3.ogg',
+		'sound/instruments/piano/En4.ogg',
+		'sound/instruments/piano/En5.ogg',
+		'sound/instruments/piano/En6.ogg',
+		'sound/instruments/piano/En7.ogg',
+		'sound/instruments/piano/En8.ogg',
 
-							'sound/instruments/piano/En2.ogg',
-							'sound/instruments/piano/En3.ogg',
-							'sound/instruments/piano/En4.ogg',
-							'sound/instruments/piano/En5.ogg',
-							'sound/instruments/piano/En6.ogg',
-							'sound/instruments/piano/En7.ogg',
-							'sound/instruments/piano/En8.ogg',
+		'sound/instruments/piano/Fn2.ogg',
+		'sound/instruments/piano/Fn3.ogg',
+		'sound/instruments/piano/Fn4.ogg',
+		'sound/instruments/piano/Fn5.ogg',
+		'sound/instruments/piano/Fn6.ogg',
+		'sound/instruments/piano/Fn7.ogg',
+		'sound/instruments/piano/Fn8.ogg',
 
-							'sound/instruments/piano/Fn2.ogg',
-							'sound/instruments/piano/Fn3.ogg',
-							'sound/instruments/piano/Fn4.ogg',
-							'sound/instruments/piano/Fn5.ogg',
-							'sound/instruments/piano/Fn6.ogg',
-							'sound/instruments/piano/Fn7.ogg',
-							'sound/instruments/piano/Fn8.ogg',
+		'sound/instruments/piano/Gb2.ogg',
+		'sound/instruments/piano/Gb3.ogg',
+		'sound/instruments/piano/Gb4.ogg',
+		'sound/instruments/piano/Gb5.ogg',
+		'sound/instruments/piano/Gb6.ogg',
+		'sound/instruments/piano/Gb7.ogg',
+		'sound/instruments/piano/Gb8.ogg',
 
-							'sound/instruments/piano/Gb2.ogg',
-							'sound/instruments/piano/Gb3.ogg',
-							'sound/instruments/piano/Gb4.ogg',
-							'sound/instruments/piano/Gb5.ogg',
-							'sound/instruments/piano/Gb6.ogg',
-							'sound/instruments/piano/Gb7.ogg',
-							'sound/instruments/piano/Gb8.ogg',
-
-							'sound/instruments/piano/Gn2.ogg',
-							'sound/instruments/piano/Gn3.ogg',
-							'sound/instruments/piano/Gn4.ogg',
-							'sound/instruments/piano/Gn5.ogg',
-							'sound/instruments/piano/Gn6.ogg',
-							'sound/instruments/piano/Gn7.ogg',
-							'sound/instruments/piano/Gn8.ogg')
+		'sound/instruments/piano/Gn2.ogg',
+		'sound/instruments/piano/Gn3.ogg',
+		'sound/instruments/piano/Gn4.ogg',
+		'sound/instruments/piano/Gn5.ogg',
+		'sound/instruments/piano/Gn6.ogg',
+		'sound/instruments/piano/Gn7.ogg',
+		'sound/instruments/piano/Gn8.ogg')
 	playsound(src, piano_sound, 100, 1)
 	if(R)
 		if(can_eject_disk)
@@ -338,7 +337,7 @@
 	var/obj/item/record_disk/R
 
 /obj/item/record_disk/Initialize()
-	..()
+	. = ..()
 	name = "[stored_music] record disk"
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3)
@@ -424,7 +423,7 @@
 	var/song_name = "CUSTOM"
 
 /obj/machinery/recordburner/Initialize()
-	..()
+	. = ..()
 	music_to_burn = GLOB.global_music_list
 	update_icon()
 

@@ -460,10 +460,10 @@
 
 /obj/item/storage/fancy/cigarettes/random/Initialize()
 	. = ..()
-	var/static/banned_cigarettes = list(/obj/item/storage/fancy/cigarettes/cigars,
-										/obj/item/storage/fancy/cigarettes/cigars/cohiba,
-										/obj/item/storage/fancy/cigarettes/cigars/havana
-										) //No cigars for you, DJ.
+	var/static/banned_cigarettes = list(
+		/obj/item/storage/fancy/cigarettes/cigars,
+		/obj/item/storage/fancy/cigarettes/cigars/cohiba,
+		/obj/item/storage/fancy/cigarettes/cigars/havana) //No cigars for you, DJ.
 	var/real_type = pick(subtypesof(/obj/item/storage/fancy/cigarettes) - banned_cigarettes)
 	new real_type(loc)
 	qdel(src)

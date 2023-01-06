@@ -466,16 +466,14 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			music_toggle = 1
 			to_chat(user, "<span class ='notice'>[src]'s music player is now <b>ON</b>. </span>")
 		return
-
-
 //Hippie start
 
 /obj/item/radio/proc/avoiding_a_sleep(mob/living/user, music_filepath, name_of_music, music_volume)
-		music_name = name_of_music
-		user << sound(music_filepath, 0, 0, music_channel, music_volume) //plays the music to the user
-		music_playing = TRUE
-		to_chat(user, "<span class='robot'><b>[src]</b> beeps into your ears, 'Now playing: <i>[music_name]</i>.' </span>")
-		update_icon()
+	music_name = name_of_music
+	user << sound(music_filepath, 0, 0, music_channel, music_volume) //plays the music to the user
+	music_playing = TRUE
+	to_chat(user, "<span class='robot'><b>[src]</b> beeps into your ears, 'Now playing: <i>[music_name]</i>.' </span>")
+	update_icon()
 
 /obj/item/radio/proc/playmusic(music_filepath, name_of_music, music_volume) //Plays music at src using the filepath to the audio file. This proc is directly working with the bluespace radio station at radio_station.dm
 	radio_music_file = music_filepath
