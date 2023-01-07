@@ -267,7 +267,7 @@
 	greyscale_config = null
 	default_cartridge = /obj/item/cartridge/discjockey/
 
-/obj/item/pda/discjockey/Initialize()
+/obj/item/pda/discjockey/Initialize() //unce
 	. = ..()
 	bounce()
 
