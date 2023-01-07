@@ -20,12 +20,11 @@
 	var/loopinprogress = FALSE //Prevent multiple loopUnces() from occuring when alt-click is spammed
 
 /obj/machinery/unce_machine/proc/checkStuff() //Checks if the loop should stop
-	if(machine_stat & NOPOWER || machine_stat & BROKEN || on == FALSE)
+	if(machine_stat & NOPOWER || machine_stat & BROKEN || on == FALSE || loopinprogress == FALSE)
 		return FALSE
 	return TRUE
 
 /obj/machinery/unce_machine/proc/loopUnce() //Loops the unce sound
-	loopinprogress = TRUE
 	if(checkStuff())
 		playsound(src, unce_file, 100, 0, 2)
 		pixel_y += 2
@@ -86,8 +85,8 @@
 	on = !on
 	if(on)
 		to_chat(user, "<span class ='notice'>You turn the [src] on.</span>")
-		if(loopinprogress)
-			loopUnce()
+		loopinprogress = TRUE
+		loopUnce()
 	else
 		loopinprogress = FALSE
 		to_chat(user, "<span class ='notice'>You turn the [src] off.</span>")
