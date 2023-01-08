@@ -25,7 +25,7 @@
 	name = "Disc Jockey"
 	head = /obj/item/clothing/head/helmet/daftpunk1
 	jobtype = /datum/job/disc_jockey
-	belt = /obj/item/pda/disc_jockey
+	belt = /obj/item/pda/discjockey
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/disc_jockey/telvis
 	shoes = /obj/item/clothing/shoes/funk

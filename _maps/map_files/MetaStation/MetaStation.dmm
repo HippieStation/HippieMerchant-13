@@ -978,24 +978,8 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "ahe" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/westleft{
-	dir = 2;
-	icon_state = "right";
-	name = "Display Cabinet";
-	req_one_access_txt = "70"
-	},
-/obj/structure/table/wood/fancy,
-/obj/item/clothing/head/helmet/deadmau5,
-/turf/open/floor/mineral/gold,
+/obj/machinery/autolathe,
+/turf/open/floor/iron/vaporwave,
 /area/service/dj)
 "ahh" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -1141,7 +1125,8 @@
 /area/commons/locker)
 "ahU" = (
 /obj/structure/table/wood,
-/obj/item/instrument/harmonica,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/item/instrument/accordion,
 /turf/open/floor/iron/vaporwave,
 /area/service/dj)
 "aif" = (
@@ -1414,13 +1399,13 @@
 /area/cargo/sorting)
 "ajO" = (
 /obj/structure/table/wood,
-/obj/item/instrument/eguitar,
+/obj/machinery/recordburner,
 /turf/open/floor/carpet,
 /area/service/dj)
 "ajP" = (
 /obj/structure/table/wood,
-/obj/item/instrument/piano_synth,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
+/obj/machinery/radio_station,
 /turf/open/floor/carpet,
 /area/service/dj)
 "ajW" = (
@@ -1564,13 +1549,11 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/taperecorder{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/radio{
-	pixel_y = 5
-	},
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
 /turf/open/floor/carpet,
 /area/service/dj)
 "alc" = (
@@ -30743,12 +30726,9 @@
 /turf/open/floor/iron/white,
 /area/security/prison)
 "iai" = (
-/obj/machinery/door/airlock{
-	id_tag = "FitnessShower";
-	name = "Fitness Room Shower"
-	},
-/turf/open/floor/iron/freezer,
-/area/commons/fitness/recreation)
+/obj/structure/lattice,
+/turf/closed/wall,
+/area/service/dj)
 "iaj" = (
 /obj/structure/cable,
 /obj/machinery/computer/secure_data{
@@ -30964,6 +30944,10 @@
 /obj/structure/cable,
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"idz" = (
+/obj/machinery/unce_machine,
+/turf/open/floor/iron/vaporwave,
+/area/service/dj)
 "idB" = (
 /turf/open/floor/carpet,
 /area/command/heads_quarters/hop)
@@ -34419,7 +34403,13 @@
 "jpB" = (
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/item/instrument/accordion,
+/obj/item/flashlight/glowstick,
+/obj/item/flashlight/glowstick/blue,
+/obj/item/flashlight/glowstick/cyan,
+/obj/item/flashlight/glowstick/orange,
+/obj/item/flashlight/glowstick/pink,
+/obj/item/flashlight/glowstick/red,
+/obj/item/flashlight/glowstick/yellow,
 /turf/open/floor/carpet,
 /area/service/dj)
 "jpF" = (
@@ -36517,9 +36507,10 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard)
 "jYY" = (
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/structure/table/wood,
+/obj/item/clothing/glasses/prism_glasses,
+/obj/item/clothing/glasses/sunglasses/gar,
+/obj/item/clothing/glasses/sunglasses/big,
 /turf/open/floor/iron/vaporwave,
 /area/service/dj)
 "jZt" = (
@@ -41764,6 +41755,10 @@
 	},
 /turf/open/floor/grass,
 /area/science/genetics)
+"lLH" = (
+/obj/structure/table/wood,
+/turf/open/floor/iron/vaporwave,
+/area/service/dj)
 "lLS" = (
 /obj/item/crowbar,
 /obj/item/wrench,
@@ -47354,6 +47349,13 @@
 	},
 /turf/open/floor/wood,
 /area/service/library)
+"nxt" = (
+/obj/structure/table/wood,
+/obj/item/instrument/harmonica,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/turf/open/floor/iron/vaporwave,
+/area/service/dj)
 "nxD" = (
 /obj/machinery/vending/wardrobe/viro_wardrobe,
 /obj/effect/turf_decal/tile/green{
@@ -53968,6 +53970,11 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
+"pIs" = (
+/obj/structure/table/wood,
+/obj/item/instrument/eguitar,
+/turf/open/floor/iron/vaporwave,
+/area/service/dj)
 "pIE" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -54100,6 +54107,26 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
+"pLx" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	icon_state = "right";
+	name = "Display Cabinet";
+	req_one_access_txt = "70"
+	},
+/obj/structure/table/wood/fancy,
+/obj/item/clothing/head/helmet/deadmau5,
+/turf/open/floor/iron/vaporwave,
+/area/service/dj)
 "pLz" = (
 /obj/structure/sink{
 	dir = 8;
@@ -58934,6 +58961,13 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /turf/open/floor/iron/white,
 /area/science/mixing)
+"rqC" = (
+/obj/machinery/door/airlock{
+	id_tag = "FitnessShower";
+	name = "Fitness Room Shower"
+	},
+/turf/closed/wall,
+/area/commons/fitness/recreation)
 "rqG" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -64648,10 +64682,9 @@
 /area/maintenance/starboard/secondary)
 "tes" = (
 /obj/structure/table/wood,
-/obj/item/clothing/glasses/prism_glasses,
-/obj/item/clothing/glasses/sunglasses/gar,
-/obj/item/clothing/glasses/sunglasses/big,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
+/obj/item/grenade/smokebomb,
+/obj/item/grenade/smokebomb,
 /turf/open/floor/carpet,
 /area/service/dj)
 "tev" = (
@@ -113946,7 +113979,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+vrW
 aaa
 jVV
 lib
@@ -113956,7 +113989,7 @@ oTE
 jVV
 jVV
 amt
-neT
+idz
 nYO
 aOQ
 tZK
@@ -114203,7 +114236,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+vrW
 aaa
 jVV
 src
@@ -114460,13 +114493,13 @@ aaa
 aaa
 aaa
 aaa
+vrW
 aaa
-aaa
-lMJ
-aaa
-nYO
+iai
 gyB
 neT
+dhn
+lLH
 jYY
 jpB
 alc
@@ -114717,12 +114750,12 @@ aaa
 aaa
 aaa
 aaa
+vrW
 aaa
-aaa
-lMJ
-aaa
-nYO
-ahe
+iai
+pLx
+neT
+neT
 neT
 odB
 ajP
@@ -114974,13 +115007,13 @@ aaa
 siF
 lMJ
 lMJ
+fwb
 lMJ
-lMJ
-ebG
-ebG
 nYO
-nYO
-dhn
+neT
+neT
+neT
+neT
 neT
 neT
 neT
@@ -115231,12 +115264,12 @@ aaa
 fwb
 aaa
 aaa
+vrW
 aaa
-aaa
-tdI
-uQJ
-bHz
 nYO
+nxt
+ahe
+pIs
 ahU
 aiP
 nYO
@@ -115490,9 +115523,9 @@ aaa
 mKd
 mKd
 mKd
-sLD
-sLD
-iai
+nYO
+nYO
+nYO
 nYO
 nYO
 aIf
@@ -117286,9 +117319,9 @@ aaa
 anT
 anT
 aaa
-aaa
-aaa
-aaa
+ebG
+ebG
+ebG
 tdI
 tJq
 mwa
@@ -117543,9 +117576,9 @@ aaa
 aaa
 nYJ
 lMJ
-aaa
-aaa
-aaa
+tdI
+uQJ
+bHz
 ebG
 ebG
 xvC
@@ -117802,7 +117835,7 @@ lMJ
 ebG
 ebG
 tdI
-ebG
+rqC
 ebG
 siN
 hNh

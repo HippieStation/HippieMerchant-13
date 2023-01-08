@@ -1,3 +1,4 @@
+
 /obj/item/cartridge
 	name = "generic cartridge"
 	desc = "A data cartridge for portable microcomputers."
@@ -37,6 +38,12 @@
 	var/obj/item/pda/pda = loc
 	if(istype(pda))
 		host_pda = pda
+
+/obj/item/cartridge/discjockey
+	name = "\improper DISCO FEVER Inc. cartridge"
+	desc = "An on-the-go flashlight-modification cartridge for anyone who wants a DANCE PARTY."
+	icon_state = "cart-dj"
+	access = CART_DISCO
 
 /obj/item/cartridge/engineering
 	name = "\improper Power-ON cartridge"

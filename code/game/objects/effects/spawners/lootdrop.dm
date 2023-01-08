@@ -476,7 +476,10 @@
 				/obj/item/circuitboard/machine/microwave,
 				/obj/item/circuitboard/machine/chem_dispenser/drinks,
 				/obj/item/circuitboard/machine/chem_dispenser/drinks/beer,
-				/obj/item/circuitboard/computer/slot_machine
+				/obj/item/circuitboard/computer/slot_machine,
+				/obj/item/circuitboard/machine/radio_station,
+				/obj/item/circuitboard/machine/unce_machine,
+				/obj/item/circuitboard/machine/recordburner
 				)
 
 /obj/effect/spawner/lootdrop/techstorage/rnd
