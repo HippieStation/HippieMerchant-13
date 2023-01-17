@@ -507,7 +507,7 @@
 	/obj/item/pda/curator = list(REGION_GENERAL), \
 	/obj/item/pda/cook = list(REGION_GENERAL), \
 	/obj/item/pda/bar = list(REGION_GENERAL), \
-	/obj/item/pda/disc_jockey = list(REGION_GENERAL), \
+	/obj/item/pda/discjockey = list(REGION_GENERAL), \
 	/obj/item/pda/atmos = list(REGION_ENGINEERING), \
 	/obj/item/pda/chemist = list(REGION_MEDBAY), \
 	/obj/item/pda/geneticist = list(REGION_RESEARCH), \

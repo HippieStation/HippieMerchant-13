@@ -1246,3 +1246,11 @@
 	materials = list(/datum/material/iron = 100, /datum/material/glass = 50)
 	build_path = /obj/item/assembly/control
 	category = list("initial","Misc")
+
+/datum/design/record_disk
+	name = "Record Disk"
+	id = "record_disk"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 10, /datum/material/glass = 80)
+	build_path = /obj/item/record_disk
+	category = list("initial", "Misc")

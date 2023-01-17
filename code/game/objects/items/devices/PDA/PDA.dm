@@ -55,6 +55,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	#define MODE_VT 3
 
 	//Secondary variables
+	var/TimerID
 	var/scanmode = PDA_SCANNER_NONE
 	var/silent = FALSE //To beep or not to beep, that is the question
 	var/toff = FALSE //If TRUE, messenger disabled
@@ -87,6 +88,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	var/underline_flag = TRUE //flag for underline
 
+	var/obj/item/record_disk/R //stored record disk
+	var/music_channel
+
 /obj/item/pda/suicide_act(mob/living/carbon/user)
 	var/deathMessage = msg_input(user)
 	if (!deathMessage)
@@ -111,7 +115,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/Initialize()
 	. = ..()
-
+	GLOB.radio_list += src //Hippie. Adds the PDA to the global radio list
+	var/i
+	for(i = 1; i <= GLOB.radio_list.len; i++)
+		if(GLOB.radio_list[i] == src)
+			music_channel = i
+	if(light_on)
+		if(istype(cartridge, /obj/item/cartridge/discjockey))
+			DiscoFever()
 	GLOB.PDAs += src
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
@@ -198,6 +209,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 		else
 			overlay.icon_state = "pai_off_overlay"
 			. += new /mutable_appearance(overlay)
+	if(R)
+		if(istype(src, /obj/item/pda/curator))
+			overlay.icon_state = "record_disk_overlay_library"
+			. += new /mutable_appearance(overlay)
+		else
+			overlay.icon_state = "record_disk_overlay"
+			. += new /mutable_appearance(overlay)
 
 /obj/item/pda/MouseDrop(mob/over, src_location, over_location)
 	var/mob/M = usr
@@ -270,6 +288,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 				dat += "<li><a href='byond://?src=[REF(src)];choice=1'>[PDAIMG(notes)]Notekeeper</a></li>"
 				dat += "<li><a href='byond://?src=[REF(src)];choice=2'>[PDAIMG(mail)]Messenger</a></li>"
 				dat += "<li><a href='byond://?src=[REF(src)];choice=6'>[PDAIMG(skills)]Skill Tracker</a></li>"
+				if(R)
+					dat += "<li><a href='byond://?src=[REF(src)];choice=9'>Eject record disk</a></li>" //Hippie
+					dat += "<li><a href='byond://?src=[REF(src)];choice=10'>Play record disk</a></li>"
+					dat += "<li><a href='byond://?src=[REF(src)];choice=11'>Stop record disk</a></li>"
 
 				if (cartridge)
 					if (cartridge.access & CART_CLOWN)
@@ -406,6 +428,25 @@ GLOBAL_LIST_EMPTY(PDAs)
 						if (lvl_num >= length(SKILL_EXP_LIST) && !(type in targetmind.skills_rewarded))
 							dat += "<br><a href='byond://?src=[REF(src)];choice=SkillReward;skill=[type]'>Contact the Professional [S.title] Association</a>"
 						dat += "</li></ul>"
+			if(9)
+				if(R)
+					stopMusic(user)
+					R.forceMove(get_turf(src))
+					playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
+					R = null
+					update_appearance()
+				else
+					to_chat(src.loc, "<span class='danger'>No record disk inserted!</span>")
+				mode = 0
+
+			if(10)
+				playMusic()
+				mode = 0
+
+			if(11)
+				stopMusic(user)
+				mode = 0
+
 			if(21)
 				if(icon_alert && !istext(icon_alert))
 					cut_overlay(icon_alert)
@@ -517,6 +558,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 				eject_cart(U)
 				if(!silent)
 					playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+				if (!isnull(cartridge))
+					if(istype(cartridge, /obj/item/cartridge/discjockey))//Hippie start
+						set_light(0)
+						remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
+						color = null
+						update_appearance()
+					if(TimerID)
+						deltimer(TimerID)//Hippie end
 
 //MENU FUNCTIONS===================================
 
@@ -917,8 +966,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return
 	if(light_on)
 		set_light_on(FALSE)
+		remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
+		color = null
+		update_icon()
+		if(TimerID)
+			deltimer(TimerID)
 	else if(light_range)
 		set_light_on(TRUE)
+		if(istype(cartridge, /obj/item/cartridge/discjockey))
+			DiscoFever()
 	update_appearance()
 	update_action_buttons(force = TRUE)
 
@@ -949,6 +1005,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK)) //TK disabled to stop cartridge teleporting into hand
 		return
 	if (!isnull(cartridge))
+		if(istype(cartridge, /obj/item/cartridge/discjockey))//DJ SHIT
+			set_light(0)
+			remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
+			color = null
+			update_appearance()
+			if(TimerID)
+				deltimer(TimerID)//END DJ SHT
 		user.put_in_hands(cartridge)
 		to_chat(user, span_notice("You eject [cartridge] from [src]."))
 		scanmode = PDA_SCANNER_NONE
@@ -1019,6 +1082,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 // access to status display signals
 /obj/item/pda/attackby(obj/item/C, mob/user, params)
+	if(istype(C, /obj/item/record_disk))
+		if(R)
+			to_chat(user, "<span class='danger'>A record disk is already inserted!</span>")
+			return
+		else
+			R = C
+			update_appearance()
+			C.forceMove(src)
+			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
+			playMusic(user)
 	if(istype(C, /obj/item/cartridge))
 		if(!user.transferItemToLoc(C, src))
 			return
@@ -1152,6 +1225,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/Destroy()
 	GLOB.PDAs -= src
+	GLOB.radio_list -= src //Hippie. Removes from global radio list
+	stopMusic()
 	if(istype(id))
 		QDEL_NULL(id)
 	if(istype(cartridge))
@@ -1264,6 +1339,55 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/proc/pda_no_detonate()
 	SIGNAL_HANDLER
 	return COMPONENT_PDA_NO_DETONATE
+
+/obj/item/pda/proc/DiscoFever() //Hippie. Shamelessly ripped from the disco ball. For the DISCO FEVER cartridge.
+	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
+	set_light_color(("#[random_color()]"))
+	set_light_range(5) //5 is the range of the light... I think.
+	add_atom_colour("[light_color]", FIXED_COLOUR_PRIORITY)
+	update_appearance()
+	TimerID = addtimer(CALLBACK(src, .proc/DiscoFever), 5, TIMER_STOPPABLE)  //Call ourselves every 0.5 seconds to change colors
+
+/obj/item/pda/proc/playMusic(mob/living/user)
+	if(istype(src.loc, /mob/living))
+		user = src.loc
+		if(item_flags & IN_INVENTORY)
+			user << sound(R.stored_music, 0, 0, music_channel, 100) //plays the music to the user
+			to_chat(user, "<span class='notice'>You play the [R] on your PDA.</span>")
+		else
+			to_chat(user, "<span class='warning'>The [src] must be in your inventory to play music!</span>")
+
+/obj/item/pda/proc/stopMusic(mob/user)
+	user << sound('sound/effects/hitmarker.ogg', 0, 0, music_channel, 50)
+	user << sound(null, channel = music_channel)
+
+/obj/item/pda/dropped(mob/user)
+	..()
+	addtimer(CALLBACK(src, .proc/droppedStopMusic, user), 3)
+
+/obj/item/pda/proc/droppedStopMusic(mob/user)
+	var/i
+	for(i = 1, i <= user.contents.len, i++)
+		if(user.contents[i] == src)
+			return
+	if(item_flags & IN_INVENTORY)
+		return
+	if(determineIfInMob(user) == TRUE)
+		return
+	stopMusic(user)
+
+/obj/item/pda/proc/determineIfInMob(mob/user)
+	var/obj/itemholder = src
+	var/mob/M = src.loc
+	while(M && !istype(M, /mob/living))
+		M = itemholder
+		itemholder = itemholder.loc
+		if(M == null)
+			return FALSE
+	if(M == user)
+		return TRUE
+	else
+		return FALSE
 
 #undef PDA_SCANNER_NONE
 #undef PDA_SCANNER_MEDICAL

@@ -35,6 +35,43 @@ GLOBAL_LIST_EMPTY(pinpointer_list) //list of all pinpointers. Used to change stu
 GLOBAL_LIST_EMPTY(zombie_infection_list) // A list of all zombie_infection organs, for any mass "animation"
 GLOBAL_LIST_EMPTY(meteor_list) // List of all meteors.
 GLOBAL_LIST_EMPTY(active_jammers)  // List of active radio jammers
+GLOBAL_LIST_EMPTY(ic_jammers)
+GLOBAL_LIST_EMPTY(ic_speakers)
+GLOBAL_LIST_EMPTY_TYPED(radio_list, /obj/item/radio) //For the radio station. See radio_station.dm
+GLOBAL_LIST_INIT(global_music_list, list("Ace of La Boots - Streets of Rogue",
+							"Aftermath 2 (Siegius) - Waterflame",
+							"Amish Paradise - Weird Al",
+							"Asian People Song - Z-FLO",
+							"Ayy lmao - NegusOfBrazil",
+							"Brass Monkey - Bestie Boys",
+							"Carribean Queen - Billy Ocean",
+							"Chow Mein - Mafia 2",
+							"Clown",
+							"Crank That - Soulja Boy",
+							"Dark Skies - Castle Crashers",
+							"Divine Power - Army of Ages",
+							"Doom Theme - DOOM",
+							"Dschinghis Khan - Moskau",
+							"El Muslimeen - Muslims",
+							"Eye of the Spider - Itsoo1",
+							"Fabulous Secret Powers - SLACKCiRCUS",
+							"Gangnam Style",
+							"Ghost Whip - LEGO Ninjago: Masters of Spinjitzu",
+							"Great Grey Wolf Sif - Dark Souls",
+							"Ice Ice Baby - Vanilla Ice",
+							"Jelly Fish Jam - Spongebob Squarepants",
+							"Listy Colon - Scribblenauts Unlimited",
+							"MACHO MADNESS FOREVER - Mike Diva",
+							"Mr. Snortobeat - STBlackST",
+							"Muffin Song - asdfmovie",
+							"Nations of the World Song - Animaniacs",
+							"Pickle Rick - Yuri Wong",
+							"Poopsy Slime Surprise",
+							"Silverfish Swing - Slamacow",
+							"Slipsand Galaxy - Super Mario Galaxy 2",
+							"Space Station 13",
+							"X Gon Give It to Ya - DMX",
+							"You Are a Pirate - Lazytown")) //List of music to be used in radio_station.dm
 GLOBAL_LIST_EMPTY(ladders)
 GLOBAL_LIST_EMPTY(trophy_cases)
 GLOBAL_LIST_EMPTY(experiment_handlers)

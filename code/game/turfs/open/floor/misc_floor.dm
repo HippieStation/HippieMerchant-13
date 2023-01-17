@@ -264,3 +264,8 @@
 
 /turf/open/floor/cult/airless
 	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/red_and_blue
+	name = "bled tile"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "red_blue_penis"
